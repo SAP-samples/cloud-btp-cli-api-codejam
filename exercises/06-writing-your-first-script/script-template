@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# script description
+
+set -o errexit
+set -o pipefail
+
+somefunction() {
+
+  # function description
+  echo "some function"
+
+}
+
+main() {
+
+  somefunction
+
+}
+
+main "$@"
