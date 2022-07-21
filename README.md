@@ -6,9 +6,9 @@ This repository contains the material for the "Hands-on with the btp CLI and API
 
 ## Overview
 
-This CodeJam introduces attendees to `btp`, the CLI for the SAP Business Technology Platform (SAP BTP). Here's the description of the btp CLI from the official download page: "_Use the btp CLI for account administration on SAP BTP. The btp CLI is only available for global accounts on feature set B (for example, SAP BTP Trial accounts)_".
+This CodeJam introduces attendees to `btp`, the CLI for the SAP Business Technology Platform (SAP BTP). Here's the description of the btp CLI from the [official download page](https://tools.hana.ondemand.com/#cloud): "_Use the btp CLI for account administration on SAP BTP. The btp CLI is only available for global accounts on feature set B (for example, SAP BTP Trial accounts)_".
 
-It also introduces attendees to the APIs for SAP BTP, the Core Services for SAP BTP, which, [according to the SAP API Business Hub](https://api.sap.com/package/SAPCloudPlatformCoreServices/rest), allow you to "manage, build, and extend the core capabilities of SAP BTP."
+It also introduces attendees to the APIs for SAP BTP, the Core Services for SAP BTP, which, [according to the SAP API Business Hub](https://api.sap.com/package/SAPCloudPlatformCoreServices/rest), allow you to "_manage, build, and extend the core capabilities of SAP BTP._"
 
 ## About this CodeJam
 
