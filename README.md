@@ -1,16 +1,18 @@
-# Hands-on with the btp CLI
+# Hands-on with the btp CLI and APIs
 
 ## Description
 
-This repository contains the material for the CodeJam - Hands-on with the btp CLI. The btp CLI is the command line tool for managing and interacting with resources on the SAP Business Technology Platform (BTP).
+This repository contains the material for the "Hands-on with the btp CLI and APIs" CodeJam, a CodeJam within the [SAP CodeJam BTP group](https://groups.community.sap.com/t5/sap-codejam-btp/gh-p/codejam-btp).
 
 ## Overview
 
-This is an opinionated session which introduces attendees to `btp`, the CLI for the SAP Business Technology Platform. Here's the description of the btp CLI from the official download page: "_Use the btp CLI for account administration on SAP BTP. The btp CLI is only available for global accounts on feature set B (for example, SAP BTP Trial accounts)_".
+This CodeJam introduces attendees to `btp`, the CLI for the SAP Business Technology Platform (SAP BTP). Here's the description of the btp CLI from the official download page: "_Use the btp CLI for account administration on SAP BTP. The btp CLI is only available for global accounts on feature set B (for example, SAP BTP Trial accounts)_".
+
+It also introduces attendees to the APIs for SAP BTP, the [Core Services for SAP BTP](https://api.sap.com/package/SAPCloudPlatformCoreServices/rest).
 
 ## About this CodeJam
 
-During this CodeJam, you'll learn how to harness the power of the btp CLI in the context of the shell.
+During this CodeJam, you'll learn how to harness the power of the btp CLI, as well as the core service APIs, to report on and manage resources on SAP BTP.
 
 In the first part, you'll follow along with the session speaker installing, configuring & setting up the btp CLI, and authenticating with a BTP account. You'll then explore the btp CLI features and command structure, plus alternative output formats, autocompletion and more. Then you'll get comfortable navigating and creating resources within your BTP global account.
 
