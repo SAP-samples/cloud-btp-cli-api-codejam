@@ -20,9 +20,9 @@ In the second part, you'll learn how to incorporate the btp CLI into shell scrip
 
 ## Session prerequisites
 
-In order to get the most from this CodeJam, and to be able to work through the exercises, there are certain prerequisites that you must have set up before te day of the CodeJam.
+In order to get the most from this CodeJam, and to be able to work through the exercises, there are certain prerequisites that you must have set up before the day of the CodeJam.
 
-The prerequisites are detailed in a separate [prequisites](prerequisites.md) file. Please ensure you work through these before attending the CodeJam.
+The prerequisites are detailed in a separate [prerequisites](prerequisites.md) file. Please ensure you work through these before attending the CodeJam.
 
 ## Exercises
 
