@@ -44,9 +44,9 @@ The instructor will set you off on the first exercise, and that's the only one y
 
 ## Feedback
 
-If you can spare a couple of minutes at the end of the session, please help me improve for next time by giving me some feedback.
+If you can spare a couple of minutes at the end of the session, please help me improve for next time by providing some feedback.
 
-Simply use this [Give Feedback](https://github.com/SAP-samples/cloud-btp-cli-codejam/issues/new?assignees=&labels=feedback&template=feedback-template.md&title=Feedback) link to create a special "feedback" issue, and follow the instructions in there.
+Simply use this [Give Feedback](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/issues/new?assignees=&labels=feedback&template=feedback-template.md&title=Feedback) link to create a special "feedback" issue, and follow the instructions in there.
 
 Thank you!
 
@@ -59,8 +59,6 @@ Support for the content in this repository is available during the actual time o
 Here are a few pointers to resources for further connections and information on the btp CLI:
 
 * there's a wealth of information on the SAP Help Portal in the [Account Administration Using the SAP BTP Command Line Interface (btp CLI) [Feature Set B]](https://help.sap.com/products/BTP/65de2977205c403bbc107264b8eccf4b/7c6df2db6332419ea7a862191525377c.html?locale=en-US&version=Cloud) topic
-* you can find the friendly & welcoming team behind the btp CLI on the [#cli-dev](https://sap-btp.slack.com/archives/CCXF812E9) channel in Slack
-* there's a [FAQ and information about support for the btp CLI](https://wiki.wdf.sap.corp/wiki/display/CPCLI/Support) on the wiki
 * the playlist [The SAP btp CLI](https://www.youtube.com/playlist?list=PL6RpkC85SLQDXx827kdjKc6HRvdMRZ8P5) on the SAP Developers YouTube channel contains recordings of past live streams on the topic
 * there's a [branch in the SAP Tech Bytes repo](https://github.com/SAP-samples/sap-tech-bytes/tree/2021-09-01-btp-cli) covering some basic aspects of the btp CLI
 
