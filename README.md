@@ -20,41 +20,9 @@ In the second part, you'll learn how to incorporate the btp CLI into shell scrip
 
 ## Session prerequisites
 
-In order to get the most from this CodeJam, and to be able to work through the exercises, you must have the following prerequisites set up before the day of the CodeJam.
+In order to get the most from this CodeJam, and to be able to work through the exercises, there are certain prerequisites that you must have set up before te day of the CodeJam.
 
-### BTP trial account
-
-You must have a fresh or relatively recent, and active (unexpired) trial account on the SAP Business Technology Platform. It's important that your trial account has [Feature Set B](https://help.sap.com/products/BTP/65de2977205c403bbc107264b8eccf4b/caf4e4e23aef4666ad8f125af393dfb2.html) Cloud Management Tools. You can check this from the BTP Cockpit using the "About" option which will show something like this:
-
-![The About popup showing Feature Set B](assets/cockpit-about-popup.png)
-
-If you don't have a trial account right now, you can get one by following the instructions in this tutorial: [Get an SAP BTP Account for Tutorials](https://developers.sap.com/tutorials/btp-cockpit-setup.html). While Free Tier is generally gradually replacing Trial, this content was written based on Trial. Moreover, Free Tier is not yet available in all regions and it's important that all participants have the same setup for this hands-on session.
-
-### A subscription to SAP Business Application Studio
-
-Your trial account should have a subscription set up to the SAP Business Application Studio (App Studio). If you've created your trial account recently, this subscription may already be set up for you. Otherwise, use the BTP Cockpit to find the entry in the Service Marketplace and create a subscription manually, with the "trial" plan. You should end up with something that looks like this:
-
-![subscription to App Studio](assets/cockpit-app-studio-subscription.png)
-
-### A Basic Dev Space set up
-
-Within the App Studio you should set up a "Basic" Dev Space ready for this hands-on session. Make sure you also select the "MTA Tools" in the "Additional SAP Extensions" list (this will give you the `cf` command line tool, amongst other things). Give the Dev Space a name, and hit "Create Dev Space".
-
-![Creating a Basic Dev Space](assets/app-studio-creating-dev-space.png)
-
-### Knowledge and experience
-
-From a knowledge and experience perspective, the following is useful but not essential:
-
-* Some general experience of working on the command line, or at least an appetite for it
-* A general idea of the structure of BTP resources such as subaccounts, directories, entitlements, regions and environments
-* An awareness of shell scripting, using the Bash shell in particular
-
-### Docker Desktop
-
-The last exercise listed, called "BTP tools in containers", is a bonus exercise; whether we get to it depends on how we get through the other exercises. It may just be presented as a demo, but you can also work through it on your own after the CodeJam has finished. If you want to be able to work through this bonus exercise, you will need Docker Desktop installed on your machine.
-
-> The license for Docker Desktop has changed - see [Docker is Updating and Extending Our Product Subscriptions](https://www.docker.com/blog/updating-product-subscriptions/) for an overview.
+The prerequisites are detailed in a separate [prequisites](prerequisites.md) file. Please ensure you work through these before attending the CodeJam.
 
 ## Exercises
 
