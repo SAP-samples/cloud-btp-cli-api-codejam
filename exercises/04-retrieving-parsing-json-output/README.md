@@ -146,7 +146,7 @@ $ btp --format json list accounts/available-region | grep displayName
 
 DO NOT DO THIS.
 
-JSON is not a plain text format, and while the structure and information in a JSON response is predictable and parseable, the whitespace is not guaranteed to be predictable.
+JSON is not a plain text format, and while the structure and information in a JSON response is predictable and parseable, the whitespace is not predictable.
 
 The JSON output (taking the datacenter information we've seen already) could just as easily appear like this:
 
