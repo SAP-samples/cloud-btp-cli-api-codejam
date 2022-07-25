@@ -192,22 +192,28 @@ This should produce output like this:
 
 Here's a brief explanation of the `jq` invocation. It's worth mentioning in passing that the collection of language elements passed to `jq` itself is often referred to as a "filter", as are the component parts too.
 
-It will help to stare at this filter for a few minutes. Let's start by rewriting it in a more verbose way:
+It will help to stare at this filter for a few minutes:
+
+```jq
+.datacenters[].displayName
+```
+
+Let's start by rewriting it in a more verbose way:
 
 ```jq
 .["datacenters"] | .[] | .["displayName"]
 ```
 The pipeline concept you may already know from the shell is also a core part of `jq`. This is what the `|` symbols are for.
 
-1. The filter starts with the simplest construct, which is the [identity](https://stedolan.github.io/jq/manual/#Identity:.) `.`. This says "whatever you have right now", which at the start, is all of the JSON.
+1. The filter starts with the simplest construct, which is the [identity](https://stedolan.github.io/jq/manual/#Identity:.) `.`. This says "whatever you have right now", which at the start is all of the JSON.
 
 1. This is combined with a [generic object index](https://stedolan.github.io/jq/manual/#GenericObjectIndex:.[%3Cstring%3E]) to give `.["datacenters"]` which is a reference to the value of the `datacenters` property. From the output earlier, we know that this is an array (a list of objects, each one representing the detail of a datacenter).
 
 1. So the result of this first part, before the first pipe (`|`) is the array of datacenters. This is then piped into the next part.
 
-1. And the next part, which looks like this `.[]`, is the [array value iterator](https://stedolan.github.io/jq/manual/#Array/ObjectValueIterator:.[]) which explodes all of the incoming array elements and sends each of them downstream.
+1. And the next part, which looks like this `.[]`, is the [array value iterator](https://stedolan.github.io/jq/manual/#Array/ObjectValueIterator:.[]) which explodes all of the incoming array elements (the `.` in the `.[]` component here refers now to what was passed in through the pipe) and sends each of them downstream.
 
-1. This means that each of the elements (each of the objects representing a datacenter) is passed into the next pipe that sends the data to the final component of the filter, which is another object index `.["displayName"]`, which just picks out and emits the value of the `displayName` property. Because this component of the filter is invoked once per array element, we get an entire list of datacenter display names as the final output.
+1. This means that each of the elements (each of the objects representing a datacenter) is passed into the next pipe that sends the data to the final component of the filter, which is another object index `.["displayName"]`, which just picks out and emits the value of the `displayName` property. Because this component of the filter is invoked once per array element, we get an entire list of datacenter display names as the final output. And of course this time, the `.` in the `.["displayName"]` construct refers to whatever was passed in through the pipe, which (for each and every one of the multiple invocations) is an object, one of the elements of the `datacenters` array.
 
 These examples of the generic object index can be shortened from e.g. `.["datacenters"]` to `.datacenters` which is known as a [object identifier-index](https://stedolan.github.io/jq/manual/#ObjectIdentifier-Index:.foo,.foo.bar). This gives us:
 
