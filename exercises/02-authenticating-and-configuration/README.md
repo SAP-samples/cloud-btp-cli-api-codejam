@@ -1,6 +1,6 @@
 # Exercise 02 - Authenticating and managing configuration
 
-At the end of this exercise, you'll have successfully authenticated with the btp CLI for your BTP trial account, know about what configuration there is and how to control where it's kept.
+At the end of this exercise, you'll have successfully authenticated with the btp CLI for your BTP trial account and know about what configuration there is & how to control where it's kept.
 
 ## Gather the information required
 
@@ -152,7 +152,7 @@ We stored your configuration file at: /home/user/.config/.btp/config.json
 
 > You can also see this configuration information in the output shown when you invoke `btp` on its own.
 
-This configuration file holds information about your currently authenticated session, plus whatever IDs you have targeted. Feel free to have a look at this file (the simplest way would be to use `cat`, i.e. `cat /home/user/.config/.btp/config.json`), but don't share it with anyone - it contains tokens that are used to authorize your btp CLI activities.
+This configuration file holds information about your currently authenticated session, plus whatever IDs you have targeted. Feel free to have a look at this file (the simplest way would be to use `cat`, i.e. `cat /home/user/.config/.btp/config.json` but you could also use `jq`, i.e. `jq . /home/user/.config/.btp/config.json`), but don't show the contents to anyone - it includes tokens that are used to authorize your btp CLI activities.
 
 Earlier versions of the btp CLI put the configuration file in a temporary location by default - a workaround for this is described in the SAP Tech Bytes blog post on managing configuration in the [Further reading](#further-reading) section below. This has changed more recently and you can see from the message that the default location is within a btp CLI specific directory in a `$HOME/.config/` directory. This is nice because it conforms to an open standard (the [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)) and specifically the default value of `XDG_CONFIG_HOME`.
 
