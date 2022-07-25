@@ -37,7 +37,7 @@ The instructor will set you off on the first exercise, and that's the only one y
 1. [Installing the btp CLI](exercises/01-installing/README.md)
 1. [Authenticating and managing configuration](exercises/02-authenticating-and-configuration/README.md)
 1. [Setting up autocomplete and initial account exploration](exercises/03-autocomplete-and-exploration/README.md)
-1. [JSON output format and APIs](exercises/04-json-format-and-apis/README.md)
+1. [Retrieving and parsing JSON output](exercises/04-retrieving-parsing-json-output/README.md)
 1. [BTP GUIDs and the btp CLI in practice](exercises/05-btp-guids-cli-in-practice/README.md)
 1. [Writing your first script](exercises/06-writing-your-first-script/README.md)
 1. [BTP tools in containers](exercises/07-btp-tools-in-containers/README.md)
