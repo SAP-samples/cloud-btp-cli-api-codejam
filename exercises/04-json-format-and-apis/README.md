@@ -29,17 +29,20 @@ eu10     cf-eu10       cloudfoundry   AWS
 
 
 OK
+
 ```
 
 ## Parsing the output
 
-Traditional Unix commands output only the data requested, often with no frills. What you might want if you were intending to write a script to examine the possible regions and make a decision based upon what was available, is just the basic output:
+Traditional Unix commands output only the data requested, often with no frills. This is so the output, that often gets piped into a subsequent command, can be processed without issue. What you might want if you were intending to write a script to examine the possible regions and make a decision based upon what was available, is just the basic output:
 
 ```
 ap21     cf-ap21       cloudfoundry   AZURE
 us10     cf-us10       cloudfoundry   AWS
 eu10     cf-eu10       cloudfoundry   AWS
 ```
+
+In other words, this minimal output does not have the "Showing available regions..." message, the "OK" or any of the multiple blank lines we see in the previous output.
 
 This is more akin to the Unix philosophy; what's more, the separation between the columns of output would likely be done via tab characters which are more readily parsed (especially by tools such as [cut](https://man7.org/linux/man-pages/man1/cut.1.html) which expect tab as the default separator) and are less likely to be part of the data columns.
 
@@ -58,25 +61,25 @@ user: user $
 The second uses [grep](https://en.wikipedia.org/wiki/Grep):
 
 ```
-user: user $ btp list accounts/available-region 2> /dev/null | grep -E '^[a-z]{2}[0-9]{2}\s+'
+user: user $ btp list accounts/available-region 2> /dev/null | grep -E '^[a-z]{2}[0-9]+\s+'
 ap21     cf-ap21       cloudfoundry   AZURE
 us10     cf-us10       cloudfoundry   AWS
 eu10     cf-eu10       cloudfoundry   AWS
 user: user $
 ```
 
-> The redirection of STDERR to `/dev/null` in both of these examples is to get rid of the "OK" part of the result which is currently emitted to that error file descriptor.
+> The redirection of STDERR (with `2>`) to `/dev/null` in both of these examples is to get rid of the "OK" part of the result (and two of the blank lines), all of which are currently emitted to that error file descriptor.
 
 These and many more approaches do the job, but they are somewhat brittle and depend on the data and the output. The challenge with each of the above two (deliberately simple) approaches are:
 
 * the `sed` based solution relies on the "region" heading
-* the `grep` based solution assumes the region identifiers are two lowercase letters followed by two digits
+* the `grep` based solution assumes the region identifiers are two lowercase letters followed by at least one digit, then some whitespace
 
 ## Use the JSON format output option
 
 Some more recent command line tools deal with resources that are structured in ways that are sometimes too complex to be represented in plain text. The [JSON](https://en.wikipedia.org/wiki/JSON) format is commonly used to express more structured data, and is often used as an alternative output format for commands.
 
-JSON output is a more convenient way to convey structure, and can be parsed more reliably. JSON output from the btp CLI, via the `--format json` option, is more predictable and the team's aim is to keep it as stable as possible.
+JSON output is a more convenient way to convey structure, and can be parsed more reliably. JSON output is available from the btp CLI via the `--format json` option. The JSON output is more predictable and the team's aim is to keep it as stable as possible.
 
 👉 Rerun the previous btp CLI command but this time use the `--format json` option:
 
@@ -129,7 +132,7 @@ You should see something like this:
 }
 ```
 
-> You'll also see an empty line and then an "OK" but this is again sent to STDERR. From now on the executable examples will include redirecting STDERR to `/dev/null` to avoid the empty line and "OK" - but bear in mind this is an extreme workaround because it would prevent any real errors from being displayed. See ticket [CPCLI-615](https://jtrack.wdf.sap.corp/browse/CPCLI-615) for a discussion on this.
+> You'll also an "OK" surrounded by blank lines, but this is again sent to STDERR. From now on the executable examples will include redirecting STDERR to `/dev/null` to avoid the empty lines and "OK" - but bear in mind this is an extreme workaround because it would prevent any real errors from being displayed. This "OK" item output is being discussed internally.
 
 Parsing JSON with the right tool is straightforward and very powerful. One tool that is popular for this is [jq](https://stedolan.github.io/jq/), which is described as "a lightweight and flexible command-line JSON processor". It supports an entire language [which is Turing complete](https://github.com/MakeNowJust/bf.jq) but is readily useful at a simple level too. Your App Studio Dev Space comes already equipped with `jq` so you can try it out now.
 
