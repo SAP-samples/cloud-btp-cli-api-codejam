@@ -151,21 +151,21 @@ JSON is not a plain text format, and while the structure and information in a JS
 The JSON output (taking the datacenter information we've seen already) could just as easily appear like this:
 
 ```
-{"datacenters":[{"name":"cf-ap21","displayName":"Singapore - Azure","r
-egion":"ap21","environment":"cloudfoundry","iaasProvider":"AZURE","sup
-portsTrial":true,"provisioningServiceUrl":"https://provisioning-servic
-e.cfapps.ap21.hana.ondemand.com","saasRegistryServiceUrl":"https://saa
-s-manager.cfapps.ap21.hana.ondemand.com","domain":"ap21.hana.ondemand.
-com","geoAccess":"BACKWARD_COMPLIANT_EU_ACCESS"},{"name":"neo-br1","di
-splayName":"Brazil (SÃ£o Paulo)","region":"br1","environment":"neo",
-"iaasProvider":"SAP","supportsTrial":false,"provisioningServiceUrl":"h
-ttps://cisservices.br1.hana.ondemand.com/com.sap.core.commercial.servi
-ce.web","saasRegistryServiceUrl":null,"domain":"br1.hana.ondemand.com"
+{"datacenters":[{"name":"cf-ap21","displayName":"Singapore - Azure","region":"ap
+21","environment":"cloudfoundry","iaasProvider":"AZURE","supportsTrial":true,"pr
+ovisioningServiceUrl":"https://provisioning-service.cfapps.ap21.hana.ondemand.co
+m","saasRegistryServiceUrl":"https://saas-manager.cfapps.ap21.hana.ondemand.com"
+,"domain":"ap21.hana.ondemand.com","geoAccess":"BACKWARD_COMPLIANT_EU_ACCESS"},{
+"name":"neo-br1","displayName":"Brazil (SÃ£o Paulo)","region":"br1","environme
+nt":"neo","iaasProvider":"SAP","supportsTrial":false,"provisioningServiceUrl":"h
+ttps://cisservices.br1.hana.ondemand.com/com.sap.core.commercial.service.web","s
+aasRegistryServiceUrl":null,"domain":"br1.hana.ondemand.com","geoAccess":"STANDA
+RD"},{"name":"neo-cn1","displayName":"China (Shanghai)","region":"cn1","environm
 ```
 
 Note that there wouldn't be the hard line breaks you see here (which are just so the data fits on the page width-wise) ... but any whitespace we saw earlier wouldn't be there either. Try getting any sensible output from that using `grep` now!
 
-> If you're curious, this dense output was produced using normal UNIX commands: `btp --format json list accounts/available-region | jq -c . | fold -w70 | head`.
+> If you're curious, this dense output was produced using normal UNIX commands: `btp --format json list accounts/available-region | jq -c . | fold -w80 | head`.
 
 ### Parsing JSON output the right way
 
