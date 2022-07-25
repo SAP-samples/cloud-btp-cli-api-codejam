@@ -197,6 +197,8 @@ OK
 
 Whoops - it thinks you're no longer authenticated because it can't find the configuration file that contains the token. Let's continue and see how that is resolved again.
 
+> This little test will cause the re-creation of a btp CLI config file in the `.config/.btp/` directory, but we don't want that to hang around, so you can delete it if you want, like this: `rm -rf $HOME/.config/.btp`.
+
 ### Specify a permanent value for `BTP_CLIENTCONFIG`
 
 👉 Now append another line to your `.bashrc` file to set the `BTP_CLIENTCONFIG` environment variable to this location (again, be sure to use the `>>` append redirection operator so you don't truncate the file and use single quotes where and as shown):
