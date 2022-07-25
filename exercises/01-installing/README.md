@@ -144,6 +144,14 @@ cp $HOME/.bashrc /tmp/
 echo 'export PATH=$PATH:$HOME/bin' >> $HOME/.bashrc
 ```
 
+👉 Currently, if the Dev Space is restarted, permissions on the btp CLI configuration file are reset, and group access is added; we don't want this, so while you're appending to your `.bashrc` file, also do this, to append another, thus:
+
+```bash
+echo 'chmod 600 $HOME/.config/.btp/config.json' >> $HOME/.bashrc
+```
+
+This will set the permissions (also known as "modes") on the btp CLI config file to 600, i.e. read and write for the user, and nothing for anyone else. For more on understanding these permissions, see [chmod](https://en.wikipedia.org/wiki/Chmod).
+
 👉 Now, close the current session by typing in `exit` (or Ctrl-D) and start a new terminal session. This should cause the contents of `$HOME/.bashrc` to be executed, meaning that you should now have a `PATH` environment variable which contains your `bin/` directory.
 
 > Instead of closing the current session and starting a new one, you can also just `source` the file, like this: `source ~/.bashrc` (see [Sourcing a File](https://tldp.org/HOWTO/Bash-Prompt-HOWTO/x237.html) for background).
