@@ -1,8 +1,8 @@
 # Exercise 04 - Retrieving and parsing JSON output
 
-At the end of this exercise, you'll know how to get the btp CLI to give you a more predictable and machine-readable output, which is especially helpful for combining the use of the btp CLI into automation and other scripts. 
+At the end of this exercise, you'll know how to get the btp CLI to give you a more predictable and machine-readable output, which is especially helpful for combining the use of the btp CLI into automation and other scripts.
 
-We'll retrieve information about the regions in which subaccounts can be created. 
+We'll retrieve information about the regions in which subaccounts can be created.
 
 ## List the available regions
 
@@ -132,7 +132,46 @@ You should see something like this:
 
 > You'll also an "OK" surrounded by blank lines, but this is again sent to STDERR. From now on the executable examples will include redirecting STDERR to `/dev/null` to avoid the empty lines and "OK" - but bear in mind this is an extreme workaround because it would prevent any real errors from being displayed. This "OK" item output is being discussed internally.
 
-Parsing JSON with the right tool is straightforward and very powerful. One tool that is popular for this is [jq](https://stedolan.github.io/jq/), which is described as "a lightweight and flexible command-line JSON processor". It supports an entire language [which is Turing complete](https://github.com/MakeNowJust/bf.jq) but is readily useful at a simple level too. Your App Studio Dev Space comes already equipped with `jq` so you can try it out now.
+### Parsing JSON output the wrong way
+
+With the JSON output above, you might be tempted to parse the datacenter information as plain text, as the JSON appears naturally pretty-printed with properties and value pairs on separate lines. Here's an example of that:
+
+```
+$ btp --format json list accounts/available-region | grep displayName
+      "displayName": "Singapore - Azure",
+      "displayName": "China (Shanghai)",
+      "displayName": "Canada (Toronto)",
+      ...
+```
+
+DO NOT DO THIS.
+
+JSON is not a plain text format, and while the structure and information in a JSON response is predictable and parseable, the whitespace is not guaranteed to be predictable.
+
+The JSON output (taking the datacenter information we've seen already) could just as easily appear like this:
+
+```
+{"datacenters":[{"name":"cf-ap21","displayName":"Singapore - Azure","r
+egion":"ap21","environment":"cloudfoundry","iaasProvider":"AZURE","sup
+portsTrial":true,"provisioningServiceUrl":"https://provisioning-servic
+e.cfapps.ap21.hana.ondemand.com","saasRegistryServiceUrl":"https://saa
+s-manager.cfapps.ap21.hana.ondemand.com","domain":"ap21.hana.ondemand.
+com","geoAccess":"BACKWARD_COMPLIANT_EU_ACCESS"},{"name":"neo-br1","di
+splayName":"Brazil (SÃ£o Paulo)","region":"br1","environment":"neo",
+"iaasProvider":"SAP","supportsTrial":false,"provisioningServiceUrl":"h
+ttps://cisservices.br1.hana.ondemand.com/com.sap.core.commercial.servi
+ce.web","saasRegistryServiceUrl":null,"domain":"br1.hana.ondemand.com"
+```
+
+Note that there wouldn't be the hard line breaks you see here (which are just so the data fits on the page width-wise) ... but any whitespace we saw earlier wouldn't be there either. Try getting any sensible output from that using `grep` now!
+
+> If you're curious, this dense output was produced using normal UNIX commands: `btp --format json list accounts/available-region | jq -c . | fold -w70 | head`.
+
+### Parsing JSON output the right way
+
+Parsing JSON with the right tool is essential. Happily, it's also straightforward and can be very powerful and flexible.
+
+One tool that is popular for this is [jq](https://stedolan.github.io/jq/), which is described as "a lightweight and flexible command-line JSON processor". It supports an entire language [which is Turing complete](https://github.com/MakeNowJust/bf.jq) but is readily useful at a simple level too. Your App Studio Dev Space comes already equipped with `jq` so you can try it out now.
 
 👉 Repeat the previous command, but this time pipe the output into `jq`, giving it a simple expression to list the names of the data centers:
 
@@ -151,11 +190,11 @@ This should produce output like this:
 
 > `jq` always endeavors to produce JSON output - here, three valid JSON values are emitted (a double-quoted string is a valid JSON value). You can use the `-r` option to tell `jq` to emit raw strings if you want to avoid the double quotes.
 
-**TODO - add more to this exercise** 
+**TODO - add more to this exercise**
 
 ## Summary
 
-At this point you know how to get the btp CLI to output the structured data in a more machine-parseable format, and what you can do with that format. 
+At this point you know how to get the btp CLI to output the structured data in a more machine-parseable format, and what you can do with that format.
 
 ## Further reading
 
