@@ -49,12 +49,12 @@ The btp CLI tool is available from the [SAP Development Tools](https://tools.han
 
 The basic way to install it is as described there - go to the page, work out which tarball to download, download it, expand and unpack it, extracting the executable into a place that you decide. You want it in a place that will be searched when you invoke it directly.
 
-As a user in the terminal within the Dev Space, we don't have administrative access to be able to create files or directories except within our user space. So let's decide to put the executable in a `bin/` directory within our home directory, and add that to the `PATH` environment variable so that we can run it without specifying the full path.
+As a user in the terminal within the Dev Space, we don't have administrative access to be able to create files or directories except within our user space. So let's decide to put the executable in a `bin/` directory within our home directory, and add that directory name to the `PATH` environment variable so that we can run it without specifying the full path.
 
 So at this stage you have a choice.
 
-* [follow the instructions](#follow-the-instructions) on the download page, choosing the `bin/` directory (i.e. `$HOME/bin/` which resolves to `/home/user/bin/` in the context of the Dev Space terminal session)
-* [use the `getbtpcli`  script](#use-the-getbtpcli-script) to do this for you, a script that will let you discover and download the latest versions as they become available
+* either: [follow the instructions](#follow-the-instructions) on the download page, choosing the `bin/` directory (i.e. `$HOME/bin/` which resolves to `/home/user/bin/` in the context of the Dev Space terminal session)
+* or: [use the `getbtpcli`  script](#use-the-getbtpcli-script) to do this for you, a script that will let you discover and download the latest versions as they become available
 
 👉 In this exercise, follow the second approach and [use the `getbtpcli` script](#use-the-getbtpcli-script).
 
@@ -146,6 +146,8 @@ echo 'export PATH=$PATH:$HOME/bin' >> $HOME/.bashrc
 
 👉 Now, close the current session by typing in `exit` (or Ctrl-D) and start a new terminal session. This should cause the contents of `$HOME/.bashrc` to be executed, meaning that you should now have a `PATH` environment variable which contains your `bin/` directory.
 
+> Instead of closing the current session and starting a new one, you can also just `source` the file, like this: `source ~/.bashrc` (see [Sourcing a File](https://tldp.org/HOWTO/Bash-Prompt-HOWTO/x237.html) for background).
+
 👉 Check this as follows:
 
 ```bash
@@ -227,7 +229,7 @@ At this point you have the btp CLI set up and ready to invoke from the command l
 
 If you finish earlier than your fellow participants, you might like to ponder these questions. There isn't always a single correct answer and there are no prizes - they're just to give you something else to think about.
 
-1. Expressing the individual locations within your `PATH` on separate lines was done using Bash shell parameter expansion. Using other command line tools, how else might you do it?
+1. Expressing the individual locations within your `PATH` on separate lines was done using [Bash shell parameter expansion](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html). Using other command line tools, how else might you do it?
 1. Is placing the `btp` executable within `$HOME/bin/` a good option? Will it still be there if you restart your Dev Space?
-1. What help is available for the btp CLI on the command line? What does `btp --help` show you?
+1. What help is available for the btp CLI on the command line? What does `btp help` show you?
 1. Why are there two entries in `$HOME/bin/` for the `btp` executable?
