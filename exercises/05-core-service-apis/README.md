@@ -40,11 +40,44 @@ It's worth pausing a second to think about how APIs are organized on the SAP API
 +-------------+
 ```
 
-### Obtain an authorization token
+## Credentials for API calls
 
-The API endpoints are protected; the endpoints in the Entitlement Service are protected by the OAuth "Resource Owner Password Credentials" grant type, otherwise known as the "Password" grant type. This grant type is considered legacy, but is still used to protect some resources in this area. See the link to understanding OAuth 2.0 grant types in the [Further reading](#further-reading) section below for more background information.
+The API endpoints are protected, and calls to them require credentials. For OAuth 2.0 protected resources, these credentials are usually in the form of access tokens, long opaque strings of characters. In general, obtaining an access token involves using information related to an instance of a service (on SAP BTP) to which the API relates. This information is contained in a binding (also known as a service key in Cloud Foundry contexts).
 
-Credentials to obtain an authorization token via the OAuth 2.0 password grant type process can be obtained from a service key relating to an instance of the [Cloud Management Service](https://help.sap.com/products/BTP/65de2977205c403bbc107264b8eccf4b/17b6a171552544a6804f12ea83112a3f.html?locale=en-US&version=Cloud), specifically with the "central" plan, a plan for using Cloud Management service APIs to manage your global accounts, subaccounts, directories, and entitlements.
+So to get to the stage where an access token is obtained, an instance of a service is created. When creating a service instance, a plan for that service must be specified. From the instance, a binding can then be created. And using information in this binding, an access token can be requested. There are different flows, also known as "grant types", that describe how the request is made. Once the access token is received, it can be used to authenticate the API call.
+
+While we're in the mood for ASCII art, here's that in diagram form:
+
+```
+┌──────────┐     ┌──────────┐    ┌──────────┐
+│ Service  ├──┬─►│ Instance ├───►│ Binding  │
+└──────────┘  │  └──────────┘    └────┬─────┘
+              │                       │
+┌──────────┐  │                       │
+│ Plan     ├──┘                       │
+└──────────┘                          │
+     ┌────────────────────────────────┘
+     ▼
+┌──────────┐     ┌──────────┐
+│  Token   ├────►│ API call │
+└──────────┘     └──────────┘
+```
+
+## Making a Core Services for SAP BTP API call
+
+In this exercise we're going to make a call to the one endpoint in the Regions for Global Account group, i.e. to:
+
+```
+/entitlements/v1/globalAccountAllowedDataCenters
+```
+
+### Setting up to request a token
+
+The endpoints in the Entitlement Service API are protected by the OAuth 2.0 "Resource Owner Password Credentials" grant type, otherwise known as the "Password" grant type (this grant type is considered legacy, but is still used to protect some resources in this area). See the link to understanding OAuth 2.0 grant types in the [Further reading](#further-reading) section below for more background information.
+
+Credentials to obtain an access token via the OAuth 2.0 password grant type process can be obtained from a binding (service key) relating to an instance of the [Cloud Management Service](https://help.sap.com/products/BTP/65de2977205c403bbc107264b8eccf4b/17b6a171552544a6804f12ea83112a3f.html?locale=en-US&version=Cloud), specifically with the "central" plan, a plan for using Cloud Management service APIs to manage your global accounts, subaccounts, directories, and entitlements.
+
+TODO
 
 So in this part you are going to create an instance of the Cloud Management Service (technical name "cis") with plan "central". Where? Well there are different places, but as the trial account that you're using already has a Cloud Foundry (CF) environment instance set up, we'll use that.
 
