@@ -273,14 +273,20 @@ jq '.datacenters|length' regions.json
 
 #### Listing the locations of the CF datacenters
 
-What if we wanted to list only those datacenters that were Cloud Foundry based, and get their geographic region, which is shown as part of the display name string?
+What if we wanted to list only those datacenters that were Cloud Foundry based, and get their geographic region, which is shown as part of the display name string (they look like this: "US East (VA) - AWS")?
 
 We can use `jq`'s [select](https://stedolan.github.io/jq/manual/#select(boolean_expression)) function to pick elements from a list, and a couple of other functions for some simple string manipulation.
 
-👉 Try this:
+👉 Try this; it's a little longer than the previous filter, so it's presented across multiple lines for readability, but because of the beauty of the shell, you can still copy and paste it in as-is:
 
 ```bash
-jq '.datacenters|length' regions.json
+jq --raw-output '
+  .datacenters[]
+  | select(.environment == "cloudfoundry")
+  | .displayName
+  | split(" - ")
+  | first
+' regions.json
 ```
 
 ## Summary
