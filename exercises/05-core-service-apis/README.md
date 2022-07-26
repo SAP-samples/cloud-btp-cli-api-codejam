@@ -22,25 +22,22 @@ It's worth pausing a second to think about how APIs are organized on the SAP API
 +-------------+
        |
 +-------------+
-|             |+
-|     API     ||     Entitlements Service
-|             ||
-+-------------+|
- +-------------+
-      |
+|             |
+|     API     |      Entitlements Service
+|             |
 +-------------+
-|             |+
-|   Group     ||     Regions for Global Account
-|             ||
-+-------------+|
- +-------------+
-      |
+       |
 +-------------+
-|             |+
-|  Endpoint   ||     /entitlements/v1/globalAccountAllowedDataCenters
-|             ||
-+-------------+|
- +-------------+
+|             |
+|    Group    |      Regions for Global Account
+|             |
++-------------+
+       |
++-------------+
+|             |
+|  Endpoint   |      /entitlements/v1/globalAccountAllowedDataCenters
+|             |
++-------------+
 ```
 
 ### Obtain an authorization token
