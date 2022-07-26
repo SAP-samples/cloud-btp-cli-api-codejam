@@ -289,6 +289,24 @@ jq --raw-output '
 ' regions.json
 ```
 
+Based on the datacenter data above, this is the output produced:
+
+```
+Singapore
+US East (VA)
+Europe (Frankfurt)
+```
+
+Here are a few notes to help you as you stare at this filter invocation:
+
+* the `--raw-output` option (which can be expressed as `-r` too) tells `jq` to not output strings as JSON strings, i.e. not to put them in double quotes
+* using [select](https://stedolan.github.io/jq/manual/#select(boolean_expression)) can be used to filter out (or keep) data according to a boolean expression; in this case data will be kept (passed through to the next part, rather than thrown away) if the value of the `environment` property is "cloudfoundry"
+* for those datacenter objects that are kept (passed through), we then select just the value for the `displayName` property
+* and then use [split](https://stedolan.github.io/jq/manual/#split(str)) with the " - " value to divide the value up into two parts which are emitted as elements of an array
+* and finally that array is passed to [first](https://stedolan.github.io/jq/manual/#first,last,nth(n)) which (as you might guess) returns just the first element
+
+> In case you're curious, `first` is actually just syntactic sugar for the 0th form of the [array index](https://stedolan.github.io/jq/manual/#ArrayIndex:.[2]); you can see the definition of `first` in the `jq` sources: [`def first: .[0];`](https://github.com/stedolan/jq/blob/a9f97e9e61a910a374a5d768244e8ad63f407d3e/src/builtin.jq#L187)
+
 ## Summary
 
 At this point you know how to get the btp CLI to output the structured data in a more machine-parseable format, and what you can do with that format.
