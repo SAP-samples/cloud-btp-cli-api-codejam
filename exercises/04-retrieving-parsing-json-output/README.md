@@ -307,6 +307,26 @@ Here are a few notes to help you as you [stare](https://qmacro.org/blog/posts/20
 
 > In case you're curious, `first` is actually just syntactic sugar for the 0th form of the [array index](https://stedolan.github.io/jq/manual/#ArrayIndex:.[2]); you can see the definition of `first` in the `jq` sources: [`def first: .[0];`](https://github.com/stedolan/jq/blob/a9f97e9e61a910a374a5d768244e8ad63f407d3e/src/builtin.jq#L187)
 
+#### Counting the datacenters by hyperscaler
+
+Here's a final example for that introduces a couple more important `jq` functions [to_entries](https://stedolan.github.io/jq/manual/#to_entries,from_entries,with_entries) and [group_by](https://stedolan.github.io/jq/manual/#group_by(path_expression)), and the [array construction](https://stedolan.github.io/jq/manual/#Arrayconstruction:[]) mechanism (`[...]`).
+
+Let's say we wanted to see how many datacenters were available, by hyperscaler?
+
+👉 Try this:
+
+```bash
+jq --raw-output '
+  .datacenters
+  | to_entries
+  | group_by(.value.iaasProvider)[]
+  | [first.value.iaasProvider, length]
+  | @csv
+' regions.json
+```
+
+> The `@csv` is a format string that will produce valid and reliable CSV output from arrays
+
 ## Summary
 
 At this point you know how to get the btp CLI to output the structured data in a more machine-parseable format, and what you can do with that format.
@@ -324,3 +344,5 @@ If you finish earlier than your fellow participants, you might like to ponder th
 1. What Unix tool might you use to parse out the individual column values, say, to identify the region and provider values, from the text output in [Parsing the output](#parsing-the-output)?
 
 1. Looking at the `jq` filter we used to get the number of datacenters (`.datacenters|length`), what happens when you use the filter `.datacenters[]|length`, and can you figure out what that result is, and why it's given?
+
+1. How might you explore JSON data sets further, and in a more interactive way? There are two main options: [jq play](https://jqplay.org/) which is web-based, and [ijq](https://sr.ht/~gpanders/ijq/) ("interactive jq") which is a terminal UI. For an example of "jq play", here's a shared snippet showing the execution of the filter for [listing the locations of the CF datacenters](#listing-the-locations-of-the-cf-datacenters): <https://jqplay.org/s/14QVt1q2o09>. For more on "interactive jq" you may wish to read [Exploring JSON with interactive jq](https://qmacro.org/blog/posts/2022/05/21/exploring-json-with-interactive-jq/).
