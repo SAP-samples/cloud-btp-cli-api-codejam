@@ -173,6 +173,8 @@ Parsing JSON with the right tool is essential. Happily, it's also straightforwar
 
 One tool that is popular for this is [jq](https://stedolan.github.io/jq/), which is described as "a lightweight and flexible command-line JSON processor". It supports an entire language [which is Turing complete](https://github.com/MakeNowJust/bf.jq) but is readily useful at a simple level too. Your App Studio Dev Space comes already equipped with `jq` so you can try it out now.
 
+#### Listing the available datacenter names
+
 👉 Repeat the previous command, but this time pipe the output into `jq`, giving it a simple expression to list the names of the data centers:
 
 ```bash
@@ -198,22 +200,22 @@ It will help to stare at this filter for a few minutes:
 .datacenters[].displayName
 ```
 
-Let's start by rewriting it in a more verbose way:
+Let's start by rewriting it in a more verbose way so we can identify and understand the parts:
 
 ```jq
 .["datacenters"] | .[] | .["displayName"]
 ```
 The pipeline concept you may already know from the shell is also a core part of `jq`. This is what the `|` symbols are for.
 
-1. The filter starts with the simplest construct, which is the [identity](https://stedolan.github.io/jq/manual/#Identity:.) `.`. This says "whatever you have right now", which at the start is all of the JSON.
+1. The filter starts with the simplest construct, which is the [identity](https://stedolan.github.io/jq/manual/#Identity:.) `.`. This says "everything that you have right now", which at the start is all of the JSON.
 
 1. This is combined with a [generic object index](https://stedolan.github.io/jq/manual/#GenericObjectIndex:.[%3Cstring%3E]) to give `.["datacenters"]` which is a reference to the value of the `datacenters` property. From the output earlier, we know that this is an array (a list of objects, each one representing the detail of a datacenter).
 
 1. So the result of this first part, before the first pipe (`|`) is the array of datacenters. This is then piped into the next part.
 
-1. And the next part, which looks like this `.[]`, is the [array value iterator](https://stedolan.github.io/jq/manual/#Array/ObjectValueIterator:.[]) which explodes all of the incoming array elements (the `.` in the `.[]` component here refers now to what was passed in through the pipe) and sends each of them downstream.
+1. And the next part, which looks like this `.[]`, is the [array value iterator](https://stedolan.github.io/jq/manual/#Array/ObjectValueIterator:.[]) which explodes all of the elements of the incoming array (the `.` in the `.[]` component here refers now to what was passed in through the pipe) and sends each of them downstream.
 
-1. This means that each of the elements (each of the objects representing a datacenter) is passed into the next pipe that sends the data to the final component of the filter, which is another object index `.["displayName"]`, which just picks out and emits the value of the `displayName` property. Because this component of the filter is invoked once per array element, we get an entire list of datacenter display names as the final output. And of course this time, the `.` in the `.["displayName"]` construct refers to whatever was passed in through the pipe, which (for each and every one of the multiple invocations) is an object, one of the elements of the `datacenters` array.
+1. This means that each of the elements (each of the objects representing a datacenter) is passed into the next pipe that sends the data to the final component of the filter, which is another object index `.["displayName"]`, which just picks out and emits the value of the `displayName` property. Because this component of the filter is invoked once per array element, we get an entire list of datacenter display names as the output. And of course this time, the `.` in the `.["displayName"]` construct refers to whatever was passed in through the pipe, which (for each and every one of the multiple invocations) is an object, one of the elements of the `datacenters` array.
 
 These examples of the generic object index can be shortened from e.g. `.["datacenters"]` to `.datacenters` which is known as a [object identifier-index](https://stedolan.github.io/jq/manual/#ObjectIdentifier-Index:.foo,.foo.bar). This gives us:
 
@@ -233,7 +235,53 @@ Finally, object identifier-index values can be concatenated too, giving us this:
 .datacenters[].displayName
 ```
 
-**TODO - add more to this exercise**
+Before we finish this exercise, let's gently explore `jq` a little more.
+
+#### Counting the total number of datacenters
+
+Now we have an understanding of what `.datacenters` gives us, we can combine that knowledge with the [length](https://stedolan.github.io/jq/manual/#length) function to get a count of elements:
+
+👉 Modify the previous command to supply `jq` with a different filter, thus:
+
+```bash
+btp --format json list accounts/available-region 2> /dev/null \
+    | jq '.datacenters|length'
+```
+
+This should produce a single scalar value as output, like this (with the value reflecting the number of elements in your datacenters array):
+
+```
+3
+```
+
+Although not important here, this value is in fact valid JSON too.
+
+#### Being nice to the btp CLI endpoint
+
+👉 Before we continue, let's be nice to the btp CLI endpoint being called, and cache the results of the list of available regions in a temporary file:
+
+```bash
+btp --format json list accounts/available-region 2> /dev/null \
+    > regions.json
+```
+
+Now we can use this file like this:
+
+```bash
+jq '.datacenters|length' regions.json
+```
+
+#### Listing the locations of the CF datacenters
+
+What if we wanted to list only those datacenters that were Cloud Foundry based, and get their geographic region, which is shown as part of the display name string?
+
+We can use `jq`'s [select](https://stedolan.github.io/jq/manual/#select(boolean_expression)) function to pick elements from a list, and a couple of other functions for some simple string manipulation.
+
+👉 Try this:
+
+```bash
+jq '.datacenters|length' regions.json
+```
 
 ## Summary
 
@@ -250,3 +298,5 @@ At this point you know how to get the btp CLI to output the structured data in a
 If you finish earlier than your fellow participants, you might like to ponder these questions. There isn't always a single correct answer and there are no prizes - they're just to give you something else to think about.
 
 1. What Unix tool might you use to parse out the individual column values, say, to identify the region and provider values, from the text output in [Parsing the output](#parsing-the-output)?
+
+1. Looking at the `jq` filter we used to get the number of datacenters (`.datacenters|length`), what happens when you use the filter `.datacenters[]|length`, and can you figure out what that result is, and why it's given?
