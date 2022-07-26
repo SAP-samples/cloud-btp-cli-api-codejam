@@ -57,7 +57,7 @@ OK
 Here's another example authentication flow, for a global account with the subdomain "sap-developer-advocates-free-tier", where the user has chosen to use single sign on (SSO) with the browser:
 
 ```
-; btp login --sso manual
+user: user $ btp login --sso manual
 SAP BTP command line interface (client v2.24.0)
 
 CLI server URL [https://cpcli.cf.eu10.hana.ondemand.com]>
