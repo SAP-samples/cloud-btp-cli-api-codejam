@@ -1,2 +1,3 @@
 *.swp
 *-sk.json
+.DS_Store
