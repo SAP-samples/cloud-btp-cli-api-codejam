@@ -165,7 +165,7 @@ displayName":"Europe (Frankfurt) - AWS","region":"eu10","environment":"cloudfoun
 
 Note that there wouldn't be the hard line breaks you see here (which are just so the data fits on the page width-wise) ... but any whitespace we saw earlier wouldn't be there either. Try getting any sensible output from that using `grep` now!
 
-> If you're curious, this dense output was produced using normal UNIX commands: `btp --format json list accounts/available-region | jq -c . | fold -w100 | head`.
+> If you're curious, this dense output was produced using normal Unix commands: `btp --format json list accounts/available-region | jq -c . | fold -w100 | head`.
 
 ### Parsing JSON output the right way
 
