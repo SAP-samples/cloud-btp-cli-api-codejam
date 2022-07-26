@@ -297,7 +297,7 @@ US East (VA)
 Europe (Frankfurt)
 ```
 
-Here are a few notes to help you as you stare at this filter invocation:
+Here are a few notes to help you as you [stare](https://qmacro.org/blog/posts/2017/02/19/the-beauty-of-recursion-and-list-machinery/#initialrecognition) at this filter invocation:
 
 * the `--raw-output` option (which can be expressed as `-r` too) tells `jq` to not output strings as JSON strings, i.e. not to put them in double quotes
 * using [select](https://stedolan.github.io/jq/manual/#select(boolean_expression)) can be used to filter out (or keep) data according to a boolean expression; in this case data will be kept (passed through to the next part, rather than thrown away) if the value of the `environment` property is "cloudfoundry"
