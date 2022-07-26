@@ -12,6 +12,18 @@ This can be a productive account, or (if still available) an active (unexpired) 
 
 If you don't have an account right now, you can get one by following the instructions in this tutorial: [Get an SAP BTP Account for Tutorials](https://developers.sap.com/tutorials/btp-cockpit-setup.html).
 
+## Cloud Foundry
+
+In your account, you must have a subaccount with a Cloud Foundry environment set up. This is an environment that's available in the free tier. Make sure the environment is created and you have an organization and space within it.
+
+If you need to do this, use the Enable Cloud Foundry button in the SAP BTP Cockpit, selecting the "standard" plan (or another free one if it is available):
+
+![Enable Cloud Foundry button](assets/enable-cloud-foundry-button.png)
+
+Then, once the environment is created (it will have asked you for the name of an organization which it will automatically create), use the Create Space button to create a space. If you're stuck for a name, use "dev":
+
+![Create Space button](assets/create-space-button.png)
+
 ## SAP Business Application Studio
 
 Your account should have a subscription set up to the SAP Business Application Studio (App Studio). If you have a trial account then this subscription may already be set up for you. Otherwise, use the BTP Cockpit to find the entry in the Service Marketplace and create a subscription manually, with the "free" plan (see [Application Plans](https://help.sap.com/products/SAP%20Business%20Application%20Studio/9d1db9835307451daa8c930fbd9ab264/2c72917df87e47c290e061a556d92398.html?locale=en-US) for more info).
