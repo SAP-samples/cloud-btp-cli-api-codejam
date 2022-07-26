@@ -1,165 +1,47 @@
-# Exercise 04 - JSON output format and APIs
-
-At the end of this exercise, you'll know how to get the btp CLI to give you a more predictable and machine-readable output, which is especially helpful for combining the use of the btp CLI into automation and other scripts. You'll also have an insight into how the [Core Services for SAP BTP](https://api.sap.com/package/SAPCloudPlatformCoreServices/rest) API package is aligned with what you can retrieve with `btp` commands.
-
-This exercise makes use of some scripts which are in this repository, so as an exercise-specific prerequisite, you should clone this repository into your Dev Space.
-
-👉 Do this now by following [the instructions](clone-this-repo.md), and then come back to this README.
-
-## List the available regions
-
-Within the "accounts" group, there's an "available-region" object that can be listed.
-
-👉 Use the power of autocomplete that you set up in [Exercise 03](../03-autocomplete-and-exploration/README.md) to invoke this:
-
-```bash
-btp list accounts/available-region
-```
-
-The output should look something like this:
-
-```
-
-Showing available regions for global account fdce9323-d6e6-42e6-8df0-5e501c90a2be:
-
-region   data center   environment    provider
-ap21     cf-ap21       cloudfoundry   AZURE
-us10     cf-us10       cloudfoundry   AWS
-eu10     cf-eu10       cloudfoundry   AWS
-
-
-OK
-
-```
-
-## Parsing the output
-
-Traditional Unix commands output only the data requested, often with no frills. This is so the output, that often gets piped into a subsequent command, can be processed without issue. What you might want if you were intending to write a script to examine the possible regions and make a decision based upon what was available, is just the basic output:
-
-```
-ap21     cf-ap21       cloudfoundry   AZURE
-us10     cf-us10       cloudfoundry   AWS
-eu10     cf-eu10       cloudfoundry   AWS
-```
-
-In other words, this minimal output does not have the "Showing available regions..." message, the "OK" or any of the multiple blank lines we see in the previous output.
-
-This is more akin to the Unix philosophy; what's more, the separation between the columns of output would likely be done via tab characters which are more readily parsed (especially by tools such as [cut](https://man7.org/linux/man-pages/man1/cut.1.html) which expect tab as the default separator) and are less likely to be part of the data columns.
-
-There are many ways with the traditional Unix approach to trim the extra output from this btp CLI invocation, in order to reduce it to the basics. Here are two examples.
-
-The first uses [sed](https://en.wikipedia.org/wiki/Sed):
-
-```
-user: user $ btp list accounts/available-region 2> /dev/null | sed '1,/^region /d; /^$/d'
-ap21     cf-ap21       cloudfoundry   AZURE
-us10     cf-us10       cloudfoundry   AWS
-eu10     cf-eu10       cloudfoundry   AWS
-user: user $
-```
-
-The second uses [grep](https://en.wikipedia.org/wiki/Grep):
-
-```
-user: user $ btp list accounts/available-region 2> /dev/null | grep -E '^[a-z]{2}[0-9]+\s+'
-ap21     cf-ap21       cloudfoundry   AZURE
-us10     cf-us10       cloudfoundry   AWS
-eu10     cf-eu10       cloudfoundry   AWS
-user: user $
-```
-
-> The redirection of STDERR (with `2>`) to `/dev/null` in both of these examples is to get rid of the "OK" part of the result (and two of the blank lines), all of which are currently emitted to that error file descriptor.
-
-These and many more approaches do the job, but they are somewhat brittle and depend on the data and the output. The challenge with each of the above two (deliberately simple) approaches are:
-
-* the `sed` based solution relies on the "region" heading
-* the `grep` based solution assumes the region identifiers are two lowercase letters followed by at least one digit, then some whitespace
-
-## Use the JSON format output option
-
-Some more recent command line tools deal with resources that are structured in ways that are sometimes too complex to be represented in plain text. The [JSON](https://en.wikipedia.org/wiki/JSON) format is commonly used to express more structured data, and is often used as an alternative output format for commands.
-
-JSON output is a more convenient way to convey structure, and can be parsed more reliably. JSON output is available from the btp CLI via the `--format json` option. The JSON output is more predictable and the team's aim is to keep it as stable as possible.
-
-👉 Rerun the previous btp CLI command but this time use the `--format json` option:
-
-```bash
-btp --format json list accounts/available-region
-```
-
-You should see something like this:
-
-```json
-{
-  "datacenters": [
-    {
-      "name": "cf-ap21",
-      "displayName": "Singapore - Azure",
-      "region": "ap21",
-      "environment": "cloudfoundry",
-      "iaasProvider": "AZURE",
-      "supportsTrial": true,
-      "provisioningServiceUrl": "https://provisioning-service.cfapps.ap21.hana.ondemand.com",
-      "saasRegistryServiceUrl": "https://saas-manager.cfapps.ap21.hana.ondemand.com",
-      "domain": "ap21.hana.ondemand.com",
-      "geoAccess": "BACKWARD_COMPLIANT_EU_ACCESS"
-    },
-    {
-      "name": "cf-us10",
-      "displayName": "US East (VA) - AWS",
-      "region": "us10",
-      "environment": "cloudfoundry",
-      "iaasProvider": "AWS",
-      "supportsTrial": true,
-      "provisioningServiceUrl": "https://provisioning-service.cfapps.us10.hana.ondemand.com",
-      "saasRegistryServiceUrl": "https://saas-manager.cfapps.us10.hana.ondemand.com",
-      "domain": "us10.hana.ondemand.com",
-      "geoAccess": "BACKWARD_COMPLIANT_EU_ACCESS"
-    },
-    {
-      "name": "cf-eu10",
-      "displayName": "Europe (Frankfurt) - AWS",
-      "region": "eu10",
-      "environment": "cloudfoundry",
-      "iaasProvider": "AWS",
-      "supportsTrial": false,
-      "provisioningServiceUrl": "https://provisioning-service.cfapps.eu10.hana.ondemand.com",
-      "saasRegistryServiceUrl": "https://saas-manager.cfapps.eu10.hana.ondemand.com",
-      "domain": "eu10.hana.ondemand.com",
-      "geoAccess": "BACKWARD_COMPLIANT_EU_ACCESS"
-    }
-  ]
-}
-```
-
-> You'll also an "OK" surrounded by blank lines, but this is again sent to STDERR. From now on the executable examples will include redirecting STDERR to `/dev/null` to avoid the empty lines and "OK" - but bear in mind this is an extreme workaround because it would prevent any real errors from being displayed. This "OK" item output is being discussed internally.
-
-Parsing JSON with the right tool is straightforward and very powerful. One tool that is popular for this is [jq](https://stedolan.github.io/jq/), which is described as "a lightweight and flexible command-line JSON processor". It supports an entire language [which is Turing complete](https://github.com/MakeNowJust/bf.jq) but is readily useful at a simple level too. Your App Studio Dev Space comes already equipped with `jq` so you can try it out now.
-
-👉 Repeat the previous command, but this time pipe the output into `jq`, giving it a simple expression to list the names of the data centers:
-
-```bash
-btp --format json list accounts/available-region 2> /dev/null \
-    | jq '.datacenters[].displayName'
-```
-
-This should produce output like this:
-
-```
-"Singapore - Azure"
-"US East (VA) - AWS"
-"Europe (Frankfurt) - AWS"
-```
-
-> `jq` always endeavors to produce JSON output - here, three valid JSON values are emitted (a double-quoted string is a valid JSON value). You can use the `-r` option to tell `jq` to emit raw strings if you want to avoid the double quotes.
-
-## Call the corresponding Entitlement Service API
+# Exercise 05 - Getting to know the Core Services for SAP BTP APIs
 
 The btp CLI implementation has a client / server nature. The server component facilitates calls to APIs in the [Core Services for SAP BTP](https://api.sap.com/package/SAPCloudPlatformCoreServices/rest) package. So the btp CLI effectively gives you a comfortable way of consuming those APIs that are specifically designed to let you "manage, build, and extend the core capabilities of SAP BTP".
 
-In this part of this exercise you'll see that first hand, by observing that the JSON emitted from `btp --format json list accounts/available-region` is effectively the same as the output from a call to the corresponding API. The API endpoint in question lives within the [Entitlements Service](https://api.sap.com/api/APIEntitlementsService/overview) - in the [API Reference](https://api.sap.com/api/APIEntitlementsService/resource) section it's the "Regions for Global Account" endpoint:
+In this exercise you'll see that first hand, by observing that the JSON you saw in the previous exercise, emitted from `btp --format json list accounts/available-region` is effectively the same as the output from a call to the corresponding API endpoint.
+
+The main goal of this exercise is not the output, nor the examination thereof. It's the journey you're about to take to get to the stage where you can successfully and comfortably identify an endpoint and prepare & make an authenticated call to it.
+
+## API structure
+
+The endpoint in question lives within the [Entitlements Service](https://api.sap.com/api/APIEntitlementsService/overview) API, specifically within the "Regions for Global Account" group. You can see this in the SAP API Business Hub:
 
 ![Regions for Global Account endpoint](assets/regions-for-global-account.png)
+
+It's worth pausing a second to think about how APIs are organized on the SAP API Business Hub. There are API packages, APIs, and endpoints that are collected into groups. The hierarchy is as follows, showing where this endpoint is:
+
+```
++-------------+
+|             |
+| API Package |      Core Services for SAP BTP
+|             |
++-------------+
+       |
++-------------+
+|             |+
+|     API     ||     Entitlements Service
+|             ||
++-------------+|
+ +-------------+
+      |
++-------------+
+|             |+
+|   Group     ||     Regions for Global Account
+|             ||
++-------------+|
+ +-------------+
+      |
++-------------+
+|             |+
+|  Endpoint   ||     /entitlements/v1/globalAccountAllowedDataCenters
+|             ||
++-------------+|
+ +-------------+
+```
 
 ### Obtain an authorization token
 
