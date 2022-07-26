@@ -12,7 +12,7 @@ This can be a productive account, or (if still available) an active (unexpired) 
 
 If you don't have an account right now, you can get one by following the instructions in this tutorial: [Get an SAP BTP Account for Tutorials](https://developers.sap.com/tutorials/btp-cockpit-setup.html).
 
-## Cloud Foundry
+## Subaccount and Cloud Foundry environment
 
 In your account, you must have a subaccount with a Cloud Foundry environment set up. This is an environment that's available in the free tier. Make sure the environment is created and you have an organization and space within it.
 

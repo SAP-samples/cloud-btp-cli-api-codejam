@@ -1,23 +1,27 @@
 # Exercise 02 - Authenticating and managing configuration
 
-At the end of this exercise, you'll have successfully authenticated with the btp CLI for your BTP trial account and know about what configuration there is & how to control where it's kept.
+At the end of this exercise, you'll have successfully authenticated with the btp CLI for your SAP BTP account and know about what configuration there is & how to control where it's kept.
 
 ## Gather the information required
 
-To authenticate with the btp CLI so you can access and manage the resources in your BTP account, you need the following items of information.
+To authenticate with the btp CLI so you can access and manage the resources in your BTP account, you need certain items of information.
 
 👉 Make sure you have these items to hand:
 
 |Item|Description|
 |-|-|
 |btp CLI server URL|The remote endpoint for the btp CLI. This is usually fixed, and is currently `https://cpcli.cf.eu10.hana.ondemand.com` for all users.|
-|Global account subdomain|The subdomain for your global account on BTP. By default, for a BTP trial account, it's the global account identifier suffixed with `-ga`|
-|Username|The username with which you log on to the BTP account|
-|Password|The password with which you log on to the BTP account|
+|Global account subdomain|The subdomain for your global account on SAP BTP.|
+|Username|The username with which you log on to the BTP account.|
+|Password|The password with which you log on to the BTP account.|
 
 You can see an example of the subdomain for this sample trial global account, just underneath the "Account Explorer" heading:
 
 ![trial global account showing subdomain](assets/global-account-subdomain-and-subaccount.png)
+
+Here's another example of where you can find the subdomain for your account:
+
+![subdomain for another global account](assets/subdomain-free-tier.png)
 
 ## Authenticate
 
@@ -25,7 +29,7 @@ If you managed to check out the "Usage" information and the output from `btp --h
 
 👉 Use that now to authenticate, supplying the information you gathered in the previous section.
 
-Here's an example authentication flow, authenticating the btp CLI for trial global account 8fe7efd4trial:
+Here's an example authentication flow for trial global account 8fe7efd4trial:
 
 ```
 user: user $ btp login
@@ -50,11 +54,43 @@ Tip:
 OK
 ```
 
-> Any issues logging in could be down to a number of factors - for example, if you're using two-factor authentication (2FA), remember to append your 2FA code to your password as you enter it. Alternatively, you may wish to use the single sign-on (SSO) based login facility that the btp CLI offers. You can ask for a login process that uses the browser and your SSO credentials, even within the context of a terminal in the cloud: use `btp login --sso manual` and follow the instructions.
+Here's another example authentication flow, for a global account with the subdomain "sap-developer-advocates-free-tier", where the user has chosen to use single sign on (SSO) with the browser:
 
-## Set the default "trial" subaccount as target
+```
+; btp login --sso manual
+SAP BTP command line interface (client v2.24.0)
 
-It's likely that you'll often be wanting to work with some of your BTP resources at the subaccount level. In a trial global account, this is the "trial" subaccount that's automatically created (you can see an example of this "trial" subaccount in the screenshot earlier).
+CLI server URL [https://cpcli.cf.eu10.hana.ondemand.com]>
+Connecting to CLI server at https://cpcli.cf.eu10.hana.ondemand.com...
+
+Global account subdomain> sap-developer-advocates-free-tier
+
+Please authenticate at: https://cpcli.cf.eu10.hana.ondemand.com/login/v2.24.0/browser/d1fc0c69-d59e-4f7e-9a34-de852251caaa
+Waiting for user authentication to complete (use Ctrl+C to abort)...
+
+Login successful
+We stored your configuration file at: /home/user/.config/btp/config.json
+
+Target hierarchy:
+  Global account (subdomain: sap-developer-advocates-free-tier)
+  └─ Subaccount (ID: bbcd39a3-4047-4e7b-bba2-88604cb7faaa)
+
+Tips:
+    Commands are executed in the target, unless specified otherwise using a parameter. To change the target, use 'btp target'.
+    For an explanation of the targeting mechanism, use 'btp help target'.
+
+OK
+```
+
+> In this example, the user selects the URL presented at the "Please authenticate at" prompt and opens it in the browser, and authenticates there if required. Then the flow automatically continues.
+
+> Any issues logging in could be down to a number of factors - for example, if you're using two-factor authentication (2FA), remember to append your 2FA code to your password as you enter it.
+
+## Set your desired subaccount as a target
+
+It's likely that you'll often be wanting to work with some of your SAP BTP resources at the subaccount level. In a trial global account, this is the "trial" subaccount that's automatically created (you can see an example of this "trial" subaccount in the screenshot earlier). It will be different in other accounts.
+
+> The examples in this section will continue to use the trial subaccount but you should follow along using [whatever subaccount you have identified for this CodeJam](../../prerequisites.md#subaccount-and-cloud-foundry-environment).
 
 Rather than have to specify this subaccount each time in various btp CLI invocations, you can tell the btp CLI once, with the `target` general action, and then it will be used when required.
 
@@ -89,9 +125,9 @@ Further documentation:
 OK
 ```
 
-So set your trial subaccount as the target now.
+So set your desired subaccount as the target now.
 
-👉 Try this:
+👉 Try this (substituting your subaccount's name for "trial", if it's different):
 
 ```
 btp target --subaccount trial
@@ -113,7 +149,7 @@ f78e0bdb-c97c-4cbc-bb06-526695f44551   trial           8fe7efd4trial   eu10     
 OK
 ```
 
-The output details a line for your "trial" subaccount, including its ID (which starts `f78e0bdb` here - the ID for your subaccount will of course be different).
+The output details a line for your subaccount, including its ID (which starts `f78e0bdb` here - the ID for your subaccount will of course be different) as well as its name (which is `trial` in this example).
 
 👉 Try the `target` command again, this time specifying the ID of your subaccount, rather than the display name. Here's an example, with output:
 
