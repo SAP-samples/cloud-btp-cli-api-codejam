@@ -1,12 +1,14 @@
-# Exercise 05 - Getting to know the Core Services for SAP BTP APIs
+# Exercise 05 - Preparing to call a Core Services API
 
 The btp CLI implementation has a client / server nature. The server component facilitates calls to APIs in the [Core Services for SAP BTP](https://api.sap.com/package/SAPCloudPlatformCoreServices/rest) package. So the btp CLI effectively gives you a comfortable way of consuming those APIs that are specifically designed to let you "manage, build, and extend the core capabilities of SAP BTP".
 
-In this exercise you'll see that first hand, by observing that the JSON you saw in the previous exercise (emitted from `btp --format json list accounts/available-region`) is effectively the same as the output from a call to the corresponding API endpoint.
+During the course of this and also the subsequent two exercises you'll see that first hand, by observing that the JSON you saw in the previous exercise (emitted from `btp --format json list accounts/available-region`) is effectively the same as the output from a call to the corresponding API endpoint.
 
-The main goal of this exercise is not the output, nor the examination thereof. It's the journey you're about to take to get to the stage where you can successfully and comfortably identify an endpoint and prepare & make an authenticated call to it.
+While the process of calling an API is not complicated, there are some moving parts that work together are important for us to thoroughly understand. We'll do that together by taking a steady journey through those moving parts, with enough time to reflect and get things straight in our minds.
 
-And we're going to take our time on that journey, with a few detours that will give us the best chance of understanding how it all fits together.
+In this exercise, you'll do some preparatory work that's required. In the next exercise, you'll use the information gained in this exercise (mostly the CF API endpoint that you need) to obtain credentials for the call. And in the exercise that follows that, you'll use those credentials to make the call and then examine the output.
+
+Ready?
 
 ## API structure
 
@@ -305,6 +307,8 @@ Here's a rough recording of how this might look in `ijq` (minus the framing arou
 ![An ijq session to get the subaccount GUID](assets/ijq-get-guid.gif)
 
 > Note the errors are generated in realtime as the filter is being constructed, and disappear once the filter is complete, or at a stage that is valid `jq`.
+
+The result of this filter is
 
 ---
 
