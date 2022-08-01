@@ -2,7 +2,7 @@
 
 The btp CLI implementation has a client / server nature. The server component facilitates calls to APIs in the [Core Services for SAP BTP](https://api.sap.com/package/SAPCloudPlatformCoreServices/rest) package. So the btp CLI effectively gives you a comfortable way of consuming those APIs that are specifically designed to let you "manage, build, and extend the core capabilities of SAP BTP".
 
-In this exercise you'll see that first hand, by observing that the JSON you saw in the previous exercise, emitted from `btp --format json list accounts/available-region` is effectively the same as the output from a call to the corresponding API endpoint.
+In this exercise you'll see that first hand, by observing that the JSON you saw in the previous exercise (emitted from `btp --format json list accounts/available-region`) is effectively the same as the output from a call to the corresponding API endpoint.
 
 The main goal of this exercise is not the output, nor the examination thereof. It's the journey you're about to take to get to the stage where you can successfully and comfortably identify an endpoint and prepare & make an authenticated call to it.
 
@@ -49,18 +49,28 @@ So to get to the stage where an access token is obtained, an instance of a servi
 While we're in the mood for ASCII art, here's that in diagram form:
 
 ```
-┌──────────┐     ┌──────────┐    ┌──────────┐
-│ Service  ├──┬─►│ Instance ├───►│ Binding  │
-└──────────┘  │  └──────────┘    └────┬─────┘
-              │                       │
-┌──────────┐  │                       │
-│ Plan     ├──┘                       │
-└──────────┘                          │
-     ┌────────────────────────────────┘
-     ▼
-┌──────────┐     ┌──────────┐
-│  Token   ├────►│ API call │
-└──────────┘     └──────────┘
++----------------+      +----------------+      +----------------+
+|    Service     |      |    Instance    |      |    Binding     |
+|                |--+-->|                |----->|                |
+|                |  |   |                |      |                |
++----------------+  |   +----------------+      +----------------+
+        |           |                                   |
+        |           |                                   |
+        |           |                                   |
++----------------+  |                                   |
+|      Plan      |  |                                   |
+|                |--+                                   |
+|                |                                      |
++----------------+                                      |
+                                                        |
+        +-----------------------------------------------+
+        |
+        V
++----------------+      +----------------+
+|     Token      |      |    API Call    |
+|                |----->|                |
+|                |      |                |
++----------------+      +----------------+
 ```
 
 ## Making a Core Services for SAP BTP API call
@@ -75,17 +85,48 @@ In this exercise we're going to make a call to the one endpoint in the Regions f
 
 The endpoints in the Entitlement Service API are protected by the OAuth 2.0 "Resource Owner Password Credentials" grant type, otherwise known as the "Password" grant type (this grant type is considered legacy, but is still used to protect some resources in this area). See the link to understanding OAuth 2.0 grant types in the [Further reading](#further-reading) section below for more background information.
 
-Credentials to obtain an access token via the OAuth 2.0 password grant type process can be obtained from a binding (service key) relating to an instance of the [Cloud Management Service](https://help.sap.com/products/BTP/65de2977205c403bbc107264b8eccf4b/17b6a171552544a6804f12ea83112a3f.html?locale=en-US&version=Cloud), specifically with the "central" plan, a plan for using Cloud Management service APIs to manage your global accounts, subaccounts, directories, and entitlements.
+👉 Head over to the [Entitlements Service API overview](https://api.sap.com/api/APIEntitlementsService/overview) page on the SAP API Business Hub.
 
-TODO
+👉 Find and follow the link to the [Account Administration Using APIs of the SAP Cloud Management Service](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/17b6a171552544a6804f12ea83112a3f.html?locale=en-US) section in the SAP Help Portal, where you'll see something like this:
 
-So in this part you are going to create an instance of the Cloud Management Service (technical name "cis") with plan "central". Where? Well there are different places, but as the trial account that you're using already has a Cloud Foundry (CF) environment instance set up, we'll use that.
+![Account Administration documentation page](/assets/account-administration-docu-page.png)
 
-> This exercise relies on the fact that you do have a CF environment already set up in your "trial" subaccount; if you don't, but have one somewhere else in your trial global account, you may be able to use that instead.
+👉 Explore the two nodes highlighted in red, to see that it's the "SAP Cloud Management" service that is relevant here, and that the technical name for this service is `cis`. See also that there are two plans for the SAP Cloud Management service: `central` and `local`.
+
+The `central` plan affords a little more access than the `local` plan so we'll go for the `central` plan. This is where these values fit into our diagram:
+
+```
++----------------+      +----------------+      +----------------+
+|    Service     |      |    Instance    |      |    Binding     |
+|      cis       |--+-->|                |----->|                |
+|                |  |   |                |      |                |
++----------------+  |   +----------------+      +----------------+
+        |           |                                   |
+        |           |                                   |
+        |           |                                   |
++----------------+  |                                   |
+|      Plan      |  |                                   |
+|     central    |--+                                   |
+|                |                                      |
++----------------+                                      |
+                                                        |
+        +-----------------------------------------------+
+        |
+        V
++----------------+      +----------------+
+|     Token      |      |    API Call    |
+|                |----->|                |
+|                |      |                |
++----------------+      +----------------+
+```
+
+There are different places that a service instance can be created, but [as you have a Cloud Foundry environment set up](../../prerequisites.md#subaccount-and-cloud-foundry-environment), we'll use that.
 
 #### Determine your CF API endpoint
 
-First, in a similar way to how we logged in with the btp CLI, we now must log in with the CF CLI, `cf`. To do this we need to know which endpoint we must connect to, which we will do, shortly, like this:
+So the choice of Cloud Foundry (CF) as an environment for the service instance means that, in a similar way to how we logged in with the btp CLI, we now must log in with the CF CLI, `cf`, so that we can use that tool to create the service instance.
+
+To log in, this we need to know which endpoint we must connect to, which we will do, shortly, like this:
 
 ```bash
 cf login -a <API endpoint URL>
