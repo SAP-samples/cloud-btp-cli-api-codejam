@@ -209,19 +209,19 @@ subaccounts in global account fdce9323-d6e6-42e6-8df0-5e501c90a2be...
 
 subaccount id:                         display name:      subdomain:                             regi
 on:   beta-enabled:   parent id:                             parent type:     state:   state message:
-        
+
 898b51f0-0c04-41b3-9176-0749fc985211   ho060-subaccount   ho060-8fe7efd4trial                    eu10
       false           7abcfc5f-e570-46c6-9988-6de663085ca6   directory        OK       Subaccount cre
-ated.   
+ated.
 41daa97f-e645-462f-8adc-7957a6d1b4bc   testeu10           30a0b628-2347-440a-9a93-1c1effd64200   eu10
       false           3f1ed385-5f1f-4b61-add5-e20bdd273b13   directory        OK       Subaccount mov
-ed.     
+ed.
 cd76fdef-16f8-47a3-954b-cab6678cc24d   testsubaccount     a253215a-736f-4e9a-b0c1-02052f8f0c2e   ap21
       false           fdce9323-d6e6-42e6-8df0-5e501c90a2be   global account   OK       Subaccount cre
-ated.   
+ated.
 f78e0bdb-c97c-4cbc-bb06-526695f44551   trial              8fe7efd4trial                          eu10
       false           fdce9323-d6e6-42e6-8df0-5e501c90a2be   global account   OK       Subaccount cre
-ated.   
+ated.
 ```
 
 The output is pretty wide, and difficult to read; you can define a function for the duration of your shell session (or add it to your `.bashrc` file for a more permanent solution) like this:
@@ -278,8 +278,10 @@ You'll see output that starts like this (redacted here for brevity):
 👉 Rerun that command and pass it into our interactive `jq` program `ijq`:
 
 ```bash
-btp --format json list accounts/subaccount | ijq
+btp --format json list accounts/subaccount | ijq -r
 ```
+
+> We're using the `-r` option to ask `ijq` to emit raw output rather than try to produce JSON; this is so that when we do identify and output the GUID, it won't be enclosed in double quotes.
 
 The layout of `ijq` consists of four sections:
 
@@ -298,15 +300,11 @@ You'll see that in the Input section, `.value` is suggested, as it's a directly 
 
 This should reduce the content of the Output section, from (initially) the entire input JSON, to just the object that represents your chosen subaccount.
 
+Here's a rough recording of how this might look in `ijq` (minus the framing around each of the sections which were lost in the [asciicast2gif](https://github.com/asciinema/asciicast2gif) converstion):
 
+![An ijq session to get the subaccount GUID](assets/ijq-get-guid.gif)
 
-
-
-
-
-
-
-
+---
 
 In the [directory containing this specific README file](./), there's a script [get_cf_api_endpoint](./get_cf_api_endpoint). We'll examine how this script works in a later exercise, but if you were to glance at it, you'd see calls to the btp CLI:
 
