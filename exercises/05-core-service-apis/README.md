@@ -6,6 +6,8 @@ In this exercise you'll see that first hand, by observing that the JSON you saw 
 
 The main goal of this exercise is not the output, nor the examination thereof. It's the journey you're about to take to get to the stage where you can successfully and comfortably identify an endpoint and prepare & make an authenticated call to it.
 
+And we're going to take our time on that journey, with a few detours that will give us the best chance of understanding how it all fits together.
+
 ## API structure
 
 The endpoint in question lives within the [Entitlements Service](https://api.sap.com/api/APIEntitlementsService/overview) API, specifically within the "Regions for Global Account" group. You can see this in the SAP API Business Hub:
@@ -132,7 +134,7 @@ To log in, this we need to know which endpoint we must connect to, which we will
 cf login -a <API endpoint URL>
 ```
 
-To discover what the endpoint URL is, you can just look in the BTP Cockpit:
+To discover what the endpoint URL is, you can just look in the BTP Cockpit, where it's shown as the value for "API Endpoint":
 
 ![API endpoint visible in the BTP cockpit](assets/api-endpoint-in-cockpit.png)
 
