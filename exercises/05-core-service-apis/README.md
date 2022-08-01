@@ -207,22 +207,21 @@ You should get output similar to this:
 ```
 subaccounts in global account fdce9323-d6e6-42e6-8df0-5e501c90a2be...
 
-subaccount id:                         display name:      subdomain:                             reg
-ion:   beta-enabled:   parent id:                             parent type:     state:   state messag
-e:        
-898b51f0-0c04-41b3-9176-0749fc985211   ho060-subaccount   ho060-8fe7efd4trial                    eu1
-0      false           7abcfc5f-e570-46c6-9988-6de663085ca6   directory        OK       Subaccount c
-reated.   
-41daa97f-e645-462f-8adc-7957a6d1b4bc   testeu10           30a0b628-2347-440a-9a93-1c1effd64200   eu1
-0      false           3f1ed385-5f1f-4b61-add5-e20bdd273b13   directory        OK       Subaccount m
-oved.     
-cd76fdef-16f8-47a3-954b-cab6678cc24d   testsubaccount     a253215a-736f-4e9a-b0c1-02052f8f0c2e   ap2
-1      false           fdce9323-d6e6-42e6-8df0-5e501c90a2be   global account   OK       Subaccount c
-reated.   
-f78e0bdb-c97c-4cbc-bb06-526695f44551   trial              8fe7efd4trial                          eu1
-0      false           fdce9323-d6e6-42e6-8df0-5e501c90a2be   global account   OK       Subaccount c
-reated.   
-
+subaccount id:                         display name:      subdomain:                             regi
+on:   beta-enabled:   parent id:                             parent type:     state:   state message:
+        
+898b51f0-0c04-41b3-9176-0749fc985211   ho060-subaccount   ho060-8fe7efd4trial                    eu10
+      false           7abcfc5f-e570-46c6-9988-6de663085ca6   directory        OK       Subaccount cre
+ated.   
+41daa97f-e645-462f-8adc-7957a6d1b4bc   testeu10           30a0b628-2347-440a-9a93-1c1effd64200   eu10
+      false           3f1ed385-5f1f-4b61-add5-e20bdd273b13   directory        OK       Subaccount mov
+ed.     
+cd76fdef-16f8-47a3-954b-cab6678cc24d   testsubaccount     a253215a-736f-4e9a-b0c1-02052f8f0c2e   ap21
+      false           fdce9323-d6e6-42e6-8df0-5e501c90a2be   global account   OK       Subaccount cre
+ated.   
+f78e0bdb-c97c-4cbc-bb06-526695f44551   trial              8fe7efd4trial                          eu10
+      false           fdce9323-d6e6-42e6-8df0-5e501c90a2be   global account   OK       Subaccount cre
+ated.   
 ```
 
 The output is pretty wide, and difficult to read; you can define a function for the duration of your shell session (or add it to your `.bashrc` file for a more permanent solution) like this:
@@ -242,11 +241,11 @@ The output should now be a little more readable (at the expense of losing detail
 ```
 subaccounts in global account fdce9323-d6e6-42e6-8df0-5e501c90a2be...
 
-subaccount id:                         display name:      subdomain:                             region:   beta-enabled:
-898b51f0-0c04-41b3-9176-0749fc985211   ho060-subaccount   ho060-8fe7efd4trial                    eu10      false
-41daa97f-e645-462f-8adc-7957a6d1b4bc   testeu10           30a0b628-2347-440a-9a93-1c1effd64200   eu10      false
-cd76fdef-16f8-47a3-954b-cab6678cc24d   testsubaccount     a253215a-736f-4e9a-b0c1-02052f8f0c2e   ap21      false
-f78e0bdb-c97c-4cbc-bb06-526695f44551   trial              8fe7efd4trial                          eu10      false
+subaccount id:                         display name:      subdomain:                             regi
+898b51f0-0c04-41b3-9176-0749fc985211   ho060-subaccount   ho060-8fe7efd4trial                    eu10
+41daa97f-e645-462f-8adc-7957a6d1b4bc   testeu10           30a0b628-2347-440a-9a93-1c1effd64200   eu10
+cd76fdef-16f8-47a3-954b-cab6678cc24d   testsubaccount     a253215a-736f-4e9a-b0c1-02052f8f0c2e   ap21
+f78e0bdb-c97c-4cbc-bb06-526695f44551   trial              8fe7efd4trial                          eu10
 ```
 
 For the subaccount in question ("trial" in this sample), we want to get the GUID, which is `f78e0bdb-c97c-4cbc-bb06-526695f44551`. Again, we could use copy/paste it somehow, but that's not useful if we want to do this, or something like it, in an automated fashion. Instead, we'll ask for the JSON representation of this information and parse it out from that.
