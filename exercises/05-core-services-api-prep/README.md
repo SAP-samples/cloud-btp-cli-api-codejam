@@ -325,7 +325,7 @@ This was a bit [round the houses](https://wordhistories.net/2018/03/05/go-round-
 
 Before moving on to the next step, let's rerun the command but this time capture this GUID into a shell variable so we can use it in the next step. You'll do this using command substitution, which is described in a link in the [Further reading](#further-reading) section below.
 
-👉 Call up the previous command, make it look like this, and run it:
+👉 Call up the previous command (use the up-arrow to do this, or even try `Ctrl-R` for a reverse search over your command history), make it look like this, and run it:
 
 ```bash
 guid=$(btp --format json list accounts/subaccount | ijq -r)
@@ -423,33 +423,72 @@ This should return a single JSON object that looks like this:
 
 You may be staring and wondering at the values for the `parameters` and `labels` properties here. Good. They do look a bit odd, but one of them is exactly the property that we need to look into further.
 
+### Extract the API endpoint value
 
+If you stare long enough, you'll realise that the values are string-encoded JSON. In other words, the values are actually objects, but encoded in JSON, but to be a string, each double quote character within the string need to be preserved and therefore escaped with a backslash (`\`).
 
+> You can run the following invocations of the `jq` filters as shown here, or pipe the btp CLI JSON output into `ijq` and run them there - your choice.
 
-
-
----
-
-In the [directory containing this specific README file](./), there's a script [get_cf_api_endpoint](./get_cf_api_endpoint). We'll examine how this script works in a later exercise, but if you were to glance at it, you'd see calls to the btp CLI:
-
-* `btp --format json list accounts/subaccount`
-* `btp --format json list accounts/environment-instance`
-
-Information returned from these calls includes the CF API endpoint, amongst other CF details.
-
-👉 After ensuring that you're still authenticated with the btp CLI (with `btp login`), run the script. It's a good idea at this stage to move to the directory containing it, and run it there, mostly because you'll be running another script in this same directory later:
+👉 Call up the previous command and extend the `jq` filter to emit the value of the `label` property, thus:
 
 ```bash
-cd $HOME/projects/HO060/exercises/04-json-format-and-apis
+btp --format json list accounts/environment-instance --subaccount "$guid" \
+  | jq '
+    .environmentInstances[]
+    | select(.environmentType == "cloudfoundry").labels
+  '
+```
+
+> To make things easier to read, this command now has the `jq` filter spanning multiple lines, but you can still copy/paste it as it stands here in its expanded form. Behold the power of the shell!
+
+This should produce something like the following:
+
+```json
+"{\"Org Name:\":\"8fe7efd4trial\",\"API Endpoint:\":\"https://api.cf.eu10.hana.ondemand.com\",\"Org ID:\":\"d7706871-d9db-450d-9b99-dfbe23358dc4\"}"
+```
+
+Luckily, `jq` has a way of converting to and from JSON (see the [Further reading](#further-reading) section).
+
+👉 Rerun the command again, and add the `fromjson` builtin, as follows:
+
+```bash
+btp --format json list accounts/environment-instance --subaccount "$guid" \
+  | jq '
+    .environmentInstances[]
+    | select(.environmentType == "cloudfoundry").labels
+    | fromjson
+  '
+```
+
+```json
+{
+  "Org Name:": "8fe7efd4trial",
+  "API Endpoint:": "https://api.cf.eu10.hana.ondemand.com",
+  "Org ID:": "d7706871-d9db-450d-9b99-dfbe23358dc4"
+}
+```
+
+Et voila! We've found the API endpoint. In this particular sample case, it's `https://api.cf.eu10.hana.ondemand.com`, but it may be different for the CF environment instance in your subaccount. Whatever the value, we're now ready to move on to the next step, which is to log in with `cf`, specifying that API endpoint. That's coming up in the next exercise.
+
+## Bonus: Determining the CF API endpoint with a script
+
+In the [directory containing this specific README file](./), there's a script [get_cf_api_endpoint](./get_cf_api_endpoint). This script is an automated version of everything you've done in this section. If you've finished early, then you may wish to peruse the code, some of which you should recognize now.
+
+You can try it out, too. After ensuring that you're still authenticated with the btp CLI (with `btp login`), run the script. It's a good idea at this stage to move to the directory containing it, and run it there, mostly because you'll be running another script in this same directory later. Here's how.
+
+> If you don't specify a subaccount name, it will use "trial" by default. So if your subaccount name is not "trial", specify it as a parameter when invoking the script (e.g. `./get_cf_api_endpoint "My subaccount name"`).
+
+```bash
+cd $HOME/projects/cloud-btp-cli-api-codejam/exercises/05-core-services-api-prep/
 ./get_cf_api_endpoint
 ```
 
-It should emit the API endpoint URL; you should see something like this:
+It should emit the API endpoint URL; the invocation should look something like this:
 
 ```
-user: 04-json-format-and-apis $ ./get_cf_api_endpoint
+user: 05-core-services-api-prep $ ./get_cf_api_endpoint
 https://api.cf.eu10.hana.ondemand.com
-user: 04-json-format-and-apis $
+user: 05-core-services-api-prep $
 ```
 
 ## Summary
@@ -467,3 +506,5 @@ At this point you have gained some experience in understanding and parsing the J
 If you finish earlier than your fellow participants, you might like to ponder these questions. There isn't always a single correct answer and there are no prizes - they're just to give you something else to think about.
 
 1. When listing the environment instances for the subaccount, how else might you make that btp CLI call, without using the `--subaccount` parameter?
+1. The embedded, stringified JSON values in the `parameters` and `labels` properties are a bit strange. Stranger still are the names of some the properties in that embedded JSON. Have you ever seen property names containing whitespace (`Org Name`, `API Endpoint`, `Org ID`)? Why do you think they exist this way?
+1. What's the mechanism in the `get_cf_api_endpoint` script that defaults to "trial" as the name for the subaccount?
