@@ -300,7 +300,7 @@ You'll see that in the Input section, `.value` is suggested, as it's a directly 
 
 This should reduce the content of the Output section, from (initially) the entire input JSON, to just the object that represents your chosen subaccount.
 
-Here's a rough recording of how this might look in `ijq` (minus the framing around each of the sections which were lost in the [asciicast2gif](https://github.com/asciinema/asciicast2gif) converstion):
+Here's a rough recording of how this might look in `ijq` (minus the framing around each of the sections which were lost in the [asciicast2gif](https://github.com/asciinema/asciicast2gif) conversion):
 
 ![An ijq session to get the subaccount GUID](assets/ijq-get-guid.gif)
 
