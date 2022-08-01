@@ -142,11 +142,13 @@ But this is all about hands-on on the command line, and if we're going to be aut
 
 What we're going to do is systematically work through the information that's available to us from various resources that we can retrieve via the btp CLI.
 
+> The SAP BTP account, subaccount and CF environment instance shown in the samples here are based on a trial subaccount; your direct experience may show different data as the structure of subaccounts in your SAP BTP account will be different, but the principles are the same.
+
 **Installing "interactive jq"**
 
 We'll be using the `--format json` option and working through details of certain btp CLI calls, building on our knowledge of `jq` filters from the previous exercise. To make this a little more comfortable, we'll install a wrapper around `jq` so we can interact with the JSON data and build up our filters bit by bit. The wrapper is called [ijq](https://sr.ht/~gpanders/ijq/) (for "interactive jq") and we can install it in our App Studio Dev Space.
 
-👉 At the prompt in your Dev Space's terminal, run the following command, which will download the latest (at the time of writing) release tarball, specifically for the Linux platform (remember, this Dev Space is a Linux environment) and extract the binary `ijq` into the `bin/` directory in your home directory:
+👉 At the prompt in your Dev Space's terminal, run the following command, which will download the [latest release tarball](https://git.sr.ht/~gpanders/ijq/refs/v0.4.0) specifically for the Linux platform (remember, this Dev Space is a Linux environment) and extract the binary `ijq` into the `bin/` directory in your home directory:
 
 > Remember that this `bin/` directory is [where you installed the btp CLI in an earlier exercise](../01-installing#add-your-bin-directory-to-the-path).
 
@@ -160,10 +162,121 @@ curl \
     --file - \
     --directory "$HOME/bin/" \
     --strip-components 1 \
-    "$IJQVER/ijq"
+    "ijq-$IJQVER/ijq"
+```
+
+If you invoke `ijq` now to test it out, you should see something like this:
+
+```
+ijq - interactive jq
+
+Usage: ijq [-cnsrRMSV] [-f file] [filter] [files ...]
+
+Options:
+  -C    force colorized JSON, even if writing to a pipe or file
+  -H string
+        set path to history file. Set to '' to disable history. (default "/home/user/.local/share/ijq/history")
+  -M    monochrome (don't colorize JSON)
+  -R    read raw strings, not JSON texts
+  -S    sort keys of objects on output
+  -V    print version and exit
+  -c    compact instead of pretty-printed output
+  -f filename
+        read initial filter from filename
+  -jqbin string
+        name of or path to jq binary to use (default "jq")
+  -n    use `null` as the single input value
+  -r    output raw strings, not JSON texts
+  -s    read (slurp) all inputs into an array; apply filter to it
 ```
 
 **Determine the subaccount GUID**
+
+Because of the API requirements on the server side, a lot of btp CLI operations require us to deal in globally unique identifiers (GUIDs) rather than names. In this first step, we'll determine the GUID for the subaccount we're using, based on the name.
+
+Let's get our fingers warmed up by asking for a simple list of subaccounts, first, in plain text format rather than JSON.
+
+👉 Run this btp CLI invocation, remembering to make use of the [autocomplete](03-autocomplete-and-exploration/README.md#set-up-autocomplete) features:
+
+```bash
+btp list accounts/subaccount
+```
+
+You should get output similar to this:
+
+```
+subaccounts in global account fdce9323-d6e6-42e6-8df0-5e501c90a2be...
+
+subaccount id:                         display name:      subdomain:                             region:   beta-enabled:   parent id:                             parent type:     state:   state message:
+898b51f0-0c04-41b3-9176-0749fc985211   ho060-subaccount   ho060-8fe7efd4trial                    eu10      false           7abcfc5f-e570-46c6-9988-6de663085ca6   directory        OK       Subaccount created.
+41daa97f-e645-462f-8adc-7957a6d1b4bc   testeu10           30a0b628-2347-440a-9a93-1c1effd64200   eu10      false           3f1ed385-5f1f-4b61-add5-e20bdd273b13   directory        OK       Subaccount moved.
+cd76fdef-16f8-47a3-954b-cab6678cc24d   testsubaccount     a253215a-736f-4e9a-b0c1-02052f8f0c2e   ap21      false           fdce9323-d6e6-42e6-8df0-5e501c90a2be   global account   OK       Subaccount created.
+f78e0bdb-c97c-4cbc-bb06-526695f44551   trial              8fe7efd4trial                          eu10      false           fdce9323-d6e6-42e6-8df0-5e501c90a2be   global account   OK       Subaccount created.
+```
+
+The output is pretty wide, and difficult to read; you can define a function for the duration of your shell session (or add it to your `.bashrc` file for a more permanent solution) like this:
+
+```bash
+trunc() { cut -c1-$(tput cols); }
+```
+
+👉 Now try the same invocation but pipe the output into this function:
+
+```bash
+btp list accounts/subaccount | trunc
+```
+
+The output should now be a little more readable (at the expense of losing detail of course):
+
+```
+subaccounts in global account fdce9323-d6e6-42e6-8df0-5e501c90a2be...
+
+subaccount id:                         display name:      subdomain:                             region:   beta-enabled:
+898b51f0-0c04-41b3-9176-0749fc985211   ho060-subaccount   ho060-8fe7efd4trial                    eu10      false
+41daa97f-e645-462f-8adc-7957a6d1b4bc   testeu10           30a0b628-2347-440a-9a93-1c1effd64200   eu10      false
+cd76fdef-16f8-47a3-954b-cab6678cc24d   testsubaccount     a253215a-736f-4e9a-b0c1-02052f8f0c2e   ap21      false
+f78e0bdb-c97c-4cbc-bb06-526695f44551   trial              8fe7efd4trial                          eu10      false
+```
+
+For the subaccount in question ("trial" in this sample), we want to get the GUID, which is `f78e0bdb-c97c-4cbc-bb06-526695f44551`. Again, we could use copy/paste it somehow, but that's not useful if we want to do this, or something like it, in an automated fashion. Instead, we'll ask for the JSON representation of this information and parse it out from that.
+
+👉 Do that now, like this:
+
+```bash
+btp --format json list accounts/subaccount
+```
+
+You'll see output that starts like this (redacted here for brevity):
+
+```json
+{
+  "value": [
+    {
+      "guid": "f78e0bdb-c97c-4cbc-bb06-526695f44551",
+      "technicalName": "f78e0bdb-c97c-4cbc-bb06-526695f44551",
+      "displayName": "trial",
+      "globalAccountGUID": "fdce9323-d6e6-42e6-8df0-5e501c90a2be",
+      "parentGUID": "fdce9323-d6e6-42e6-8df0-5e501c90a2be",
+      "parentType": "ROOT",
+      "region": "eu10",
+      "subdomain": "8fe7efd4trial"
+    }
+  ]
+}
+```
+
+Let's rerun that command and pass it into our interactive `jq` program `ijq`:
+
+```bash
+btp --format json list accounts/subaccount | ijq
+```
+
+
+
+
+
+
+
 
 In the [directory containing this specific README file](./), there's a script [get_cf_api_endpoint](./get_cf_api_endpoint). We'll examine how this script works in a later exercise, but if you were to glance at it, you'd see calls to the btp CLI:
 
