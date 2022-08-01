@@ -24,6 +24,8 @@ Then, once the environment is created (it will have asked you for the name of an
 
 ![Create Space button](assets/create-space-button.png)
 
+> If you still have a trial account, the subaccount that was set up automatically may already have a Cloud Foundry environment set up already, with an organization and space, and you can use that.
+
 ## SAP Business Application Studio
 
 Your account should have a subscription set up to the SAP Business Application Studio (App Studio). If you have a trial account then this subscription may already be set up for you. Otherwise, use the BTP Cockpit to find the entry in the Service Marketplace and create a subscription manually, with the "free" plan (see [Application Plans](https://help.sap.com/products/SAP%20Business%20Application%20Studio/9d1db9835307451daa8c930fbd9ab264/2c72917df87e47c290e061a556d92398.html?locale=en-US) for more info).
