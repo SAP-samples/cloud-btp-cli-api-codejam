@@ -140,7 +140,7 @@ To discover what the endpoint URL is, you can just look in the BTP Cockpit, wher
 
 But this is all about hands-on on the command line, and if we're going to be automating things, looking in the cockpit is not going to work for us. So let's determine the API endpoint in a different way, using the btp CLI to discover what it is.
 
-What we're going to do is systematically work through the information that's available to us from various resources that we can retrieve via the btp CLI.
+What we're going to do is systematically work through the information that's available to us from various resources that we can retrieve via the btp CLI. While we'll be doing some things manually here, and making use of copy/paste (so that we can follow everything step by step), the individual steps can all be automated.
 
 > The SAP BTP account, subaccount and CF environment instance shown in the samples here are based on a trial subaccount; your direct experience may show different data as the structure of subaccounts in your SAP BTP account will be different, but the principles are the same.
 
@@ -207,11 +207,22 @@ You should get output similar to this:
 ```
 subaccounts in global account fdce9323-d6e6-42e6-8df0-5e501c90a2be...
 
-subaccount id:                         display name:      subdomain:                             region:   beta-enabled:   parent id:                             parent type:     state:   state message:
-898b51f0-0c04-41b3-9176-0749fc985211   ho060-subaccount   ho060-8fe7efd4trial                    eu10      false           7abcfc5f-e570-46c6-9988-6de663085ca6   directory        OK       Subaccount created.
-41daa97f-e645-462f-8adc-7957a6d1b4bc   testeu10           30a0b628-2347-440a-9a93-1c1effd64200   eu10      false           3f1ed385-5f1f-4b61-add5-e20bdd273b13   directory        OK       Subaccount moved.
-cd76fdef-16f8-47a3-954b-cab6678cc24d   testsubaccount     a253215a-736f-4e9a-b0c1-02052f8f0c2e   ap21      false           fdce9323-d6e6-42e6-8df0-5e501c90a2be   global account   OK       Subaccount created.
-f78e0bdb-c97c-4cbc-bb06-526695f44551   trial              8fe7efd4trial                          eu10      false           fdce9323-d6e6-42e6-8df0-5e501c90a2be   global account   OK       Subaccount created.
+subaccount id:                         display name:      subdomain:                             reg
+ion:   beta-enabled:   parent id:                             parent type:     state:   state messag
+e:        
+898b51f0-0c04-41b3-9176-0749fc985211   ho060-subaccount   ho060-8fe7efd4trial                    eu1
+0      false           7abcfc5f-e570-46c6-9988-6de663085ca6   directory        OK       Subaccount c
+reated.   
+41daa97f-e645-462f-8adc-7957a6d1b4bc   testeu10           30a0b628-2347-440a-9a93-1c1effd64200   eu1
+0      false           3f1ed385-5f1f-4b61-add5-e20bdd273b13   directory        OK       Subaccount m
+oved.     
+cd76fdef-16f8-47a3-954b-cab6678cc24d   testsubaccount     a253215a-736f-4e9a-b0c1-02052f8f0c2e   ap2
+1      false           fdce9323-d6e6-42e6-8df0-5e501c90a2be   global account   OK       Subaccount c
+reated.   
+f78e0bdb-c97c-4cbc-bb06-526695f44551   trial              8fe7efd4trial                          eu1
+0      false           fdce9323-d6e6-42e6-8df0-5e501c90a2be   global account   OK       Subaccount c
+reated.   
+
 ```
 
 The output is pretty wide, and difficult to read; you can define a function for the duration of your shell session (or add it to your `.bashrc` file for a more permanent solution) like this:
@@ -265,11 +276,31 @@ You'll see output that starts like this (redacted here for brevity):
 }
 ```
 
-Let's rerun that command and pass it into our interactive `jq` program `ijq`:
+👉 Rerun that command and pass it into our interactive `jq` program `ijq`:
 
 ```bash
 btp --format json list accounts/subaccount | ijq
 ```
+
+The layout of `ijq` consists of four sections:
+
+* Input: the JSON data we've passed in
+* Output: the result of applying our filter
+* Filter: the filter itself
+* Error: any errors with the filter are shown here
+
+You'll see that in the Input section, `.value` is suggested, as it's a directly available property in the outermost object.
+
+👉 Hit the Tab key to accept the suggestion, and in a similar way to how we [listed the locations of the CF data centers](../04-retrieving-parsing-json-output#listing-the-locations-of-the-cf-data-centers) in a previous exercise, expand this filter, replacing the name "trial" with the name of your subaccount:
+
+```jq
+.value[] | select(.displayName == "trial")
+```
+
+This should reduce the content of the Output section, from (initially) the entire input JSON, to just the object that represents your chosen subaccount.
+
+
+
 
 
 
