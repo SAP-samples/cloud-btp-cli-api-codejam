@@ -304,6 +304,8 @@ Here's a rough recording of how this might look in `ijq` (minus the framing arou
 
 ![An ijq session to get the subaccount GUID](assets/ijq-get-guid.gif)
 
+> Note the errors are generated in realtime as the filter is being constructed, and disappear once the filter is complete, or at a stage that is valid `jq`.
+
 ---
 
 In the [directory containing this specific README file](./), there's a script [get_cf_api_endpoint](./get_cf_api_endpoint). We'll examine how this script works in a later exercise, but if you were to glance at it, you'd see calls to the btp CLI:
