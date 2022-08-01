@@ -140,6 +140,31 @@ To discover what the endpoint URL is, you can just look in the BTP Cockpit, wher
 
 But this is all about hands-on on the command line, and if we're going to be automating things, looking in the cockpit is not going to work for us. So let's determine the API endpoint in a different way, using the btp CLI to discover what it is.
 
+What we're going to do is systematically work through the information that's available to us from various resources that we can retrieve via the btp CLI.
+
+**Installing "interactive jq"**
+
+We'll be using the `--format json` option and working through details of certain btp CLI calls, building on our knowledge of `jq` filters from the previous exercise. To make this a little more comfortable, we'll install a wrapper around `jq` so we can interact with the JSON data and build up our filters bit by bit. The wrapper is called [ijq](https://sr.ht/~gpanders/ijq/) (for "interactive jq") and we can install it in our App Studio Dev Space.
+
+👉 At the prompt in your Dev Space's terminal, run the following command, which will download the latest (at the time of writing) release tarball, specifically for the Linux platform (remember, this Dev Space is a Linux environment) and extract the binary `ijq` into the `bin/` directory in your home directory:
+
+> Remember that this `bin/` directory is [where you installed the btp CLI in an earlier exercise](../01-installing#add-your-bin-directory-to-the-path).
+
+```bash
+IJQVER=0.4.0
+curl \
+  --url "https://git.sr.ht/~gpanders/ijq/refs/download/v$IJQVER/ijq-$IJQVER-linux-amd64.tar.gz" \
+  | tar \
+    --extract \
+    --gunzip \
+    --file - \
+    --directory "$HOME/bin/" \
+    --strip-components 1 \
+    "$IJQVER/ijq"
+```
+
+**Determine the subaccount GUID**
+
 In the [directory containing this specific README file](./), there's a script [get_cf_api_endpoint](./get_cf_api_endpoint). We'll examine how this script works in a later exercise, but if you were to glance at it, you'd see calls to the btp CLI:
 
 * `btp --format json list accounts/subaccount`
