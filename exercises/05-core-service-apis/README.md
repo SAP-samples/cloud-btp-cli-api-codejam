@@ -89,7 +89,7 @@ The endpoints in the Entitlement Service API are protected by the OAuth 2.0 "Res
 
 👉 Find and follow the link to the [Account Administration Using APIs of the SAP Cloud Management Service](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/17b6a171552544a6804f12ea83112a3f.html?locale=en-US) section in the SAP Help Portal, where you'll see something like this:
 
-![Account Administration documentation page](/assets/account-admin-docu-page.png)
+![Account Administration documentation page](assets/account-admin-docu-page.png)
 
 👉 Explore the two nodes highlighted in red, to see that it's the "SAP Cloud Management" service that is relevant here, and that the technical name for this service is `cis`. See also that there are two plans for the SAP Cloud Management service: `central` and `local`.
 
