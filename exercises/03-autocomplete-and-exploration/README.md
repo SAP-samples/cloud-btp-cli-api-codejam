@@ -134,9 +134,20 @@ You'll see that there's an extra line that follows the two lines you yourself ad
 ```
 export PATH=$PATH:$HOME/bin
 export BTP_CLIENTCONFIG=$HOME/.config/btp/config.json
-chmod 600 $HOME/.config/btp/config.json
 SAP_BTP_CLI_AUTOCOMPLETE="/home/user/.config/btp/autocomplete/scripts/sapbtpcli-autocomplete.plugin.sh" && source $SAP_BTP_CLI_AUTOCOMPLETE
 ```
+
+## Guard against permission expansion
+
+Currently, if the Dev Space is restarted, permissions on the btp CLI configuration files are extended to add read/write access for the group; we don't want this.
+
+👉 So while you're looking at your `.bashrc` file, append a line like this:
+
+```bash
+echo 'chmod 600 $BTP_CLIENTCONFIG $SAP_BTP_CLI_AUTOCOMPLETE' >> $HOME/.bashrc
+```
+
+This will set the permissions (also known as "modes") on the btp CLI config files to 600, i.e. read and write for the user, and nothing for anyone else. For more on understanding these permissions, see [chmod](https://en.wikipedia.org/wiki/Chmod).
 
 ## Try out autocomplete
 

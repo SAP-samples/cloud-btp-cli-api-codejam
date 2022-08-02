@@ -243,16 +243,6 @@ Whoops - it thinks you're no longer authenticated because it can't find the conf
 echo 'export BTP_CLIENTCONFIG=$HOME/.config/btp/config.json' >> $HOME/.bashrc
 ```
 
-Currently, if the Dev Space is restarted, permissions on the btp CLI configuration file are reset, and group access is added; we don't want this.
-
-👉 So while you're appending to your `.bashrc` file, also append another line like this:
-
-```bash
-echo 'chmod 600 $HOME/.config/btp/config.json' >> $HOME/.bashrc
-```
-
-This will set the permissions (also known as "modes") on the btp CLI config file to 600, i.e. read and write for the user, and nothing for anyone else. For more on understanding these permissions, see [chmod](https://en.wikipedia.org/wiki/Chmod).
-
 Restarting your terminal (closing the current one with `exit` or with Ctrl-D and starting a new one) will cause this new environment variable to be set, so you can then try invoking `btp` again.
 
 👉 Restart your terminal now.
