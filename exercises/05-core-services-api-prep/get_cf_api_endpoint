@@ -31,7 +31,7 @@ getapiendpoint() {
 
   # Given JSON details of a CF environment instance, parse out the API endpoint URL
   local cfenvjson=$1
-  jq -r '.labels | fromjson | ."API Endpoint:"' <<< "$cfenvjson"
+  jq -r '.labels | fromjson | (."API Endpoint" .// ."API Endpoint:")' <<< "$cfenvjson"
 
 }
 
