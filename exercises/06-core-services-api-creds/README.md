@@ -80,7 +80,9 @@ space:          dev
 user: 04-json-format-and-apis $
 ```
 
-#### Create a service instance and key
+> You should already have a space set up, as described in the [Subaccount and Cloud Foundry environment](../../prerequisites.md#subaccount-and-cloud-foundry-environment) section of the prerequisites.
+
+## Create a service instance and key
 
 👉 Now you're authenticated, create an instance of the Cloud Management Service, with the "central" plan, as discussed earlier:
 
@@ -97,8 +99,6 @@ Creating service instance cis-central in org 8fe7efd4trial / space dev as qmacro
 OK
 ```
 
-> In a trial BTP account, not only is a Cloud Foundry environment instance set up for you automatically, but also an organization and space.
-
 👉 For this new instance, create a service key:
 
 ```bash
@@ -114,33 +114,109 @@ OK
 
 > The naming convention used here for instance and service key resources has instances named after a combination of service name and plan name (`cis-central`) and a service key named similarly, suffixed with `-sk` here (`cis-central-sk`).
 
-#### Save the service key details
+At this point, we can update our diagram with the two new entity names in the `Instance` and `Binding` (service key) boxes:
 
-Now you have a service key, obtain the details (in JSON) and save them into a file locally (you'll see how to do this shortly).
-
-Unfortunately, the `cf` command emits extraneous text output, a problem which is exacerbated by the fact that the main output is not text, but JSON. This is what it looks like:
-
+```text
++----------------+      +----------------+      +----------------+
+|    Service     |      |    Instance    |      |    Binding     |
+|      cis       |--+-->|   cis-central  |----->| cis-central-sk |
+|                |  |   |                |      |                |
++----------------+  |   +----------------+      +----------------+
+        |           |                                   |
+        |           |                                   |
+        |           |                                   |
++----------------+  |                                   |
+|      Plan      |  |                                   |
+|     central    |--+                                   |
+|                |                                      |
++----------------+                                      |
+                                                        |
+        +-----------------------------------------------+
+        |
+        V
++----------------+      +----------------+
+|     Token      |      |    API Call    |
+|                |----->|                |
+|                |      |                |
++----------------+      +----------------+
 ```
+
+> We're deliberately interchanging the terms "binding" and "service key" so that they become related in our minds.
+
+## Take a first look at the service key
+
+What's in a service key? Let's take a first look, via `cf`.
+
+👉 Use the following command to examine the contents of the service key (there are some long strings of characters that represent credentials in some service keys, including this one, so take care when displaying the content on the screen):
+
+```bash
+cf service-key cis-central cis-central-sk
+```
+
+The output should look something like this:
+
+```text
 Getting key cis-central-sk for service instance cis-central as qmacro+blue@gmail.com...
 
 {
-  "endpoints": {
-   "accounts_service_url": "https://accounts-service.cfapps.eu10.hana.ondemand.com",
-   "cloud_automation_url": "https://cp-formations.cfapps.eu10.hana.ondemand.com",
-  ...
+ "endpoints": {
+  "accounts_service_url": "https://accounts-service.cfapps.eu10.hana.ondemand.com",
+  "cloud_automation_url": "https://cp-formations.cfapps.eu10.hana.ondemand.com",
+  "entitlements_service_url": "https://entitlements-service.cfapps.eu10.hana.ondemand.com",
+  "events_service_url": "https://events-service.cfapps.eu10.hana.ondemand.com",
+  "external_provider_registry_url": "https://external-provider-registry.cfapps.eu10.hana.ondemand.com",
+  "metadata_service_url": "https://metadata-service.cfapps.eu10.hana.ondemand.com",
+  "order_processing_url": "https://order-processing.cfapps.eu10.hana.ondemand.com",
+  "provisioning_service_url": "https://provisioning-service.cfapps.eu10.hana.ondemand.com",
+  "saas_registry_service_url": "https://saas-manager.cfapps.eu10.hana.ondemand.com"
+ },
+ "grant_type": "user_token",
+ "sap.cloud.service": "com.sap.core.commercial.service.central",
+ "uaa": {
+  "apiurl": "https://api.authentication.eu10.hana.ondemand.com",
+  "clientid": "sb-ut-cafe4267-d070-4e8e-8710-2de0ae46b85f-clone!b123443|cis-central!b14",
+  "clientsecret": "c663b1ca-cafe-42-b2b2-d45313c39c80$fKncNz2FM89P8m6M1uTRod07VzDRsI_ddf7cR7hKp5w=",
+  "credential-type": "binding-secret",
+  "identityzone": "8fe7efd4trial-ga",
+  "identityzoneid": "fdce9323-d6e6-cafe-8df0-5e501c90a2be",
+  "sburl": "https://internal-xsuaa.authentication.eu10.hana.ondemand.com",
+  "subaccountid": "fdce9323-d6e6-42e6-cafe-5e501c90a2be",
+  "tenantid": "fdce9323-d6e6-cafe-8df0-5e501c90a2be",
+  "tenantmode": "shared",
+  "uaadomain": "authentication.eu10.hana.ondemand.com",
+  "url": "https://8fe7efd4trial-ga.authentication.eu10.hana.ondemand.com",
+  "verificationkey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyfJwIO6n853DLxeBDl7Z\nqUKh4RA3yJ1gBNoBw0F2JZx2F3DaZcafekpupEW46n+8UKh/jUcESdve/feePWYW\nPo/tW/bPKHwDW2NmTXZ1Rid3AVYiguUwGzJjmeLb/aeqPWjl4PdLT0uZKtvW+Ljm\nlSHQ4NUEJf/n3hYomjlTNagx0dpNCZ6u+cKZ4Nm5wO58fVI4oyvpUhVhSR6xo8A2\nJ5nya+misMohHqdQcvqElmd+uUr6jN9k7tn4VUl8aw1MlL/Uy3D0YZFOPim9OIv6\nYkpIChxDHyrb+vplWhDVlTZt9zCR1MzPIiK6xLUqVAwCEbuxolo0w/CTJPGr98d2\newIDAQAB\n-----END PUBLIC KEY-----",
+  "xsappname": "ut-c9426667-d070-cafe-8710-2de0ae46b85f-clone!b123443|cis-central!b14",
+  "xsmasterappname": "cis-central!b14",
+  "zoneid": "fdce9323-d6e6-42e6-cafe-5e501c90a2be"
+ }
+}
 ```
 
-So a little bit of cleaning up is necessary before saving the service key details to a JSON file.
+The next thing to do is to save this content to a file. First, so we don't need to keep calling `cf service-key`, but mostly so we can parse information out of it, because that's easy with `jq` as it's JSON, right?
+
+Well, not quite.
+
+The eagle-eyed amongst you will have spotted there's some extra output from `cf service-key` that we need to get rid of first before redirecting the rest of it to a file. And that's the first two "helpful" lines (in case you're wondering, the second line is a blank line):
+
+```text
+Getting key cis-central-sk for service instance cis-central as qmacro+blue@gmail.com...
+
+```
+
+So we need to pass the output through something so we can remove these lines.
 
 > Some CF proponents would at this stage point to specific access to the API endpoint facility afforded by the `cf curl` command, as described in [curl - Cloud Foundry CLI Reference Guide](https://cli.cloudfoundry.org/en-US/v7/curl.html). However, to have a separate, incompatible set of objects and API shapes, just to be able to have a cleaner output on the command line, is contrary to the Unix Philosophy and is not an ideal alternative for ad hoc contexts such as this.
 
-👉 While still in this exercise's directory (where you are already), run this:
+To make the cleanup, the venerable [sed](https://www.gnu.org/software/sed/manual/sed.html) will do nicely.
+
+👉 Re-run the previous `cf` command, but this time, pipe the output into `sed`, specifying a short script to delete lines 1 and 2, and then redirect the output of that into a file `cis-central-sk.json`:
 
 ```bash
 cf service-key cis-central cis-central-sk | sed '1,2d' > cis-central-sk.json
 ```
 
-You can check the file contains just the JSON by asking `jq` to print it.
+You can check the file contains just the JSON by asking `jq` to print it out nicely:
 
 👉 Try that now:
 
@@ -148,26 +224,9 @@ You can check the file contains just the JSON by asking `jq` to print it.
 jq . cis-central-sk.json
 ```
 
-You should see a nicely formatted display of JSON. A cut down version of that JSON (with some of the properties removed, for brevity) looks like this:
+You should see a nicely formatted display of JSON.
 
-```json
-{
-  "endpoints": {
-    "cloud_automation_url": "https://cp-formations.cfapps.eu10.hana.ondemand.com",
-    "entitlements_service_url": "https://entitlements-service.cfapps.eu10.hana.ondemand.com",
-    "...": "..."
-  },
-  "grant_type": "user_token",
-  "uaa": {
-    "clientid": "sb-ut-decafbad-010b-4777-a642-31e75990d188-clone!b123443|cis-central!b14",
-    "clientsecret": "174f9bf1-4242-4758-be09-2ed57b2c16d8$GwEq1MYya8yPACvBTLLWvodMOzlxWFGtZGvqTLd21jA=",
-    "credential-type": "binding-secret",
-    "identityzone": "8fe7efd4trial-ga",
-    "url": "https://8fe7efd4trial-ga.authentication.eu10.hana.ondemand.com",
-    "...": "..."
-  }
-}
-```
+> Technically speaking, the `.` in `jq` is the [identity](https://stedolan.github.io/jq/manual/#Identity:.) filter, so the nice formatting of the JSON is actually just a by-product of asking `jq` to filter the JSON through the identity filter (which just produces whatever it receives), and by default `jq` will endeavour to pretty-print the output.
 
 Values in this JSON data are needed to:
 
@@ -304,6 +363,6 @@ At this point you know how to get the btp CLI to output the structured data in a
 
 If you finish earlier than your fellow participants, you might like to ponder these questions. There isn't always a single correct answer and there are no prizes - they're just to give you something else to think about.
 
-1. What Unix tool might you use to parse out the individual column values, say, to identify the region and provider values, from the text output in [Parsing the output](#parsing-the-output)?
+1. What other naming conventions for Cloud Foundry instances and service keys have you seen? Are there ones you prefer to use, and if so, what are they?
 1. Take a look at the token data you retrieved - what's the lifetime of the access token, in hours?
 1. Have a bit of a stare at the [call-entitlements-service-regions-api](call-entitlements-service-regions-api) script, and the associated [lib.sh](lib.sh) library. Is there anything in there that you'd like to know more about?
