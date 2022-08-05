@@ -180,7 +180,7 @@ Current target:
 
 ## Find and organize your btp CLI configuration
 
-Directly after logging in, you may have noticed that the success message included a line about configuration (see the [Authenticate](#authenticate) section earlier for the context):
+Directly after logging in just a few moments earlier, you may have noticed that the success message included a line about configuration (see the [Authenticate](#authenticate) section earlier for the context):
 
 ```
 We stored your configuration file at: /home/user/.config/.btp/config.json

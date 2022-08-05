@@ -2,7 +2,7 @@
 
 Having determined that we want to make an API call to the singular endpoint in the Regions for Global Account group, i.e. to:
 
-```
+```text
 /entitlements/v1/globalAccountAllowedDataCenters
 ```
 
@@ -12,7 +12,7 @@ Specifically, we worked out how to find, mechanically, the API endpoint that we 
 
 In this exercise we'll use that, log in with `cf` and go on to work through the rest of the boxes in this diagram here:
 
-```
+```text
 +----------------+      +----------------+      +----------------+
 |    Service     |      |    Instance    |      |    Binding     |
 |      cis       |--+-->|                |----->|                |
@@ -41,7 +41,7 @@ We will stop just before the "API Call" box, and do that in the subsequent exerc
 
 ## Log in with the CF CLI
 
-With the API endpoint now obained, we can log in with the CF CLI. You could do it like this, specifying the actual API endpoint URL with the `-a` option and copy-pasting the URL from the output above:
+With the API endpoint now obtained, we can log in with the CF CLI. You could do it like this, specifying the actual API endpoint URL with the `-a` option and copy-pasting the URL from the output above:
 
 ```bash
 cf login -a <API endpoint URL>
@@ -49,16 +49,17 @@ cf login -a <API endpoint URL>
 
 However, it's much easier to use the power of the shell to do this in one go, as follows.
 
-👉 Assuming you're in the directory containing the `get_cf_api_endpoint` script, do this:
+👉 Ensure you're in the directory containing this `README.md` file and the `get_cf_api_endpoint` script, and make this call (replacing `trial` with the name of your subaccount):
 
 ```bash
-cf login -a $(./get_cf_api_endpoint)
+cd $HOME/projects/cloud-btp-cli-api-codejam/exercises/06-core-services-api-creds
+cf login -a $(./get_cf_api_endpoint "trial")
 ```
 
-Supply your BTP trial account credentials (email address and password). Here's what the flow will look like (this example based on being in this exercise's directory):
+Supply your BTP trial account credentials (email address and password). Here's what the flow will look like:
 
-```
-user: 04-json-format-and-apis $ cf login -a $(./get_cf_api_endpoint)
+```text
+user: 06-core-services-api-creds $ cf login -a $(./get_cf_api_endpoint "trial")
 API endpoint: https://api.cf.eu10.hana.ondemand.com
 
 Email: qmacro+blue@gmail.com
@@ -91,7 +92,7 @@ cf create-service cis central cis-central
 
 The output should look something like this:
 
-```
+```text
 Creating service instance cis-central in org 8fe7efd4trial / space dev as qmacro+blue@gmail.com...
 OK
 ```

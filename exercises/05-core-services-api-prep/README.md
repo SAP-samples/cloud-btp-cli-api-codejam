@@ -128,7 +128,7 @@ There are different places that a service instance can be created, but [as you h
 
 So the choice of Cloud Foundry (CF) as an environment for the service instance means that, in a similar way to how we logged in with the btp CLI, we now must log in with the CF CLI, `cf`, so that we can use that tool to create the service instance.
 
-To log in, this we need to know which endpoint we must connect to, which we will do, shortly, like this:
+To log in, this we need to know which endpoint we must connect to, as we'll need to specify it like this:
 
 ```bash
 cf login -a <API endpoint URL>
@@ -252,6 +252,8 @@ cd76fdef-16f8-47a3-954b-cab6678cc24d   testsubaccount     a253215a-736f-4e9a-b0c
 f78e0bdb-c97c-4cbc-bb06-526695f44551   trial              8fe7efd4trial                          eu10
 ```
 
+> You'll still see some blank lines and an "OK" - this is extraneous output that is sent (to STDERR) by the `btp` invocation; if it disturbs you, you can get rid of it by redirecting STDERR to `/dev/null`, i.e. to oblivion. Here's an example: `btp list accounts/subaccount 2> /dev/null | trunc`. Note that redirecting STDERR like this is not ideal, as you won't see any genuine error messages. There's an active discussion in the btp CLI product team as to how to best suppress this extra information so we don't have to use this STDERR redirection workaround.
+
 For the subaccount in question ("trial" in this sample), we want to get the GUID, which is `f78e0bdb-c97c-4cbc-bb06-526695f44551`. Again, we could copy/paste it somehow, but that's not useful if we want to do this, or something like it, in an automated fashion. Instead, we'll ask for the JSON representation of this information and parse it out from that.
 
 👉 Do that now, like this:
@@ -323,7 +325,7 @@ Here's a rough recording of how this might look in `ijq` (minus the framing arou
 You should see something similar to this back in the shell:
 
 ```
-.value[]|select(.displayName=="trial").guid
+.value[] | select(.displayName=="trial").guid
 f78e0bdb-c97c-4cbc-bb06-526695f44551
 ```
 
@@ -476,9 +478,27 @@ You'll see something like the following produced, which is the JSON that was enc
 }
 ```
 
-Et voila! We've found the API endpoint. In this particular sample case, it's
+Et voila! We've found the API endpoint.
 
+👉 Let's grab the specific value, by adding the `--raw-output` option (so that the value, which is a strong, is not enclosed in double quotes) and adding one more segment to the filter to specifically request the endpoint property:
+
+```bash
+btp --format json list accounts/environment-instance --subaccount "$guid" \
+  | jq --raw-output '
+    .environmentInstances[]
+    | select(.environmentType == "cloudfoundry").labels
+    | fromjson
+    | ."API Endpoint:"
+  '
 ```
+
+> The [generic object index](https://stedolan.github.io/jq/manual/#GenericObjectIndex:.[%3Cstring%3E]) `."API Endpoint:"` is a little different to what we've seen up to now. Previously we've been able to refer to properties just using the property name, such as `.labels` or `.displayName`. But because this property name contains a space, we can't do that, and so have to enclose it in double quotes. And just as a "by the way", the expression `."API Endpoint"` is just shorthand for the full generic object index expression `.["API Endpoint"]`.
+
+> The environment instances have this label (and parameter) information squirreled away with the property names as you see here, and in some cases (like here) include a colon too. This is definitely a little odd. Moreover, the colon appears as part of these property names only for some environment instances, and not others. We have an internal ticket raised with the API product team for both of these oddities, as well as the, erm, [space oddity](https://en.wikipedia.org/wiki/Space_Oddity).
+
+In this particular sample case, the API endpoint is:
+
+```text
 https://api.cf.eu10.hana.ondemand.com
 ```
 

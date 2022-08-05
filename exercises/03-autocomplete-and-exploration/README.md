@@ -126,7 +126,7 @@ Note that a script has been installed to your btp CLI configuration directory, a
 👉 Have a look what was added by looking at the last three lines of the file like this:
 
 ```bash
-tail -4 $HOME/.bashrc
+tail -3 $HOME/.bashrc
 ```
 
 You'll see that there's an extra line that follows the two lines you yourself added in earlier exercises:
