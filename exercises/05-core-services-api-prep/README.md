@@ -504,7 +504,7 @@ https://api.cf.eu10.hana.ondemand.com
 
 but it may be different for the CF environment instance in your subaccount. Whatever the value, we're now ready to move on to the next step, which is to log in with `cf`, specifying that API endpoint. That's coming up in the next exercise.
 
-## Bonus: Determining the CF API endpoint with a script
+## Determining the CF API endpoint with a script
 
 In the [directory containing this specific README file](./), there's a script [get_cf_api_endpoint](./get_cf_api_endpoint). This script is an automated version of everything you've done in this section. If you've finished early, then you may wish to peruse the code, some of which you should recognize now.
 
