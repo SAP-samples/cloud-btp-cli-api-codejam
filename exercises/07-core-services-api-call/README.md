@@ -1,6 +1,8 @@
 # Exercise 07 - Making the API call
 
-We've finally made it to the stage where we can make the call! The journey so far has been deliberately focused on the details that we need to pay attention to, so we understand what we're doing when we have to create a service key and make an OAuth 2.0 call to get an access token. Now we have that token, let's use it!
+We've finally made it to the stage where we can make the call!
+
+The journey so far has been deliberately focused on the details that we need to pay attention to, so we understand what we're doing when we have to create a service key and make an OAuth 2.0 call to get an access token. Now we have that token, let's use it!
 
 ## Final preparation
 
@@ -47,7 +49,25 @@ eyJhbGciOiJSUzI1NiIsImprdSI6Imh0dHBzOi8vOGZlN2VmZD
 
 ## Make the call
 
-You now have everything you need to make the call to the API endpoint. The simple script [call-entitlements-service-regions-api](call-entitlements-service-regions-api), also in this directory, will help you do this. Like the `generate-password-grant-type` script, it also requires the service key JSON data file (so it can retrieve the value of the `entitlements_service_url` endpoint) ... it also requires the name of the token data JSON file.
+You now have everything you need to make the call to the API endpoint. The data is just a single, simple HTTP call away.
+
+Let's do it manually first, with `curl`. In contrast to the HTTP call we made in the previous exercise, there is only one header that we need to have sent in the request, explicitly (there will be other headers sent by `curl` automatically).
+
+👉 Execute this `curl` request:
+
+```bash
+curl \
+  --url "$(jq -r .endpoints.entitlements_service_url cis-central-sk.json)" \
+  --header "Authorization: Bearer $(jq -r .access_token tokendata.json)"
+```
+
+> In the `curl` invocation in the previous exercise, we saw (using the `--verbose` option) something like this in the output: `> Authorization: Basic c2ItdXQtZTQ4ZDQ5N2UtMWI4MS00...==`.
+>
+> This is a Basic Authentication HTTP header that was created automatically by `curl`, and the content following the authorization scheme (which is `Basic` right here - see the [Further reading](#further-reading) section at the end of this exercise for a link to more information on this header in general) is a combination of the username and password, joined with a colon, and encoded with base64.
+>
+> In this `curl` invocation we're making now, we cannot use Basic Authentication, our request would be rejected as the server does not accept that sort of authorization. Instead, we need to use a Bearer token authorization scheme, which consists of the scheme name `Bearer` followed by ... you guessed it, our access token.
+
+The simple script [call-entitlements-service-regions-api](call-entitlements-service-regions-api), also in this directory, will help you do this. Like the `generate-password-grant-type` script, it also requires the service key JSON data file (so it can retrieve the value of the `entitlements_service_url` endpoint) ... it also requires the name of the token data JSON file.
 
 👉 Have a look at the script if you wish, then invoke it, passing the output to `jq` to prettify it:
 
@@ -108,6 +128,9 @@ At this point you know how to get the btp CLI to output the structured data in a
 
 ## Further reading
 
+* The [Authorization](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization) page helps us understand the HTTP Authorization header syntax
+* The [HTTP Authentication](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#basic_authentication_scheme) page has information on the [Basic authentication scheme](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#basic_authentication_scheme)
+* On token-based [bearer authentication](https://swagger.io/docs/specification/authentication/bearer-authentication/)
 * [Understanding OAuth 2.0 grant types](https://github.com/SAP-archive/cloud-apis-virtual-event/tree/main/exercises/02#3-understand-oauth-20-grant-types)
 * [Getting an Access Token for SAP Cloud Management Service APIs](https://help.sap.com/products/BTP/65de2977205c403bbc107264b8eccf4b/3670474a58c24ac2b082e76cbbd9dc19.html?locale=en-US)
 * [The builtin keys and keys_unsorted functions in jq](https://stedolan.github.io/jq/manual/#keys,keys_unsorted)
@@ -116,7 +139,5 @@ At this point you know how to get the btp CLI to output the structured data in a
 
 If you finish earlier than your fellow participants, you might like to ponder these questions. There isn't always a single correct answer and there are no prizes - they're just to give you something else to think about.
 
-1. What other naming conventions for Cloud Foundry instances and service keys have you seen? Are there ones you prefer to use, and if so, what are they?
-1. We used `sed` to strip off the unwanted first two lines of the service key output. How else might we have done this?
 1. Take a look at the token data you retrieved - what's the lifetime of the access token, in hours?
 1. Have a bit of a stare at the [call-entitlements-service-regions-api](call-entitlements-service-regions-api) script, and the associated [lib.sh](lib.sh) library. Is there anything in there that you'd like to know more about?
