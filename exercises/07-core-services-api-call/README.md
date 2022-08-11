@@ -63,9 +63,11 @@ curl \
 
 > In the `curl` invocation in the previous exercise, we saw (using the `--verbose` option) something like this in the output: `> Authorization: Basic c2ItdXQtZTQ4ZDQ5N2UtMWI4MS00...==`.
 >
-> This is a Basic Authentication HTTP header that was created automatically by `curl`, and the content following the authorization scheme (which is `Basic` right here - see the [Further reading](#further-reading) section at the end of this exercise for a link to more information on this header in general) is a combination of the username and password, joined with a colon, and encoded with base64.
+> This is a Basic Authentication HTTP header that was created automatically by `curl` as a result of the `--user` option, and the content following the authorization scheme name ("Basic") is a combination of the username and password (joined with a colon) and then encoded with base64.
 >
-> In this `curl` invocation we're making now, we cannot use Basic Authentication, our request would be rejected as the server does not accept that sort of authorization. Instead, we need to use a Bearer token authorization scheme, which consists of the scheme name `Bearer` followed by ... you guessed it, our access token.
+> In this `curl` invocation we're making now, we cannot use Basic Authentication because our request would be rejected as the server does not accept that sort of authorization. Instead, we need to use a Bearer token authorization scheme, which consists of the scheme name "Bearer" followed by ... you guessed it, our access token.
+>
+> See the [Further reading](#further-reading) section at the end of this exercise for links to more information on this topic.
 
 The simple script [call-entitlements-service-regions-api](call-entitlements-service-regions-api), also in this directory, will help you do this. Like the `generate-password-grant-type` script, it also requires the service key JSON data file (so it can retrieve the value of the `entitlements_service_url` endpoint) ... it also requires the name of the token data JSON file.
 
