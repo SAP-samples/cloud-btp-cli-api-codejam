@@ -235,7 +235,7 @@ Values in this JSON data are needed to:
 
 Background details on this are available in the SAP Help Portal page linked in the [Further reading](#further-reading) section below.
 
-#### Request the token
+## Request the token
 
 Now you can request the token. It's essentially an HTTP request to an OAuth 2.0 endpoint with parameters supplying the grant type, username and password details, and authentication in the form of the `clientid` and `clientsecret` values above.
 
@@ -244,10 +244,8 @@ There's a script called [generate-password-grant-type](generate-password-grant-t
 ```bash
 curl \
   --url "$uaa_url/oauth/token" \
-  --location \
-  --header 'Content-Type: application/x-www-form-urlencoded' \
   --user "$clientid:$clientsecret" \
-  --data-urlencode 'grant_type=password' \
+  --data 'grant_type=password' \
   --data-urlencode "username=$email" \
   --data-urlencode "password=$password"
 ```
@@ -258,7 +256,7 @@ curl \
 ./generate-password-grant-type cis-central-sk.json
 ```
 
-You'll be asked for your username (where you should specify your email address) and your password. If the call is successful, you'll see some JSON output. A good sign! But it's more or less unreadable just output to the terminal in raw form.
+You'll be asked to authenticate, and you must specify your SAP BTP email and password. If the call is successful, you'll see some JSON output. A good sign! But it's more or less unreadable just output to the terminal in raw form.
 
 👉 So repeat the invocation and save the output to a file; then you can pick out details with `jq`:
 
@@ -288,70 +286,55 @@ You should see some output like this:
 ]
 ```
 
-See the reference to the "keys" section of the `jq` manual in the [Further reading](#further-reading) section below to read more on the "keys" function.
-
 These properties look like the right ones - we have an access token that we can now use to authenticate the API call, and we even have a refresh token to ask for a new one when the current one expires.
 
-### Make the call
+> See the reference to the "keys" section of the `jq` manual in the [Further reading](#further-reading) section below to read more on the "keys" function.
 
-You now have everything you need to make the call to the API endpoint. The simple script [call-entitlements-service-regions-api](call-entitlements-service-regions-api), also in this directory, will help you do this. Like the `generate-password-grant-type` script, it also requires the service key JSON data file (so it can retrieve the value of the `entitlements_service_url` endpoint) ... it also requires the name of the token data JSON file.
+### Understand the HTTP call
 
-👉 Have a look at the script if you wish, then invoke it, passing the output to `jq` to prettify it:
+Now that you've successfully made an OAuth 2.0 call to request an access token, you can relax a bit. But not completely - it's important that you understand what just happened. The [generate-password-grant-type](generate-password-grant-type) script wrapped the call for you, so to finish this exercise, let's unwrap it a bit and make sure we know what the `curl` invocation is doing.
+
+We'll cover the answers to all the questions in this section in a short discussion, when we get to the end of this exercise.
+
+👉 Open the `generate-password-grant-type` script in the editor and stare at the `curl` invocation, and in particular each parameter. Have a think about these questions:
+
+* Where does the `$uaa_url` variable come from, and what does it represent?
+* What's the `/oauth/token` suffix for?
+* What's going on with the `--user` option?
+* Why is `--data` sometimes used, and other times `--data-urlencode`?
+* What HTTP request method is used in this call?
+* What should be the Content Type sent along with the request?
+
+👉 Modify the `generate-password-grant-type` script by adding a `--verbose` option so that the `curl` invocation looks like this (don't forget the `\` to escape the newline):
 
 ```bash
-./call-entitlements-service-regions-api cis-central-sk.json tokendata.json | jq .
+curl \
+  --verbose \
+  --url "$uaa_url/oauth/token" \
+  --user "$clientid:$clientsecret" \
+  --data-urlencode 'grant_type=password' \
+  --data-urlencode "username=$email" \
+  --data-urlencode "password=$password"
 ```
 
-You should see some output similar to this:
+👉 Run the script again, in the same way:
 
-```json
-{
-  "datacenters": [
-    {
-      "name": "cf-ap21",
-      "displayName": "Singapore - Azure",
-      "region": "ap21",
-      "environment": "cloudfoundry",
-      "iaasProvider": "AZURE",
-      "supportsTrial": true,
-      "provisioningServiceUrl": "https://provisioning-service.cfapps.ap21.hana.ondemand.com",
-      "saasRegistryServiceUrl": "https://saas-manager.cfapps.ap21.hana.ondemand.com",
-      "domain": "ap21.hana.ondemand.com",
-      "geoAccess": "BACKWARD_COMPLIANT_EU_ACCESS"
-    },
-    {
-      "name": "cf-us10",
-      "displayName": "US East (VA) - AWS",
-      "region": "us10",
-      "environment": "cloudfoundry",
-      "iaasProvider": "AWS",
-      "supportsTrial": true,
-      "provisioningServiceUrl": "https://provisioning-service.cfapps.us10.hana.ondemand.com",
-      "saasRegistryServiceUrl": "https://saas-manager.cfapps.us10.hana.ondemand.com",
-      "domain": "us10.hana.ondemand.com",
-      "geoAccess": "BACKWARD_COMPLIANT_EU_ACCESS"
-    },
-    {
-      "name": "cf-eu10",
-      "displayName": "Europe (Frankfurt) - AWS",
-      "region": "eu10",
-      "environment": "cloudfoundry",
-      "iaasProvider": "AWS",
-      "supportsTrial": false,
-      "provisioningServiceUrl": "https://provisioning-service.cfapps.eu10.hana.ondemand.com",
-      "saasRegistryServiceUrl": "https://saas-manager.cfapps.eu10.hana.ondemand.com",
-      "domain": "eu10.hana.ondemand.com",
-      "geoAccess": "BACKWARD_COMPLIANT_EU_ACCESS"
-    }
-  ]
-}
+```bash
+./generate-password-grant-type cis-central-sk.json > tokendata.json
 ```
 
-Does this [look familiar](#use-the-json-format-output-option)? Of course it does. It's exactly the same as what `btp --format json list accounts/available-region` produced.
+You should now see lots of output telling you what's happening.
+
+👉 Take a few moments to stare at this too, and think about these additional questions:
+
+* What was the HTTP status code in the response?
+* Did you work out what the Content Type of the request should be, and did you get it correct?
+* What happened to the `clientid` and `clientsecret` values supplied via the `--user` option?
+* What was the Content Type of the response?
 
 ## Summary
 
-At this point you know how to get the btp CLI to output the structured data in a more machine-parseable form, and you also understand the relationship between the btp CLI and the Cloud Management Service APIs.
+You now know how to get a service key (binding) via an instance of a service on SAP BTP, specifically in the CF environment. You also know now what sort of information this service key contains and how you can use it in an OAuth 2.0 flow to request an access token. You're now ready to use the access token to make the API call in the next exercise!
 
 ## Further reading
 
@@ -366,4 +349,4 @@ If you finish earlier than your fellow participants, you might like to ponder th
 1. What other naming conventions for Cloud Foundry instances and service keys have you seen? Are there ones you prefer to use, and if so, what are they?
 1. We used `sed` to strip off the unwanted first two lines of the service key output. How else might we have done this?
 1. Take a look at the token data you retrieved - what's the lifetime of the access token, in hours?
-1. Have a bit of a stare at the [call-entitlements-service-regions-api](call-entitlements-service-regions-api) script, and the associated [lib.sh](lib.sh) library. Is there anything in there that you'd like to know more about?
+1. Did you manage to think about the questions on the `curl` invocation details?
