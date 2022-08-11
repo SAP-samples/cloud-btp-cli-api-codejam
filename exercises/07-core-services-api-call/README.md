@@ -14,10 +14,10 @@ and that we have an access token obtained through a successful completion of the
 
 The result of that process has left us with two files, both of which we still need.
 
-|File|Content|What we need|From which property|
-|-|-|-|-|
-|`cis-central-sk.json`|Service key data|The Entitlements Service API base URL|`entitlements_service_url` within the `endpoints` object|
-|`tokendata.json`|OAuth 2.0 data|The access token|`access_token`|
+|File|Content|What we need|
+|-|-|-|
+|`cis-central-sk.json`|Service key data|The Entitlements Service API base URL in `endpoints.entitlements_service_url`|
+|`tokendata.json`|OAuth 2.0 data|The access token in `access_token`|
 
 With your new `jq` filtering skills, tease out these two values to have a look at them.
 
