@@ -12,17 +12,12 @@ We know that we want to make a call to the one endpoint in the Regions for Globa
 
 and that we have an access token obtained through a successful completion of the OAuth 2.0 Resource Owner Password Credentials ("Password") flow.
 
-The result of that process has left us with two files, which are (if we've followed the name suggested in the previous exercises):
+The result of that process has left us with two files, both of which we still need.
 
-|File|Content|
-|-|-|
-|`cis-central-sk.json`|Service key data|
-|`tokendata.json`|The OAuth 2.0 access token and related properties|
-
-We still need information from both files to make the call. Here's what we need:
-
-* from `cis-central-sk.json` we need to know the Entitlements Service API base URL (i.e. to what the `/entitlements/v1/globalAccountAllowedDataCenters` needs to be appended) - this is in the `entitlements_service_url` property within the `endpoints` object
-* from `tokendata.json` we need the access token - this is in the `access_token` property
+|File|Content|What we need|From which property|
+|-|-|-|-|
+|`cis-central-sk.json`|Service key data|The Entitlements Service API base URL|`entitlements_service_url` within the `endpoints` object|
+|`tokendata.json`|OAuth 2.0 data|The access token|`access_token`|
 
 With your new `jq` filtering skills, tease out these two values to have a look at them.
 
