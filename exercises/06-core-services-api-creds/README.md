@@ -364,5 +364,6 @@ At this point you know how to get the btp CLI to output the structured data in a
 If you finish earlier than your fellow participants, you might like to ponder these questions. There isn't always a single correct answer and there are no prizes - they're just to give you something else to think about.
 
 1. What other naming conventions for Cloud Foundry instances and service keys have you seen? Are there ones you prefer to use, and if so, what are they?
+1. We used `sed` to strip off the unwanted first two lines of the service key output. How else might we have done this?
 1. Take a look at the token data you retrieved - what's the lifetime of the access token, in hours?
 1. Have a bit of a stare at the [call-entitlements-service-regions-api](call-entitlements-service-regions-api) script, and the associated [lib.sh](lib.sh) library. Is there anything in there that you'd like to know more about?
