@@ -67,7 +67,9 @@ curl \
 >
 > In this `curl` invocation we're making now, we cannot use Basic Authentication because our request would be rejected as the server does not accept that sort of authorization. Instead, we need to use a Bearer token authorization scheme, which consists of the scheme name "Bearer" followed by ... you guessed it, our access token.
 >
-> See the [Further reading](#further-reading) section at the end of this exercise for links to more information on this topic.
+> In case you're wondering, the `$(...)` construction used in this header (as well as in the `--url` option) is command substitution in Bash, i.e. whatever is within the brackets is executed and then the output of that is substituted. So in this case we get the access token value.
+>
+> See the [Further reading](#further-reading) section at the end of this exercise for links to more information on these topics.
 
 The simple script [call-entitlements-service-regions-api](call-entitlements-service-regions-api), also in this directory, will help you do this. Like the `generate-password-grant-type` script, it also requires the service key JSON data file (so it can retrieve the value of the `entitlements_service_url` endpoint) ... it also requires the name of the token data JSON file.
 
@@ -133,9 +135,7 @@ At this point you know how to get the btp CLI to output the structured data in a
 * The [Authorization](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization) page helps us understand the HTTP Authorization header syntax
 * The [HTTP Authentication](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#basic_authentication_scheme) page has information on the [Basic authentication scheme](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#basic_authentication_scheme)
 * On token-based [bearer authentication](https://swagger.io/docs/specification/authentication/bearer-authentication/)
-* [Understanding OAuth 2.0 grant types](https://github.com/SAP-archive/cloud-apis-virtual-event/tree/main/exercises/02#3-understand-oauth-20-grant-types)
-* [Getting an Access Token for SAP Cloud Management Service APIs](https://help.sap.com/products/BTP/65de2977205c403bbc107264b8eccf4b/3670474a58c24ac2b082e76cbbd9dc19.html?locale=en-US)
-* [The builtin keys and keys_unsorted functions in jq](https://stedolan.github.io/jq/manual/#keys,keys_unsorted)
+* Bash [command substitution](https://www.gnu.org/software/bash/manual/html_node/Command-Substitution.html)
 
 ---
 
