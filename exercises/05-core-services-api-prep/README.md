@@ -362,7 +362,15 @@ It should emit the GUID that you've seen before.
 
 ### Get the environment instance details
 
-Another member of the "accounts" group of objects upon which btp CLI can act is the "environment-instance". And it's this object that we should find and retrieve details for next.
+Another member of the "accounts" group of objects upon which btp CLI can act is the "environment-instance".
+
+👉 To check this, remind yourself of of what objects are in the "accounts" group by asking for help and looking through the output:
+
+```bash
+btp help all
+```
+
+It's this "environment-instance" object that we should find and retrieve details for next.
 
 👉 First, use the following command to list all the environment instances for the subaccount, using the GUID you have in the `guid` variable, thus:
 
@@ -380,7 +388,7 @@ environment name      environment id                         environment type   
 8fe7efd4trial         2C71C5DD-E9EB-4D10-9148-8A4F4B38A12C   cloudfoundry       OK      Environ
 ```
 
-It's the CF environment instance we're interested in (marked "cloudfoundry" here).
+It's the CF environment instance we're interested in (marked "cloudfoundry" here in the "environment type" column).
 
 👉 Now make the same call but request JSON output, and have a brief look using `ijq`:
 
@@ -399,9 +407,9 @@ You'll see that the structure of the data looks like this:
 }
 ```
 
-In other words, it's an object with a single property, `environmentInstances`, which has an array `[...]` as its value, and each element of that array is an object representing the details for an environment instance.
+In other words, it's an object with a single property, `environmentInstances`, which has an array `[...]` as its value, and each element of that array is an object representing the details of an environment instance.
 
-👉 With this knowledge, construct a further call back on the command line that uses a simple `jq` filter to extract the relevant object, like this:
+👉 With this knowledge, exit your `ijq` session (with `Ctrl-C`) and then construct a further call back on the command line that uses a simple `jq` filter to extract the relevant object, like this:
 
 ```bash
 btp --format json list accounts/environment-instance --subaccount "$guid" \
@@ -442,7 +450,7 @@ You may be staring and wondering at the values for the `parameters` and `labels`
 
 ### Extracting the API endpoint value
 
-If you [stare long enough](https://qmacro.org/blog/posts/2017/02/19/the-beauty-of-recursion-and-list-machinery/#initialrecognition), you'll realise that the values are string-encoded JSON. In other words, the values are actually objects, but encoded in JSON, but to be a string, each double quote character within the string need to be preserved and therefore escaped with a backslash (`\`).
+If you [stare long enough](https://qmacro.org/blog/posts/2017/02/19/the-beauty-of-recursion-and-list-machinery/#initialrecognition), you'll realise that the values are string-encoded JSON structures. In other words, the values are actually JSON objects, but in string form. In order for this to work, each double quote character within the string need to be preserved and therefore escaped with a backslash (`\`).
 
 > You can run the following invocations of the `jq` filters as shown here, or pipe the btp CLI JSON output into `ijq` and run them there - your choice.
 
@@ -464,9 +472,9 @@ This should produce something like the following:
 "{\"Org Name:\":\"8fe7efd4trial\",\"API Endpoint:\":\"https://api.cf.eu10.hana.ondemand.com\",\"Org ID:\":\"d7706871-d9db-450d-9b99-dfbe23358dc4\"}"
 ```
 
-What is going on here? This looks like JSON, with extra noise. It's JSON encoded as a string. That's what's going on. Luckily, `jq` has a way of converting to and from string-encoded JSON texts (see the [Further reading](#further-reading) section).
+This is one of those JSON structures encoded as a text string. Luckily, `jq` has a way of converting to and from string-encoded JSON texts (see the [Further reading](#further-reading) section).
 
-👉 Rerun the command again adding the `fromjson` builtin as follows:
+👉 Rerun the command again, this time adding the `fromjson` builtin as follows:
 
 ```bash
 btp --format json list accounts/environment-instance --subaccount "$guid" \
@@ -489,7 +497,7 @@ You'll see something like the following produced, which is the JSON that was enc
 
 Et voila! We've found the API endpoint.
 
-👉 Let's grab the specific value, by adding the `--raw-output` option (so that the value, which is a strong, is not enclosed in double quotes) and adding one more segment to the filter to specifically request the endpoint property:
+👉 Let's grab the specific value, by adding the `--raw-output` option (so that the value, which is a string, is not enclosed in double quotes) and adding one more segment to the filter to specifically request the endpoint property:
 
 ```bash
 btp --format json list accounts/environment-instance --subaccount "$guid" \
@@ -501,9 +509,11 @@ btp --format json list accounts/environment-instance --subaccount "$guid" \
   '
 ```
 
-> The [generic object index](https://stedolan.github.io/jq/manual/#GenericObjectIndex:.[%3Cstring%3E]) `."API Endpoint:"` is a little different to what we've seen up to now. Previously we've been able to refer to properties just using the property name, such as `.labels` or `.displayName`. But because this property name contains a space, we can't do that, and so have to enclose it in double quotes (if you're thinking that having JSON property names with spaces is odd, you're right). And just as a "by the way", the expression `."API Endpoint"` is just shorthand for the full generic object index expression `.["API Endpoint"]`.
-
-> The environment instances have this label and parameter information squirreled away with the property names as you see here, and in some cases -- like here -- include a colon too. This is definitely odd. Moreover, the colon appears as part of these property names only for some environment instances, and not others. We have an internal ticket raised with the API product team for both of these oddities, as well as the, erm, [space oddity](https://en.wikipedia.org/wiki/Space_Oddity).
+> The [generic object index](https://stedolan.github.io/jq/manual/#GenericObjectIndex:.[%3Cstring%3E]) `."API Endpoint:"` is a little different to what we've seen up to now. Previously we've been able to refer to properties just using the property name, such as `.labels` or `.displayName`.
+> But because this property name contains a space, we can't do that, and so have to enclose it in double quotes (if you're thinking that having JSON property names with spaces is odd, you're right).
+> And just as a "by the way", the expression `."API Endpoint"` is just shorthand for the full generic object index expression `.["API Endpoint"]`.
+> The environment instances have this label and parameter information squirreled away with the property names as you see here, and in some cases -- like here -- include a colon too. This is definitely odd. Moreover, the colon appears as part of these property names only for some environment instances, and not others.
+> We have an internal ticket raised with the API product team for both of these oddities, as well as the, erm, [space oddity](https://en.wikipedia.org/wiki/Space_Oddity).
 
 In this particular sample case, the API endpoint is:
 
