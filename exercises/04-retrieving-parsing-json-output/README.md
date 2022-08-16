@@ -211,13 +211,41 @@ The pipeline concept you may already know from the shell is also a core part of 
 
 1. The filter starts with the simplest construct, which is the [identity](https://stedolan.github.io/jq/manual/#Identity:.) `.`. This says "everything that you have right now", which at the start is all of the JSON.
 
+    👉 Try this simple first step to see that you indeed get all of the data:
+
+    ```bash
+    btp --format json list accounts/available-region 2> /dev/null \
+        | jq '.'
+    ```
+
 1. This is combined with a [generic object index](https://stedolan.github.io/jq/manual/#GenericObjectIndex:.[%3Cstring%3E]) to give `.["datacenters"]` which is a reference to the value of the `datacenters` property. From the output earlier, we know that this is an array (a list of objects, each one representing the detail of a data center).
+
+    👉 Try this too, and note the subtle difference in output to the previous step:
+
+    ```bash
+    btp --format json list accounts/available-region 2> /dev/null \
+        | jq '.["datacenters"]'
+    ```
 
 1. So the result of this first part, before the first pipe (`|`), is the array of data centers. This is then piped into the next part.
 
 1. And the next part, which looks like this `.[]`, is the [array value iterator](https://stedolan.github.io/jq/manual/#Array/ObjectValueIterator:.[]) which explodes all of the elements of the incoming array (the `.` in the `.[]` component here refers now to what was passed in through the pipe) and sends each of them downstream.
 
+    👉 See what this looks like, noting how the items are output:
+
+    ```bash
+    btp --format json list accounts/available-region 2> /dev/null \
+        | jq '.["datacenters"] | .[]'
+    ```
+
 1. This means that each of the elements (each of the objects representing a data center) is passed into the next pipe that sends the data to the final component of the filter, which is another object index `.["displayName"]`, which just picks out and emits the value of the `displayName` property. Because this component of the filter is invoked once per array element, we get an entire list of data center display names as the output. And of course this time, the `.` in the `.["displayName"]` construct refers to whatever was passed in through the pipe, which (for each and every one of the multiple invocations) is an object, one of the elements of the `datacenters` array.
+
+    👉 Add this final component to see what happens:
+
+    ```bash
+    btp --format json list accounts/available-region 2> /dev/null \
+        | jq '.["datacenters"] | .[] | .["displayName"]'
+    ```
 
 These examples of the generic object index can be shortened from e.g. `.["datacenters"]` to `.datacenters` which is known as a [object identifier-index](https://stedolan.github.io/jq/manual/#ObjectIdentifier-Index:.foo,.foo.bar). This gives us:
 
