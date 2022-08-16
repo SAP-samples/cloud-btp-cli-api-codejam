@@ -172,7 +172,7 @@ Current target:
   └─ Subaccount (ID: f78e0bdb-c97c-4cbc-bb06-526695f44551)
 ```
 
-> You can make your command line life more comfortable with custom functions and scripts, such as one to get the ID for a subaccount, given its display name. We'll cover this in [a later exercise in this session](../05-btp-guids-cli-in-practice/README.md). See also [the `bgu` script in action as part of the btp CLI section of the SAP TechEd Developer Keynote](https://youtu.be/kOFuwDSXBZg?t=193) and also the two related blog posts in the [Further reading](#further-reading) section below.
+> You can make your command line life more comfortable with custom functions and scripts, such as one to get the ID for a subaccount, given its display name. We'll cover this in [a later exercise in this session](../05-btp-guids-cli-in-practice/README.md). See also [the `bgu` script in action as part of the btp CLI section of the SAP TechEd Developer Keynote](https://youtu.be/OmEx598qAI8?t=180) and also the two related blog posts in the [Further reading](#further-reading) section below.
 
 ## Find and organize your btp CLI configuration
 
