@@ -222,14 +222,12 @@ Now we can use this file like this:
 jq '.datacenters[].displayName' regions.json
 ```
 
-
-
 1. The filter starts with the simplest construct, which is the [identity](https://stedolan.github.io/jq/manual/#Identity:.) `.`. This says "everything that you have right now", which at the start is all of the JSON.
 
     👉 Try this simple first step to see that you indeed get all of the data:
 
     ```bash
-    jq '.' regions
+    jq '.' regions.json
     ```
 
 1. This is combined with a [generic object index](https://stedolan.github.io/jq/manual/#GenericObjectIndex:.[%3Cstring%3E]) to give `.["datacenters"]` which is a reference to the value of the `datacenters` property. From the output earlier, we know that this is an array (a list of objects, each one representing the detail of a data center).
@@ -336,7 +334,7 @@ Here are a few notes to help you as you [stare](https://qmacro.org/blog/posts/20
 
 Here's a final example for that introduces a couple more important `jq` functions [to_entries](https://stedolan.github.io/jq/manual/#to_entries,from_entries,with_entries) and [group_by](https://stedolan.github.io/jq/manual/#group_by(path_expression)), and the [array construction](https://stedolan.github.io/jq/manual/#Arrayconstruction:[]) mechanism (`[...]`).
 
-Let's say we wanted to see how many data centers were available, by hyperscaler?
+Let's say we wanted to see how many data centers were available, by hyperscaler.
 
 👉 Try this:
 
@@ -354,7 +352,7 @@ jq --raw-output '
 
 ## Summary
 
-At this point you know how to get the btp CLI to output the structured data in a more machine-parseable format, and what you can do with that format.
+At this point you know how to get the btp CLI to output the structured data in a more machine-parseable format, and what you can do with that format. You should also feel comfortable with some basic `jq` filtering.
 
 ## Further reading
 
