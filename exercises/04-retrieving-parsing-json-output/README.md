@@ -209,13 +209,27 @@ Let's start by rewriting it in a more verbose way so we can identify and underst
 ```
 The pipeline concept you may already know from the shell is also a core part of `jq`. This is what the `|` symbols are for.
 
+👉 Before we continue, let's be nice to the btp CLI endpoint being called, and cache the results of the list of available regions in a temporary file:
+
+```bash
+btp --format json list accounts/available-region 2> /dev/null \
+    > regions.json
+```
+
+Now we can use this file like this:
+
+```bash
+jq '.datacenters[].displayName' regions.json
+```
+
+
+
 1. The filter starts with the simplest construct, which is the [identity](https://stedolan.github.io/jq/manual/#Identity:.) `.`. This says "everything that you have right now", which at the start is all of the JSON.
 
     👉 Try this simple first step to see that you indeed get all of the data:
 
     ```bash
-    btp --format json list accounts/available-region 2> /dev/null \
-        | jq '.'
+    jq '.' regions
     ```
 
 1. This is combined with a [generic object index](https://stedolan.github.io/jq/manual/#GenericObjectIndex:.[%3Cstring%3E]) to give `.["datacenters"]` which is a reference to the value of the `datacenters` property. From the output earlier, we know that this is an array (a list of objects, each one representing the detail of a data center).
@@ -223,8 +237,7 @@ The pipeline concept you may already know from the shell is also a core part of 
     👉 Try this too, and note the subtle difference in output to the previous step:
 
     ```bash
-    btp --format json list accounts/available-region 2> /dev/null \
-        | jq '.["datacenters"]'
+    jq '.["datacenters"]' regions.json
     ```
 
 1. So the result of this first part, before the first pipe (`|`), is the array of data centers. This is then piped into the next part.
@@ -234,8 +247,7 @@ The pipeline concept you may already know from the shell is also a core part of 
     👉 See what this looks like, noting how the items are output:
 
     ```bash
-    btp --format json list accounts/available-region 2> /dev/null \
-        | jq '.["datacenters"] | .[]'
+    jq '.["datacenters"] | .[]' regions.json
     ```
 
 1. This means that each of the elements (each of the objects representing a data center) is passed into the next pipe that sends the data to the final component of the filter, which is another object index `.["displayName"]`, which just picks out and emits the value of the `displayName` property. Because this component of the filter is invoked once per array element, we get an entire list of data center display names as the output. And of course this time, the `.` in the `.["displayName"]` construct refers to whatever was passed in through the pipe, which (for each and every one of the multiple invocations) is an object, one of the elements of the `datacenters` array.
@@ -243,8 +255,7 @@ The pipeline concept you may already know from the shell is also a core part of 
     👉 Add this final component to see what happens:
 
     ```bash
-    btp --format json list accounts/available-region 2> /dev/null \
-        | jq '.["datacenters"] | .[] | .["displayName"]'
+    jq '.["datacenters"] | .[] | .["displayName"]' regions.json
     ```
 
 These examples of the generic object index can be shortened from e.g. `.["datacenters"]` to `.datacenters` which is known as a [object identifier-index](https://stedolan.github.io/jq/manual/#ObjectIdentifier-Index:.foo,.foo.bar). This gives us:
@@ -274,8 +285,7 @@ Now we have an understanding of what `.datacenters` gives us, we can combine tha
 👉 Modify the previous command to supply `jq` with a different filter, thus:
 
 ```bash
-btp --format json list accounts/available-region 2> /dev/null \
-    | jq '.datacenters|length'
+jq '.datacenters|length' regions.json
 ```
 
 This should produce a single scalar value as output, like this (with the value reflecting the number of elements in your array of data centers):
@@ -285,21 +295,6 @@ This should produce a single scalar value as output, like this (with the value r
 ```
 
 Although not important here, this value is in fact valid JSON too.
-
-#### Being nice to the btp CLI endpoint
-
-👉 Before we continue, let's be nice to the btp CLI endpoint being called, and cache the results of the list of available regions in a temporary file:
-
-```bash
-btp --format json list accounts/available-region 2> /dev/null \
-    > regions.json
-```
-
-Now we can use this file like this:
-
-```bash
-jq '.datacenters|length' regions.json
-```
 
 #### Listing the locations of the CF data centers
 
