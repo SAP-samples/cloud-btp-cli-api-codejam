@@ -48,7 +48,14 @@ It's worth pausing a second to think about how APIs are organized on the SAP API
 
 The API endpoints are protected, and calls to them require credentials. For OAuth 2.0 protected resources, these credentials are usually in the form of access tokens, long opaque strings of characters. In general, obtaining an access token involves using information related to an instance of a service (on SAP BTP) to which the API relates. This information is contained in a binding (also known as a service key in Cloud Foundry contexts).
 
-So to get to the stage where an access token is obtained, an instance of a service is created. When creating a service instance, a plan for that service must be specified. From the instance, a binding can then be created. And using information in this binding, an access token can be requested. There are different flows, also known as "grant types", that describe how the request is made. Once the access token is received, it can be used to authenticate the API call.
+So to get to the stage where an access token is obtained, this is the general approach:
+
+1. An instance of a service is created
+1. When creating a service instance, a plan for that service must be specified
+1. From the instance, a binding is then created
+1. Using information in this binding, an access token is then requested
+
+There are different flows, also known as "grant types", that describe how the access token request is made. Once the access token is received, it can be used to authenticate the API call.
 
 While we're in the mood for ASCII art, here's that in diagram form:
 
