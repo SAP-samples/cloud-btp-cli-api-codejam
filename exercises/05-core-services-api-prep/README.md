@@ -141,7 +141,7 @@ To log in, this we need to know which endpoint we must connect to, as we'll need
 cf login -a <API endpoint URL>
 ```
 
-To discover what the endpoint URL is, you can just look in the BTP Cockpit, where it's shown as the value for "API Endpoint":
+To discover what the endpoint URL is, you can just look in the BTP Cockpit, where it's shown as the value for "API Endpoint" in the "Cloud Foundry Environment" section.
 
 ![API endpoint visible in the BTP cockpit](assets/api-endpoint-in-cockpit.png)
 
@@ -161,7 +161,7 @@ The general approach that we'll be following is this:
 
 We'll be using the `--format json` option and working through details of certain btp CLI calls, building on our knowledge of `jq` filters from the previous exercise. To make this a little more comfortable, we'll install a wrapper around `jq` so we can interact with the JSON data and build up our filters bit by bit. The wrapper is called [ijq](https://sr.ht/~gpanders/ijq/) (for "interactive jq") and we can manually install it in our App Studio Dev Space.
 
-👉 At the prompt in your Dev Space's terminal, run the following command, which will download the [latest release tarball](https://git.sr.ht/~gpanders/ijq/refs/v0.4.0) specifically for the Linux platform (remember, this Dev Space is a Linux environment) and extract the binary `ijq` into the `bin/` directory in your home directory (remember that this `bin/` directory is [where you installed the btp CLI in an earlier exercise](../01-installing#add-your-bin-directory-to-the-path)):
+👉 At the prompt in your Dev Space's terminal, run the following command, which will download the [latest release tarball](https://git.sr.ht/~gpanders/ijq/refs/v0.4.0) specifically for the Linux platform (remember, this Dev Space is a Linux environment) and extract the binary `ijq` into the `bin/` directory in your home directory (this `$HOME/bin/` directory is [where you installed the btp CLI in an earlier exercise](../01-installing#add-your-bin-directory-to-the-path)):
 
 ```bash
 IJQVER=0.4.0
@@ -235,7 +235,9 @@ f78e0bdb-c97c-4cbc-bb06-526695f44551   trial              8fe7efd4trial         
 ated.
 ```
 
-The output is pretty wide, and difficult to read; you can define a function for the duration of your shell session (or add it to your `.bashrc` file for a more permanent solution) like this:
+The output is pretty wide, and difficult to read.
+
+👉 Define a function for the duration of your shell session (or add it to your `.bashrc` file for a more permanent solution) like this:
 
 ```bash
 trunc() { cut -c1-$(tput cols); }
@@ -259,7 +261,7 @@ cd76fdef-16f8-47a3-954b-cab6678cc24d   testsubaccount     a253215a-736f-4e9a-b0c
 f78e0bdb-c97c-4cbc-bb06-526695f44551   trial              8fe7efd4trial                          eu10
 ```
 
-> You'll still see some blank lines and an "OK" - this is extraneous output that is sent (to STDERR) by the `btp` invocation; if it disturbs you, you can get rid of it by redirecting STDERR to `/dev/null`, i.e. to oblivion. Here's an example: `btp list accounts/subaccount 2> /dev/null | trunc`. Note that redirecting STDERR like this is not ideal, as you won't see any genuine error messages. There's an active discussion in the btp CLI product team as to how to best suppress this extra information so we don't have to use this STDERR redirection workaround.
+> You'll still see some blank lines and an "OK" - this is extraneous output that is sent (to STDERR) by the `btp` invocation; if it disturbs you, you can get rid of it by redirecting STDERR to `/dev/null`, i.e. to oblivion, as noted in a previous exercise. Here's an example: `btp list accounts/subaccount 2> /dev/null | trunc`. Note that redirecting STDERR like this is not ideal, as you won't see any genuine error messages. There's an active discussion in the btp CLI product team as to how to best suppress this extra information so we don't have to use this STDERR redirection workaround.
 
 For the subaccount in question ("trial" in this sample), we want to get the GUID, which is `f78e0bdb-c97c-4cbc-bb06-526695f44551`. Again, we could copy/paste it somehow, but that's not useful if we want to do this, or something like it, in an automated fashion. Instead, we'll ask for the JSON representation of this information and parse it out from that.
 
@@ -307,11 +309,11 @@ You'll see that in the Input section, `.value` is suggested, as it's a directly 
 
 👉 Hit the Tab key to accept the suggestion, and in a similar way to how we [listed the locations of the CF data centers](../04-retrieving-parsing-json-output#listing-the-locations-of-the-cf-data-centers) in a previous exercise, expand this filter, replacing the name "trial" with the name of your subaccount:
 
-> Don't worry about messages appearing in the Error section as you type, it's just that `ijq` is trying to parse the filter as you enter characters one by one.
-
 ```jq
 .value[] | select(.displayName == "trial")
 ```
+
+> Don't worry about messages appearing in the Error section as you type, it's just that `ijq` is trying to parse the filter as you enter characters one by one.
 
 This should reduce the content of the Output section, from (initially) the entire input JSON, to just the object that represents your chosen subaccount.
 
@@ -321,13 +323,9 @@ This should reduce the content of the Output section, from (initially) the entir
 .value[] | select(.displayName == "trial").guid
 ```
 
-Here's a rough recording of how this might look in `ijq` (minus the framing around each of the sections which were lost in the [asciicast2gif](https://github.com/asciinema/asciicast2gif) conversion):
-
-![An ijq session to get the subaccount GUID](assets/ijq-get-guid.gif)
-
 > Note the errors are generated in realtime as the filter is being constructed, and disappear once the filter is complete, or at a stage that is valid `jq`.
 
-👉 Once you can see the GUID displayed in the Output section, you can hit Enter and it will be output from the `ijq` invocation; in addition it `ijq` will show you (on STDERR) the filter you used.
+👉 Once you can see the GUID displayed in the Output section, you can hit Enter and it will be output from the `ijq` invocation; in addition `ijq` will show you (on STDERR) the filter you used.
 
 You should see something similar to this back in the shell:
 
@@ -335,6 +333,10 @@ You should see something similar to this back in the shell:
 .value[] | select(.displayName=="trial").guid
 f78e0bdb-c97c-4cbc-bb06-526695f44551
 ```
+
+Here's a rough recording of how this might look in `ijq` (minus the framing around each of the sections which were lost in the [asciicast2gif](https://github.com/asciinema/asciicast2gif) conversion):
+
+![An ijq session to get the subaccount GUID](assets/ijq-get-guid.gif)
 
 This was a bit of a [round the houses](https://wordhistories.net/2018/03/05/go-round-houses/) journey but hopefully you have a GUID and more importantly you understand how it was obtained.
 
