@@ -19,10 +19,6 @@ You can see an example of the subdomain for this sample trial global account, ju
 
 ![trial global account showing subdomain](assets/global-account-subdomain-and-subaccount.png)
 
-Here's another example of where you can find the subdomain for your account:
-
-![subdomain for another global account](assets/subdomain-free-tier.png)
-
 ## Authenticate
 
 If you managed to check out the "Usage" information and the output from `btp --help` [at the end of the previous exercise](../01-installing/README.md#questions) you'll have seen that there are "General actions" as well as BTP resource specific actions. One of these general actions is "login".
