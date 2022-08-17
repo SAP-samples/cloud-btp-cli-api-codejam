@@ -4,9 +4,11 @@ These prerequisites are essential to a successful CodeJam. As an attendee, pleas
 
 ## SAP BTP account
 
-You must have an SAP BTP account.
+You must have an SAP BTP account. If they're still available, an active (unexpired) trial account will be fine. Otherwise you may wish to set up a new global account to take advantage of the Free Tier offerings. 
 
-This can be a productive account, or (if still available) an active (unexpired) trial account. It's important that the account has [Feature Set B](https://help.sap.com/products/BTP/65de2977205c403bbc107264b8eccf4b/caf4e4e23aef4666ad8f125af393dfb2.html) Cloud Management Tools. You can check this from the BTP Cockpit using the "About" option which will show something like this:
+Either way, it's important that you have the Global Account Admin role, which is in the "Global Account Administrator" role collection (see [Role Collections and Roles in Global Accounts, Directories, and Subaccounts [Feature Set B]](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/0039cf082d3d43eba9200fe15647922a.html?locale=en-US) for more details). 
+
+It's also important that the account has [Feature Set B](https://help.sap.com/products/BTP/65de2977205c403bbc107264b8eccf4b/caf4e4e23aef4666ad8f125af393dfb2.html) Cloud Management Tools. You can check this from the BTP Cockpit using the "About" option which will show something like this:
 
 ![The About popup showing Feature Set B](assets/cockpit-about-popup.png)
 
