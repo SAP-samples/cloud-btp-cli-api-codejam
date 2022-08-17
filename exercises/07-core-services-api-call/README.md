@@ -99,7 +99,7 @@ Let's do it manually first, with `curl`. In contrast to the HTTP call we made in
 
 ```bash
 curl \
-  --url "$(jq -r .endpoints.entitlements_service_url cis-central-sk.json)" \
+  --url "$(jq -r .endpoints.entitlements_service_url cis-central-sk.json)/entitlements/v1/globalAccountAllowedDataCenters" \
   --header "Authorization: Bearer $(jq -r .access_token tokendata.json)"
 ```
 
