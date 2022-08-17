@@ -20,7 +20,7 @@ git clone https://github.com/SAP-samples/cloud-btp-cli-api-codejam/
 
 Here's a sample of what happens:
 
-```
+```text
 user: projects $ git clone https://github.com/SAP-samples/cloud-btp-cli-api-codejam/
 Cloning into 'cloud-btp-cli-api-codejam'...
 remote: Enumerating objects: 329, done.
@@ -40,5 +40,3 @@ At this point, you have a new directory `cloud-btp-cli-api-codejam`.
 ![opening the user directory](assets/open-user-dir.png)
 
 The Dev Space should restart and you should be able to explore the contents of this repository, and also the contents of your `.bashrc` file and `bin/` directory, for example. You can now explore the contents of the clone of this repo too.
-
-👉 Don't forget to open up a new terminal in the restarted Dev Space so you can continue where you left off now, back in the exercise.

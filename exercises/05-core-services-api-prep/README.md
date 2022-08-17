@@ -510,13 +510,13 @@ btp --format json list accounts/environment-instance --subaccount "$guid" \
 ```
 
 > The [generic object index](https://stedolan.github.io/jq/manual/#GenericObjectIndex:.[%3Cstring%3E]) `."API Endpoint:"` is a little different to what we've seen up to now. Previously we've been able to refer to properties just using the property name, such as `.labels` or `.displayName`.
-> 
+>
 > But because this property name contains a space, we can't do that, and so have to enclose it in double quotes (if you're thinking that having JSON property names with spaces is odd, you're right).
-> 
+>
 > And just as a "by the way", the expression `."API Endpoint"` is just shorthand for the full generic object index expression `.["API Endpoint"]`.
-> 
+>
 > The environment instances have this label and parameter information squirreled away with the property names as you see here, and in some cases -- like here -- include a colon too. This is definitely odd. Moreover, the colon appears as part of these property names only for some environment instances, and not others.
-> 
+>
 > We have an internal ticket raised with the API product team for both of these oddities, as well as the, erm, [space oddity](https://en.wikipedia.org/wiki/Space_Oddity).
 
 In this particular sample case, the API endpoint is:
@@ -535,7 +535,9 @@ You can try it out, too.
 
 If you haven't done already, you'll first need to clone this repository into your Dev Space, so you have access to all the files, including this script.
 
-👉 Follow the instructions for [Cloning this repository into your App Studio Dev Space](clone-this-repo.md).
+👉 Follow the instructions for [Cloning this repository into your App Studio Dev Space](../../clone-this-repo.md).
+
+👉 Open up a new terminal in the Dev Space which will have restarted, so you can continue.
 
 After ensuring that you're still authenticated with the btp CLI (with `btp login`), you're ready run the script. It's a good idea at this stage to move to the directory containing it, and run it there, mostly because you'll be running another script in this same directory later. Here's how.
 
