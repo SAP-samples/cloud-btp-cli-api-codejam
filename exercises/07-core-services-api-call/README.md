@@ -14,12 +14,54 @@ We know that we want to make a call to the one endpoint in the Regions for Globa
 
 and that we have an access token obtained through a successful completion of the OAuth 2.0 Resource Owner Password Credentials ("Password") flow.
 
+### Managing the service key and token data files
+
 The result of that process has left us with two files, both of which we still need.
 
 |File|Content|What we need|
 |-|-|-|
 |`cis-central-sk.json`|Service key data|The Entitlements Service API base URL in `endpoints.entitlements_service_url`|
 |`tokendata.json`|OAuth 2.0 data|The access token in `access_token`|
+
+As we created these files in the previous exercise, they're in that corresponding exercise directory. But as we'll be working in this exercise's directory now, let's leave the files where they are (so we remember in which exercise we created them) and create symbolic links from this exercise's directory to point to them, so we can refer to them in a simple way here.
+
+👉 Make sure you're in this exercise's directory, and then create symbolic links for both files:
+
+```bash
+cd $HOME/projects/cloud-btp-cli-api-codejam/exercises/07-core-services-api-call/
+ln -s ../06-core-services-api-creds/cis-central-sk.json .
+ln -s ../06-core-services-api-creds/tokendata.json .
+```
+
+Now you have the file names in your current directory that you can use.
+
+👉 Have a look and try it out:
+
+```bash
+ls -l *.json
+jq keys tokendata.json
+```
+
+You should see output similar to this:
+
+```text
+user: 07-core-services-api-call $ ls -l *.json
+lrwxrwxrwx 1 user 1337 49 Aug 17 08:50 cis-central-sk.json -> ../06-core-services-api-creds/cis-central-sk.json
+lrwxrwxrwx 1 user 1337 44 Aug 17 08:50 tokendata.json -> ../06-core-services-api-creds/tokendata.json
+user: 07-core-services-api-call $ jq keys tokendata.json
+[
+  "access_token",
+  "expires_in",
+  "id_token",
+  "jti",
+  "refresh_token",
+  "scope",
+  "token_type"
+]
+user: 07-core-services-api-call $
+```
+
+### Checking the access token
 
 With your new `jq` filtering skills, tease out these two values to have a look at them.
 
