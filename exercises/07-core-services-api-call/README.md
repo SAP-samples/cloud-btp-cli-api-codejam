@@ -103,11 +103,11 @@ curl \
   --header "Authorization: Bearer $(jq -r .access_token tokendata.json)"
 ```
 
-> In the `curl` invocation in the previous exercise, we saw (using the `--verbose` option) something like this in the output: `> Authorization: Basic c2ItdXQtZTQ4ZDQ5N2UtMWI4MS00...==`.
+> In the `curl` invocation in the previous exercise, we saw (using the `--verbose` option) something like this in the output: `> Authorization: Basic c2ItdXQtZTQ4ZDQ5N2UtMWI4MS00...`.
 >
 > This is a Basic Authentication HTTP header that was created automatically by `curl` as a result of the `--user` option, and the content following the authorization scheme name ("Basic") is a combination of the username and password (joined with a colon) and then encoded with base64.
 >
-> In this `curl` invocation we're making now, we cannot use Basic Authentication because our request would be rejected as the server does not accept that sort of authorization. Instead, we need to use a Bearer token authorization scheme, which consists of the scheme name "Bearer" followed by ... you guessed it, our access token.
+> In this `curl` invocation we're making now, we cannot use Basic Authentication because our request would be rejected as the server does not accept that sort of authorization. (Remember, this is the Resource Server that we're talking to now, not the Authorization Server - see the link to [Understand OAuth 2.0 grant types](https://github.com/SAP-archive/cloud-apis-virtual-event/tree/main/exercises/02#3-understand-oauth-20-grant-types) in the [Further reading](#further-reading) section below to get this straight in your head). Instead, we need to use a Bearer token authorization scheme, which consists of the scheme name "Bearer" followed by ... you guessed it, our access token.
 >
 > In case you're wondering, the `$(...)` construction used in this header (as well as in the `--url` option) is command substitution in Bash, i.e. whatever is within the brackets is executed and then the output of that is substituted. So in this case we get the access token value.
 >
@@ -178,6 +178,7 @@ At this point you know how to get the btp CLI to output the structured data in a
 * The [HTTP Authentication](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#basic_authentication_scheme) page has information on the [Basic authentication scheme](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#basic_authentication_scheme)
 * On token-based [bearer authentication](https://swagger.io/docs/specification/authentication/bearer-authentication/)
 * Bash [command substitution](https://www.gnu.org/software/bash/manual/html_node/Command-Substitution.html)
+* [Understanding OAuth 2.0 grant types](https://github.com/SAP-archive/cloud-apis-virtual-event/tree/main/exercises/02#3-understand-oauth-20-grant-types) includes a protocol flow diagram that distinguishes the client, servers and resource owner
 
 ---
 
