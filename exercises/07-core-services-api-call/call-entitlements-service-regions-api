@@ -2,7 +2,7 @@
 
 # Calls the Entitlements Service API for "Regions for Global Accounts"
 
-source ./lib.sh
+source lib.sh
 
 declare endpoint token_file token
 
@@ -16,4 +16,3 @@ token="$(jq -r .access_token "$token_file")"
 curl \
   --url "$endpoint" \
   --header "Authorization: Bearer $token"
-
