@@ -49,12 +49,14 @@ cf login -a <API endpoint URL>
 
 However, it's much easier to use the power of the shell to do this in one go, as follows.
 
-👉 Ensure you're in the directory containing this `README.md` file and the `get_cf_api_endpoint` script, and make this call (replacing `trial` with the name of your subaccount):
+👉 Ensure you're in the directory containing this exercise's `README.md` file, and make this call (replacing `trial` with the name of your subaccount):
 
 ```bash
 cd $HOME/projects/cloud-btp-cli-api-codejam/exercises/06-core-services-api-creds
 cf login -a $(./get_cf_api_endpoint "trial")
 ```
+
+> Just like in the previous exercise, the `get_cf_api_endpoint` in this directory is [just a symbolic link](get_cf_api_endpoint) to the [real script](../get_cf_api_endpoint) in a directory one level above here.
 
 Supply your BTP trial account credentials (email address and password). Here's what the flow will look like:
 

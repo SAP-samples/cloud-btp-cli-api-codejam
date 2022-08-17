@@ -529,7 +529,9 @@ but it may be different for the CF environment instance in your subaccount. What
 
 ## Determining the CF API endpoint with a script
 
-In the [directory containing this specific README file](./), there's a script [get_cf_api_endpoint](./get_cf_api_endpoint). This script is an automated version of everything you've done in this section. If you've finished early, then you may wish to peruse the code, some of which you should recognize now.
+In the [directory containing this specific README file](./), there's [a link](./get_cf_api_endpoint) to a script [get_cf_api_endpoint](../get_cf_api_endpoint). This script is an automated version of everything you've done in this section. If you've finished early, then you may wish to peruse the code, some of which you should recognize now.
+
+> This `get_cf_api_endpoint` script is used in this and a subsequent exercise, so to avoid duplicating it in both exercise directories, it lives in the [exercises](../) directory and there are symbolic links to it from both exercise directories.
 
 You can try it out, too.
 
@@ -571,5 +573,5 @@ At this point you have gained some experience in understanding and parsing the J
 If you finish earlier than your fellow participants, you might like to ponder these questions. There isn't always a single correct answer and there are no prizes - they're just to give you something else to think about.
 
 1. When listing the environment instances for the subaccount, how else might you make that btp CLI call, without using the `--subaccount` parameter?
-1. The embedded, stringified JSON values in the `parameters` and `labels` properties are a bit strange. Stranger still are the names of some the properties in that embedded JSON. Have you ever seen property names containing whitespace (`Org Name`, `API Endpoint`, `Org ID`)? Moreover, depending on the age of your environment instance, these property names [may also contain colons](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/blob/54ffaf98d6d98af142d9197ac0a8c9e85b5f014c/exercises/05-core-services-api-prep/get_cf_api_endpoint#L34) :-) Why do you think they exist this way?
+1. The embedded, stringified JSON values in the `parameters` and `labels` properties are a bit strange. Stranger still are the names of some the properties in that embedded JSON. Have you ever seen property names containing whitespace (`Org Name`, `API Endpoint`, `Org ID`)? Moreover, depending on the age of your environment instance, these property names [may also contain colons](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/blob/8665a7fac62f62529e12f7120f268f64b673f34c/exercises/get_cf_api_endpoint#L34) :-) Why do you think they exist this way?
 1. What's the mechanism in the `get_cf_api_endpoint` script that defaults to "trial" as the name for the subaccount?
