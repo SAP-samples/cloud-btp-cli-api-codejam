@@ -166,11 +166,11 @@ You should see some output similar to this:
 }
 ```
 
-Does this [look familiar](#use-the-json-format-output-option)? Of course it does. It's exactly the same as what `btp --format json list accounts/available-region` produced.
+Does this [look familiar](../04-retrieving-parsing-json-output/README.md#use-the-json-format-output-option)? Of course it does. It's exactly the same as what `btp --format json list accounts/available-region` produced. In other words, the JSON output of the btp CLI invocation is the same as the JSON output from the equivalent API call.
 
 ## Summary
 
-At this point you know how to get the btp CLI to output the structured data in a more machine-parseable form, and you also understand the relationship between the btp CLI and the Cloud Management Service APIs.
+Well done, you've made it this far and been on quite a detailed journey to understand what's involved in calling a Core Service API, including identifying the endpoint and the requirements, gathering the credentials, and actually making the call. You've also seen how the btp CLI and the Core Service APIs are very closely related.
 
 ## Further reading
 
@@ -184,5 +184,5 @@ At this point you know how to get the btp CLI to output the structured data in a
 
 If you finish earlier than your fellow participants, you might like to ponder these questions. There isn't always a single correct answer and there are no prizes - they're just to give you something else to think about.
 
-1. Take a look at the token data you retrieved - what's the lifetime of the access token, in hours?
 1. Have a bit of a stare at the [call-entitlements-service-regions-api](call-entitlements-service-regions-api) script, and the associated [lib.sh](lib.sh) library. Is there anything in there that you'd like to know more about?
+1. Just before the JSON output in the call to `call-entitlements-service-regions-api`, you saw some progress bar style information on bytes received, time taken, and so on. How would you suppress this output, so you just got the JSON?
