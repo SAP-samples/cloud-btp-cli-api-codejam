@@ -82,6 +82,25 @@ user: 04-json-format-and-apis $
 
 > You should already have a space set up, as described in the [Subaccount and Cloud Foundry environment](../../prerequisites.md#subaccount-and-cloud-foundry-environment) section of the prerequisites.
 
+Just like the btp CLI, the CF CLI also has an option to allow you to use SSO to sign in. If you want, try this approach:
+
+```bash
+cf login -a $(./get_cf_api_endpoint "trial") --sso
+```
+
+You should be given a URL to navigate to, authenticate, and receive a code to paste in at the prompt, and it should look something like this:
+
+```text
+user: 06-core-services-api-creds $ cf login -a $(./get_cf_api_endpoint "trial") --sso
+API endpoint: https://api.cf.eu10.hana.ondemand.com
+
+Temporary Authentication Code ( Get one at https://login.cf.eu10.hana.ondemand.com/passcode ):
+Authenticating...
+OK
+
+...
+```
+
 ## Create a service instance and key
 
 👉 Now you're authenticated, create an instance of the Cloud Management Service, with the "central" plan, as discussed earlier:
@@ -112,7 +131,7 @@ Creating service key cis-central-sk for service instance cis-central as qmacro+b
 OK
 ```
 
-> The naming convention used here for instance and service key resources has instances named after a combination of service name and plan name (`cis-central`) and a service key named similarly, suffixed with `-sk` here (`cis-central-sk`).
+> The naming convention used here for instance and service key resources has instances named after a combination of service name and plan name (`cis-central`) and a service key named similarly, suffixed with `-sk` here (`cis-central-sk`). You may have your own naming conventions in your organization, but we'll stick to this one for this CodeJam content.
 
 At this point, we can update our diagram with the two new entity names in the `Instance` and `Binding` (service key) boxes:
 
@@ -193,7 +212,7 @@ Getting key cis-central-sk for service instance cis-central as qmacro+blue@gmail
 }
 ```
 
-The next thing to do is to save this content to a file. First, so we don't need to keep calling `cf service-key`, but mostly so we can parse information out of it, because that's easy with `jq` as it's JSON, right?
+The next thing to do is to save this content to a file. First, so we don't need to keep calling `cf service-key`, but mostly so we can parse information out of it, because that's easy with `jq`, because the output is JSON, right?
 
 Well, not quite.
 
@@ -250,7 +269,15 @@ curl \
   --data-urlencode "password=$password"
 ```
 
-👉 Run this script now, specifying the name of the file containing the service key JSON data:
+You're going to run that script now.
+
+👉 First, make sure you're still in this exercise's directory:
+
+```bash
+cd $HOME/projects/cloud-btp-cli-api-codejam/exercises/06-core-services-api-creds/
+```
+
+👉 Now invoke the script, specifying the name of the file containing the service key JSON data:
 
 ```bash
 ./generate-password-grant-type cis-central-sk.json
@@ -264,7 +291,7 @@ You'll be asked to authenticate, and you must specify your SAP BTP email and pas
 ./generate-password-grant-type cis-central-sk.json > tokendata.json
 ```
 
-> You can of course simply open the file in your Dev Space editor, but where's the fun in that? Also, it will be displayed as one, long, unreadable line.
+> You can of course simply open the file in your Dev Space editor, but where's the fun in that? Also, if you do, it will most likely be displayed as one, long, unreadable line.
 
 👉 Have a look what properties there are in this JSON:
 
