@@ -18,7 +18,7 @@ The endpoint in question lives within the [Entitlements Service](https://api.sap
 
 It's worth pausing a second to think about how APIs are organized on the SAP API Business Hub. There are API packages, APIs, and endpoints that are collected into groups. The hierarchy is as follows, showing where this endpoint is:
 
-```
+```text
 +-------------+
 |             |
 | API Package |      Core Services for SAP BTP
@@ -59,7 +59,7 @@ There are different flows, also known as "grant types", that describe how the ac
 
 While we're in the mood for ASCII art, here's that in diagram form:
 
-```
+```text
 +----------------+      +----------------+      +----------------+
 |    Service     |      |    Instance    |      |    Binding     |
 |                |--+-->|                |----->|                |
@@ -88,7 +88,7 @@ While we're in the mood for ASCII art, here's that in diagram form:
 
 We're eventually (in a subsequent exercise) going to make a call to the one endpoint in the Regions for Global Account group, i.e. to:
 
-```
+```text
 /entitlements/v1/globalAccountAllowedDataCenters
 ```
 
@@ -104,7 +104,7 @@ The endpoints in the Entitlement Service API are protected by the OAuth 2.0 "Res
 
 The `central` plan affords a little more access than the `local` plan so we'll go for the `central` plan. This is where these values fit into our diagram:
 
-```
+```text
 +----------------+      +----------------+      +----------------+
 |    Service     |      |    Instance    |      |    Binding     |
 |      cis       |--+-->|                |----->|                |
@@ -147,7 +147,7 @@ To discover what the endpoint URL is, you can just look in the BTP Cockpit, wher
 
 But this is all about hands-on on the command line, and if we're going to be automating things, looking in the cockpit is not going to work for us. So let's determine the API endpoint in a different way, using the btp CLI to discover what it is.
 
-What we're going to do is systematically work through the information that's available to us from various resources that we can retrieve via the btp CLI. While we'll be doing some things manually here, and making use of copy/paste (so that we can follow everything step by step), the individual steps can all be automated (as you'll see in a [later section](#bonus-determining-the-cf-api-endpoint-with-a-script)).
+What we're going to do is systematically work through the information that's available to us from various resources that we can retrieve via the btp CLI. While we'll be doing some things manually here, and making use of copy/paste (so that we can follow everything step by step), the individual steps can all be automated (as you'll see in a [later section](#determining-the-cf-api-endpoint-with-a-script)).
 
 > The SAP BTP account, subaccount and CF environment instance shown in the samples here are based on a trial subaccount; your direct experience may show different data as the structure of subaccounts in your SAP BTP account will be different, but the principles are the same.
 
@@ -178,7 +178,7 @@ curl \
 
 If you invoke `ijq` now to test it out, you should see something like this:
 
-```
+```text
 ijq - interactive jq
 
 Usage: ijq [-cnsrRMSV] [-f file] [filter] [files ...]
@@ -215,7 +215,7 @@ btp list accounts/subaccount
 
 You should get output similar to this:
 
-```
+```text
 subaccounts in global account fdce9323-d6e6-42e6-8df0-5e501c90a2be...
 
 subaccount id:                         display name:      subdomain:                             regi
@@ -251,7 +251,7 @@ btp list accounts/subaccount | trunc
 
 The output should now be a little more readable (at the expense of losing detail of course):
 
-```
+```text
 subaccounts in global account fdce9323-d6e6-42e6-8df0-5e501c90a2be...
 
 subaccount id:                         display name:      subdomain:                             regi
@@ -329,7 +329,7 @@ This should reduce the content of the Output section, from (initially) the entir
 
 You should see something similar to this back in the shell:
 
-```
+```text
 .value[] | select(.displayName=="trial").guid
 f78e0bdb-c97c-4cbc-bb06-526695f44551
 ```
@@ -360,6 +360,8 @@ echo $guid
 
 It should emit the GUID that you've seen before.
 
+> In a later exercise we'll look at a script `btpguid` that uses the JSON data from this btp CLI command to emit directory or subaccount GUIDs for a given directory or subaccount name.
+
 ### Get the environment instance details
 
 Another member of the "accounts" group of objects upon which btp CLI can act is the "environment-instance".
@@ -380,7 +382,7 @@ btp list accounts/environment-instance --subaccount "$guid"
 
 This should return something like this (again, truncated here to fit within the page width) - your output may show different records:
 
-```
+```text
 Showing environment details for subaccount f78e0bdb-c97c-4cbc-bb06-526695f44551:
 
 environment name      environment id                         environment type   state   state m
@@ -552,7 +554,7 @@ cd $HOME/projects/cloud-btp-cli-api-codejam/exercises/05-core-services-api-prep/
 
 It should emit the API endpoint URL; the invocation should look something like this:
 
-```
+```text
 user: 05-core-services-api-prep $ ./get_cf_api_endpoint
 https://api.cf.eu10.hana.ondemand.com
 user: 05-core-services-api-prep $
