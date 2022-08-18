@@ -83,12 +83,12 @@ Showing details for global account fdce9323-d6e6-42e6-8df0-5e501c90a2be...
 
 ├─ 8fe7efd4trial (fdce9323-d6e6-42e6-8df0-5e501c90a2be - global account)
 │  ├─ trial (f78e0bdb-c97c-4cbc-bb06-526695f44551 - subaccount)
-│  ├─ ho060-directory (205508c6-08fc-48ed-b531-20712260d5af - directory)
+│  ├─ codejam-directory (205508c6-08fc-48ed-b531-20712260d5af - directory)
 
 type:            id:                                    display name:     parent id:
 global account   fdce9323-d6e6-42e6-8df0-5e501c90a2be   8fe7efd4trial
 subaccount       f78e0bdb-c97c-4cbc-bb06-526695f44551   trial             fdce9323-d6e6-42e
-directory        205508c6-08fc-48ed-b531-20712260d5af   ho060-directory   fdce9323-d6e6-42e
+directory        205508c6-08fc-48ed-b531-20712260d5af   codejam-directory fdce9323-d6e6-42e
 ```
 
 ### Examine the directory via the GUID
@@ -201,14 +201,14 @@ Showing details for global account fdce9323-d6e6-42e6-8df0-5e501c90a2be...
 
 ├─ 8fe7efd4trial (fdce9323-d6e6-42e6-8df0-5e501c90a2be - global account)
 │  ├─ trial (f78e0bdb-c97c-4cbc-bb06-526695f44551 - subaccount)
-│  ├─ ho060-directory (cd0c871e-a8f3-4a35-94b9-5af8dbfd185c - directory)
-│  │  ├─ ho060-subaccount (4dc80103-6f20-4582-8aec-858bb6319d30 - subaccount)
+│  ├─ codejam-directory (cd0c871e-a8f3-4a35-94b9-5af8dbfd185c - directory)
+│  │  ├─ codejam-subaccount (4dc80103-6f20-4582-8aec-858bb6319d30 - subaccount)
 
 type:            id:                                    display name:      parent id:
 global account   fdce9323-d6e6-42e6-8df0-5e501c90a2be   8fe7efd4trial
 subaccount       f78e0bdb-c97c-4cbc-bb06-526695f44551   trial              fdce9323-d6e6-42e
-directory        cd0c871e-a8f3-4a35-94b9-5af8dbfd185c   ho060-directory    fdce9323-d6e6-42e
-subaccount       4dc80103-6f20-4582-8aec-858bb6319d30   ho060-subaccount   cd0c871e-a8f3-4a3
+directory        cd0c871e-a8f3-4a35-94b9-5af8dbfd185c   codejam-directory  fdce9323-d6e6-42e
+subaccount       4dc80103-6f20-4582-8aec-858bb6319d30   codejam-subaccount cd0c871e-a8f3-4a3
 ```
 
 ## Further experimentation
@@ -254,18 +254,32 @@ selectregion() {
 }
 ```
 
-This function asks for the regions in JSON format, extracts the region and display name information in tab-separated form, presents the list for selection (using `fzf`) and then emits the first field (the region) when one is selected (there are many more options to `fzf` to take care of edge cases, this example is just to illustrate the basics).
+Here's what this function does:
 
-You can try it out now, just invoke `selectregion` directly on the command line and see what happens.
+* asks for the regions in JSON format
+* extracts the region and display name and outputs that information in tab-separated form
+* presents the list for selection (using `fzf`)
+
+and then, once you've selected an entry from the list, it:
+
+* emits the first field (the region)
+
+> There are many more options to `fzf` to take care of edge cases, this example is just to illustrate the basics.
+
+👉 Try it out now to see what happens (use the cursor keys or type characters to match, then hit Enter when you're done):
+
+```bash
+selectregion
+```
 
 You can also incorporate this into the create command, thus:
 
 ```bash
 btp create accounts/subaccount \
-  --directory $(btpguid ho060-directory) \
-  --display-name ho060-subaccount \
+  --directory $(btpguid codejam-directory) \
+  --display-name codejam-subaccount \
   --region "$(selectregion)" \
-  --subdomain "ho060-$(btp --format json get accounts/global-account | jq -r .displayName)"
+  --subdomain "codejam-$(btp --format json get accounts/global-account | jq -r .displayName)"
 ```
 
 and you'd be presented with a list to select from first, like this:
