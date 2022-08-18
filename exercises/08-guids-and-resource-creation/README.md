@@ -166,10 +166,15 @@ btp create accounts/subaccount --help
 
 There's quite a bit that can be specified; let's keep things as simple as possible and specify the minimum. One thing you're going to need to specify is a subdomain; for the sake of this hands-on workshop, use your global account display name as part of the subdomain value. You can retrieve the global account display name with `btp --format json get accounts/global-account | jq -r .displayName` - this will be incorporated into the `create` command below.
 
-👉 Pick a region available to you that supports CF, and then request the creation now, like this (this example assumes you picked the `eu10` region, and uses the global account display name for part of the subdomain value too):
+👉 First, pick a region available to you that supports CF and save that as a variable:
 
 ```bash
 region=eu10
+```
+
+👉 Now request the subaccount creation, like this (this example uses the global account display name for part of the subdomain value):
+
+```bash
 btp create accounts/subaccount \
   --directory $(btpguid codejam-directory) \
   --display-name codejam-subaccount \
