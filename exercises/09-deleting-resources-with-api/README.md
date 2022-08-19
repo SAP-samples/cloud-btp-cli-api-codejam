@@ -116,6 +116,12 @@ jq keys tokendata.json
 jq .access_token tokendata.json
 ```
 
+This should show you the keys (properties) in the JSON contained in `tokendata.json`, along with the big lump that is the access token.
+
+> Unless you're taking this CodeJam very slowly, over days, the access token should still be good - it lasts for 12 hours (you can use `jq -r '.expires_in / 60 / 60 | round' tokendata.json` to check).
+
+
+
 ## Further reading
 
 ---
