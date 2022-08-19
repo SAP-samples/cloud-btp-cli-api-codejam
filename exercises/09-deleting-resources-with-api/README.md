@@ -70,7 +70,7 @@ This time, we need to find an endpoint that supports operations on directories a
 * Directory Operations
 * Global Account Operations
 * Subaccount Operations
-* Job Managment
+* Job Management
 
 Within the Directory Operations group, you'll see that there's a specific combination of HTTP method and endpoint thus:
 
@@ -534,7 +534,7 @@ Guess what that relates to? Yes, the deletion activity is asynchronous, and is h
 Let's finish this exercise with a final API call, this time to the single endpoint in the [Accounts Service](https://api.sap.com/api/APIAccountsService/resource) Job Management endpoint group:
 
 ```text
-/jobs-managment/v1/jobs/{jobInstanceIdOrUniqueId}/status
+/jobs-management/v1/jobs/{jobInstanceIdOrUniqueId}/status
 ```
 
 From our foray into the scopes that we have in our access token, we might have noticed that we have the scope that we need to make this API call, too:
