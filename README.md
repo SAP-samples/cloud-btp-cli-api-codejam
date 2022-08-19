@@ -42,13 +42,15 @@ The instructor will set you off on the first exercise, and that's the only one y
 1. [Gathering required credentials for the API call](exercises/06-core-services-api-creds/README.md)
 1. [Making the API call and understanding the results](exercises/07-core-services-api-call/README.md)
 1. [More on GUIDs, and resource creation with the btp CLI](exercises/08-guids-and-resource-creation/README.md)
+1. [Deleting resources with the API](exercises/09-deleting-resources-with-api/README.md)
 
-1. [Writing your first script](exercises/06-writing-your-first-script/README.md)
-1. [BTP tools in containers](exercises/07-btp-tools-in-containers/README.md)
+## Scripts
+
+There are a handful of scripts that are used and explored in this CodeJam, some of them are used in multiple exercises. To that end, they're collected together in a separate [script/](scripts/) directory and there are symbolic links pointing to them from the relevant exercise-specific directories where needed.
 
 ## Feedback
 
-If you can spare a couple of minutes at the end of the session, please help me improve for next time by providing some feedback.
+If you can spare a couple of minutes at the end of the session, please help the author improve for next time by providing some feedback.
 
 Simply use this [Give Feedback](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/issues/new?assignees=&labels=feedback&template=feedback-template.md&title=Feedback) link to create a special "feedback" issue, and follow the instructions in there.
 
@@ -65,6 +67,7 @@ Here are a few pointers to resources for further connections and information on 
 * there's a wealth of information on the SAP Help Portal in the [Account Administration Using the SAP BTP Command Line Interface (btp CLI) [Feature Set B]](https://help.sap.com/products/BTP/65de2977205c403bbc107264b8eccf4b/7c6df2db6332419ea7a862191525377c.html?locale=en-US&version=Cloud) topic
 * the playlist [The SAP btp CLI](https://www.youtube.com/playlist?list=PL6RpkC85SLQDXx827kdjKc6HRvdMRZ8P5) on the SAP Developers YouTube channel contains recordings of past live streams on the topic
 * there's a [branch in the SAP Tech Bytes repo](https://github.com/SAP-samples/sap-tech-bytes/tree/2021-09-01-btp-cli) covering some basic aspects of the btp CLI
+* The SAP API Business Hub is the central place for APIs in the SAP world, and there's a specific area for the [Core Services for SAP BTP](https://api.sap.com/package/SAPCloudPlatformCoreServices/rest) API package.
 
 ## License
 
