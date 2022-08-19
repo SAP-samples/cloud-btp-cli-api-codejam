@@ -46,7 +46,7 @@ The instructor will set you off on the first exercise, and that's the only one y
 
 ## Scripts
 
-There are a handful of scripts that are used and explored in this CodeJam, some of them are used in multiple exercises. To that end, they're collected together in a separate [script/](scripts/) directory and there are symbolic links pointing to them from the relevant exercise-specific directories where needed.
+There are a handful of scripts that are used and explored in this CodeJam, some of them are used in multiple exercises. To that end, they're collected together in a separate [scripts/](scripts/) directory and there are symbolic links pointing to them from the relevant exercise-specific directories where needed.
 
 ## Feedback
 
