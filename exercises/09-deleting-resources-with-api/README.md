@@ -120,9 +120,183 @@ This should show you the keys (properties) in the JSON contained in `tokendata.j
 
 > Unless you're taking this CodeJam very slowly, over days, the access token should still be good - it lasts for 12 hours (you can use `jq -r '.expires_in / 60 / 60 | round' tokendata.json` to check).
 
+Let's examine that "big lump" that is the access token. There doesn't seem to be much (if any) structure to it, but if we know what it is, we can find the tools to help us. There's an open Web standard [RFC7519](https://www.rfc-editor.org/rfc/rfc7519), otherwise known as "JSON Web Token". This is shortened to "JWT" and is commonly pronounced as "jot" (make of that what you will). You can find a link to an introduction to JWTs in the [Further reading](#further-reading) section.
 
+There are many tools that can help you with JWTs. One is `jwt`, which will parse and display the contents of a JWT. Let's use it to look inside the access token.
+
+👉 In your Dev Space, you already have a Node.js runtime, and along with that, the `npm` package manager. Use that to install the `jwt-cli` package, globally; this package contains the `jwt` command line interface:
+
+```bash
+npm install -g jwt-cli
+```
+
+Now you can send the value of the access token to this command and it will parse it and display the contents.
+
+👉 Try it now, like this:
+
+```bash
+jq --raw-output .access_token tokendata | jwt
+```
+
+Along with other output, you should see various sections displayed, something like this:
+
+```text
+✻ Header
+{
+  "alg": "RS256",
+  "jku": "https://8fe7efd4trial-ga.authentication.eu10.hana.ondemand.com/token_keys",
+  "kid": "default-jwt-key--57cafe828",
+  "typ": "JWT"
+}
+
+✻ Payload
+{
+  "jti": "e7858cafea9344f392f0dc8b64bdc014",
+  "ext_attr": {
+    "enhancer": "XSUAA",
+    "globalaccountid": "fdce9323-d6e6-42e6-8df0-5e501c90a2be",
+    "zdn": "8fe7efd4trial-ga",
+    "serviceinstanceid": "4a66cafe-6978-4c05-9fb4-95dac2a625b3"
+  },
+  "xs.system.attributes": {
+    "xs.rolecollections": [
+      "Global Account Administrator"
+    ]
+  },
+  "given_name": "Blue",
+  "xs.user.attributes": {},
+  "family_name": "Adams",
+  "sub": "0fe5eeef-60aa-4607-9bbe-2aacafe89347",
+  "scope": [
+    "cis-central!b14.global-account.subaccount.update",
+    "cis-central!b14.global-account.update",
+    "cis-central!b14.global-account.subaccount.delete",
+    "cis-central!b14.global-account.subaccount.read",
+    "cis-central!b14.job.read",
+    "cis-central!b14.catalog.product.update",
+    "cis-central!b14.catalog.product.delete",
+    "cis-central!b14.global-account.account-directory.create",
+    "cis-central!b14.directory.entitlement.update",
+    "cis-central!b14.global-account.entitlement.read",
+    "xs_account.access",
+    "cis-central!b14.event.read",
+    "cis-central!b14.directory.entitlement.read",
+    "cis-central!b14.global-account.account-directory.read",
+    "openid",
+    "cis-central!b14.global-account.entitlement.subaccount.update",
+    "cis-central!b14.global-account.account-directory.update",
+    "uaa.user",
+    "cis-central!b14.global-account.read",
+    "cis-central!b14.global-account.account-directory.delete",
+    "cis-central!b14.global-account.region.read",
+    "cis-central!b14.global-account.subaccount.create"
+  ],
+  "client_id": "sb-ut-a71edd26-eb55-4443-adff-402fe561cafe-clone!b123443|cis-central!b14",
+  "cid": "sb-ut-a71edd26-eb55-4443-adff-402fe561cafe-clone!b123443|cis-central!b14",
+  "azp": "sb-ut-a71edd26-eb55-4443-adff-402fe561cafe-clone!b123443|cis-central!b14",
+  "grant_type": "password",
+  "user_id": "0fe5eeef-60aa-4607-9bbe-2aa2a5cafe47",
+  "origin": "sap.default",
+  "user_name": "qmacro+blue@gmail.com",
+  "email": "qmacro+blue@gmail.com",
+  "auth_time": 1660912670,
+  "rev_sig": "be1d11ba",
+  "iat": 1660912670,
+  "exp": 1660955870,
+  "iss": "https://8fe7efd4trial-ga.authentication.eu10.hana.ondemand.com/oauth/token",
+  "zid": "fdcafe23-d6e6-42e6-8df0-5e501c90a2be",
+  "aud": [
+    "cis-central!b14.global-account.subaccount",
+    "openid",
+    "xs_account",
+    "cis-central!b14.global-account.entitlement.subaccount",
+    "cis-central!b14.global-account.region",
+    "sb-ut-a71edd26-eb55-4443-adff-402fe5612a9b-clone!b123443|cis-central!b14",
+    "cis-central!b14.global-account.entitlement",
+    "cis-central!b14.event",
+    "cis-central!b14.global-account.account-directory",
+    "cis-central!b14.directory.entitlement",
+    "cis-central!b14.global-account",
+    "uaa",
+    "cis-central!b14.catalog.product",
+    "cis-central!b14.job"
+  ]
+}
+   iat: 1660912670 8/19/2022, 12:37:50 PM
+   exp: 1660955870 8/20/2022, 12:37:50 AM
+
+✻ Signature wQOTOYR61Gz_H0nvM8Dyiv4qIPnHDtJSbBFRuA4HF4ExyVKQBxbGzVXG5qr6mtaWthVLms4X_CwsXV1uLVhtVQJdq1SChFnpDHDJVlRvygIQOnkyZuZhXc4ssIsBJT2rgv95fWY9ICERWCZtbjyIqtZ21fxbdSUhlizr3bcJsvpLloX7clwe2JUANK5eAoh6Zsiy3f_qpgUC2TWf0rjimz8TEN19mxormy3RGCtO7pHAUiU-2hPIjOAsAzm4p742URlsS1xlvnWatmHix--VduiBpHs-QRt1pCgZkqWQDdSKWgaSPGguThCTy7Zn2jcWLtQDb2jLWFb-zWASPvcGOA
+```
+
+That's wonderful! We can see within the "scope" section of the payload that the scope we need is indeed there:
+
+```json
+"cis-central!b14.global-account.account-directory.delete"
+```
+
+In fact, with our lights-out hats on, we would want to go one step further to be able to automate the checking of this, if we needed to. Rather than have to visually identify the appropriate section in the output, we can use the `--output=json` option with `jwt` to get a predictable and parseable output in JSON format, that we can then feed into `jq` to pick out what we want.
+
+👉 Try this now:
+
+```bash
+jq -r .access_token tokendata.json \
+  | jwt --output=json \
+  | jq .payload.scope
+```
+
+This gives us something like this:
+
+```json
+[
+  "cis-central!b14.global-account.subaccount.update"
+  "cis-central!b14.global-account.update"
+  "cis-central!b14.global-account.subaccount.delete"
+  "cis-central!b14.global-account.subaccount.read"
+  "cis-central!b14.job.read"
+  "cis-central!b14.catalog.product.update"
+  "cis-central!b14.catalog.product.delete"
+  "cis-central!b14.global-account.account-directory.create"
+  "cis-central!b14.directory.entitlement.update"
+  "cis-central!b14.global-account.entitlement.read"
+  "xs_account.access"
+  "cis-central!b14.event.read"
+  "cis-central!b14.directory.entitlement.read"
+  "cis-central!b14.global-account.account-directory.read"
+  "openid"
+  "cis-central!b14.global-account.entitlement.subaccount.update"
+  "cis-central!b14.global-account.account-directory.update"
+  "uaa.user"
+  "cis-central!b14.global-account.read"
+  "cis-central!b14.global-account.account-directory.delete"
+  "cis-central!b14.global-account.region.read"
+  "cis-central!b14.global-account.subaccount.create"
+]
+```
+
+We can of course go one step further and look for the scopes that describe the delete level, like this:
+
+```bash
+jq -r .access_token tokendata.json \
+  | jwt --output=json \
+  | jq '
+      .payload.scope
+      | map(select(.|endswith(".delete")))
+    '
+```
+
+This will give us a smaller list to check:
+
+```json
+[
+  "cis-central!b14.global-account.subaccount.delete",
+  "cis-central!b14.catalog.product.delete",
+  "cis-central!b14.global-account.account-directory.delete"
+]
+```
 
 ## Further reading
+
+* [Introduction to JSON Web Tokens](https://jwt.io/introduction)
 
 ---
 
