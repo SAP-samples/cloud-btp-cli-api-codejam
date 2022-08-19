@@ -294,6 +294,80 @@ This will give us a smaller list to check:
 ]
 ```
 
+### Check the service URL
+
+We've identified that the endpoint we want looks like this: `/accounts/v1/directories/{directoryGUID}`. This is relative, of course, and must be suffixed to the Accounts Service API's service URL. Where's that? It's in the same place that we found the service URL for the Entitlements Service API, i.e. in the service key (binding) information. So let's look in there.
+
+👉 Just like you did for the `tokendata.json` file, create a symbolic link in this exercise's directory to the `cis-central-sk.json` file we created back in Exercise 06:
+
+```bash
+ln -s ../06-core-services-api-creds/cis-central-sk.json .
+```
+
+> We don't of course absolutely need references to these files in our current directory, but it's a bit more comfortable when referring to them.
+
+👉 Let's now remind ourselves of the top level properties in this service key information:
+
+```bash
+jq keys cis-central-sk.json
+```
+
+You should see a list of keys like this:
+
+```json
+[
+  "endpoints",
+  "grant_type",
+  "sap.cloud.service",
+  "uaa"
+]
+```
+
+👉 Now dig in to the `endpoints` key:
+
+```bash
+jq .endpoints cis-central-sk.json
+```
+
+You'll see output similar to this, which should include an `accounts_service_url` key and value:
+
+```json
+{
+  "accounts_service_url": "https://accounts-service.cfapps.eu10.hana.ondemand.com",
+  "cloud_automation_url": "https://cp-formations.cfapps.eu10.hana.ondemand.com",
+  "entitlements_service_url": "https://entitlements-service.cfapps.eu10.hana.ondemand.com",
+  "events_service_url": "https://events-service.cfapps.eu10.hana.ondemand.com",
+  "external_provider_registry_url": "https://external-provider-registry.cfapps.eu10.hana.ondemand.com",
+  "metadata_service_url": "https://metadata-service.cfapps.eu10.hana.ondemand.com",
+  "order_processing_url": "https://order-processing.cfapps.eu10.hana.ondemand.com",
+  "provisioning_service_url": "https://provisioning-service.cfapps.eu10.hana.ondemand.com",
+  "saas_registry_service_url": "https://saas-manager.cfapps.eu10.hana.ondemand.com"
+}
+```
+
+So we can see that the service URL is `https://accounts-service.cfapps.eu10.hana.ondemand.com`.
+
+## Make the call
+
+We now have everything we need to make the call, [just like we did in an earlier exercise](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/blob/main/exercises/07-core-services-api-call/README.md#make-the-call).
+
+Let's do it. We'll determine the dynamic values step by step and assign them to variables, rather than try to do everything in one go.
+
+👉 Save the service URL in a variable, and also the GUID of the directory:
+
+```bash
+url=$(jq --raw-output .endpoints.accounts_service_url cis-central-sk.json)
+guid=$(btpguid codejam-directory)
+```
+
+👉 Now use these in the `curl` invocation, along with the access token:
+
+```bash
+curl \
+  --url "$url/accounts/v1/directories/$guid" \
+  --header "Authorization: Bearer $(jq -r .access_token tokendata.json)"
+```
+
 ## Further reading
 
 * [Introduction to JSON Web Tokens](https://jwt.io/introduction)
