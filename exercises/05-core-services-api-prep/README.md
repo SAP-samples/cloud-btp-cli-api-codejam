@@ -532,9 +532,9 @@ but it may be different for the CF environment instance in your subaccount. What
 
 ## Determining the CF API endpoint with a script
 
-In the [directory containing this specific README file](./), there's [a link](./get_cf_api_endpoint) to a script [get_cf_api_endpoint](../get_cf_api_endpoint). This script is an automated version of everything you've done in this section. If you've finished early, then you may wish to peruse the code, some of which you should recognize now.
+In the [directory containing this specific README file](./), there's a link to a script [get_cf_api_endpoint](../../scripts/get_cf_api_endpoint). This script is an automated version of everything you've done in this section. If you've finished early, then you may wish to peruse the code, some of which you should recognize now.
 
-> This `get_cf_api_endpoint` script is used in this and a subsequent exercise, so to avoid duplicating it in both exercise directories, it lives in the [exercises](../) directory and there are symbolic links to it from both exercise directories.
+> This `get_cf_api_endpoint` script is used in this and a subsequent exercise, so to avoid duplicating it in both exercise directories, it lives in a separate [scripts/](../../scripts/) directory and there are symbolic links to it from both exercise directories.
 
 You can try it out, too.
 

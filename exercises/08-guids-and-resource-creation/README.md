@@ -103,17 +103,17 @@ You could search for the GUID and copy-paste it, but this isn't ideal and doesn'
 
 ![still image from the btp CLI section of the Developer Keynote](assets/dev-keynote-bgu.png)
 
-It's an example of a bit of Bash scripting around the btp CLI to provide a useful utility. A version of that script is in the directory containing this exercise: [btpguid](btpguid). An analysis of the script, how the data is parsed in text form, and then how it's parsed in JSON form, is available in a two-part blog post series - see the [Further reading](#further-reading) section at the end.
+It's an example of a bit of Bash scripting around the btp CLI to provide a useful utility. There's a link to [a version of that script](../../scripts/btpguid) in the directory containing this exercise. An analysis of the script, how the data is parsed in text form, and then how it's parsed in JSON form, is available in a two-part blog post series - see the [Further reading](#further-reading) section at the end.
 
 Let's try it out.
 
 👉 First, for ease of execution, create a symbolic link in your `$HOME/bin/` directory to point to where this script is right now. This is so you can call `btpguid` from wherever you are, because `$HOME/bin/` is [in your PATH](../01-installing/README.md#add-your-bin-directory-to-the-path):
 
 ```bash
-ln -s $HOME/projects/cloud-btp-cli-api-codejam/exercises/08-guids-and-resource-creation/btpguid $HOME/bin/
+ln -s $HOME/projects/cloud-btp-cli-api-codejam/scripts/btpguid $HOME/bin/
 ```
 
-You can now use the `btpguid` script to give you the GUID of a subaccount or directory.
+You can now use the `btpguid` script to give you the GUID of a subaccount or directory (and you don't need to prefix it with `./` because the shell will now find the script in your PATH).
 
 👉 Try it now:
 
@@ -215,7 +215,7 @@ subaccount       4dc80103-6f20-4582-8aec-858bb6319d30   codejam-subaccount cd0c8
 
 You can see how easy the btp CLI makes managing resources on BTP. It's definitely worth experimenting further, creating, modifying and querying resources using different combinations of btp CLI actions, groups and objects.
 
-👉 Take a few moments to examine the [btpguid](btpguid) script. There are a few things worthy of note:
+👉 Take a few moments to examine the [btpguid](../../scripts/btpguid) script. There are a few things worthy of note:
 
 * The script isn't long, and half of it is made up of comments
 * A lot of the heavy lifting is done with `jq`, in the `parse` function

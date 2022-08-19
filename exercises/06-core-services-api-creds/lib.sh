@@ -1,1 +1,1 @@
-../lib.sh
+../../scripts/lib.sh

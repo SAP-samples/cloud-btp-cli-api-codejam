@@ -113,9 +113,9 @@ curl \
 >
 > See the [Further reading](#further-reading) section at the end of this exercise for links to more information on these topics.
 
-The simple script [call-entitlements-service-regions-api](call-entitlements-service-regions-api), also in this directory, will help you do this. Like the `generate-password-grant-type` script, it also requires the service key JSON data file (so it can retrieve the value of the `entitlements_service_url` endpoint) ... it also requires the name of the token data JSON file.
+The simple script [call-entitlements-service-regions-api](../../scripts/call-entitlements-service-regions-api), a link to which is in this directory, will help you do this. Like the `generate-password-grant-type` script, it also requires the service key JSON data file (so it can retrieve the value of the `entitlements_service_url` endpoint) ... it also requires the name of the token data JSON file.
 
-👉 Have a look at the script if you wish, then invoke it, passing the output to `jq` to prettify it:
+👉 Have [a look at the script](../../scripts/call-entitlements-service-regions-api) if you wish, then invoke it, passing the output to `jq` to prettify it:
 
 ```bash
 ./call-entitlements-service-regions-api cis-central-sk.json tokendata.json | jq .
@@ -184,5 +184,5 @@ Well done, you've made it this far and been on quite a detailed journey to under
 
 If you finish earlier than your fellow participants, you might like to ponder these questions. There isn't always a single correct answer and there are no prizes - they're just to give you something else to think about.
 
-1. Have a bit of a stare at the [call-entitlements-service-regions-api](call-entitlements-service-regions-api) script, and the associated [lib.sh](lib.sh) library. Is there anything in there that you'd like to know more about?
+1. Have a bit of a stare at the [call-entitlements-service-regions-api](../../scripts/call-entitlements-service-regions-api) script, and the associated [lib.sh](../../scripts/lib.sh) library. Is there anything in there that you'd like to know more about?
 1. Just before the JSON output in the call to `call-entitlements-service-regions-api`, you saw some progress bar style information on bytes received, time taken, and so on. How would you suppress this output, so you just got the JSON?

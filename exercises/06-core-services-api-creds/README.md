@@ -56,7 +56,7 @@ cd $HOME/projects/cloud-btp-cli-api-codejam/exercises/06-core-services-api-creds
 cf login -a $(./get_cf_api_endpoint "trial")
 ```
 
-> Just like in the previous exercise, the `get_cf_api_endpoint` in this directory is [just a symbolic link](get_cf_api_endpoint) to the [real script](../get_cf_api_endpoint) in a directory one level above here.
+> Just like in the previous exercise, the `get_cf_api_endpoint` in this directory is [just a symbolic link](get_cf_api_endpoint) to the [real script](../../scripts/get_cf_api_endpoint) in the shared [scripts/](../../scripts/) directory.
 
 Supply your BTP trial account credentials (email address and password). Here's what the flow will look like:
 
@@ -260,7 +260,7 @@ Background details on this are available in the SAP Help Portal page linked in t
 
 Now you can request the token. It's essentially an HTTP request to an OAuth 2.0 endpoint with parameters supplying the grant type, username and password details, and authentication in the form of the `clientid` and `clientsecret` values above.
 
-There's a script called [generate-password-grant-type](generate-password-grant-type) in this directory that you can run, and at the heart is this `curl` invocation, which gives you an idea of what's going to happen:
+In this directory, there's a link to a script called [generate-password-grant-type](../../scripts/generate-password-grant-type) that you can run, and at the heart is this `curl` invocation, which gives you an idea of what's going to happen:
 
 ```bash
 curl \
@@ -321,7 +321,7 @@ These properties look like the right ones - we have an access token that we can 
 
 ### Understand the HTTP call
 
-Now that you've successfully made an OAuth 2.0 call to request an access token, you can relax a bit. But not completely - it's important that you understand what just happened. The [generate-password-grant-type](generate-password-grant-type) script wrapped the call for you, so to finish this exercise, let's unwrap it a bit and make sure we know what the `curl` invocation is doing.
+Now that you've successfully made an OAuth 2.0 call to request an access token, you can relax a bit. But not completely - it's important that you understand what just happened. The [generate-password-grant-type](../../scripts/generate-password-grant-type) script wrapped the call for you, so to finish this exercise, let's unwrap it a bit and make sure we know what the `curl` invocation is doing.
 
 We'll cover the answers to all the questions in this section in a short discussion, when we get to the end of this exercise.
 
@@ -345,6 +345,8 @@ curl \
   --data-urlencode "username=$email" \
   --data-urlencode "password=$password"
 ```
+
+> If you're hardcode and using `vim` on the command line, kudos :-) and you don't need to do anything other than invoke `vim ./generate-password-grant-type`. For those saner folks wanting to use the editor built in to App Studio, don't forget you'll need to navigate to the [scripts/](../../scripts/) directory where you'll find the actual `generate-password-grant-type` source.
 
 👉 Run the script again, in the same way:
 
