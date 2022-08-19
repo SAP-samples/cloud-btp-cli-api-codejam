@@ -319,6 +319,33 @@ These properties look like the right ones - we have an access token that we can 
 
 > See the reference to the "keys" section of the `jq` manual in the [Further reading](#further-reading) section below to read more on the "keys" function.
 
+Now we can update our diagram to record the fact that we now have a token!
+
+```text
++----------------+      +----------------+      +----------------+
+|    Service     |      |    Instance    |      |    Binding     |
+|      cis       |--+-->|   cis-central  |----->| cis-central-sk |
+|                |  |   |                |      |                |
++----------------+  |   +----------------+      +----------------+
+        |           |                                   |
+        |           |                                   |
+        |           |                                   |
++----------------+  |                                   |
+|      Plan      |  |                                   |
+|     central    |--+                                   |
+|                |                                      |
++----------------+                                      |
+                                                        |
+        +-----------------------------------------------+
+        |
+        V
++----------------+      +----------------+
+|     Token      |      |    API Call    |
+|  access_token  |----->|                |
+|                |      |                |
++----------------+      +----------------+
+```
+
 ### Understand the HTTP call
 
 Now that you've successfully made an OAuth 2.0 call to request an access token, you can relax a bit. But not completely - it's important that you understand what just happened. The [generate-password-grant-type](../../scripts/generate-password-grant-type) script wrapped the call for you, so to finish this exercise, let's unwrap it a bit and make sure we know what the `curl` invocation is doing.
