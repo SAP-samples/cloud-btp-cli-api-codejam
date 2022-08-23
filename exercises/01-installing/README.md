@@ -116,6 +116,32 @@ Version is 2.14.0
 user: user $
 ```
 
+## Set an alias to invoke new bashrc commands
+
+Over the course of the next couple of exercises you'll be appending various setup commands to your `$HOME/.bashrc` file. This is a script that gets executed each time you start a new shell, which for example, in the case of your Dev Space in the App Studio, is every time you open up a new terminal. Rather than have to close and open up a new terminal for new commands in `$HOME/.bashrc` to take effect, you can add an alias that you can call instead, which will execute the last line of the file in the context of your current shell session.
+
+👉 In what you're about to do, it's important that you don't accidentally clobber your entire `.bashrc` file, so first take a copy of it:
+
+```bash
+cp $HOME/.bashrc /tmp/
+```
+
+Now add a line to the end, which defines the alias - if you're typing it in manually, first, well done, and second, make sure you use the command as shown here, with the single quotes (not double quotes) and using the *append* redirection which is a double greater-than sign `>>`, and *not* a single one:
+
+```bash
+echo "alias bu='source <(tail -1 $HOME/.bashrc)'" >> $HOME/.bashrc
+```
+
+The alias is named `bu` for "Bash Update" (you can use a different name if you prefer).
+
+👉 Now, in a sort of bootstrapping process, run this actual command once:
+
+```bash
+source <(tail -1 $HOME/.bashrc)'
+```
+
+This will take the last line of your `$HOME/.bashrc` (the line you've just added) and run it in the context of your current shell session (see the [Further reading](#further-reading) section on what `source` is and does). Yes, this does feel a bit meta. Which is a bonus!
+
 ## Add your bin directory to the PATH
 
 You should now have the btp CLI available in your `$HOME/bin/` directory.
@@ -133,25 +159,21 @@ lrwxrwxrwx 1 user group       10 Jan  6 09:59 btp -> btp-2.14.0
 -rwxr-xr-x 1 user group 11048097 Nov 18 13:58 btp-2.14.0
 ```
 
-Before you can run the btp CLI simply as `btp` you need to add that `bin/` directory to your `PATH` environment variable. To make this addition persistent, make the addition in the script that gets run each time you open up a new terminal session (more accurately, a new Bash shell session in the terminal) - the `.bashrc` file in your home directory.
+Before you can run the btp CLI simply as `btp` you need to add that `bin/` directory to your `PATH` environment variable. To make this addition persistent, let's add it to `$HOME/.bashrc`.
 
-👉 In the next command, it's vital that you don't accidentally clobber your entire `.bashrc` file, so first take a copy of it:
-
-```bash
-cp $HOME/.bashrc /tmp/
-```
-
-👉 Now append a line to the `.bashrc` file in your home directory which adds the `bin/` directory to the `PATH` environment variable - make sure you use the command as shown here, with the single quotes (not double quotes) and using the *append* redirection which is a double greater-than sign `>>`, and *not* a single one:
+👉 Append a line to the `.bashrc` file in your home directory which adds the `bin/` directory to the `PATH` environment variable
 
 ```bash
 echo 'export PATH=$PATH:$HOME/bin' >> $HOME/.bashrc
 ```
 
-👉 Now, close the current session by typing in `exit` (or Ctrl-D) and start a new terminal session. This should cause the contents of `$HOME/.bashrc` to be executed, meaning that you should now have a `PATH` environment variable which contains your `bin/` directory.
+👉 Now run the `bu` alias to have that `export` invoked in your current shell's context:
 
-> Instead of closing the current session and starting a new one, you can also just `source` the file, like this: `source ~/.bashrc` (see [Sourcing a File](https://tldp.org/HOWTO/Bash-Prompt-HOWTO/x237.html) for background).
+```bash
+bu
+```
 
-👉 Check this as follows:
+👉 Check that the addition of your `$HOME/bin/` directory to the `PATH` environment variable has taken effect, as follows (you should see it at the end):
 
 ```bash
 user: user $ echo $PATH
@@ -227,6 +249,7 @@ At this point you have the btp CLI set up and ready to invoke from the command l
 * [SAP Tech Bytes: btp CLI – installation](https://blogs.sap.com/2021/09/01/sap-tech-bytes-btp-cli-installation/)
 * SAP Help topic [Command Syntax of the btp CLI](https://help.sap.com/products/BTP/65de2977205c403bbc107264b8eccf4b/69606f42743f46c29fa72c04e8c18674.html)
 * Bash [shell parameter expansion](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html)
+* The [source builtin](https://stackoverflow.com/a/56161354/384366) in Bash ([Sourcing a File](https://tldp.org/HOWTO/Bash-Prompt-HOWTO/x237.html) is also a good resource)
 
 ---
 
