@@ -6,7 +6,7 @@ At the end of this exercise, you'll have autocomplete turned on for the btp CLI 
 
 If you've had a look at the output from `btp help` you'll know that there are multiple commands that the CLI supports, and different groups of objects upon which these commands operate:
 
-```
+```text
 user: user $ btp help
 Connecting to CLI server at https://cpcli.cf.eu10.hana.ondemand.com...
 SAP BTP command line interface (client v2.14.0)
@@ -52,7 +52,7 @@ OK
 
 It's possible to get an overview of what the possible targets of each command are, by asking for help on that particular command. Here's an example:
 
-```
+```text
 user: user $ btp list --help
 Connecting to CLI server at https://cpcli.cf.eu10.hana.ondemand.com...
 SAP BTP command line interface (client v2.14.0)
@@ -102,7 +102,7 @@ btp enable autocomplete bash
 
 Here's an example of such a setup:
 
-```
+```text
 user: user $ btp enable autocomplete bash
 This will install the autocomplete plugin script for bash to /home/user/.config/btp/autocomplete/scripts. Do you want to continue? [no]>yes
 Which RCFile should be used for the installation?
@@ -131,7 +131,7 @@ tail -3 $HOME/.bashrc
 
 You'll see that there's an extra line that follows the two lines you yourself added in earlier exercises:
 
-```
+```bash
 export PATH=$PATH:$HOME/bin
 export BTP_CLIENTCONFIG=$HOME/.config/btp/config.json
 SAP_BTP_CLI_AUTOCOMPLETE="/home/user/.config/btp/autocomplete/scripts/sapbtpcli-autocomplete.plugin.sh" && source $SAP_BTP_CLI_AUTOCOMPLETE
@@ -139,7 +139,7 @@ SAP_BTP_CLI_AUTOCOMPLETE="/home/user/.config/btp/autocomplete/scripts/sapbtpcli-
 
 ## Guard against permission expansion
 
-Currently, if the Dev Space is restarted, permissions on the btp CLI configuration files are extended to add read/write access for the group; we don't want this.
+Currently, if the Dev Space is restarted, permissions on the btp CLI configuration files are extended to add read/write access for the group; we don't want this. (This is not relevant if you're not working through this CodeJam in a Dev Space in the SAP Business Application Studio).
 
 👉 So while you're looking at your `.bashrc` file, append a line like this:
 

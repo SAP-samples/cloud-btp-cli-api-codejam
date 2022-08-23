@@ -16,7 +16,7 @@ btp list accounts/available-region
 
 The output should look something like this:
 
-```
+```text
 
 Showing available regions for global account fdce9323-d6e6-42e6-8df0-5e501c90a2be:
 
@@ -34,7 +34,7 @@ OK
 
 Traditional Unix commands output only the data requested, often with no frills. This is so the output, that often gets piped into a subsequent command, can be processed without issue. What you might want if you were intending to write a script to examine the possible regions and make a decision based upon what was available, is just the basic output:
 
-```
+```text
 ap21     cf-ap21       cloudfoundry   AZURE
 us10     cf-us10       cloudfoundry   AWS
 eu10     cf-eu10       cloudfoundry   AWS
@@ -48,7 +48,7 @@ There are many ways with the traditional Unix approach to trim the extra output 
 
 The first uses [sed](https://en.wikipedia.org/wiki/Sed):
 
-```
+```text
 user: user $ btp list accounts/available-region 2> /dev/null | sed '1,/^region /d; /^$/d'
 ap21     cf-ap21       cloudfoundry   AZURE
 us10     cf-us10       cloudfoundry   AWS
@@ -58,7 +58,7 @@ user: user $
 
 The second uses [grep](https://en.wikipedia.org/wiki/Grep):
 
-```
+```text
 user: user $ btp list accounts/available-region 2> /dev/null | grep -E '^[a-z]{2}[0-9]+\s+'
 ap21     cf-ap21       cloudfoundry   AZURE
 us10     cf-us10       cloudfoundry   AWS
@@ -136,7 +136,7 @@ You should see something like this:
 
 With the JSON output above, you might be tempted to parse the datacenter information as plain text, as the JSON appears naturally pretty-printed with property & value pairs on separate lines. Here's an example of that:
 
-```
+```text
 $ btp --format json list accounts/available-region | grep displayName
       "displayName": "Singapore - Azure",
       "displayName": "US East (VA) - AWS",
@@ -150,7 +150,7 @@ JSON is not a plain text format, and while the structure and information in a JS
 
 The JSON output (taking the datacenter information we've seen already) could just as easily appear like this:
 
-```
+```text
 {"datacenters":[{"name":"cf-ap21","displayName":"Singapore - Azure","region":"ap21","environment":"c
 loudfoundry","iaasProvider":"AZURE","supportsTrial":true,"provisioningServiceUrl":"https://provision
 ing-service.cfapps.ap21.hana.ondemand.com","saasRegistryServiceUrl":"https://saas-manager.cfapps.ap2
@@ -186,7 +186,7 @@ btp --format json list accounts/available-region 2> /dev/null \
 
 This should produce output like this:
 
-```
+```text
 "Singapore - Azure"
 "US East (VA) - AWS"
 "Europe (Frankfurt) - AWS"
@@ -207,6 +207,7 @@ Let's start by rewriting it in a more verbose way so we can identify and underst
 ```jq
 .["datacenters"] | .[] | .["displayName"]
 ```
+
 The pipeline concept you may already know from the shell is also a core part of `jq`. This is what the `|` symbols are for.
 
 👉 Before we continue, let's be nice to the btp CLI endpoint being called, and cache the results of the list of available regions in a temporary file:
@@ -222,6 +223,8 @@ Now we can use this file like this:
 jq '.datacenters[].displayName' regions.json
 ```
 
+Now that we have the data locally in a file, let's explore how this `jq` filter works.
+
 1. The filter starts with the simplest construct, which is the [identity](https://stedolan.github.io/jq/manual/#Identity:.) `.`. This says "everything that you have right now", which at the start is all of the JSON.
 
     👉 Try this simple first step to see that you indeed get all of the data:
@@ -230,7 +233,19 @@ jq '.datacenters[].displayName' regions.json
     jq '.' regions.json
     ```
 
-1. This is combined with a [generic object index](https://stedolan.github.io/jq/manual/#GenericObjectIndex:.[%3Cstring%3E]) to give `.["datacenters"]` which is a reference to the value of the `datacenters` property. From the output earlier, we know that this is an array (a list of objects, each one representing the detail of a data center).
+    Note that the outermost element in the JSON that is output is an object (`{...}`).
+
+1. Given that we get an object, let's just check what properties (also known as keys) exist in that object.
+
+    👉 Do that by asking for the keys:
+
+    ```bash
+    jq 'keys' regions.json
+    ```
+
+    You should see a single key listed (inside of an array), and that key is `datacenters`.
+
+1. OK, so now the identity function `.` is combined with a [generic object index](https://stedolan.github.io/jq/manual/#GenericObjectIndex:.[%3Cstring%3E]) to give `.["datacenters"]` which is a reference to the value of the `datacenters` property. From the output earlier, we know that this is an array (a list of objects, each one representing the detail of a data center).
 
     👉 Try this too, and note the subtle difference in output to the previous step:
 
@@ -248,7 +263,11 @@ jq '.datacenters[].displayName' regions.json
     jq '.["datacenters"] | .[]' regions.json
     ```
 
-1. This means that each of the elements (each of the objects representing a data center) is passed into the next pipe that sends the data to the final component of the filter, which is another object index `.["displayName"]`, which just picks out and emits the value of the `displayName` property. Because this component of the filter is invoked once per array element, we get an entire list of data center display names as the output. And of course this time, the `.` in the `.["displayName"]` construct refers to whatever was passed in through the pipe, which (for each and every one of the multiple invocations) is an object, one of the elements of the `datacenters` array.
+    The output this time is subtly different yet again.
+
+1. The use of `| .[]` means that each of the elements (each of the objects representing a data center) is passed into the next pipe that sends the data to the final component of the filter, which is another object index `.["displayName"]`, which just picks out and emits the value of the `displayName` property.
+
+    Because this component of the filter is invoked once per array element, we get an entire list of data center display names as the output. And of course this time, the `.` in the `.["displayName"]` construct refers to whatever was passed in through the pipe, which (for each and every one of the multiple invocations) is an object, one of the elements of the `datacenters` array.
 
     👉 Add this final component to see what happens:
 
@@ -274,6 +293,8 @@ Finally, object identifier-index values can be concatenated too, giving us this:
 .datacenters[].displayName
 ```
 
+Phew!
+
 Before we finish this exercise, let's gently explore `jq` a little more.
 
 #### Counting the total number of data centers
@@ -288,7 +309,7 @@ jq '.datacenters|length' regions.json
 
 This should produce a single scalar value as output, like this (with the value reflecting the number of elements in your array of data centers):
 
-```
+```text
 3
 ```
 
@@ -314,7 +335,7 @@ jq --raw-output '
 
 Based on the data center data above, this is the output produced:
 
-```
+```text
 Singapore
 US East (VA)
 Europe (Frankfurt)
@@ -365,6 +386,8 @@ At this point you know how to get the btp CLI to output the structured data in a
 If you finish earlier than your fellow participants, you might like to ponder these questions. There isn't always a single correct answer and there are no prizes - they're just to give you something else to think about.
 
 1. What Unix tool might you use to parse out the individual column values, say, to identify the region and provider values, from the text output in [Parsing the output](#parsing-the-output)?
+
+1. When working through the `jq` filter to [list the available datacenter names](#listing-the-available-datacenter-names), did you spot what the subtle difference were between the different outputs from `.`, `.["datacenters"]` and `.["datacenters"] | .[]`?
 
 1. Looking at the `jq` filter we used to get the number of data centers (`.datacenters|length`), what happens when you use the filter `.datacenters[]|length`, and can you figure out what that result is, and why it's given?
 
