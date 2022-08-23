@@ -145,11 +145,13 @@ f78e0bdb-c97c-4cbc-bb06-526695f44551   trial           8fe7efd4trial   eu10     
 OK
 ```
 
+> Here's where the plural/singular approach to the group and object in the invocation comes in (we thought about this at the end of the previous exercise). The group "accounts" is plural, while the object "subaccount" is singular.
+
 The output details a line for your subaccount, including its ID (which starts `f78e0bdb` here - the ID for your subaccount will of course be different) as well as its name (which is `trial` in this example).
 
 👉 Try the `target` command again, this time specifying the ID of your subaccount, rather than the display name. Here's an example, with output:
 
-```
+```text
 user: user $ btp target --subaccount f78e0bdb-c97c-4cbc-bb06-526695f44551
 Targeting subaccount 'f78e0bdb-c97c-4cbc-bb06-526695f44551'. Commands that only work on global account level will be executed in the parent global account.
 

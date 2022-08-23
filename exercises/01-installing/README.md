@@ -62,7 +62,7 @@ So at this stage you have a choice.
 
 If you do choose this approach, make sure you end up with
 
-```
+```text
 /home/user/bin/btp
 ```
 
@@ -78,18 +78,20 @@ This script is part of an [SAP Tech Bytes](https://github.com/SAP-samples/sap-te
 cd $HOME
 ```
 
-
 👉 Download the `getbtpcli` script and make it executable:
-  ```bash
-  curl \
-    --remote-name \
-    --location \
-    --url "https://raw.githubusercontent.com/SAP-samples/sap-tech-bytes/2021-09-01-btp-cli/getbtpcli" \
-    && chmod +x getbtpcli
-  ```
+
+```bash
+curl \
+  --remote-name \
+  --location \
+  --url "https://raw.githubusercontent.com/SAP-samples/sap-tech-bytes/2021-09-01-btp-cli/getbtpcli" \
+  && chmod +x getbtpcli
+```
+
   > The `getbtpcli` script itself will be placed in whatever directory you happen to be in, which will be your home directory, which is fine. So you'll need to specify the relative path to it when running it, like this: `./getbtpcli`.
 
 👉 Run the script with the test mode option just to check what the latest version of the btp CLI is (the output will be something like "Version is 2.14.0"):
+
 ```bash
 ./getbtpcli --test
 ```
@@ -97,13 +99,14 @@ cd $HOME
 > If you're [going off piste](https://dictionary.cambridge.org/dictionary/english/go-off-piste) and carrying out these exercises on macOS, please note that you'll need to have the "proper" GNU version of `grep` installed (see this [Stack Overflow](https://stackoverflow.com/questions/59232089/how-to-install-gnu-grep-on-mac-os) entry for tips. especially the part about "needing to use these commands with their normal names"). Otherwise you may encounter errors. If you're running on a Windows based machine, then I'm afraid [I can't help you](https://dilbert.com/strip/1995-06-24), except perhaps to suggest using the [Windows Subsystem for Linux](https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux) :-)
 
 👉 Run the script, to download, unpack and install the btp CLI:
+
 ```bash
 ./getbtpcli
 ```
 
 Here's an example session where it's run in test mode first and then for real:
 
-```
+```text
 user: user $ ./getbtpcli --test
 Version is 2.14.0
 user: user $ ./getbtpcli
@@ -125,7 +128,7 @@ ls -l $HOME/bin/
 
 You should see something similar to this:
 
-```
+```text
 lrwxrwxrwx 1 user group       10 Jan  6 09:59 btp -> btp-2.14.0
 -rwxr-xr-x 1 user group 11048097 Nov 18 13:58 btp-2.14.0
 ```
@@ -186,7 +189,7 @@ Now you can invoke `btp` with confidence from wherever you are, and in all futur
 
 👉 Try it now:
 
-```
+```text
 user: user $ btp
 Welcome to the SAP BTP command line interface (client v2.14.0)
 
@@ -207,12 +210,13 @@ OK
 
 👉 While you're here, take a few moments to stare at this line, to get a feel for btp CLI invocations on the command line:
 
-```
+```text
 Usage: btp [OPTIONS] ACTION [GROUP/OBJECT] [PARAMS]
 ```
 
-There's an SAP Help topic page linked in the [Further reading](#further-reading) section that explains how this is structured.
+You'll find that it helps to remember this invocation format, by considering that -- usually -- the GROUP is plural, and the OBJECT is singular. For example, in the next exercise, you'll use `btp list accounts/subaccount`.
 
+There's an SAP Help topic page linked in the [Further reading](#further-reading) section that explains how this is structured.
 
 ## Summary
 
@@ -223,6 +227,7 @@ At this point you have the btp CLI set up and ready to invoke from the command l
 * [SAP Tech Bytes: btp CLI – installation](https://blogs.sap.com/2021/09/01/sap-tech-bytes-btp-cli-installation/)
 * SAP Help topic [Command Syntax of the btp CLI](https://help.sap.com/products/BTP/65de2977205c403bbc107264b8eccf4b/69606f42743f46c29fa72c04e8c18674.html)
 * Bash [shell parameter expansion](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html)
+
 ---
 
 ## Questions
