@@ -118,7 +118,7 @@ user: user $
 
 ## Set an alias to invoke new bashrc commands
 
-Over the course of the next couple of exercises you'll be appending various setup commands to your `$HOME/.bashrc` file. This is a script that gets executed each time you start a new shell, which for example, in the case of your Dev Space in the App Studio, is every time you open up a new terminal. Rather than have to close and open up a new terminal for new commands in `$HOME/.bashrc` to take effect, you can add an alias that you can call instead, which will execute the last line of the file in the context of your current shell session.
+Over the course of the next couple of exercises you'll be appending various setup commands to your `$HOME/.bashrc` file. The contents of this file are executed each time you start a new shell, which for example, in the case of your Dev Space in the App Studio, is every time you open up a new terminal. Rather than have to close and open up a new terminal for new commands in `$HOME/.bashrc` to take effect, you can add an alias that you can call instead, which will execute the last line of the file in the context of your current shell session.
 
 👉 In what you're about to do, it's important that you don't accidentally clobber your entire `.bashrc` file, so first take a copy of it:
 
@@ -137,10 +137,22 @@ The alias is named `bu` for "Bash Update" (you can use a different name if you p
 👉 Now, in a sort of bootstrapping process, run this actual command once:
 
 ```bash
-source <(tail -1 $HOME/.bashrc)'
+source <(tail -1 $HOME/.bashrc)
 ```
 
 This will take the last line of your `$HOME/.bashrc` (the line you've just added) and run it in the context of your current shell session (see the [Further reading](#further-reading) section on what `source` is and does). Yes, this does feel a bit meta. Which is a bonus!
+
+👉 Check that you have this new `bu` alias like this:
+
+```bash
+alias
+```
+
+You should see a list including the one you've just indirectly defined in your current shell, which should look like this:
+
+```text
+alias bu='source <(tail -1 /home/user/.bashrc)'
+```
 
 ## Add your bin directory to the PATH
 

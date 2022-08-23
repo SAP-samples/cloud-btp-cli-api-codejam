@@ -27,7 +27,7 @@ If you managed to check out the "Usage" information and the output from `btp --h
 
 Here's an example authentication flow for trial global account 8fe7efd4trial:
 
-```
+```text
 user: user $ btp login
 SAP BTP command line interface (client v2.14.0)
 
@@ -52,7 +52,7 @@ OK
 
 Here's another example authentication flow, for a global account with the subdomain "sap-developer-advocates-free-tier", where the user has chosen to use single sign on (SSO) with the browser:
 
-```
+```text
 user: user $ btp login --sso manual
 SAP BTP command line interface (client v2.24.0)
 
@@ -80,7 +80,7 @@ OK
 
 > In this example, the user selects the URL presented at the "Please authenticate at" prompt and opens it in the browser, and authenticates there if required. Then the flow automatically continues.
 
-> Any issues logging in could be down to a number of factors - for example, if you're using two-factor authentication (2FA), remember to append your 2FA code to your password as you enter it.
+Any issues logging in could be down to a number of factors - for example, if you're using two-factor authentication (2FA), remember to append your 2FA code to your password as you enter it.
 
 ## Set your desired subaccount as a target
 
@@ -125,17 +125,21 @@ So set your desired subaccount as the target now.
 
 👉 Try this (substituting your subaccount's name for "trial", if it's different):
 
-```
+```bash
 btp target --subaccount trial
 ```
 
 That's not quite right, is it? Here we see there's a distinction between the display name and the ID. The help above, as well as the error message you just saw as a result of not actually specifying a real ID, gives us a clue as to how we find it.
 
-👉 Do that now. Here's an example, with output:
+👉 Do that now, using the "list" action on the "subaccount" object in the "accounts" group:
 
+```bash
+btp list accounts/subaccount
 ```
-user: user $ btp list accounts/subaccount
 
+Here's the sort of thing that you should see:
+
+```text
 subaccounts in global account fdce9323-d6e6-42e6-8df0-5e501c90a2be...
 
 subaccount id:                         display name:   subdomain:      region:   beta-enabled:   parent id:                             parent type:     state:   state message:
@@ -145,9 +149,9 @@ f78e0bdb-c97c-4cbc-bb06-526695f44551   trial           8fe7efd4trial   eu10     
 OK
 ```
 
-> Here's where the plural/singular approach to the group and object in the invocation comes in (we thought about this at the end of the previous exercise). The group "accounts" is plural, while the object "subaccount" is singular.
+> Here's where the plural/singular approach to the group and object in the invocation comes in (we thought about this at the end of the previous exercise). In the `btp` invocation you just made, group "accounts" is plural, while the object "subaccount" is singular.
 
-The output details a line for your subaccount, including its ID (which starts `f78e0bdb` here - the ID for your subaccount will of course be different) as well as its name (which is `trial` in this example).
+The output should include a detailed line for your subaccount, showing its ID (which starts `f78e0bdb` here - the ID for your subaccount will of course be different) as well as its name (which is `trial` in this example).
 
 👉 Try the `target` command again, this time specifying the ID of your subaccount, rather than the display name. Here's an example, with output:
 
@@ -168,7 +172,7 @@ OK
 
 Any `btp` invocation output displays what the current target is; note now that not only is the global account targeted but also the subaccount:
 
-```
+```text
 Current target:
   Global account (subdomain: 8fe7efd4trial-ga)
   └─ Subaccount (ID: f78e0bdb-c97c-4cbc-bb06-526695f44551)
@@ -180,7 +184,7 @@ Current target:
 
 Directly after logging in just a few moments earlier, you may have noticed that the success message included a line about configuration (see the [Authenticate](#authenticate) section earlier for the context):
 
-```
+```text
 We stored your configuration file at: /home/user/.config/.btp/config.json
 ```
 
@@ -233,7 +237,7 @@ OK
 
 Whoops - it thinks you're no longer authenticated because it can't find the configuration file that contains the token. Let's continue and see how that is resolved again.
 
-> This little test will cause the re-creation of a btp CLI config file in the `.config/.btp/` directory, but we don't want that to hang around, so you can delete it if you want, like this: `rm -rf $HOME/.config/.btp`.
+> This little test will cause the re-creation of a btp CLI config file in the `.config/.btp/` directory, but we don't want that to hang around, so you can delete it if you want, like this: `rm -rf $HOME/.config/.btp`
 
 ### Specify a permanent value for `BTP_CLIENTCONFIG`
 
@@ -243,9 +247,14 @@ Whoops - it thinks you're no longer authenticated because it can't find the conf
 echo 'export BTP_CLIENTCONFIG=$HOME/.config/btp/config.json' >> $HOME/.bashrc
 ```
 
-Restarting your terminal (closing the current one with `exit` or with Ctrl-D and starting a new one) will cause this new environment variable to be set, so you can then try invoking `btp` again.
+Using the `bu` alias will cause this new environment variable to be set in your current shell, so you can then try invoking `btp` again.
 
-👉 Restart your terminal now.
+👉 Do that now, and then check that the environment variable is indeed set appropriately:
+
+```bash
+bu
+env | grep BTP
+```
 
 ### Run the btp CLI again
 
