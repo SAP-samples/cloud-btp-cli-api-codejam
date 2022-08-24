@@ -2,9 +2,11 @@
 
 These instructions describe how you can clone this repository into your App Studio Dev Space, to get access to resources (such as scripts) in the various exercise directories.
 
+There are different ways you can clone git repositories into your Dev Space, which offers convenient tools to do so. In this case, we're just going to use the most straightforward, on the command line.
+
 ## Move into the `projects/` directory
 
-👉 In a terminal in your Dev Space (open a new one if required with `Terminal -> New Terminal`) ensure you're in the `projects/` directory in your home directory; this is a directory that is pre-created when you set the Dev Space up.
+👉 In your current shell session, move to the `projects/` directory in your home directory; this is a directory that should already exist.
 
 ```bash
 cd $HOME/projects/

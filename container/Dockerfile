@@ -16,6 +16,7 @@ RUN apt-get update \
     ca-certificates \
     cf7-cli \
     fzf \
+    git \
     jq \
     shellcheck \
     vim-nox \
@@ -51,6 +52,7 @@ RUN adduser \
 
 USER $USERNAME
 WORKDIR /home/$USERNAME
+RUN mkdir /home/$USERNAME/projects
 ENV TERM xterm-256color
 
 CMD ["bash"]

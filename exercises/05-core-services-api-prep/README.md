@@ -237,11 +237,11 @@ ated.
 
 The output is pretty wide, and difficult to read.
 
-👉 Define a function that will help with this; first, add it to your `$HOME/.bashrc` file (so that it will be available in subsequent terminal sessions) and then immediately source the line you've just added so that you can start using the function in your current shell:
+👉 Define a function that will help with this; first, add it to your `$HOME/.bashrc` file (so that it will be available in subsequent terminal sessions) and then immediately make it available in your current shell session with the `bu` alias:
 
 ```bash
 echo 'trunc() { cut -c1-$(tput cols); }' >> $HOME/.bashrc \
-  && source <(tail -1 $HOME/.bashrc)
+  && bu
 ```
 
 👉 Now try the same invocation but pipe the output into this function:
