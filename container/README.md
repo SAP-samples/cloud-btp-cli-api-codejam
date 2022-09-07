@@ -140,3 +140,37 @@ docker attach my-codejam-container
 ```
 
 Any files you created should still be there, and you can continue.
+
+## Cleaning up
+
+At some point you may wish to clean up and remove your container. It might be because you've finished the CodeJam, or that you want to start over with a freshly instantiated container. 
+
+You can remove your container by name. If it's still running and you still want to remove it, you must stop it first, like this:
+
+```bash
+docker container stop my-codejam-container
+```
+
+Then you can remove it:
+
+```bash
+docker container rm my-codejam-container
+```
+
+---
+
+## A note on docker commands
+
+In case you're wondering, the long, more modern form of the `docker` commands are used here. For example:
+
+```bash
+docker container ls -a
+```
+
+is used instead of
+
+```bash
+docker ps -a
+```
+
+This is simply to be more explicit as to what's going on. Feel free to use the shorter commands if you wish.
