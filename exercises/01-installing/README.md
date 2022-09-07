@@ -2,9 +2,15 @@
 
 At the end of this exercise, you'll have a comfortable command line environment within which to work, and the btp CLI installed and ready to invoke.
 
-## Arrange your Dev Space
+## Set up your working environment
 
-Throughout this hands-on session, you'll be working within the App Studio Dev Space that you set up when working through the [Session prerequisites](../../README.md#session-prerequisites).
+Your activities in this CodeJam will be predominantly on the command line. And the key to a successful and enjoyable CodeJam include a working environment that is consistent for everyone.
+
+To enable this, we use the SAP Business Application Studio (App Studio), a cloud based interactive development environment (IDE) that, amongst many other features, gives us all a command line based on the Bash shell, in a UNIX (Linux) environment - by far the most widely used in today's era of cloud native.
+
+🐳 As an experimental alternative to this, we have a [container based approach](../../container/) that - if you're brave and willing to try it out - you can use instead. Where there are container-specific activities that you must complete, you'll see them marked with the 🐳 symbol at the start of the paragraph.
+
+🐳 If you want to use a container for this CodeJam, jump over to the [container directory](../../container/) and follow the instructions to get set up. And then come back here, and jump forward to the [Install the btp CLI](#install-the-btp-cli) section below.
 
 ### Why a Dev Space in App Studio?
 
