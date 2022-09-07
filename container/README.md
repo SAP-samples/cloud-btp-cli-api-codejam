@@ -33,6 +33,7 @@ With the [Dockerfile](Dockerfile) in this directory, an image is built, and then
 Move to the directory containing the `Dockerfile` file, and build the image like this:
 
 ```bash
+cd container
 docker build -t codejam .
 ```
 
