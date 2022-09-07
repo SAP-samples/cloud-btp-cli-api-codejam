@@ -100,7 +100,7 @@ The Bash shell prompt shows that your username is `user` and that the hostname i
 
 Now you're in your container, you can work happily away through the exercises.
 
-If for whatever reason you find yourself back "outside", in your host environment, and you're wondering where everything went and how to get back in, you should know that because the container was instantiated without using the `--rm` option (which causes the container to be automatically removed when it exits), it is actually still hanging around.
+If for whatever reason (perhaps you typed `exit` or used `Ctrl-D`) you find yourself back "outside", in your host environment, and you're wondering where everything went and how to get back in, you should know that because the container was instantiated without using the `--rm` option (which causes the container to be automatically removed when it exits), it is actually still hanging around.
 
 If you were to run this command:
 
@@ -117,7 +117,7 @@ CONTAINER ID   IMAGE          COMMAND                 CREATED          STATUS   
 This is because without the use of the `--all` option (which can be shortened to `-a`), stopped containers are not shown. So re-run the command with this option:
 
 ```bash
-docker container ls --all
+docker container ls -a
 ```
 
 and it will be there:
