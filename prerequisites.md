@@ -4,9 +4,9 @@ These prerequisites are essential to a successful CodeJam. As an attendee, pleas
 
 ## SAP BTP account
 
-You must have an SAP BTP account. If they're still available, an active (unexpired) trial account will be fine. Otherwise you may wish to set up a new global account to take advantage of the Free Tier offerings. 
+You must have an SAP BTP account. If they're still available, an active (unexpired) trial account will be fine. Otherwise you may wish to set up a new global account to take advantage of the Free Tier offerings.
 
-Either way, it's important that you have the Global Account Admin role, which is in the "Global Account Administrator" role collection (see [Role Collections and Roles in Global Accounts, Directories, and Subaccounts [Feature Set B]](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/0039cf082d3d43eba9200fe15647922a.html?locale=en-US) for more details). 
+Either way, it's important that you have the Global Account Admin role, which is in the "Global Account Administrator" role collection (see [Role Collections and Roles in Global Accounts, Directories, and Subaccounts [Feature Set B]](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/0039cf082d3d43eba9200fe15647922a.html?locale=en-US) for more details).
 
 It's also important that the account has [Feature Set B](https://help.sap.com/products/BTP/65de2977205c403bbc107264b8eccf4b/caf4e4e23aef4666ad8f125af393dfb2.html) Cloud Management Tools. You can check this from the BTP Cockpit using the "About" option which will show something like this:
 
@@ -52,11 +52,11 @@ Give the Dev Space a name, and hit "Create Dev Space".
 
 ![Creating a Basic Dev Space](assets/app-studio-creating-dev-space.png)
 
-## Docker Desktop
+## Docker Desktop (optional)
 
-The last exercise listed, called "BTP tools in containers", is a bonus exercise; whether we get to it depends on how we get through the other exercises. It may just be presented as a demo, but you can also work through it on your own after the CodeJam has finished. If you want to be able to work through this bonus exercise, you will need Docker Desktop installed on your machine.
+As an alternative to using a Dev Space in the SAP Business Application Studio, you may wish to follow along in a container instead. This is purely experimental and there is no explicit support for this just yet, but if you want to try it, instead of using a Dev Space, please feel free to do so, and provide any feedback and tips for improvements via the normal route (issue or pull request on this repo).
 
-> The license for Docker Desktop has changed - see [Docker is Updating and Extending Our Product Subscriptions](https://www.docker.com/blog/updating-product-subscriptions/) for an overview.
+If you do want to take this experimental route, you'll need a container runtime. While the license for Docker Desktop has changed (see [Docker is Updating and Extending Our Product Subscriptions](https://www.docker.com/blog/updating-product-subscriptions/) for an overview) it's still free for personal use. You may find success with other container runtimes such as Podman, but that's currently beyond the scope of what is offered here.
 
 ## Knowledge and experience
 
