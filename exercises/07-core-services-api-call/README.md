@@ -61,7 +61,9 @@ user: 07-core-services-api-call $ jq keys tokendata.json
 user: 07-core-services-api-call $
 ```
 
-### Checking the access token
+### Checking the access token and API base URL
+
+The two key values that we need are the access token itself, along with the base URL for the API call (i.e. the base URL to which we then append `/entitlements/v1/globalAccountAllowedDataCenters`).
 
 With your new `jq` filtering skills, tease out these two values to have a look at them.
 
@@ -77,7 +79,7 @@ You should see something like this:
 https://entitlements-service.cfapps.eu10.hana.ondemand.com
 ```
 
-👉 Now have a quick look at the access token; use `jq`'s [string slice](https://stedolan.github.io/jq/manual/#Array/StringSlice:.[10:15]) to only return a portion of it, because you don't need to see all of it, and it's better for security:
+👉 Now have a quick look at the access token; use `jq`'s [string slice](https://stedolan.github.io/jq/manual/#Array/StringSlice:.[10:15]) to only return a portion of it, because you don't need to see all of it (you just want to check it's there and looks how you'd expect), and it's better for security:
 
 ```bash
 jq --raw-output '.access_token[:50]' tokendata.json
@@ -113,7 +115,7 @@ curl \
 >
 > See the [Further reading](#further-reading) section at the end of this exercise for links to more information on these topics.
 
-The simple script [call-entitlements-service-regions-api](../../scripts/call-entitlements-service-regions-api), a link to which is in this directory, will help you do this. Like the `generate-password-grant-type` script, it also requires the service key JSON data file (so it can retrieve the value of the `entitlements_service_url` endpoint) ... it also requires the name of the token data JSON file.
+The simple script [call-entitlements-service-regions-api](../../scripts/call-entitlements-service-regions-api), a link to which is in this directory, is a slightly more robust and repeatable way of invoking the `curl` command above (i.e. you're not using subshells "in flight" to retrieve values from files). Like the `generate-password-grant-type` script, it also requires the service key JSON data file (so it can retrieve the value of the `entitlements_service_url` endpoint) ... it also requires the name of the token data JSON file.
 
 👉 Have [a look at the script](../../scripts/call-entitlements-service-regions-api) if you wish, then invoke it, passing the output to `jq` to prettify it:
 
@@ -166,7 +168,7 @@ You should see some output similar to this:
 }
 ```
 
-Does this [look familiar](../04-retrieving-parsing-json-output/README.md#use-the-json-format-output-option)? Of course it does. It's exactly the same as what `btp --format json list accounts/available-region` produced. In other words, the JSON output of the btp CLI invocation is the same as the JSON output from the equivalent API call.
+Does this [look familiar](../04-retrieving-parsing-json-output/README.md#use-the-json-format-output-option)? Of course it does! It's exactly the same as what `btp --format json list accounts/available-region` produced. In other words, the JSON output of the btp CLI invocation is the same as the JSON output from the equivalent API call.
 
 ## Summary
 
