@@ -161,10 +161,10 @@ The general approach that we'll be following is this:
 
 We'll be using the `--format json` option and working through details of certain btp CLI calls, building on our knowledge of `jq` filters from the previous exercise. To make this a little more comfortable, we'll install a wrapper around `jq` so we can interact with the JSON data and build up our filters bit by bit. The wrapper is called [ijq](https://sr.ht/~gpanders/ijq/) (for "interactive jq") and we can manually install it in our App Studio Dev Space.
 
-👉 At the prompt in your Dev Space's terminal, run the following command, which will download the [latest release tarball](https://git.sr.ht/~gpanders/ijq/refs/v0.4.0) specifically for the Linux platform (remember, this Dev Space is a Linux environment) and extract the binary `ijq` into the `bin/` directory in your home directory (this `$HOME/bin/` directory is [where you installed the btp CLI in an earlier exercise](../01-installing#add-your-bin-directory-to-the-path)):
+👉 At the prompt in your Dev Space's terminal, run the following command, which will download the [latest release tarball](https://git.sr.ht/~gpanders/ijq/refs/v0.4.1) specifically for the Linux platform (remember, this Dev Space is a Linux environment) and extract the binary `ijq` into the `bin/` directory in your home directory (this `$HOME/bin/` directory is [where you installed the btp CLI in an earlier exercise](../01-installing#add-your-bin-directory-to-the-path)):
 
 ```bash
-IJQVER=0.4.0
+IJQVER=0.4.1
 curl \
   --url "https://git.sr.ht/~gpanders/ijq/refs/download/v$IJQVER/ijq-$IJQVER-linux-amd64.tar.gz" \
   | tar \
@@ -361,7 +361,13 @@ echo $guid
 
 It should emit the GUID that you've seen before.
 
-> In a later exercise we'll look at a script `btpguid` that uses the JSON data from this btp CLI command to emit directory or subaccount GUIDs for a given directory or subaccount name.
+> Of course, you wouldn't normally build a little shell mechanism to grab the GUID by invoking an interactive command like `ijq`, this is just for illustration. Instead, you would more likely use `jq`, i.e. the scriptable non-interactive and original version, like this:
+>
+> ```bash
+> guid=$(btp --format json list accounts/subaccount | jq -r '.value[] | select(.displayName == "trial").guid')
+> ```
+
+In a later exercise we'll look at a script `btpguid` that uses the JSON data from this btp CLI command to emit directory or subaccount GUIDs for a given directory or subaccount name.
 
 ### Get the environment instance details
 
