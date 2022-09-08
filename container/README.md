@@ -18,9 +18,11 @@ cd cloud-btp-cli-api-codejam
 If you look in the [Dockerfile](Dockerfile) you'll see that there are instructions for installing various command line tools including:
 
 * the `cf` CLI for working with Cloud Foundry resources
-* core tools such as `git` and `vim`
+* core tools such as `curl`, `git` and `vim`
 * the command line JSON processor `jq`
 * a Node.js runtime
+
+These are in addition
 
 These are all tools that are also made available automatically in a basic Dev Space in App Studio (`cf` actually comes from the "MTA Tools" extension) - see [A basic Dev Space set up in the prerequisites](../prerequisites.md#a-basic-dev-space-set-up)). You'll also see that the executable that is invoked when a container is instantiated is `bash`, the Bash shell. This is the same shell that's also made available automatically for you in the terminals you invoke within a Dev Space in App Studio.
 
@@ -143,7 +145,7 @@ Any files you created should still be there, and you can continue.
 
 ## Cleaning up
 
-At some point you may wish to clean up and remove your container. It might be because you've finished the CodeJam, or that you want to start over with a freshly instantiated container. 
+At some point you may wish to clean up and remove your container. It might be because you've finished the CodeJam, or that you want to start over with a freshly instantiated container.
 
 You can remove your container by name. If it's still running and you still want to remove it, you must stop it first, like this:
 
@@ -185,7 +187,7 @@ is used instead of
 docker run -it --name my-codejam-container codejam
 ```
 
-and 
+and
 
 ```bash
 docker container ls --all
