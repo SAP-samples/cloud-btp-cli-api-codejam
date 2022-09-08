@@ -137,9 +137,17 @@ export BTP_CLIENTCONFIG=$HOME/.config/btp/config.json
 SAP_BTP_CLI_AUTOCOMPLETE="/home/user/.config/btp/autocomplete/scripts/sapbtpcli-autocomplete.plugin.sh" && source $SAP_BTP_CLI_AUTOCOMPLETE
 ```
 
+👉 Invoke this extra line now with the `bu` alias to have it take effect immediately:
+
+```bash
+bu
+```
+
 ## Guard against permission expansion
 
-Currently, if the Dev Space is restarted, permissions on the btp CLI configuration files are extended to add read/write access for the group; we don't want this. (This is not relevant if you're not working through this CodeJam in a Dev Space in the SAP Business Application Studio).
+> This section is only relevant for those working through this CodeJam in a Dev Space in the SAP Business Application Studio.
+
+Currently, if the Dev Space is restarted, permissions on the btp CLI configuration files are extended to add read/write access for the group; we don't want this.
 
 👉 So while you're looking at your `.bashrc` file, append a line like this:
 
@@ -149,16 +157,9 @@ echo 'chmod 600 $BTP_CLIENTCONFIG $SAP_BTP_CLI_AUTOCOMPLETE' >> $HOME/.bashrc
 
 This will set the permissions (also known as "modes") on the btp CLI config files to 600, i.e. read and write for the user, and nothing for anyone else. For more on understanding these permissions, see [chmod](https://en.wikipedia.org/wiki/Chmod).
 
+(Because this `chmod` invocation is only needed if the shell is restarted, we do not need to invoke it now with `bu`).
+
 ## Try out autocomplete
-
-As with previous additions to your `.bashrc` file, you'll only see the effect on the start of a new instance of the shell. So to have autocomplete activated, you'll either have to restart your shell (close the terminal and start a new one) or you can also do what that last line does. Let's do the latter, to see how you can avoid having to close and start a new shell.
-
-👉 Type this in right now:
-
-```bash
-SAP_BTP_CLI_AUTOCOMPLETE="/home/user/.config/btp/autocomplete/scripts/sapbtpcli-autocomplete.plugin.sh" \
-  && source $SAP_BTP_CLI_AUTOCOMPLETE
-```
 
 Now you're ready to try the autocomplete feature out.
 
