@@ -379,7 +379,13 @@ Another member of the "accounts" group of objects upon which btp CLI can act is 
 btp help all
 ```
 
-It's this "environment-instance" object that we should find and retrieve details for next.
+If you don't want to scroll back through all the help output, you can use `grep` to narrow down the output to what you're looking for:
+
+```bash
+btp help all | grep 'Actions for "accounts/'
+```
+
+It's the "environment-instance" object that we should find and retrieve details for next.
 
 👉 First, use the following command to list all the environment instances for the subaccount, using the GUID you have in the `guid` variable, thus:
 
