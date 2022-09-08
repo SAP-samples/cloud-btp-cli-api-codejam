@@ -18,11 +18,9 @@ cd cloud-btp-cli-api-codejam
 If you look in the [Dockerfile](Dockerfile) you'll see that there are instructions for installing various command line tools including:
 
 * the `cf` CLI for working with Cloud Foundry resources
-* core tools such as `curl`, `git` and `vim`
+* core tools such as `curl`, `git` and `vim` (and `nano`)
 * the command line JSON processor `jq`
 * a Node.js runtime
-
-These are in addition
 
 These are all tools that are also made available automatically in a basic Dev Space in App Studio (`cf` actually comes from the "MTA Tools" extension) - see [A basic Dev Space set up in the prerequisites](../prerequisites.md#a-basic-dev-space-set-up)). You'll also see that the executable that is invoked when a container is instantiated is `bash`, the Bash shell. This is the same shell that's also made available automatically for you in the terminals you invoke within a Dev Space in App Studio.
 

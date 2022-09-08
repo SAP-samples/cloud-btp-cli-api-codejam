@@ -18,6 +18,7 @@ RUN apt-get update \
     fzf \
     git \
     jq \
+    nano \
     shellcheck \
     vim-nox \
  && apt-get clean \
