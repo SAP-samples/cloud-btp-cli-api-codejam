@@ -53,6 +53,7 @@ RUN adduser \
 USER $USERNAME
 WORKDIR /home/$USERNAME
 RUN mkdir /home/$USERNAME/projects
+RUN echo 'export PS1="\[\e]0;\w\a\]\[\033[33;1m\]\u: \[\033[36m\]\$(basename \w) \$\[\033[m\] "' >> /home/$USERNAME/.bashrc
 ENV TERM xterm-256color
 
 CMD ["bash"]
