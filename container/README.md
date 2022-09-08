@@ -114,10 +114,10 @@ you wouldn't see it:
 CONTAINER ID   IMAGE          COMMAND                 CREATED          STATUS                     PORTS                                            NAMES
 ```
 
-This is because without the use of the `--all` option (which can be shortened to `-a`), stopped containers are not shown. So re-run the command with this option:
+This is because without the use of the `--all` option, stopped containers are not shown. So re-run the command with this option:
 
 ```bash
-docker container ls -a
+docker container ls --all
 ```
 
 and it will be there:
@@ -161,16 +161,40 @@ docker container rm my-codejam-container
 
 ## A note on docker commands
 
-In case you're wondering, the long, more modern form of the `docker` commands are used here. For example:
+In case you're wondering, the long, more explicit and modern form of the `docker` commands are used here. For example:
 
 ```bash
-docker container ls -a
+docker container ls --all
 ```
 
 is used instead of
 
 ```bash
-docker ps -a
+docker ps --all
 ```
 
-This is simply to be more explicit as to what's going on. Feel free to use the shorter commands if you wish.
+In addition, options are expressed here mostly in their long form. For example:
+
+```bash
+docker run --interactive --tty --name my-codejam-container codejam
+```
+
+is used instead of
+
+```bash
+docker run -it --name my-codejam-container codejam
+```
+
+and 
+
+```bash
+docker container ls --all
+```
+
+is used instead of
+
+```bash
+docker container ls -a
+```
+
+This is simply to be more explicit as to what's going on. Feel free to use the shorter commands and options if you wish.
