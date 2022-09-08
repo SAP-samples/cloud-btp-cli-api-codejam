@@ -39,6 +39,12 @@ cd container
 docker build -t codejam .
 ```
 
+> If you're running on a MacBook with an M1 (ARM architecture) chip, you'll need to add a parameter to get this to build for the x86 architecture and then macOS will take care of running the container via Rosetta:
+> 
+> ```bash
+> docker build -t codejam --platform linux/amd64 .
+> ```
+
 You should see build output that looks something like this:
 
 ```text
