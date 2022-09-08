@@ -247,7 +247,7 @@ Now that we have the data locally in a file, let's explore how this `jq` filter 
 
 1. OK, so now the identity function `.` is combined with a [generic object index](https://stedolan.github.io/jq/manual/#GenericObjectIndex:.[%3Cstring%3E]) to give `.["datacenters"]` which is a reference to the value of the `datacenters` property. From the output earlier, we know that this is an array (a list of objects, each one representing the detail of a data center).
 
-    👉 Try this too, and note the subtle difference in output to the previous step:
+    👉 Try this too, and note the subtle difference in output to what we saw earlier:
 
     ```bash
     jq '.["datacenters"]' regions.json
@@ -370,6 +370,13 @@ jq --raw-output '
 ```
 
 > The `@csv` is a format string that will produce valid and reliable CSV output from arrays
+
+Based on the data above, the output should look something like this:
+
+```text
+"AWS",2
+"AZURE",1
+```
 
 ## Summary
 
