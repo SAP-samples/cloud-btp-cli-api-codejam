@@ -552,7 +552,7 @@ You can try it out, too.
 
 If you haven't done already, you'll first need to clone this repository into your working environment, so you have access to all the files, including this script:
 
-👉 Follow the instructions for [Cloning this repository into your working environment](../../clone-this-repo.md). If you're using the SAP Business Application Studio, open up a new terminal in the Dev Space which will have restarted, so you can continue.
+👉 Follow the instructions for [Cloning this repository into your working environment](../../clone-this-repo.md). After you've done this, and if you're using the SAP Business Application Studio, open up a new terminal in the Dev Space which will have restarted, so you can continue.
 
 After ensuring that you're still authenticated with the btp CLI (with `btp login`), you're ready run the script. It's a good idea at this stage to move to the directory containing it, and run it there, mostly because you'll be running another script in this same directory later. Here's how.
 
