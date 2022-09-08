@@ -550,9 +550,9 @@ In the [directory containing this specific README file](./), there's a link to a
 
 You can try it out, too.
 
-If you haven't done already, you'll first need to clone this repository into your Dev Space, so you have access to all the files, including this script:
+If you haven't done already, you'll first need to clone this repository into your working environment, so you have access to all the files, including this script:
 
-👉 Follow the instructions for [Cloning this repository into your App Studio Dev Space](../../clone-this-repo.md), and then open up a new terminal in the Dev Space which will have restarted, so you can continue.
+👉 Follow the instructions for [Cloning this repository into your working environment](../../clone-this-repo.md). If you're using the SAP Business Application Studio, open up a new terminal in the Dev Space which will have restarted, so you can continue.
 
 After ensuring that you're still authenticated with the btp CLI (with `btp login`), you're ready run the script. It's a good idea at this stage to move to the directory containing it, and run it there, mostly because you'll be running another script in this same directory later. Here's how.
 

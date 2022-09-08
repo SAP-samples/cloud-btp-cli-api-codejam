@@ -1,8 +1,8 @@
-# Cloning this repository into your App Studio Dev Space
+# Cloning this repository into your working environment
 
-These instructions describe how you can clone this repository into your App Studio Dev Space, to get access to resources (such as scripts) in the various exercise directories.
+These instructions describe how you can clone this repository into your working environment, whether that's an SAP Business Application Studio Dev Space, or a container. Cloning the repository will allow you to get at resources (such as scripts) in the various exercise directories.
 
-There are different ways you can clone git repositories into your Dev Space, which offers convenient tools to do so. In this case, we're just going to use the most straightforward, on the command line.
+In a Dev Space there are different ways you can clone git repositories, including a convenient GUI wizard to do so. But in this case, we're just going to use the most straightforward way, and one that is the same whether you're using a Dev Space or in another context (such as a container running a Bash shell) - on the command line.
 
 ## Move into the `projects/` directory
 
@@ -36,6 +36,8 @@ Resolving deltas: 100% (170/170), done.
 At this point, you have a new directory `cloud-btp-cli-api-codejam`.
 
 ## Open your home directory in the Explorer
+
+> This section is only relevant for those working through this CodeJam in a Dev Space in the SAP Business Application Studio.
 
 👉 At this point you may want to open your home directory in the Explorer (so you can look around at the directory structure and the files). Do this by using menu path `File -> Open...` and specifying the `user/` directory as shown:
 
