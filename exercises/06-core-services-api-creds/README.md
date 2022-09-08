@@ -79,7 +79,7 @@ API version:    3.109.0
 user:           qmacro+blue@gmail.com
 org:            8fe7efd4trial
 space:          dev
-user: 04-json-format-and-apis $
+user: 06-core-service-api-creds $
 ```
 
 > You should already have a space set up, as described in the [Subaccount and Cloud Foundry environment](../../prerequisites.md#subaccount-and-cloud-foundry-environment) section of the prerequisites.
@@ -128,7 +128,7 @@ cf create-service-key cis-central cis-central-sk
 
 The output should look something like this:
 
-```
+```text
 Creating service key cis-central-sk for service instance cis-central as qmacro+blue@gmail.com...
 OK
 ```
@@ -361,7 +361,7 @@ We'll cover the answers to all the questions in this section in a short discussi
 * What HTTP request method is used in this call?
 * What should be the Content Type sent along with the request?
 
-👉 Modify the `generate-password-grant-type` script by adding a `--verbose` option so that the `curl` invocation looks like this (don't forget the `\` to escape the newline):
+👉 Modify the `generate-password-grant-type` script by adding a `--verbose` option to the `curl` invocation. If you're using a Dev Space, just open the file up through the Explorer - but remember, the source is in the [scripts/](../../scripts/) directory, there's only a [symbolic link](generate-password-grant-type) in [this](.) directory). If you're using a container, you have a couple of options. If you're feeling hardcore, you can of course use The One True Editor (`vim`). Alternatively, you can use `nano` (like this: `nano generate-password-grant-type`). However you edit, the `curl` invocation should end up looking like this (don't forget the `\` to escape the newline):
 
 ```bash
 curl \
