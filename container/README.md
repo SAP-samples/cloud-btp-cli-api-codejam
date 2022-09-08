@@ -6,7 +6,7 @@ These steps assume you have Docker Desktop installed (as described in the [Docke
 
 ## Get the Dockerfile
 
-You can download the [Dockerfile](Dockerfile) from this directory directly, or just clone the whole repository and then move into this directory:
+You can download the [Dockerfile](Dockerfile) from this directory directly, or just clone the whole repository and then move into the repository locally:
 
 ```bash
 git clone https://github.com/SAP-samples/cloud-btp-cli-api-codejam.git
