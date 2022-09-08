@@ -11,7 +11,6 @@ You can download the [Dockerfile](Dockerfile) from this directory directly, or j
 ```bash
 git clone https://github.com/SAP-samples/cloud-btp-cli-api-codejam.git
 cd cloud-btp-cli-api-codejam
-cd container
 ```
 
 ## Examine the Dockerfile
