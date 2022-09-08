@@ -40,7 +40,7 @@ docker build -t codejam .
 ```
 
 > If you're running on a MacBook with an M1 (ARM architecture) chip, you'll need to add a parameter to get this to build for the x86 architecture and then macOS will take care of running the container via Rosetta:
-> 
+>
 > ```bash
 > docker build -t codejam --platform linux/amd64 .
 > ```
@@ -134,6 +134,12 @@ and it will be there:
 CONTAINER ID   IMAGE          COMMAND                 CREATED          STATUS                     PORTS                                            NAMES
 807eeed3cdc6   codejam        "bash"                  10 minutes ago   Exited (0) 3 minutes ago                                                    my-codejam-container
 ```
+
+> If you have many containers and want to pick out this one, you can add a `--filter` option, like this:
+>
+> ```bash
+> docker container ls --all --filter "name=my-codejam-container"
+> ```
 
 You must first restart the container:
 
