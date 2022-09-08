@@ -122,20 +122,92 @@ This should show you the keys (properties) in the JSON contained in `tokendata.j
 
 Let's examine that "big lump" that is the access token. There doesn't seem to be much (if any) structure to it, but if we know what it is, we can find the tools to help us. There's an open Web standard [RFC7519](https://www.rfc-editor.org/rfc/rfc7519), otherwise known as "JSON Web Token". This is shortened to "JWT" and is commonly pronounced as "jot" (make of that what you will). You can find a link to an introduction to JWTs in the [Further reading](#further-reading) section.
 
+The access token is a JWT.
+
 There are many tools that can help you with JWTs. One is `jwt`, which will parse and display the contents of a JWT. Let's use it to look inside the access token.
 
-👉 In your Dev Space, you already have a Node.js runtime, and along with that, the `npm` package manager. Use that to install the `jwt-cli` package, globally; this package contains the `jwt` command line interface:
+In your working environment, you already have a Node.js runtime, and along with that, the `npm` package manager. There's a handy `jwt-cli` package that contains the `jwt` command line interface. Let's install that. We'll install it "globally" so it's independent of any NPM project. But that "global" location will be just local to us.
+
+> Installing the package globally to a local location is not standard, but it will allow us to have the same experience whether we use a Dev Space or a container. In the Dev Space environment, the user has write access to the real global locations in the UNIX (Linux) file system. But in the container, based on the standard Debian distribution of Linux, this is not the case. So we'll specify a different prefix for the `npm` installer to use.
+
+👉 First, set a custom prefix for `npm` in the configuration, and make sure the location that the prefix points to exists as a directory:
+
+```bash
+npm config set prefix $HOME/npm/
+mkdir $HOME/npm/
+```
+
+👉 Now install the package, using the `--global` option (which can be shortened to `-g`):
 
 ```bash
 npm install -g jwt-cli
 ```
 
-Now you can send the value of the access token to this command and it will parse it and display the contents.
-
-👉 Try it now, like this:
+👉 To satisfy your curiosity, have a look at what has been installed, like this:
 
 ```bash
-jq --raw-output .access_token tokendata | jwt
+find $HOME/npm/ -maxdepth 5
+```
+
+This should produce output that looks something like this:
+
+```text
+/home/user/npm
+/home/user/npm/lib
+/home/user/npm/lib/node_modules
+/home/user/npm/lib/node_modules/jwt-cli
+/home/user/npm/lib/node_modules/jwt-cli/.prettierrc.json
+/home/user/npm/lib/node_modules/jwt-cli/.prettierignore
+/home/user/npm/lib/node_modules/jwt-cli/src
+/home/user/npm/lib/node_modules/jwt-cli/src/input.js
+/home/user/npm/lib/node_modules/jwt-cli/src/jwt.js
+/home/user/npm/lib/node_modules/jwt-cli/src/output.js
+/home/user/npm/lib/node_modules/jwt-cli/index.js
+/home/user/npm/lib/node_modules/jwt-cli/LICENSE.txt
+/home/user/npm/lib/node_modules/jwt-cli/CONTRIBUTING.md
+/home/user/npm/lib/node_modules/jwt-cli/README.md
+/home/user/npm/lib/node_modules/jwt-cli/package.json
+/home/user/npm/lib/node_modules/jwt-cli/node_modules
+/home/user/npm/lib/node_modules/jwt-cli/node_modules/minimist
+/home/user/npm/lib/node_modules/jwt-cli/node_modules/ecdsa-sig-formatter
+/home/user/npm/lib/node_modules/jwt-cli/node_modules/fast-jwt
+/home/user/npm/lib/node_modules/jwt-cli/node_modules/safer-buffer
+/home/user/npm/lib/node_modules/jwt-cli/node_modules/obliterator
+/home/user/npm/lib/node_modules/jwt-cli/node_modules/safe-buffer
+/home/user/npm/lib/node_modules/jwt-cli/node_modules/mnemonist
+/home/user/npm/lib/node_modules/jwt-cli/node_modules/bn.js
+/home/user/npm/lib/node_modules/jwt-cli/node_modules/inherits
+/home/user/npm/lib/node_modules/jwt-cli/node_modules/color-convert
+/home/user/npm/lib/node_modules/jwt-cli/node_modules/color-name
+/home/user/npm/lib/node_modules/jwt-cli/node_modules/has-flag
+/home/user/npm/lib/node_modules/jwt-cli/node_modules/minimalistic-assert
+/home/user/npm/lib/node_modules/jwt-cli/node_modules/asn1.js
+/home/user/npm/lib/node_modules/jwt-cli/node_modules/ansi-styles
+/home/user/npm/lib/node_modules/jwt-cli/node_modules/chalk
+/home/user/npm/lib/node_modules/jwt-cli/node_modules/supports-color
+/home/user/npm/bin
+/home/user/npm/bin/jwt
+```
+
+👉 Take note of the item `/home/user/npm/bin/jwt` - that's the executable that we need. Let's create a symbolic link to it in our `$HOME/bin/` directory where the rest of our custom executables are, and then check to see what it looks like:
+
+```bash
+ln -s $HOME/npm/bin/jwt $HOME/bin/
+ls -l $HOME/bin/jwt
+```
+
+This should show the link, something like this:
+
+```text
+lrwxrwxrwx 1 user user 22 Sep  8 13:36 /home/user/bin/jwt -> /home/user/npm/bin/jwt
+```
+
+Now we have a `jwt` executable that we can use from anywhere.
+
+👉 Try it now, sending the value of the access token, and it will parse it and display the contents.
+
+```bash
+jq --raw-output .access_token tokendata.json | jwt
 ```
 
 Along with other output, you should see various sections displayed, something like this:
@@ -501,7 +573,7 @@ This should return fairly quickly, but successfully, and produce output like thi
 
 It's the same output that we saw when we used the HTTP GET method. So what's going on?
 
-Well, because we used the `--verbose` option, we can have a closer look; you should see some HTTP response headers in the output similar to this:
+Well, first of all, we can see that the `entityState` now has a value of `DELETING`. So that's a good sign. Moreover, because we used the `--verbose` option, we can have a closer look at the details of what's returned; you should see some HTTP response headers in the output, similar to this:
 
 ```text
 < HTTP/1.1 200 OK
@@ -579,5 +651,5 @@ At this point your confidence in discovering APIs, preparing what you need to ca
 
 If you finish earlier than your fellow participants, you might like to ponder these questions. There isn't always a single correct answer and there are no prizes - they're just to give you something else to think about.
 
-1. In the HTTP response to the DELETE request, what was the status code, and are there any others that might be appropriate? 
-1. 
+1. In the HTTP response to the DELETE request, what was the status code, and are there any others that might be appropriate?
+1.
