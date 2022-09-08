@@ -2,7 +2,7 @@
 
 As an alternative to using a Dev Space in the SAP Business Application Studio, we are experimenting with a container based approach to [your working environment](../exercises/01-installing/README.md#set-up-your-working-environment). This README will guide you through the steps you need to take to work through this CodeJam inside a container, instead of inside a Dev Space on App Studio.
 
-These steps assume you have Docker Desktop installed (as described in the [Docker Desktop section of the Prerequisites document](../prerequisites.md#docker-desktop-optional)) and can execute the `docker` command on the command line. It also assumes you can execute the `git` command, to clone a repository. Don't worry if you don't have these tools or are not comfortable with these instructions, you can always just use a Dev Space which is the default for this CodeJam. If so, just head on back to the [Set up your working environment](../exercises/01-installing#set-up-your-working-environment) section of Exercise 01.
+These steps assume you have Docker Desktop installed (as described in the [Docker Desktop section of the Prerequisites document](../prerequisites.md#docker-desktop-optional)) and can execute the `docker` command on the command line. It also assumes you can execute the `git` command, to clone a repository. Don't worry if you don't have these tools or are not comfortable with these instructions, you can always just use a Dev Space which is the default for this CodeJam. If so, just head on back to the [Set up your working environment](exercises/01-installing#set-up-your-working-environment) section of Exercise 01.
 
 ## Get the Dockerfile
 
