@@ -1,7 +1,5 @@
 # Hands-on with the btp CLI and APIs
 
-⚠ This is a work-in-progress.
-
 ## Description
 
 This repository contains the material for the "Hands-on with the btp CLI and APIs" CodeJam, a CodeJam within the [SAP CodeJam BTP group](https://groups.community.sap.com/t5/sap-codejam-btp/gh-p/codejam-btp).
