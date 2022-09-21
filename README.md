@@ -1,3 +1,5 @@
+[![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/cloud-btp-cli-api-codejam)](https://api.reuse.software/info/github.com/SAP-samples/cloud-btp-cli-api-codejam)
+
 # Hands-on with the btp CLI and APIs
 
 ## Description
