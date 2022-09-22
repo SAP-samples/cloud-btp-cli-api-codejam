@@ -23,7 +23,11 @@ You can see an example of the subdomain for this sample trial global account, ju
 
 If you managed to check out the "Usage" information and the output from `btp --help` [at the end of the previous exercise](../01-installing/README.md#questions) you'll have seen that there are "General actions" as well as BTP resource specific actions. One of these general actions is "login".
 
-👉 Use that now to authenticate, supplying the information you gathered in the previous section.
+👉 Use that now to authenticate, supplying the information you gathered in the previous section:
+
+```bash
+btp login
+```
 
 Here's an example authentication flow for trial global account 8fe7efd4trial:
 
@@ -50,7 +54,7 @@ Tip:
 OK
 ```
 
-Here's another example authentication flow, for a global account with the subdomain "sap-developer-advocates-free-tier", where the user has chosen to use single sign on (SSO) with the browser:
+Here's another example authentication flow, for a global account with the subdomain "sap-developer-advocates-free-tier", where the user has chosen to use single sign on (SSO) with the browser, using the `--sso manual` parameter:
 
 ```text
 user: user $ btp login --sso manual
@@ -92,9 +96,15 @@ Rather than have to specify this subaccount each time in various btp CLI invocat
 
 You can find out more about the `target` action, and any action, with the general action `help`, i.e. `btp help target`.
 
-👉 Do this now, and examine the output. Here's an example invocation:
+👉 Do this now, and examine the output:
 
+```bash
+btp help target
 ```
+
+Here's an example invocation:
+
+```text
 user: user $ btp help target
 Connecting to CLI server at https://cpcli.cf.eu10.hana.ondemand.com...
 Usage: btp [OPTIONS] target [--global-account SUBDOMAIN] [--directory ID] [--subaccount ID]
@@ -129,7 +139,9 @@ So set your desired subaccount as the target now.
 btp target --subaccount trial
 ```
 
-That's not quite right, is it? Here we see there's a distinction between the display name and the ID. The help above, as well as the error message you just saw as a result of not actually specifying a real ID, gives us a clue as to how we find it.
+Hmm, that's not quite right, is it?
+
+Here we see there's a distinction between the display name and the ID. The help above, as well as the error message you just saw as a result of not actually specifying a real ID, gives us a clue as to how we find it.
 
 👉 Do that now, using the "list" action on the "subaccount" object in the "accounts" group:
 
@@ -149,7 +161,7 @@ f78e0bdb-c97c-4cbc-bb06-526695f44551   trial           8fe7efd4trial   eu10     
 OK
 ```
 
-> Here's where the plural/singular approach to the group and object in the invocation comes in (we thought about this at the end of the previous exercise). In the `btp` invocation you just made, group "accounts" is plural, while the object "subaccount" is singular.
+> By the way, here's where the plural/singular approach to the group and object in the invocation comes in (we thought about this at the end of the previous exercise). In the `btp` invocation you just made, group "accounts" is plural, while the object "subaccount" is singular.
 
 The output should include a detailed line for your subaccount, showing its ID (which starts `f78e0bdb` here - the ID for your subaccount will of course be different) as well as its name (which is `trial` in this example).
 
@@ -178,7 +190,7 @@ Current target:
   └─ Subaccount (ID: f78e0bdb-c97c-4cbc-bb06-526695f44551)
 ```
 
-> You can make your command line life more comfortable with custom functions and scripts, such as one to get the ID for a subaccount, given its display name. We'll cover this in [a later exercise in this session](../05-btp-guids-cli-in-practice/README.md). See also [the `bgu` script in action as part of the btp CLI section of the SAP TechEd Developer Keynote](https://youtu.be/OmEx598qAI8?t=180) and also the two related blog posts in the [Further reading](#further-reading) section below.
+> You can make your command line life more comfortable with custom functions and scripts, such as one to get the ID for a subaccount, given its display name. We'll cover this in [a later exercise in this session](../05-btp-guids-cli-in-practice/README.md). See also [the `bgu` script in action as part of the btp CLI section of the 2021 SAP TechEd Developer Keynote](https://youtu.be/OmEx598qAI8?t=180) and also the two related blog posts in the [Further reading](#further-reading) section below.
 
 ## Find and organize your btp CLI configuration
 
@@ -216,7 +228,13 @@ Now you're halfway through the reorganization - you've moved the configuration f
 
 👉 So what happens when you invoke `btp` now? Try it:
 
+```bash
+btp
 ```
+
+Here's the sort of thing you will most likely see:
+
+```text
 user: user $ btp
 Welcome to the SAP BTP command line interface (client v2.14.0)
 
@@ -262,7 +280,13 @@ Running the btp CLI again with the configuration reorganized into its new locati
 
 👉 Try it:
 
+```bash
+btp
 ```
+
+This time it should be different:
+
+```text
 user: user $ btp
 SAP BTP command line interface (client v2.14.0)
 
