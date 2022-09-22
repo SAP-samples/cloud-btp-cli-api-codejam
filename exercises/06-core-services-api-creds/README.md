@@ -298,8 +298,10 @@ You'll be asked to authenticate, and you must specify your SAP BTP email and pas
 👉 Have a look what properties there are in this JSON:
 
 ```bash
-jq keys tokendata.json
+jq 'keys' tokendata.json
 ```
+
+> You can also omit the single quotes here if you wish, as the shell will pass the `keys` token to `jq` just as well without them.
 
 You should see some output like this:
 
