@@ -212,7 +212,7 @@ The SAP Help topic [Specify the Location of the Configuration File](https://help
 
 If you're like me, you may like to organize your configuration files within `$HOME/.config/` as non-hidden directories, so having a directory called `$HOME/.config/.btp/` may be less than ideal. So if this is something you also feel strongly about, use this step to address it.
 
-> A file or directory which has a name starting with a period (`.`) is considered "hidden", as it won't show up in any listing, unless you explicitly ask for them to be shown. While it's fairly common to have the `$HOME/.config/` directory itself as a hidden directory, it makes more sense to want to be able to easily see what subdirectories are in there - for what programs and systems you have configuration.
+> A file or directory which has a name starting with a period (`.`) is considered "hidden", as it won't show up in any listing, unless you explicitly ask for them to be shown (incidentally, this well-known and almost universal feature [started out as a mistake due to a programming shortcut with unintended consequences](https://web.archive.org/web/20180827160401/https://plus.google.com/+RobPikeTheHuman/posts/R58WgWwN9jp)?). While it's fairly common to have the `$HOME/.config/` directory itself as a hidden directory, it makes more sense to want to be able to easily see what subdirectories are in there - for what programs and systems you have configuration.
 
 ### Rename the config directory
 
