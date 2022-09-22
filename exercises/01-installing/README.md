@@ -20,7 +20,7 @@ The power of the btp CLI comes from multiple angles:
 * it is a command line tool, meaning it lets us stay within our development flow and can be combined with other developer and devops tools
 * it is scriptable - we can make use of the btp CLI within shell scripts to create whatever automation we need relating to management of resources on BTP
 
-App Studio Dev Spaces, even Basic ones, give us that essential command line context. So that's what we're using. By all means, after this session, feel free to install and use the btp CLI where it makes sense for you too.
+App Studio Dev Spaces, even Basic ones, give us that essential command line context. So that's what we're using. By all means, after this session, feel free to install and use the btp CLI where it makes sense for you.
 
 ### Clearing the Dev Space ready for work
 
