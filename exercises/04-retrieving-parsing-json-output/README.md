@@ -1,6 +1,6 @@
 # Exercise 04 - Retrieving and parsing JSON output
 
-At the end of this exercise, you'll know how to get the btp CLI to give you a more predictable and machine-readable output, which is especially helpful for combining the use of the btp CLI into automation and other scripts.
+At the end of this exercise, you'll know how to get the btp CLI to give you a more predictable and machine-readable output, which is especially helpful for building the use of the btp CLI into automation and other scripts.
 
 We'll retrieve information about the regions in which subaccounts can be created.
 
@@ -46,7 +46,15 @@ This is more akin to the Unix philosophy; what's more, the separation between th
 
 There are many ways with the traditional Unix approach to trim the extra output from this btp CLI invocation, in order to reduce it to the basics. Here are two examples.
 
-The first uses [sed](https://en.wikipedia.org/wiki/Sed):
+The first uses [sed](https://en.wikipedia.org/wiki/Sed).
+
+👉 Try it:
+
+```bash
+btp list accounts/available-region 2> /dev/null | sed '1,/^region /d; /^$/d'
+```
+
+Here's an example invocation for you to see what happens:
 
 ```text
 user: user $ btp list accounts/available-region 2> /dev/null | sed '1,/^region /d; /^$/d'
@@ -56,7 +64,15 @@ eu10     cf-eu10       cloudfoundry   AWS
 user: user $
 ```
 
-The second uses [grep](https://en.wikipedia.org/wiki/Grep):
+The second uses [grep](https://en.wikipedia.org/wiki/Grep).
+
+👉 Try this too:
+
+```text
+btp list accounts/available-region 2> /dev/null | grep -E '^[a-z]{2}[0-9]+\s+'
+```
+
+Here's what happens with this invocation (we get the same result):
 
 ```text
 user: user $ btp list accounts/available-region 2> /dev/null | grep -E '^[a-z]{2}[0-9]+\s+'
@@ -167,13 +183,13 @@ Note that there wouldn't be the hard line breaks you see here (which are just so
 
 Try getting any sensible output from that using `grep` now!
 
-> If you're curious, this dense output was produced using normal Unix commands: `btp --format json list accounts/available-region | jq -c . | fold -w100 | head`.
+> If you're curious, this dense output was formatted using a pipeline of commands: `btp --format json list accounts/available-region | jq -c . | fold -w100 | head`.
 
 ### Parsing JSON output the right way
 
 Parsing JSON with the right tool is essential. Happily, it's also straightforward and can be very powerful and flexible.
 
-One tool that is popular for this is [jq](https://stedolan.github.io/jq/), which is described as "a lightweight and flexible command-line JSON processor". It supports an entire language [which is Turing complete](https://github.com/MakeNowJust/bf.jq) but is readily useful at a simple level too. Your App Studio Dev Space comes already equipped with `jq` so you can try it out now.
+One tool that is popular for this is [jq](https://stedolan.github.io/jq/), which is described as "a lightweight and flexible command-line JSON processor". It supports an entire language [which is Turing complete](https://github.com/MakeNowJust/bf.jq) but is readily useful at a simple level too. Your App Studio Dev Space (and container) comes already equipped with `jq` so you can try it out now.
 
 #### Listing the available datacenter names
 
@@ -194,7 +210,9 @@ This should produce output like this:
 
 > `jq` always endeavors to produce JSON output - here, three valid JSON values are emitted (a double-quoted string is a valid JSON value). You can use the `-r` option to tell `jq` to emit raw strings if you want to avoid the double quotes.
 
-Here's a brief explanation of the `jq` invocation. It's worth mentioning in passing that the collection of language elements passed to `jq` itself is often referred to as a "filter", as are the component parts too.
+Here's a brief explanation of the `jq` invocation, with some short interactions for you to carry out.
+
+It's worth starting by saying that the collection of language elements passed to `jq` itself is often referred to as a "filter", as are the component parts too.
 
 It will help to stare at this filter for a few minutes:
 
@@ -208,7 +226,7 @@ Let's start by rewriting it in a more verbose way so we can identify and underst
 .["datacenters"] | .[] | .["displayName"]
 ```
 
-The pipeline concept you may already know from the shell is also a core part of `jq`. This is what the `|` symbols are for.
+The pipeline concept you may already know from the shell is also implemented in a similar way as a core part of `jq` (so that the output of one `jq` filter can be fed into another one). This is what the `|` symbols are for.
 
 👉 Before we continue, let's be nice to the btp CLI endpoint being called, and cache the results of the list of available regions in a temporary file:
 
@@ -253,7 +271,7 @@ Now that we have the data locally in a file, let's explore how this `jq` filter 
     jq '.["datacenters"]' regions.json
     ```
 
-1. So the result of this first part, before the first pipe (`|`), is the array of data centers. This is then piped into the next part.
+1. So the result of this first part (`.["datacenters"]`) is the array of data centers (this is not because `"datacenters"` is inside a `[...]` construct, it's because the value of the `datacenters` property is an array). This array is then piped into the next part.
 
 1. And the next part, which looks like this `.[]`, is the [array value iterator](https://stedolan.github.io/jq/manual/#Array/ObjectValueIterator:.[]) which explodes all of the elements of the incoming array (the `.` in the `.[]` component here refers now to what was passed in through the pipe) and sends each of them downstream.
 
@@ -275,7 +293,17 @@ Now that we have the data locally in a file, let's explore how this `jq` filter 
     jq '.["datacenters"] | .[] | .["displayName"]' regions.json
     ```
 
-These examples of the generic object index can be shortened from e.g. `.["datacenters"]` to `.datacenters` which is known as a [object identifier-index](https://stedolan.github.io/jq/manual/#ObjectIdentifier-Index:.foo,.foo.bar). This gives us:
+    You should see the list of three JSON values (double quoted strings, in this case) as before:
+
+    ```text
+    "Singapore - Azure"
+    "US East (VA) - AWS"
+    "Europe (Frankfurt) - AWS"
+    ```
+
+Now we've exploded and deconstructed the components, let's put them back together again into that more idiomatic (and shorter) filter we saw at the start.
+
+First, the examples of the generic object index can be shortened from e.g. `.["datacenters"]` to `.datacenters` which is known as a [object identifier-index](https://stedolan.github.io/jq/manual/#ObjectIdentifier-Index:.foo,.foo.bar). This gives us:
 
 ```jq
 .datacenters | .[] | .displayName
@@ -293,7 +321,7 @@ Finally, object identifier-index values can be concatenated too, giving us this:
 .datacenters[].displayName
 ```
 
-Phew!
+Phew! If you read all the details of this section, well done!
 
 Before we finish this exercise, let's gently explore `jq` a little more.
 
@@ -332,6 +360,8 @@ jq --raw-output '
   | first
 ' regions.json
 ```
+
+> Remember, when reading a filter like this, just begin at the start and imagine the data passing through each filter one pipe at a time.
 
 Based on the data center data above, this is the output produced:
 
