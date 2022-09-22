@@ -16,9 +16,7 @@ It also introduces attendees to the APIs for SAP BTP, the Core Services for SAP 
 
 During this CodeJam, you'll learn how to harness the power of the btp CLI, as well as the core services APIs, to report on and manage resources on SAP BTP.
 
-In the first part, you'll follow along with the session speaker installing, configuring & setting up the btp CLI, and authenticating with a BTP account. You'll then explore the btp CLI features and command structure, plus alternative output formats, autocompletion and more. Then you'll get comfortable navigating and creating resources within your BTP global account.
-
-In the second part, you'll learn how to incorporate the btp CLI into shell scripts, so you can write custom utilities that suit your specific needs.
+Rather than skimming the surface of these two topics, you'll dive deep into how things work, and also understand how the two are strongly related. You'll get to understand how to get to the rich seam of data that the btp CLI and the core service APIs offer, taking your time with discovery, authentication, making calls and parsing the results. 
 
 ## Session prerequisites
 
