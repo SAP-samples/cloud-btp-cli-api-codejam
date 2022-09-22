@@ -22,7 +22,7 @@ If you look in the [Dockerfile](Dockerfile) you'll see that there are instructio
 * the command line JSON processor `jq`
 * a Node.js runtime
 
-These are all tools that are also made available automatically in a basic Dev Space in App Studio (`cf` actually comes from the "MTA Tools" extension) - see [A basic Dev Space set up in the prerequisites](../prerequisites.md#a-basic-dev-space-set-up)). You'll also see that the executable that is invoked when a container is instantiated is `bash`, the Bash shell. This is the same shell that's also made available automatically for you in the terminals you invoke within a Dev Space in App Studio.
+These are all tools that are also made available automatically in a basic Dev Space in App Studio (`cf` actually comes from the "MTA Tools" extension) - see [A basic Dev Space set up in the prerequisites](../prerequisites.md#a-basic-dev-space-set-up)). You'll also see that the executable that is invoked when a container is instantiated is `bash`, the Bash shell. This is the same shell that's also made available automatically for you in the terminals you invoke within a Dev Space in App Studio. There's even [a line to set the shell prompt to be the same as what's shown in the Dev Space terminals](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/blob/f500edc385d7455412784531188a70d007dd0b3f/container/Dockerfile#L57).
 
 The reason for this is that it's important to make the image's environment as similar as possible to the environment in the Dev Space so folks can work in the same way and have a similar shared experience.
 
