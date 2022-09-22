@@ -544,13 +544,13 @@ but it may be different for the CF environment instance in your subaccount. What
 
 ## Determining the CF API endpoint with a script
 
-In the [directory containing this specific README file](./), there's a link to a script [get_cf_api_endpoint](../../scripts/get_cf_api_endpoint). This script is an automated version of everything you've done in this section. If you've finished early, then you may wish to peruse the code, some of which you should recognize now.
+In the [directory containing this specific README file](./), there's a link to a script [get_cf_api_endpoint](../../scripts/get_cf_api_endpoint). This script is an automated version of everything you've done in this section.
 
 > This `get_cf_api_endpoint` script is used in this and a subsequent exercise, so to avoid duplicating it in both exercise directories, it lives in a separate [scripts/](../../scripts/) directory and there are symbolic links to it from both exercise directories.
 
 You can try it out, too.
 
-If you haven't done already, you'll first need to clone this repository into your working environment, so you have access to all the files, including this script:
+You'll first need to clone this repository into your working environment, so you have access to all the files, including this script:
 
 👉 Follow the instructions for [Cloning this repository into your working environment](../../clone-this-repo.md). After you've done this, and if you're using the SAP Business Application Studio, open up a new terminal in the Dev Space which will have restarted, so you can continue.
 
