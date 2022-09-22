@@ -50,7 +50,15 @@ Options:
 OK
 ```
 
-It's possible to get an overview of what the possible targets of each command are, by asking for help on that particular command. Here's an example:
+It's possible to get an overview of what the possible targets of each command are, by asking for help on that particular command.
+
+👉 Try it now, asking for help with the "list" action:
+
+```bash
+btp list --help
+```
+
+Here's the sort of output that you'll see:
 
 ```text
 user: user $ btp list --help
@@ -92,7 +100,7 @@ But there's a much more comfortable way, and that's having the btp CLI itself su
 
 ## Set up autocomplete
 
-In the output from `btp help` you'll have already seen how to do this: `btp enable autocomplete`. Asking for help on this (`btp enable autocomplete --help` or `btp help enable autocomplete`) will give you lots of details, one of which is that you need to specify the shell for which to enable the autocomplete feature. Within our Dev Space in App Studio, we're enjoying The-One-True-Shell™, i.e. [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) :-).
+In the output from `btp help` you'll have already seen how to do this: `btp enable autocomplete`. Asking for help on this (`btp enable autocomplete --help` or `btp help enable autocomplete`) will give you lots of details, one of which is that you need to specify the shell for which to enable the autocomplete feature. Within our Dev Space in App Studio (and also in the container if you're taking that route) we're enjoying The-One-True-Shell™, i.e. [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) :-).
 
 👉 Set up autocomplete now, selecting `/home/user/.bashrc` (option 2) for the RCFile:
 
@@ -123,7 +131,7 @@ OK
 
 Note that a script has been installed to your btp CLI configuration directory, and the `.bashrc` file was chosen to contain the autocomplete setup (the invocation of that script on shell startup). This is recommended.
 
-👉 Have a look what was added by looking at the last three lines of the file like this:
+👉 Have a look what was added by looking at the last three lines of the `.bashrc` file like this:
 
 ```bash
 tail -3 $HOME/.bashrc
@@ -179,12 +187,12 @@ It's time to explore your account and related BTP resources.
 
 |Command|Group/Object|Description|
 |-|-|-|
-|`get`|`accounts/global-account`|A high level summary of the key information for your global account; add the parameter `--show-hierarchy` to get a depiction of the relationship between your global account and directories & subaccounts within|
+|`get`|`accounts/global-account`|A high level summary of the key information for your global account; add the parameter `--show-hierarchy` to get a depiction of the relationship between the directories & subaccounts within|
 |`list`|`accounts/entitlement`|A list of the entitlements for your targeted subaccount|
 |`list`|`accounts/available-region`|A list of the regions & providers available for your global account|
 |`list`|`security/role-collection`|A list of role collections available in your account|
 
-> Notice that the general pattern for the GROUP and OBJECT components is that where possible, GROUP is plural, but OBJECT is singular. There are a few exceptions but despite that, it's helpful to remember.
+> Notice again that the general pattern of plural GROUP and singular OBJECT components is evident here too.
 
 ## Summary
 
