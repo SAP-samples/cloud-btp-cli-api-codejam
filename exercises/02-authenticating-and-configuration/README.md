@@ -327,4 +327,4 @@ At this point you've logged in with `btp` and have your global account and "tria
 If you finish earlier than your fellow participants, you might like to ponder these questions. There isn't always a single correct answer and there are no prizes - they're just to give you something else to think about.
 
 1. Why were you told to use single quotes when echoing text into the `.bashrc` file? What would have happened if you'd use double quotes?
-1. Is it possible to authenticate using Single Sign-On (SSO)? How would you go about finding out?
+1. Did you try to authenticate using Single Sign-On (SSO)? How did it work for you? What about from within a container?
