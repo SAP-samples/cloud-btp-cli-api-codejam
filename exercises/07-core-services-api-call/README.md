@@ -1,4 +1,4 @@
-# Exercise 07 - Making the API call
+# Exercise 07 - Making the API call and understanding the results
 
 We've finally made it to the stage where we can make the call!
 
