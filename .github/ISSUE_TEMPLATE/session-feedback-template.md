@@ -89,4 +89,9 @@ Thanks for taking a couple of minutes to give feedback, which will help me impro
 - [ ] I get it now in theory, just need a bit more time
 - [ ] Confident enough to start making test calls
 
+**Which environment(s) did you use?
+
+- [ ] A Dev Space in App Studio
+- [ ] A container
+
 If you have time, please add a comment below to write free-form what you liked and what you disliked about the session. Thanks!
