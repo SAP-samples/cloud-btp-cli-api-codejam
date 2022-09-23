@@ -16,7 +16,7 @@ It also introduces attendees to the APIs for SAP BTP, the Core Services for SAP 
 
 During this CodeJam, you'll learn how to harness the power of the btp CLI, as well as the core services APIs, to report on and manage resources on SAP BTP.
 
-Rather than skimming the surface of these two topics, you'll dive deep into how things work, and also understand how the two are strongly related. You'll get to understand how to get to the rich seam of data that the btp CLI and the core service APIs offer, taking your time with discovery, authentication, making calls and parsing the results. 
+Rather than skimming the surface of these two topics, you'll dive deep into how things work, and also understand how the two are strongly related. You'll get to understand how to get to the rich seam of data that the btp CLI and the core service APIs offer, taking your time with discovery, authentication, making calls and parsing the results.
 
 ## Session prerequisites
 
@@ -50,7 +50,7 @@ There are a handful of scripts that are used and explored in this CodeJam, some 
 
 If you can spare a couple of minutes at the end of the session, please help the author improve for next time by providing some feedback.
 
-Simply use this [Give Feedback](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/issues/new?assignees=&labels=feedback&template=feedback-template.md&title=Feedback) link to create a special "feedback" issue, and follow the instructions in there.
+Simply use this [Give Feedback](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/issues/new?assignees=&labels=feedback&template=session-feedback-template.md&title=Feedback) link to create a special "feedback" issue, and follow the instructions in there.
 
 Thank you!
 
