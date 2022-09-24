@@ -16,7 +16,7 @@ Thanks for taking a couple of minutes to give feedback, which will help me impro
 - [ ] Used it now and then
 - [ ] Regular user
 
-**What was your experience of the Core Service APIs for SAP BTP before this session?
+**What was your experience of the Core Service APIs for SAP BTP before this session?**
 
 - [ ] Didn't know they existed
 - [ ] Aware of them
