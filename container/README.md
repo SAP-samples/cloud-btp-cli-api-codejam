@@ -96,6 +96,8 @@ Now create a container from the image. Do it like this:
 docker run --interactive --tty --name my-codejam-container codejam
 ```
 
+> Don't confuse this with launching a container instance from the Docker Desktop GUI, and then using the "CLI" option on that running container. This is something quite different, not least because when you launch a container instance from the GUI, you cannot ask for `--interactive` or `--tty` mode, and connecting to it subsequently is in the `exec` context.
+
 You'll be presented with a new prompt, which (if you've not worked inside containers before) may look slightly unfamiliar:
 
 ```text
