@@ -13,6 +13,8 @@ git clone https://github.com/SAP-samples/cloud-btp-cli-api-codejam.git
 cd cloud-btp-cli-api-codejam
 ```
 
+> Just a note on context here - you're cloning the repository here to get to the `Dockerfile` in order to build your working environment. Later on, in [Exercise 05](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/blob/main/exercises/05-core-services-api-prep/), you'll be directed to clone this repository into your working environment as part of the tasks for that part of the CodeJam. Don't confuse this "outer" clone with the second clone action that you will eventually do "within" the working environment!
+
 ## Examine the Dockerfile
 
 If you look in the [Dockerfile](Dockerfile) you'll see that there are instructions for installing various command line tools including:
