@@ -52,7 +52,7 @@ Give the Dev Space a name, and hit "Create Dev Space".
 
 ![Creating a Basic Dev Space](assets/app-studio-creating-dev-space.png)
 
-## Docker Desktop (optional)
+## Docker Desktop
 
 As an alternative to using a Dev Space in the SAP Business Application Studio, you may wish to follow along in a container instead. This is purely experimental and there is no explicit support for this just yet, but if you want to try it, instead of using a Dev Space, please feel free to do so, and provide any feedback and tips for improvements via the normal route (issue or pull request on this repo).
 
