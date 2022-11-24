@@ -9,7 +9,7 @@ If you've had a look at the output from `btp help` you'll know that there are mu
 ```text
 user: user $ btp help
 Connecting to CLI server at https://cpcli.cf.eu10.hana.ondemand.com...
-SAP BTP command line interface (client v2.14.0)
+SAP BTP command line interface (client v2.29.0)
 
 Usage: btp [OPTIONS] ACTION [GROUP/OBJECT] [PARAMS]
 
@@ -63,7 +63,7 @@ Here's the sort of output that you'll see:
 ```text
 user: user $ btp list --help
 Connecting to CLI server at https://cpcli.cf.eu10.hana.ondemand.com...
-SAP BTP command line interface (client v2.14.0)
+SAP BTP command line interface (client v2.29.0)
 
 Usage: btp [OPTIONS] ACTION GROUP/OBJECT [PARAMS]
 
@@ -131,41 +131,7 @@ OK
 
 Note that a script has been installed to your btp CLI configuration directory, and the `.bashrc` file was chosen to contain the autocomplete setup (the invocation of that script on shell startup). This is recommended.
 
-👉 Have a look what was added by looking at the last three lines of the `.bashrc` file like this:
-
-```bash
-tail -3 $HOME/.bashrc
-```
-
-You'll see that there's an extra line that follows the two lines you yourself added in earlier exercises:
-
-```bash
-export PATH=$PATH:$HOME/bin
-export BTP_CLIENTCONFIG=$HOME/.config/btp/config.json
-SAP_BTP_CLI_AUTOCOMPLETE="/home/user/.config/btp/autocomplete/scripts/sapbtpcli-autocomplete.plugin.sh" && source $SAP_BTP_CLI_AUTOCOMPLETE
-```
-
-👉 Invoke this extra line now with the `bu` alias to have it take effect immediately:
-
-```bash
-bu
-```
-
-## Guard against permission expansion
-
-> This section is only relevant for those working through this CodeJam in a Dev Space in the SAP Business Application Studio.
-
-Currently, if the Dev Space is restarted, permissions on the btp CLI configuration files are extended to add read/write access for the group; we don't want this.
-
-👉 So while you're looking at your `.bashrc` file, append a line like this:
-
-```bash
-echo 'chmod 600 $BTP_CLIENTCONFIG $SAP_BTP_CLI_AUTOCOMPLETE' >> $HOME/.bashrc
-```
-
-This will set the permissions (also known as "modes") on the btp CLI config files to 600, i.e. read and write for the user, and nothing for anyone else. For more on understanding these permissions, see [chmod](https://en.wikipedia.org/wiki/Chmod).
-
-(Because this `chmod` invocation is only needed if the shell is restarted, we do not need to invoke it now with `bu`).
+👉 Follow the instruction to "start a new terminal session" by exiting with `exit` or `Ctrl-D` and starting up a new terminal as before, with menu path `Terminal -> New Terminal`. 
 
 ## Try out autocomplete
 
