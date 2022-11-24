@@ -33,7 +33,7 @@ Here's an example authentication flow for trial global account 8fe7efd4trial:
 
 ```text
 user: user $ btp login
-SAP BTP command line interface (client v2.14.0)
+SAP BTP command line interface (client v2.29.0)
 
 CLI server URL [https://cpcli.cf.eu10.hana.ondemand.com]>
 Connecting to CLI server at https://cpcli.cf.eu10.hana.ondemand.com...
