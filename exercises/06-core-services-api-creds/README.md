@@ -41,13 +41,13 @@ We will stop just before the "API Call" box, and do that in the subsequent exerc
 
 ## Log in with the CF CLI
 
-With the API endpoint now obtained, we can log in with the CF CLI. You could do it like this, specifying the actual API endpoint URL with the `-a` option and copy-pasting the URL from the output above:
+With the API endpoint now obtained, we can log in with the CF CLI. You could do it like this, specifying, with the `-a` option, the API endpoint URL you noted down in the previous exercise:
 
 ```bash
 cf login -a <API endpoint URL>
 ```
 
-However, it's much easier to use the power of the shell to do this in one go, as follows.
+However, you could simply use the power of the shell to do this in one go, as follows.
 
 👉 Ensure you're in the directory containing this exercise's `README.md` file, and make this call (replacing `trial` with the name of your subaccount):
 
@@ -56,7 +56,7 @@ cd $HOME/projects/cloud-btp-cli-api-codejam/exercises/06-core-services-api-creds
 cf login -a $(./get_cf_api_endpoint "trial")
 ```
 
-> Just like in the previous exercise, the `get_cf_api_endpoint` in this directory is [just a symbolic link](get_cf_api_endpoint) to the [real script](../../scripts/get_cf_api_endpoint) in the shared [scripts/](../../scripts/) directory.
+> The `get_cf_api_endpoint` in this directory is [just a symbolic link](get_cf_api_endpoint) to the [real script](../../scripts/get_cf_api_endpoint) in the shared [scripts/](../../scripts/) directory.
 
 Supply your BTP trial account credentials (email address and password). Here's what the flow will look like:
 
@@ -133,7 +133,7 @@ Creating service key cis-central-sk for service instance cis-central as qmacro+b
 OK
 ```
 
-> The naming convention used here for instance and service key resources has instances named after a combination of service name and plan name (`cis-central`) and a service key named similarly, suffixed with `-sk` here (`cis-central-sk`). You may have your own naming conventions in your organization, but we'll stick to this one for this CodeJam content.
+> The naming convention used here for instance and service key resources has instances named after a combination of service name and plan name (`cis-central`) and a service key named similarly, suffixed with `-sk` here (`cis-central-sk`). You may have your own naming conventions in your organization, but we'll stick to this one for now.
 
 At this point, we can update our diagram with the two new entity names in the `Instance` and `Binding` (service key) boxes:
 
@@ -164,17 +164,17 @@ At this point, we can update our diagram with the two new entity names in the `I
 
 > We're deliberately interchanging the terms "binding" and "service key" so that they become related in our minds.
 
-## Take a first look at the service key
+At this point in the longer CodeJam version of this workshop, we [take a detour to examine the contents of the service key](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/blob/main/exercises/06-core-services-api-creds/README.md#take-a-first-look-at-the-service-key). Due to the lack of time, we won't do that here; instead, we'll take a quick look before continuing.
 
-What's in a service key? Let's take a first look, via `cf`.
+### Examine and then store the contents of the service key
 
-👉 Use the following command to examine the contents of the service key (there are some long strings of characters that represent credentials in some service keys, including this one, so take care when displaying the content on the screen):
+👉 Ask to see the contents of the service key, like this:
 
 ```bash
-cf service-key cis-central cis-central-sk
+cf service-key cis-central cis-central-sk 
 ```
 
-The output should look something like this:
+You should see something like this:
 
 ```text
 Getting key cis-central-sk for service instance cis-central as qmacro+blue@gmail.com...
@@ -214,30 +214,15 @@ Getting key cis-central-sk for service instance cis-central as qmacro+blue@gmail
 }
 ```
 
-The next thing to do is to save this content to a file. First, so we don't need to keep calling `cf service-key`, but mostly so we can parse information out of it, because that's easy with `jq`, because the output is JSON, right?
+That's JSON! Well yes, but not entirely. There are a couple of lines right at the start that are not JSON, some "informational" output (the line starting "Getting", and the empty line that follows) which will mess up our attempts at treating the service key contents as JSON. Also, it's a good idea to store the contents in a file so that we can quickly refer to the details when we need to. So let's clean up the cruft and store the file in one go, like this:
 
-Well, not quite.
-
-The eagle-eyed amongst you will have spotted there's some extra output from `cf service-key` that we need to get rid of first before redirecting the rest of it to a file. And that's the first two "helpful" lines (in case you're wondering, the second line is a blank line):
-
-```text
-Getting key cis-central-sk for service instance cis-central as qmacro+blue@gmail.com...
-
-```
-
-So we need to pass the output through something so we can remove these lines.
-
-> Some CF proponents would at this stage point to specific access to the API endpoint facility afforded by the `cf curl` command, as described in [curl - Cloud Foundry CLI Reference Guide](https://cli.cloudfoundry.org/en-US/v7/curl.html). However, to have a separate, incompatible set of objects and API shapes, just to be able to have a cleaner output on the command line, is contrary to the Unix Philosophy and is not an ideal alternative for ad hoc contexts such as this.
-
-To make the cleanup, the venerable [sed](https://www.gnu.org/software/sed/manual/sed.html) will do nicely.
-
-👉 Re-run the previous `cf` command, but this time, pipe the output into `sed`, specifying a short script to delete lines 1 and 2, and then redirect the output of that into a file `cis-central-sk.json`:
+👉 Re-request the service key, remove the first two lines, and store it in a file:
 
 ```bash
 cf service-key cis-central cis-central-sk | sed '1,2d' > cis-central-sk.json
 ```
 
-You can check the file contains just the JSON by asking `jq` to print it out nicely:
+You can check the file contains just the JSON by asking `jq`, a command line JSON processor, which is available by default in the Dev Space, to print it out nicely:
 
 👉 Try that now:
 
@@ -247,7 +232,7 @@ jq . cis-central-sk.json
 
 You should see a nicely formatted display of JSON.
 
-> Technically speaking, the `.` in `jq` is the [identity](https://stedolan.github.io/jq/manual/#Identity:.) filter, so the nice formatting of the JSON is actually just a by-product of asking `jq` to filter the JSON through the identity filter (which just produces whatever it receives), and by default `jq` will endeavour to pretty-print the output.
+> Technically speaking, the `.` in `jq` is the [identity](https://stedolan.github.io/jq/manual/#Identity:.) filter, so the nice formatting of the JSON is actually just a by-product of asking `jq` to filter the JSON through the identity filter (which just produces whatever it receives), and by default `jq` will endeavour to pretty-print the output. But that's a (long and interesting) story for another time!
 
 Values in this JSON data are needed to:
 
@@ -348,50 +333,6 @@ Now we can update our diagram to record the fact that we now have a token!
 +----------------+      +----------------+
 ```
 
-### Understand the HTTP call
-
-Now that you've successfully made an OAuth 2.0 call to request an access token, you can relax a bit. But not completely - it's important that you understand what just happened. The [generate-password-grant-type](../../scripts/generate-password-grant-type) script wrapped the call for you, so to finish this exercise, let's unwrap it a bit and make sure we know what the `curl` invocation is doing.
-
-We'll cover the answers to all the questions in this section in a short discussion, when we get to the end of this exercise.
-
-👉 Open the `generate-password-grant-type` script in the editor and stare at the `curl` invocation, and in particular each parameter. Have a think about these questions:
-
-* Where does the `$uaa_url` variable come from, and what does it represent?
-* What's the `/oauth/token` suffix for?
-* What's going on with the `--user` option?
-* Why is `--data` sometimes used, and other times `--data-urlencode`?
-* What HTTP request method is used in this call?
-* What should be the Content Type sent along with the request?
-
-👉 Modify the `generate-password-grant-type` script by adding a `--verbose` option to the `curl` invocation. If you're using a Dev Space, just open the file up through the Explorer - but remember, the source is in the [scripts/](../../scripts/) directory, there's only a [symbolic link](generate-password-grant-type) in [this](.) directory). If you're using a container, you have a couple of options. If you're feeling hardcore, you can of course use The One True Editor (`vim`). Alternatively, you can use `nano` (like this: `nano generate-password-grant-type`). However you edit, the `curl` invocation should end up looking like this (don't forget the `\` to escape the newline):
-
-```bash
-curl \
-  --verbose \
-  --url "$uaa_url/oauth/token" \
-  --user "$clientid:$clientsecret" \
-  --data-urlencode 'grant_type=password' \
-  --data-urlencode "username=$email" \
-  --data-urlencode "password=$password"
-```
-
-> If you're hardcode and using `vim` on the command line, kudos :-) and you don't need to do anything other than invoke `vim ./generate-password-grant-type`. For those saner folks wanting to use the editor built in to App Studio, don't forget you'll need to navigate to the [scripts/](../../scripts/) directory where you'll find the actual `generate-password-grant-type` source.
-
-👉 Run the script again, in the same way:
-
-```bash
-./generate-password-grant-type cis-central-sk.json > tokendata.json
-```
-
-You should now see lots of output telling you what's happening.
-
-👉 Take a few moments to stare at this too, and think about these additional questions:
-
-* What was the HTTP status code in the response?
-* Did you work out what the Content Type of the request should be, and did you get it correct?
-* What happened to the `clientid` and `clientsecret` values supplied via the `--user` option?
-* What was the Content Type of the response?
-
 ## Summary
 
 You now know how to get a service key (binding) via an instance of a service on SAP BTP, specifically in the CF environment. You also know now what sort of information this service key contains and how you can use it in an OAuth 2.0 flow to request an access token. You're now ready to use the access token to make the API call in the next exercise!
@@ -400,14 +341,12 @@ You now know how to get a service key (binding) via an instance of a service on 
 
 * [Understanding OAuth 2.0 grant types](https://github.com/SAP-archive/cloud-apis-virtual-event/tree/main/exercises/02#3-understand-oauth-20-grant-types)
 * [Getting an Access Token for SAP Cloud Management Service APIs](https://help.sap.com/products/BTP/65de2977205c403bbc107264b8eccf4b/3670474a58c24ac2b082e76cbbd9dc19.html?locale=en-US)
-* [The builtin keys and keys_unsorted functions in jq](https://stedolan.github.io/jq/manual/#keys,keys_unsorted)
 * Hands-on SAP Dev episode: [Back to basics: Using curl in the SAP enterprise landscape](https://www.youtube.com/watch?v=k34-lD77Aj4)
 
 ---
 
 If you finish earlier than your fellow participants, you might like to ponder these questions. There isn't always a single correct answer and there are no prizes - they're just to give you something else to think about.
 
+1. Do you recognise the `$(...)` syntax when you ran the `cf` CLI to log in (`cf login -a $(./get_cf_api_endpoint "trial")`)? 
 1. What other naming conventions for Cloud Foundry instances and service keys have you seen? Are there ones you prefer to use, and if so, what are they?
-1. We used `sed` to strip off the unwanted first two lines of the service key output. How else might we have done this?
 1. Take a look at the token data you retrieved - what's the lifetime of the access token, in hours?
-1. Did you manage to think about the questions on the `curl` invocation details?
