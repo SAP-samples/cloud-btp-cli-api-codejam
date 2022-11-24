@@ -131,13 +131,13 @@ OK
 
 Note that a script has been installed to your btp CLI configuration directory, and the `.bashrc` file was chosen to contain the autocomplete setup (the invocation of that script on shell startup). This is recommended.
 
-👉 Follow the instruction to "start a new terminal session" by exiting with `exit` or `Ctrl-D` and starting up a new terminal as before, with menu path `Terminal -> New Terminal`. 
+👉 Follow the instruction to "start a new terminal session" by exiting with `exit` or <kbd>Ctrl-D</kbd> and starting up a new terminal as before, with menu path `Terminal -> New Terminal`.
 
 ## Try out autocomplete
 
 Now you're ready to try the autocomplete feature out.
 
-👉 Start by typing `btp` (followed by a space) and then hitting `Tab`. You'll first see the possible commands. Choose one by starting to type it and autocompleting it with `Tab`, and then choose from the list of GROUP / OBJECTs presented. You should spend a minute or two exploring like this - it's much easier to get a feel for autocomplete by trying it, rather than reading about it. But in case you want to read more about it, see the link to the blog post in the [Further reading](#further-reading) section below, which is from where this animated demonstration comes:
+👉 Start by typing `btp` (followed by a space) and then hitting <kbd>Tab</kbd>. You'll first see the possible commands. Choose one by starting to type it and autocompleting it with <kbd>Tab</kbd>, and then choose from the list of GROUP / OBJECTs presented. You should spend a minute or two exploring like this - it's much easier to get a feel for autocomplete by trying it, rather than reading about it. But in case you want to read more about it, see the link to the blog post in the [Further reading](#further-reading) section below, which is from where this animated demonstration comes:
 
 ![animated demonstration of btp CLI autocomplete](https://blogs.sap.com/wp-content/uploads/2021/09/autocomplete.gif)
 

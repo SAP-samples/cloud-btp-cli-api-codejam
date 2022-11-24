@@ -308,7 +308,7 @@ The layout of `ijq` consists of four sections:
 
 You'll see that in the Input section, `.value` is suggested, as it's a directly available property in the outermost object.
 
-👉 Hit the Tab key to accept the suggestion, and in a similar way to how we [listed the locations of the CF data centers](../04-retrieving-parsing-json-output#listing-the-locations-of-the-cf-data-centers) in a previous exercise, expand this filter, replacing the name "trial" with the name of your subaccount:
+👉 Hit the <kbd>Tab</kbd> key to accept the suggestion, and in a similar way to how we [listed the locations of the CF data centers](../04-retrieving-parsing-json-output#listing-the-locations-of-the-cf-data-centers) in a previous exercise, expand this filter, replacing the name "trial" with the name of your subaccount:
 
 ```jq
 .value[] | select(.displayName == "trial")
@@ -343,7 +343,7 @@ This was a bit of a [round the houses](https://wordhistories.net/2018/03/05/go-r
 
 Before moving on to the next step, let's rerun the command but this time capture this GUID into a shell variable so we can use it in the next step. You'll do this using command substitution, which is described in a link in the [Further reading](#further-reading) section below.
 
-👉 Call up the previous command (use the up-arrow to do this, or even try `Ctrl-R` for a reverse search over your command history), make it look like this, and run it:
+👉 Call up the previous command (use the up-arrow to do this, or even try <kbd>Ctrl-R</kbd> for a reverse search over your command history), make it look like this, and run it:
 
 ```bash
 guid=$(btp --format json list accounts/subaccount | ijq -r)
@@ -424,7 +424,7 @@ You'll see that the structure of the data looks like this:
 
 In other words, it's an object with a single property, `environmentInstances`, which has an array `[...]` as its value, and each element of that array is an object representing the details of an environment instance.
 
-👉 With this knowledge, exit your `ijq` session (with `Ctrl-C`) and then construct a further call back on the command line that uses a simple `jq` filter to extract the relevant object, like this:
+👉 With this knowledge, exit your `ijq` session (with <kbd>Ctrl-C</kbd>) and then construct a further call back on the command line that uses a simple `jq` filter to extract the relevant object, like this:
 
 ```bash
 btp --format json list accounts/environment-instance --subaccount "$guid" \

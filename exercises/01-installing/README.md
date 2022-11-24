@@ -101,7 +101,7 @@ Proceed (with Enter) only if you accept the SAP Developer Licence 3.1
 
 The script will also add the local `bin/` directory to your PATH but you'll need to restart the terminal (getting a new shell session) to have that take effect. 
 
-👉 So do that now. Close the current shell session with either `exit`, or pressing `Ctrl-D`. Then start a new terminal like you did before with menu path `Terminal -> New Terminal`.
+👉 So do that now. Close the current shell session with either `exit`, or pressing <kbd>Ctrl-D</kbd>. Then start a new terminal like you did before with menu path `Terminal -> New Terminal`.
 
 ### Make a first call to the btp CLI
 

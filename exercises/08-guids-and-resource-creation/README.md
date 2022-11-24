@@ -241,7 +241,7 @@ Run it directly to see (a) that it exists and is executable, and (b) what it fee
 fzf
 ```
 
-In its default state, `fzf` will look for files and present you with a fuzzy-finder interface to narrow the choice down as you type (you can quit out of the interface with `Ctrl-C`).
+In its default state, `fzf` will look for files and present you with a fuzzy-finder interface to narrow the choice down as you type (you can quit out of the interface with <kbd>Ctrl-C</kbd>).
 
 Now try it out with the regions, encapsulating the invocation into a function:
 
