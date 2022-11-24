@@ -12,7 +12,7 @@ To enable this, we use the SAP Business Application Studio (App Studio), a cloud
 
 ### Why a Dev Space in App Studio?
 
-Why a Dev Space in App Studio, and why a Basic one at that? Well, because it allows everyone to have the same environment, so we can all learn at the same pace and experience the same things. Moreover, App Studio Dev Spaces offer a VS Code like experience with a file explorer, version control interface, comfortable tabbed editor environment, and - most importantly for us - a modern terminal emulator.
+Why a Dev Space in App Studio, and why a Basic one at that? Well, because it allows everyone to have the same environment, so we can all learn at the same pace and experience the same things. Moreover, App Studio Dev Spaces offer a VS Code like experience (in fact, as of November 2022 it's now powered by [Code OSS](https://github.com/microsoft/vscode) with a file explorer, version control interface, comfortable tabbed editor environment, and - most importantly for us - a modern terminal emulator.
 
 The power of the btp CLI comes from multiple angles:
 
@@ -32,12 +32,13 @@ This is lovely, but we want to focus on the command line, so let's remove everyt
 
 👉 Do the following:
 
-* toggle the Explorer closed with menu path `View -> Explorer`
-* close the Welcome tab with the `x` (optionally having checked the "Don't show this again" checkbox)
+* close the Get Started tab with the `x` (optionally having checked the "Don't show this page again" checkbox at the bottom)
+* toggle the Explorer closed with menu path `View -> Explorer` (access the menu with the `☰` symbol in the top left)
 * open up a terminal session with menu path `Terminal -> New Terminal`
-* optionally, open the Preferences with menu path `File -> Preferences -> Open Preferences`, find the font size setting for the terminal ("Terminal › Integrated: Font Size"), within Features / Terminal, and adjust as appropriate; close the Preferences tab when you're done with this
-* drag the horizontal line up towards the top of the screen to give you maximum terminal space
-* switch to the Problems tab which was also automatically opened, and close it with the `x`
+* optionally, open the Settings with menu path `File -> Preferences -> Settings`, find the font size setting for the terminal ("Terminal › Integrated: Font Size"), within Features / Terminal, and adjust as appropriate; close the Settings tab when you're done with this
+* drag the horizontal line up towards the top of the screen to give you maximum terminal space, or use the Maximize Panel Size button (the `^` symbol) on right of the terminal shown in the screenshot below
+
+![maximize panel size](assets/maximize-panel-size.png)
 
 > Notice that in the menu items you're shown keyboard shortcuts for some of the actions you're carrying out (e.g. opening a new terminal, or opening the preferences) - these can make the use of the Dev Space even more comfortable.
 
