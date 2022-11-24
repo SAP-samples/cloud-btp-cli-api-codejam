@@ -167,5 +167,5 @@ At this point you have the btp CLI set up and ready to invoke from the command l
 
 If you finish earlier than your fellow participants, you might like to ponder these questions. There isn't always a single correct answer and there are no prizes - they're just to give you something else to think about.
 
-1. What help is available for the btp CLI on the command line? What does `btp --help` show you?
+1. What help is available for the btp CLI on the command line? What does `btp help` show you?
 1. Why are there two entries in `$HOME/bin/` for the `btp` executable?

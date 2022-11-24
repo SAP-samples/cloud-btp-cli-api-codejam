@@ -21,7 +21,7 @@ You can see an example of the subdomain for this sample trial global account, ju
 
 ## Authenticate
 
-If you managed to check out the "Usage" information and the output from `btp --help` [at the end of the previous exercise](../01-installing/README.md#questions) you'll have seen that there are "General actions" as well as BTP resource specific actions. One of these general actions is "login".
+If you managed to check out the "Usage" information and the output from `btp help` [at the end of the previous exercise](../01-installing/README.md#questions) you'll have seen that there are "General actions" as well as BTP resource specific actions. One of these general actions is "login".
 
 👉 Use that now to authenticate, supplying the information you gathered in the previous section:
 
