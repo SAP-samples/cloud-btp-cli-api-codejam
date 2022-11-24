@@ -140,6 +140,18 @@ You'll find that it helps to remember this invocation format, by considering tha
 
 There's an SAP Help topic page linked in the [Further reading](#further-reading) section that explains how this is structured.
 
+### Switch back to your home directory
+
+This step is not absolutely necessary but it's helpful for us all to be on the same page, or rather in the same directory, as it were. 
+
+So as a final step in this first exercise, switch to your home directory:
+
+```bash
+cd $HOME
+```
+
+> This is rather explicit; a simple `cd` would have done the trick too, of course.
+
 ## Summary
 
 At this point you have the btp CLI set up and ready to invoke from the command line.
