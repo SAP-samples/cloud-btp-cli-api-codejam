@@ -20,7 +20,9 @@ The power of the btp CLI comes from multiple angles:
 
 App Studio Dev Spaces, even Basic ones, give us that essential command line context. So that's what we're using. By all means, after this session, feel free to install and use the btp CLI where it makes sense for you.
 
-### Cloning the repository and setting up the btp CLI 
+> As a general rule, we'll get you to run commands in the terminal, at the shell prompt. Also as a general rule, we'll try to provide commands that will work from wherever you are in the directory hierarchy (by prefixing the path to the commands with `$HOME/` and going from there.
+
+### Cloning the repository 
 
 For this workshop we'll clone this repository into the Dev Space and use a script included in the repository to set the btp CLI up.
 
@@ -51,15 +53,67 @@ cd $HOME/projects/
 git clone -b mini-workshop https://github.com/SAP-samples/cloud-btp-cli-api-codejam
 ```
 
+This is the sort of output that you should see as a result of this:
+
+```text
+user: user $ cd $HOME/projects/
+user: projects $ git clone -b mini-workshop https://github.com/SAP-samples/cloud-btp-cli-api-codejam
+Cloning into 'cloud-btp-cli-api-codejam'...
+remote: Enumerating objects: 997, done.
+remote: Counting objects: 100% (392/392), done.
+remote: Compressing objects: 100% (211/211), done.
+remote: Total 997 (delta 193), reused 336 (delta 163), pack-reused 605
+Receiving objects: 100% (997/997), 9.04 MiB | 50.86 MiB/s, done.
+Resolving deltas: 100% (556/556), done.
+```
+
+Now that you have the repository contents in your Dev Space, you might as well open those contents up in the Explorer, for easy navigation and, well, exploration.
+
+👉 Open the Explorer perspective, use the Open Folder facility and navigate down to, and select, the `cloud-btp-cli-api-codejam` directory, i.e. this:
+
+```text
+/home/user/projects/cloud-btp-cli-api-codejam/
+```
+
+![Opening the cloud-btp-cli-api-codejam directory](assets/explorer-open-folder.png)
+
+Doing this will cause the Dev Space to be restarted, and the contents of this branch of the repository to be presented in the Explorer. Feel free to take a quick look around if you want to.
+
+### Setting up the btp CLI
+
+To save time (this is covered in more detail in the [main branch version of this exercise](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/blob/main/exercises/01-installing/README.md)) there's a [setup script](../../scripts/setup) that you can run to install the btp CLI into your Dev Space. 
+
+👉 Run the script now, which will create a local `bin/` directory, and then download and run a small script that will in turn download the latest version of the btp CLI, putting it into that `bin/` directory.
+
+```bash
+$HOME/projects/cloud-btp-cli-api-codejam/scripts/setup
+```
+
+You should see output similar to this:
+
+```text
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  3766  100  3766    0     0   175k      0 --:--:-- --:--:-- --:--:--  175k
+Proceed (with Enter) only if you accept the SAP Developer Licence 3.1
+(see https://tools.hana.ondemand.com/developer-license-3_1.txt) ...Version is 2.29.0
+```
+
+The script will also add the local `bin/` directory to your PATH but you'll need to restart the terminal (getting a new shell session) to have that take effect. 
+
+👉 So do that now. Close the current shell session with either `exit`, or pressing `Ctrl-D`. Then start a new terminal like you did before with menu path `Terminal -> New Terminal`.
+
 ### Make a first call to the btp CLI
 
-Now you can invoke `btp`.
+Now you can invoke `btp` 
+
+> This is because it's in `$HOME/bin/` which is now in your PATH.
 
 👉 Try it now:
 
 ```text
 user: user $ btp
-Welcome to the SAP BTP command line interface (client v2.14.0)
+Welcome to the SAP BTP command line interface (client v2.29.0)
 
 Usage: btp [OPTIONS] ACTION [GROUP/OBJECT] [PARAMS]
 
