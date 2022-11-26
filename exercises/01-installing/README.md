@@ -10,7 +10,7 @@ To enable this, we use the SAP Business Application Studio (App Studio), a cloud
 
 ### Why a Dev Space in App Studio?
 
-Why a Dev Space in App Studio, and why a Basic one at that? Well, because it allows everyone to have the same environment, so we can all learn at the same pace and experience the same things. Moreover, App Studio Dev Spaces offer a VS Code like experience (in fact, as of November 2022 it's now powered by [Code OSS](https://github.com/microsoft/vscode) with a file explorer, version control interface, comfortable tabbed editor environment, and - most importantly for us - a modern terminal emulator.
+Why a Dev Space in App Studio, and why a Basic one at that? Well, because it allows everyone to have the same environment, so we can all learn at the same pace and experience the same things. Moreover, App Studio Dev Spaces offer a VS Code like experience. In fact, as of November 2022 it's now powered by [Code OSS](https://github.com/microsoft/vscode) with a file explorer, version control interface, comfortable tabbed editor environment, and - most importantly for us - a modern terminal emulator.
 
 The power of the btp CLI comes from multiple angles:
 
@@ -20,11 +20,11 @@ The power of the btp CLI comes from multiple angles:
 
 App Studio Dev Spaces, even Basic ones, give us that essential command line context. So that's what we're using. By all means, after this session, feel free to install and use the btp CLI where it makes sense for you.
 
-> As a general rule, we'll get you to run commands in the terminal, at the shell prompt. Also as a general rule, we'll try to provide commands that will work from wherever you are in the directory hierarchy (by prefixing the path to the commands with `$HOME/` and going from there.
+> As a general rule, we'll get you to run commands in the terminal, at the shell prompt. Also as a general rule, we'll try to provide commands that will work from wherever you are in the directory hierarchy, by prefixing the path to the commands with `$HOME/` and going from there.
 
 ### Cloning the repository 
 
-For this workshop we'll clone this repository into the Dev Space and use a script included in the repository to set the btp CLI up.
+For this mini workshop we'll clone this repository into the Dev Space and use a script included in the repository to set the btp CLI up.
 
 Initially the Dev Space will look something like this:
 
@@ -35,16 +35,18 @@ This is lovely, but we want to focus on the command line, so let's bring one up 
 👉 Do the following:
 
 * close the Get Started tab with the `x` (optionally having checked the "Don't show this page again" checkbox at the bottom)
-* open up a terminal session with menu path `Terminal -> New Terminal`
+* open up a terminal session with menu path `Terminal -> New Terminal` (access the menu with the ☰ symbol in the top left)
 * optionally, open the Settings with menu path `File -> Preferences -> Settings`, find the font size setting for the terminal ("Terminal › Integrated: Font Size"), within Features / Terminal, and adjust as appropriate; close the Settings tab when you're done with this
+
+> Notice that in the menu items you're shown keyboard shortcuts for some of the actions you're carrying out (e.g. opening a new terminal, or opening the preferences) - these can make the use of the Dev Space even more comfortable.
 
 You should end up with a shell prompt like this:
 
 ![shell prompt in terminal](assets/maximize-panel-size.png)
 
-> Notice that in the menu items you're shown keyboard shortcuts for some of the actions you're carrying out (e.g. opening a new terminal, or opening the preferences) - these can make the use of the Dev Space even more comfortable.
+If you wish, you can drag the horizontal bar up to give yourself more space in the terminal; alternatively, use the Maximize Panel Size button (`^`) which you can see in the screenshot above, on the right.
 
-Now we're ready to clone this repository. Note that this mini workshop content is not in the repository's main branch, so you need to specify the branch name explicitly (this is partly why we're doing this on the command line and not with the "Clone from Git" facility):
+Now we're ready to clone this repository. Note that this mini workshop content is not in the repository's main branch, so you need to specify the branch name explicitly (this is another reason for us to do this on the command line and not with the "Clone from Git" facility):
 
 👉 At the shell prompt, move into the `projects/` directory and clone this `mini-workshop` branch of the repository like this:
 
@@ -79,11 +81,13 @@ Now that you have the repository contents in your Dev Space, you might as well o
 
 Doing this will cause the Dev Space to be restarted, and the contents of this branch of the repository to be presented in the Explorer. Feel free to take a quick look around if you want to.
 
+👉 Open up a new terminal with the menu path `Terminal -> New Terminal` again. 
+
 ### Setting up the btp CLI
 
-To save time (this is covered in more detail in the [main branch version of this exercise](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/blob/main/exercises/01-installing/README.md)) there's a [setup script](../../scripts/setup) that you can run to install the btp CLI into your Dev Space. 
+In the [main branch version of this exercise](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/blob/main/exercises/01-installing/README.md)) you are guided to set things up manually, so you can learn as you go, but to save time for this mini workshop, there's a [setup script](../../scripts/setup) that you can run to install the btp CLI into your Dev Space. 
 
-👉 Run the script now, which will create a local `bin/` directory, and then download and run a small script that will in turn download the latest version of the btp CLI, putting it into that `bin/` directory.
+👉 Run the script now, which will create a local `bin/` directory in your `$HOME` directory, and then download and run a small script that will in turn download the latest version of the btp CLI, putting it into that `bin/` directory:
 
 ```bash
 $HOME/projects/cloud-btp-cli-api-codejam/scripts/setup
@@ -144,7 +148,7 @@ There's an SAP Help topic page linked in the [Further reading](#further-reading)
 
 This step is not absolutely necessary but it's helpful for us all to be on the same page, or rather in the same directory, as it were. 
 
-So as a final step in this first exercise, switch to your home directory:
+👉 So as a final step in this first exercise, switch to your home directory:
 
 ```bash
 cd $HOME
