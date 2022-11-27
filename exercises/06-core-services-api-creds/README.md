@@ -6,9 +6,7 @@ Having determined that we want to make an API call to the singular endpoint in t
 /entitlements/v1/globalAccountAllowedDataCenters
 ```
 
-we learned in the previous exercise that we needed an instance of the SAP Cloud Management service, and chose the `central` plan to do that with. Given that we intend to create that instance in our Cloud Foundry (CF) environment instance in our subaccount, we spent the rest of the exercise learning how to mine and extract relevant information from the rich seam of SAP BTP resource data that is available to us via the JSON output format with the btp CLI.
-
-Specifically, we worked out how to find, mechanically, the API endpoint that we need to login with the CF CLI `cf`.
+we learned in the previous exercise that we needed an instance of the SAP Cloud Management service, and chose the `central` plan to do that with. We also determined the CF API endpoint we needed with which to log in.
 
 In this exercise we'll use that, log in with `cf` and go on to work through the rest of the boxes in this diagram here:
 
@@ -233,6 +231,7 @@ jq . cis-central-sk.json
 You should see a nicely formatted display of JSON.
 
 > Technically speaking, the `.` in `jq` is the [identity](https://stedolan.github.io/jq/manual/#Identity:.) filter, so the nice formatting of the JSON is actually just a by-product of asking `jq` to filter the JSON through the identity filter (which just produces whatever it receives), and by default `jq` will endeavour to pretty-print the output. But that's a (long and interesting) story for another time!
+> Note also that this time, the `.` is not in single quotes, unlike when you last used this filter in a previous exercise, when [Listing the available datacenter names](../04-retrieving-parsing-json-output#listing-the-available-datacenter-names). It isn't absolutely necessary, so we're omitting it in this instance (and we'll make a similar change later in this exercise when we use the `keys` filter too.
 
 Values in this JSON data are needed to:
 
@@ -283,7 +282,7 @@ You'll be asked to authenticate, and you must specify your SAP BTP email and pas
 👉 Have a look what properties there are in this JSON:
 
 ```bash
-jq 'keys' tokendata.json
+jq keys tokendata.json
 ```
 
 > You can also omit the single quotes here if you wish, as the shell will pass the `keys` token to `jq` just as well without them.

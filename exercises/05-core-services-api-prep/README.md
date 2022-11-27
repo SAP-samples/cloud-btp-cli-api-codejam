@@ -2,7 +2,7 @@
 
 The btp CLI implementation has a client / server nature. The server component facilitates calls to APIs in the [Core Services for SAP BTP](https://api.sap.com/package/SAPCloudPlatformCoreServices/rest) package. So the btp CLI effectively gives you a comfortable way of consuming those APIs that are specifically designed to let you "manage, build, and extend the core capabilities of SAP BTP".
 
-During the course of this and also the subsequent exercise you'll see that first hand, by observing that the JSON you saw in the previous exercise (emitted from `btp --format json list accounts/available-region`) is effectively the same as the output from a call to the corresponding API endpoint.
+During the course of this and also the subsequent exercises you'll see that first hand, by observing that the JSON you saw in the previous exercise (emitted from `btp --format json list accounts/available-region`) is effectively the same as the output from a call to the corresponding API endpoint.
 
 While the process of calling an API is not complicated, there are some moving parts that work together are important for us to understand. 
 
@@ -141,7 +141,7 @@ To log in, this we need to know which endpoint we must connect to, as we'll need
 cf login -a <API endpoint URL>
 ```
 
-In [the longer (CodeJam) version of this mini-workshop](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/tree/mini-workshop), this [equivalent section on determining your CF API endpoint](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/blob/main/exercises/05-core-services-api-prep/README.md#determining-your-cf-api-endpoint) is an in-depth journey into mechanically determining that value. This is so you can understand where that value comes from, where it's available, and how to get at it in an automated scenario.
+In [the longer (CodeJam) version of this mini workshop](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/tree/main), this [equivalent section on determining your CF API endpoint](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/blob/main/exercises/05-core-services-api-prep/README.md#determining-your-cf-api-endpoint) is an in-depth journey into mechanically determining that value. This is so you can understand where that value comes from, where it's available, and how to get at it in an automated scenario.
 
 But owing to the restricted time we have for this mini workshop, we can just look in the BTP Cockpit for the URL, where it's shown as the value for "API Endpoint" in the "Cloud Foundry Environment" section, which will be within the subaccount that you're using ("trial" in the examples in this mini workshop).
 
