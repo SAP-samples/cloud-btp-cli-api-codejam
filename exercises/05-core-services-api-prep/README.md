@@ -4,7 +4,7 @@ The btp CLI implementation has a client / server nature. The server component fa
 
 During the course of this and also the subsequent exercise you'll see that first hand, by observing that the JSON you saw in the previous exercise (emitted from `btp --format json list accounts/available-region`) is effectively the same as the output from a call to the corresponding API endpoint.
 
-While the process of calling an API is not complicated, there are some moving parts that work together are important for us to thoroughly understand. We'll do that together by taking a steady journey through those moving parts, with enough time to reflect and get things straight in our minds.
+While the process of calling an API is not complicated, there are some moving parts that work together are important for us to understand. 
 
 In this exercise, you'll do some preparatory work that's required. In the next exercise, you'll use the information gained in this exercise (mostly the CF API endpoint that you need) to obtain credentials for the call. And in the exercise that follows that, you'll use those credentials to make the call and then examine the output.
 
@@ -143,11 +143,11 @@ cf login -a <API endpoint URL>
 
 In [the longer (CodeJam) version of this mini-workshop](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/tree/mini-workshop), this [equivalent section on determining your CF API endpoint](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/blob/main/exercises/05-core-services-api-prep/README.md#determining-your-cf-api-endpoint) is an in-depth journey into mechanically determining that value. This is so you can understand where that value comes from, where it's available, and how to get at it in an automated scenario.
 
-But owing to the restricted time we have for this mini workshop, we can just look in the BTP Cockpit for the URL, where it's shown as the value for "API Endpoint" in the "Cloud Foundry Environment" section.
+But owing to the restricted time we have for this mini workshop, we can just look in the BTP Cockpit for the URL, where it's shown as the value for "API Endpoint" in the "Cloud Foundry Environment" section, which will be within the subaccount that you're using ("trial" in the examples in this mini workshop).
 
 ![API endpoint visible in the BTP cockpit](assets/api-endpoint-in-cockpit.png)
 
-Do that now, and note down the value. It will be something similar to what you see in the screenshot (the "region" portion of the name may be different):
+👉 Do that now, and note down the value. It will be something similar to what you see in the screenshot (the "region" portion of the name may be different):
 
 ```text
 https://api.cf.eu10.hana.ondemand.com
@@ -155,7 +155,6 @@ https://api.cf.eu10.hana.ondemand.com
 
 ## Summary
 
-At this point you have gained some experience in understanding and parsing the JSON data that is available from various btp CLI commands, relating to your SAP BTP subaccount and CF environment instance. You have now added `ijq` to your toolset, which is a helpful way of building `jq` filters interactively, as well as exploring JSON.
 At this point you know what you need from an API call perspective in terms of the CF service and plan, and have what you need to authenticate with the `cf` CLI, which you'll need to do in order to create a service instance.
 
 ## Further reading
@@ -169,7 +168,7 @@ If you finish earlier than your fellow participants, you might like to ponder th
 
 1. There's a script in this exercise directory that will do this discovery mechanically, in a way that's [described in the longer CodeJam version of this exercise](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/blob/main/exercises/05-core-services-api-prep/README.md#determining-your-cf-api-endpoint). It's called [get_cf_api_endpoint](get_cf_api_endpoint). Have a look at it in the editor and see what you can make of it. Do you have any questions? Try to run it and see what it does:
 
-  ```bash
-  cd $HOME/projects/cloud-btp-cli-api-codejam/exercises/05-core-services-api-prep/
-  ./get_cf_api_endpoint
-  ```
+    ```bash
+    cd $HOME/projects/cloud-btp-cli-api-codejam/exercises/05-core-services-api-prep/
+    ./get_cf_api_endpoint
+    ```

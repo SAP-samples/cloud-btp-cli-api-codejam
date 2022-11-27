@@ -35,7 +35,7 @@ The instructor will set you off on the first exercise, and that's the only one y
 > The exercises are written in a conversational way; this is so that they have enough context and information to be completed outside the hands-on session itself. To help you navigate and find what you have to actually do next, there are pointers like this 👉 throughout that indicate the things you have to actually do (as opposed to just read for background information).
 
 1. [Getting set up and installing the btp CLI](exercises/01-installing/README.md)
-1. [Authenticating and managing configuration](exercises/02-authenticating-and-configuration/README.md)
+1. [Authenticating and targeting a subaccount](exercises/02-authenticating-and-configuration/README.md)
 1. [Setting up autocomplete and initial account exploration](exercises/03-autocomplete-and-exploration/README.md)
 1. [Retrieving and parsing JSON output](exercises/04-retrieving-parsing-json-output/README.md)
 1. [Preparing to call a Core Services API](exercises/05-core-services-api-prep/README.md)
