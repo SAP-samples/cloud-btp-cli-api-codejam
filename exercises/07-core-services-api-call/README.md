@@ -91,6 +91,8 @@ You should see something like this:
 eyJhbGciOiJSUzI1NiIsImprdSI6Imh0dHBzOi8vOGZlN2VmZD
 ```
 
+> If you're curious about the size and opacity of the access token data, there's a section in the main, longer CodeJam version of this repository that dives into these access tokens, and parsing them to see what they represent. This section is ["Check we have the right access" in exercise 09 in the main branch](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/blob/main/exercises/09-deleting-resources-with-api/README.md#check-we-have-the-right-access). 
+
 ## Make the call
 
 You now have everything you need to make the call to the API endpoint. The data is just a single, simple HTTP call away.
@@ -115,9 +117,11 @@ curl \
 >
 > See the [Further reading](#further-reading) section at the end of this exercise for links to more information on these topics.
 
+As a result of making this `curl` call, you should see some unformatted JSON with what looks like some data center information. 
+
 The simple script [call-entitlements-service-regions-api](../../scripts/call-entitlements-service-regions-api), a link to which is in this directory, is a slightly more robust and repeatable way of invoking the `curl` command above (i.e. you're not using subshells "in flight" to retrieve values from files). Like the `generate-password-grant-type` script, it also requires the service key JSON data file (so it can retrieve the value of the `entitlements_service_url` endpoint) ... it also requires the name of the token data JSON file.
 
-👉 Have [a look at the script](../../scripts/call-entitlements-service-regions-api) if you wish, then invoke it, passing the output to `jq` to prettify it:
+👉 Have [a look at the script](../../scripts/call-entitlements-service-regions-api) if you wish, then invoke it, passing the output to `jq` to prettify it too:
 
 ```bash
 ./call-entitlements-service-regions-api cis-central-sk.json tokendata.json | jq .
