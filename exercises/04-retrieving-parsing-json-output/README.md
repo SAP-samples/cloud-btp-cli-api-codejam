@@ -417,6 +417,7 @@ At this point you know how to get the btp CLI to output the structured data in a
 * A quick [overview of JSON](https://www.json.org/json-en.html)
 * The [jq manual](https://stedolan.github.io/jq/manual/)
 * [Various posts about jq on qmacro.org](https://qmacro.org/tags/jq/)
+* There are more `jq` examples in the [Metadata exploration section](https://github.com/SAP-samples/btp-service-metadata/tree/main/metadata-exploration) of the BTP Service Metadata project repository
 
 ---
 
