@@ -189,7 +189,7 @@ Try getting any sensible output from that using `grep` now!
 
 Parsing JSON with the right tool is essential. Happily, it's also straightforward and can be very powerful and flexible.
 
-One tool that is popular for this is [jq](https://stedolan.github.io/jq/), which is described as "a lightweight and flexible command-line JSON processor". It supports an entire language [which is Turing complete](https://github.com/MakeNowJust/bf.jq) but is readily useful at a simple level too. Your App Studio Dev Space (and container) comes already equipped with `jq` so you can try it out now.
+One tool that is popular for this is [jq](https://stedolan.github.io/jq/), which is described as "a lightweight and flexible command-line JSON processor". It supports an entire language [which is Turing complete](https://github.com/MakeNowJust/bf.jq) but is readily useful at a simple level too. Your App Studio Dev Space comes already equipped with `jq` so you can try it out now.
 
 #### Listing the available datacenter names
 

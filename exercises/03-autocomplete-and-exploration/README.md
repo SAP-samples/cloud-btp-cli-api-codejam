@@ -100,7 +100,7 @@ But there's a much more comfortable way, and that's having the btp CLI itself su
 
 ## Set up autocomplete
 
-In the output from `btp help` you'll have already seen how to do this: `btp enable autocomplete`. Asking for help on this (`btp enable autocomplete --help` or `btp help enable autocomplete`) will give you lots of details, one of which is that you need to specify the shell for which to enable the autocomplete feature. Within our Dev Space in App Studio (and also in the container if you're taking that route) we're enjoying The-One-True-Shell™, i.e. [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) :-).
+In the output from `btp help` you'll have already seen how to do this: `btp enable autocomplete`. Asking for help on this (`btp enable autocomplete --help` or `btp help enable autocomplete`) will give you lots of details, one of which is that you need to specify the shell for which to enable the autocomplete feature. Within our Dev Space in App Studio we're enjoying The-One-True-Shell™, i.e. [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) :-).
 
 👉 Set up autocomplete now, selecting `/home/user/.bashrc` (option 2) for the RCFile:
 

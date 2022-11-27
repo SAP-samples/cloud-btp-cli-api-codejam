@@ -85,7 +85,7 @@ Doing this will cause the Dev Space to be restarted, and the contents of this br
 
 ### Setting up the btp CLI
 
-In the [main branch version of this exercise](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/blob/main/exercises/01-installing/README.md)) you are guided to set things up manually, so you can learn as you go, but to save time for this mini workshop, there's a [setup script](../../scripts/setup) that you can run to install the btp CLI into your Dev Space. 
+In the [main branch version of this exercise](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/blob/main/exercises/01-installing/README.md) you are guided to set things up manually, so you can learn as you go, but to save time for this mini workshop, there's a [setup script](../../scripts/setup) that you can run to install the btp CLI into your Dev Space. 
 
 👉 Run the script now, which will create a local `bin/` directory in your `$HOME` directory, and then download and run a small script that will in turn download the latest version of the btp CLI, putting it into that `bin/` directory:
 

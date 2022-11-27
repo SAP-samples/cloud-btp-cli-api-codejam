@@ -128,8 +128,6 @@ There are many tools that can help you with JWTs. One is `jwt`, which will parse
 
 In your working environment, you already have a Node.js runtime, and along with that, the `npm` package manager. There's a handy `jwt-cli` package that contains the `jwt` command line interface. Let's install that. We'll install it "globally" so it's independent of any NPM project. But that "global" location will be just local to us.
 
-> Installing the package globally to a local location is not standard, but it will allow us to have the same experience whether we use a Dev Space or a container. In the Dev Space environment, the user has write access to the real global locations in the UNIX (Linux) file system. But in the container, based on the standard Debian distribution of Linux, this is not the case. So we'll specify a different prefix for the `npm` installer to use.
-
 👉 First, set a custom prefix for `npm` in the configuration, and make sure the location that the prefix points to exists as a directory:
 
 ```bash
