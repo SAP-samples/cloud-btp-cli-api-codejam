@@ -430,7 +430,7 @@ We'll determine the dynamic values step by step and assign them to variables, ra
 👉 Save the service URL in a variable, and also the GUID of the directory:
 
 ```bash
-url=$(jq --raw-output .endpoints.accounts_service_url cis-central-sk.json)
+url=$(jq --raw-output .credentials.endpoints.accounts_service_url cis-central-sk.json)
 guid=$(btpguid codejam-directory)
 ```
 

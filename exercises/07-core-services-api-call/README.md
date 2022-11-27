@@ -20,7 +20,7 @@ The result of that process has left us with two files, both of which we still ne
 
 |File|Content|What we need|
 |-|-|-|
-|`cis-central-sk.json`|Service key data|The Entitlements Service API base URL in `endpoints.entitlements_service_url`|
+|`cis-central-sk.json`|Service key data|The Entitlements Service API base URL in `.credentials.endpoints.entitlements_service_url`|
 |`tokendata.json`|OAuth 2.0 data|The access token in `access_token`|
 
 As we created these files in the previous exercise, they're in that corresponding exercise directory. But as we'll be working in this exercise's directory now, let's leave the files where they are (so we remember in which exercise we created them) and create symbolic links from this exercise's directory to point to them, so we can refer to them in a simple way here.
@@ -70,7 +70,7 @@ With your new `jq` filtering skills, tease out these two values to have a look a
 👉 First, have a look at the base URL:
 
 ```bash
-jq --raw-output .endpoints.entitlements_service_url cis-central-sk.json
+jq --raw-output .credentials.endpoints.entitlements_service_url cis-central-sk.json
 ```
 
 You should see something like this:
@@ -101,7 +101,7 @@ Let's do it manually first, with `curl`. In contrast to the HTTP call we made in
 
 ```bash
 curl \
-  --url "$(jq -r .endpoints.entitlements_service_url cis-central-sk.json)/entitlements/v1/globalAccountAllowedDataCenters" \
+  --url "$(jq -r .credentials.endpoints.entitlements_service_url cis-central-sk.json)/entitlements/v1/globalAccountAllowedDataCenters" \
   --header "Authorization: Bearer $(jq -r .access_token tokendata.json)"
 ```
 
