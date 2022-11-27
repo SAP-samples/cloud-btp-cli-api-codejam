@@ -172,7 +172,7 @@ Does this [look familiar](../04-retrieving-parsing-json-output/README.md#use-the
 
 ## Summary
 
-Well done, you've made it this far and been on quite a detailed journey to understand what's involved in calling a Core Services API, including identifying the endpoint and the requirements, gathering the credentials, and actually making the call. You've also seen how the btp CLI and the Core Services APIs are very closely related.
+Well done, you've made it this far and been on a mini adventure to understand what's involved in calling a Core Services API, including identifying the endpoint and the requirements, gathering the credentials, and actually making the call. You've also seen how the btp CLI and the Core Services APIs are very closely related.
 
 ## Further reading
 
