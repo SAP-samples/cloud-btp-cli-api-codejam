@@ -20,7 +20,7 @@ The result of that process has left us with two files, both of which we still ne
 
 |File|Content|What we need|
 |-|-|-|
-|`cis-central-sk.json`|Service key data|The Entitlements Service API base URL in `endpoints.entitlements_service_url`|
+|`cis-central-sk.json`|Service key data|The Entitlements Service API base URL in `.credentials.endpoints.entitlements_service_url`|
 |`tokendata.json`|OAuth 2.0 data|The access token in `access_token`|
 
 As we created these files in the previous exercise, they're in that corresponding exercise directory. But as we'll be working in this exercise's directory now, let's leave the files where they are (so we remember in which exercise we created them) and create symbolic links from this exercise's directory to point to them, so we can refer to them in a simple way here.
