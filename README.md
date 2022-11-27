@@ -6,7 +6,7 @@
 
 This repository, specifically the [main branch](https://github.com/SAP-samples/cloud-btp-cli-api-codejam), contains the material for the "Hands-on with the btp CLI and APIs" CodeJam, a CodeJam within the [SAP CodeJam BTP group](https://groups.community.sap.com/t5/sap-codejam-btp/gh-p/codejam-btp).
 
-This particular `mini-workshop` branch of the repository is a heavily reduced version of that material, to fit within the time constraints of a 80 minute mini workshop at the [UK & Ireland SAP User Group (UKISUG) Connect 2022](https://eu.eventscloud.com/ehome/ukisugconnect2022/200545487/) event.
+This particular `mini-workshop` branch of the repository is a heavily reduced version of that material, to fit within the time constraints of a 80 minute [mini workshop](https://qmacro.org/talks/#hands-on-with-the-btp-cli-and-apis) at the [UK & Ireland SAP User Group (UKISUG) Connect 2022](https://eu.eventscloud.com/ehome/ukisugconnect2022/200545487/) event.
 
 ## Overview
 
