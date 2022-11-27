@@ -173,5 +173,4 @@ At this point you have autocomplete working and you should feel comfortable invo
 
 If you finish earlier than your fellow participants, you might like to ponder these questions. There isn't always a single correct answer and there are no prizes - they're just to give you something else to think about.
 
-1. How would you discover or confirm that the shell you're actually using is indeed a Bash shell?
 1. Output for some of the commands you used in exploring your account probably wrapped over multiple lines. How might you remedy that?
