@@ -248,6 +248,7 @@ jq . cis-central-sk.json
 You should see a nicely formatted display of JSON.
 
 > Technically speaking, the `.` in `jq` is the [identity](https://stedolan.github.io/jq/manual/#Identity:.) filter, so the nice formatting of the JSON is actually just a by-product of asking `jq` to filter the JSON through the identity filter (which just produces whatever it receives), and by default `jq` will endeavour to pretty-print the output.
+> Note also that this time, the `.` is not in single quotes, unlike when you last used this filter in a previous exercise, when [Listing the available datacenter names](../04-retrieving-parsing-json-output#listing-the-available-datacenter-names). It isn't absolutely necessary, so we're omitting it in this instance (and we'll make a similar change later in this exercise when we use the `keys` filter too.
 
 Values in this JSON data are needed to:
 
@@ -298,10 +299,8 @@ You'll be asked to authenticate, and you must specify your SAP BTP email and pas
 👉 Have a look what properties there are in this JSON:
 
 ```bash
-jq 'keys' tokendata.json
+jq keys tokendata.json
 ```
-
-> You can also omit the single quotes here if you wish, as the shell will pass the `keys` token to `jq` just as well without them.
 
 You should see some output like this:
 
