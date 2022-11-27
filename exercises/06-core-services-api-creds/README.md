@@ -285,8 +285,6 @@ You'll be asked to authenticate, and you must specify your SAP BTP email and pas
 jq keys tokendata.json
 ```
 
-> You can also omit the single quotes here if you wish, as the shell will pass the `keys` token to `jq` just as well without them.
-
 You should see some output like this:
 
 ```json
@@ -340,6 +338,7 @@ You now know how to get a service key (binding) via an instance of a service on 
 
 * [Understanding OAuth 2.0 grant types](https://github.com/SAP-archive/cloud-apis-virtual-event/tree/main/exercises/02#3-understand-oauth-20-grant-types)
 * [Getting an Access Token for SAP Cloud Management Service APIs](https://help.sap.com/products/BTP/65de2977205c403bbc107264b8eccf4b/3670474a58c24ac2b082e76cbbd9dc19.html?locale=en-US)
+* [The builtin keys and keys_unsorted functions in jq](https://stedolan.github.io/jq/manual/#keys,keys_unsorted)
 * Hands-on SAP Dev episode: [Back to basics: Using curl in the SAP enterprise landscape](https://www.youtube.com/watch?v=k34-lD77Aj4)
 
 ---
