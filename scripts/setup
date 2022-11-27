@@ -16,3 +16,15 @@ curl \
 # Run the btp CLI installer then remove it
 yes | ./getbtpcli
 rm ./getbtpcli
+
+# Also install the CF CLI in case the MTA Tools extension wasn't specified when setting up the Dev Space
+curl \
+  --location \
+  --url "https://packages.cloudfoundry.org/stable?release=linux64-binary&version=v8&source=github" \
+  | tar \
+    --directory "$HOME/bin/" \
+    --extract \
+    --gunzip \
+    --file - \
+    cf cf8
+
