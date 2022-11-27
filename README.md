@@ -48,7 +48,7 @@ There are a handful of scripts that are used and explored in this mini workshop,
 
 ## How to obtain support
 
-Support for the content in this repository is available during the actual time of the mini workshop event for which this content has been designed.
+Support for the content in this repository is available during the actual mini workshop event for which this content has been designed.
 
 ## Further connections and information
 
@@ -58,6 +58,7 @@ Here are a few pointers to resources for further connections and information on 
 * the playlist [The SAP btp CLI](https://www.youtube.com/playlist?list=PL6RpkC85SLQDXx827kdjKc6HRvdMRZ8P5) on the SAP Developers YouTube channel contains recordings of past live streams on the topic
 * there's a [branch in the SAP Tech Bytes repo](https://github.com/SAP-samples/sap-tech-bytes/tree/2021-09-01-btp-cli) covering some basic aspects of the btp CLI
 * The SAP API Business Hub is the central place for APIs in the SAP world, and there's a specific area for the [Core Services for SAP BTP](https://api.sap.com/package/SAPCloudPlatformCoreServices/rest) API package.
+* The [CodeJam content in the main branch of this repository](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/tree/main) is a more in-depth and extended version of this mini workshop version of the material.
 
 ## License
 
