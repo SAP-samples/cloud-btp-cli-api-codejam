@@ -41,8 +41,6 @@ The instructor will set you off on the first exercise, and that's the only one y
 1. [Preparing to call a Core Services API](exercises/05-core-services-api-prep/README.md)
 1. [Gathering required credentials for the API call](exercises/06-core-services-api-creds/README.md)
 1. [Making the API call and understanding the results](exercises/07-core-services-api-call/README.md)
-1. [More on GUIDs, and resource creation with the btp CLI](exercises/08-guids-and-resource-creation/README.md)
-1. [Deleting resources with the API](exercises/09-deleting-resources-with-api/README.md)
 
 ## Scripts
 
