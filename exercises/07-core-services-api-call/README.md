@@ -70,7 +70,7 @@ With your new `jq` filtering skills, tease out these two values to have a look a
 👉 First, have a look at the base URL:
 
 ```bash
-jq --raw-output .endpoints.entitlements_service_url cis-central-sk.json
+jq --raw-output .credentials.endpoints.entitlements_service_url cis-central-sk.json
 ```
 
 You should see something like this:
@@ -101,7 +101,7 @@ Let's do it manually first, with `curl`. In contrast to the HTTP call we made in
 
 ```bash
 curl \
-  --url "$(jq -r .endpoints.entitlements_service_url cis-central-sk.json)/entitlements/v1/globalAccountAllowedDataCenters" \
+  --url "$(jq -r .credentials.endpoints.entitlements_service_url cis-central-sk.json)/entitlements/v1/globalAccountAllowedDataCenters" \
   --header "Authorization: Bearer $(jq -r .access_token tokendata.json)"
 ```
 

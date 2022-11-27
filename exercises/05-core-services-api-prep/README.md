@@ -166,7 +166,7 @@ At this point you know what you need from an API call perspective in terms of th
 
 If you finish earlier than your fellow participants, you might like to ponder these questions. There isn't always a single correct answer and there are no prizes - they're just to give you something else to think about.
 
-1. There's a script in this exercise directory that will do this discovery mechanically, in a way that's [described in the longer CodeJam version of this exercise](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/blob/main/exercises/05-core-services-api-prep/README.md#determining-your-cf-api-endpoint). It's called [get_cf_api_endpoint](get_cf_api_endpoint). Have a look at it in the editor and see what you can make of it. Do you have any questions? Try to run it and see what it does:
+1. There's a script in this exercise directory that will do this discovery mechanically, in a way that's [described in the longer CodeJam version of this exercise](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/blob/main/exercises/05-core-services-api-prep/README.md#determining-your-cf-api-endpoint). It's called [get_cf_api_endpoint](get_cf_api_endpoint). Have a look at it in the editor and see what you can make of it. Do you have any questions? Try to run it (make sure you're still logged in with the btp CLI) and see what it does:
 
     ```bash
     cd $HOME/projects/cloud-btp-cli-api-codejam/exercises/05-core-services-api-prep/

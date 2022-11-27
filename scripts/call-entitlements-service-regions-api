@@ -8,7 +8,7 @@ declare endpoint token_file token
 
 token_file="${1:?Specify name of file containing token data}"
 
-endpoint="$(jq -r .endpoints.entitlements_service_url "$service_key_file")"
+endpoint="$(jq -r .credentials.endpoints.entitlements_service_url "$service_key_file")"
 endpoint+="/entitlements/v1/globalAccountAllowedDataCenters"
 
 token="$(jq -r .access_token "$token_file")"

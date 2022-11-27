@@ -179,7 +179,7 @@ displayName":"Europe (Frankfurt) - AWS","region":"eu10","environment":"cloudfoun
 "AWS","supportsTrial":false,"provisioningServiceUrl":"https://provisioning-service.cfapps.eu10.hana.
 ```
 
-Note that there wouldn't be the hard line breaks you see here (which are just so the data fits on the page width-wise) ... but any whitespace we saw earlier wouldn't be there either.
+Note that there wouldn't be the hard line breaks you see here (which are just so the data fits on the page width-wise) ... but any whitespace we saw earlier wouldn't be there either. Incidentally, there's a real example of this type of compact JSON output that occurs in a later exercise, when [requesting an access token](../06-core-services-api-creds/README.md#request-the-token).
 
 Try getting any sensible output from that using `grep` now!
 
