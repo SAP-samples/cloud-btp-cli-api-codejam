@@ -30,10 +30,12 @@ Initially the Dev Space will look something like this:
 
 This is lovely, but we want to focus on the command line, so let's remove everything to make as much space as possible for that command line.
 
+> You can access all the menu commands via the `☰` symbol in the top left.
+
 👉 Do the following:
 
 * close the Get Started tab with the `x` (optionally having checked the "Don't show this page again" checkbox at the bottom)
-* toggle the Explorer closed with menu path `View -> Explorer` (access the menu with the `☰` symbol in the top left)
+* ensure the Explorer is closed (you can toggle it with menu path `View -> Explorer`)
 * open up a terminal session with menu path `Terminal -> New Terminal`
 * optionally, open the Settings with menu path `File -> Preferences -> Settings`, find the font size setting for the terminal ("Terminal › Integrated: Font Size"), within Features / Terminal, and adjust as appropriate; close the Settings tab when you're done with this
 * drag the horizontal line up towards the top of the screen to give you maximum terminal space, or use the Maximize Panel Size button (the `^` symbol) on right of the terminal shown in the screenshot below
