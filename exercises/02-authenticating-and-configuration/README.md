@@ -181,8 +181,8 @@ user: user $ btp list accounts/subaccount
 
 subaccounts in global account 06de8b78-0e1d-48a5-9323-97824c99671f...
 
-subaccount id:                         display name:                subdomain:                                                     region:   beta-enabled:   parent id:                             parent type:     state:   state message:        
-b07f7316-2d2a-445a-8fcc-a52952c92607   trial                        65137137trial                                                  us10      false           06de8b78-0e1d-48a5-9323-97824c99671f   global account   OK       Subaccount created.   
+subaccount id:                         display name:     subdomain:       region:   beta-enabled:   parent id:                             parent type:     state:   state message:
+b07f7316-2d2a-445a-8fcc-a52952c92607   trial             65137137trial    us10      false           06de8b78-0e1d-48a5-9323-97824c99671f   global account   OK       Subaccount created.
 
 
 OK
@@ -209,7 +209,7 @@ Tips:
 OK
 ```
 
-Any `btp` invocation output displays what the current target is; note now that not only is the global account targeted but also the subaccount:
+Any `btp` invocation output will include what the current target is; note now that not only is the global account targeted but also the subaccount:
 
 ```text
 Current target:

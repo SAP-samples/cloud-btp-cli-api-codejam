@@ -219,6 +219,8 @@ user: user $ echo -e ${PATH//:/\\\n}
 user: user $
 ```
 
+> Depending on whether you're in a Dev Space terminal or in a container, the actual paths shown in the list may differ.
+
 You can of course just check if `btp` can be found:
 
 ```bash
@@ -230,7 +232,14 @@ Now you can invoke `btp` with confidence from wherever you are, and in all futur
 
 👉 Try it now:
 
+```bash
+btp
+```
+
+You should see something like this:
+
 ```text
+user: user $ btp
 SAP BTP command line interface (client v2.33.0)
 
 Usage: btp [OPTIONS] ACTION GROUP/OBJECT PARAMS
@@ -250,7 +259,7 @@ Tips:
 👉 While you're here, take a few moments to stare at this line, to get a feel for btp CLI invocations on the command line:
 
 ```text
-Usage: btp [OPTIONS] ACTION [GROUP/OBJECT] [PARAMS]
+Usage: btp [OPTIONS] ACTION GROUP/OBJECT PARAMS
 ```
 
 You'll find that it helps to remember this invocation format, by considering that -- usually -- the GROUP is plural, and the OBJECT is singular. For example, in the next exercise, you'll use `btp list accounts/subaccount`.
