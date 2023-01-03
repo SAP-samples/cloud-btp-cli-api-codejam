@@ -101,10 +101,10 @@ docker run --interactive --tty --name my-codejam-container codejam
 You'll be presented with a new prompt, which (if you've not worked inside containers before) may look slightly unfamiliar:
 
 ```text
-user@807eeed3cdc6:~$
+user: user $
 ```
 
-The Bash shell prompt shows that your username is `user` and that the hostname is a random string. You start in your home directory (`~`). You're not in Kansas any more, you're in a container!
+The first `user` before the colon shows that your username is `user` and the second `user` in between the colon and the `$` symbol shows that you're in a directory (`/home/user`) which has `user` as the most significant part of the name (this is how the prompt looks in the shell that starts up when you open a terminal in an SAP Business Application Studio Dev Space). You're not in Kansas any more, you're in a container!
 
 ## Re-connecting to your container
 
