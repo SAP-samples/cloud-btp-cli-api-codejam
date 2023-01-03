@@ -11,11 +11,10 @@ To authenticate with the btp CLI so you can access and manage the resources in y
 |Item|Description|
 |-|-|
 |btp CLI server URL|The remote endpoint for the btp CLI. This is usually fixed, and is currently `https://cpcli.cf.eu10.hana.ondemand.com` for all users.|
-|Global account subdomain|The subdomain for your global account on SAP BTP.|
 |Username|The username with which you log on to the BTP account.|
 |Password|The password with which you log on to the BTP account.|
 
-You can see an example of the subdomain for this sample trial global account, just underneath the "Account Explorer" heading:
+You may also need to know your global account subdomain, if your user has access to more than one, and you have to choose. You can see an example of the subdomain for this sample trial global account, just underneath the "Account Explorer" heading:
 
 ![trial global account showing subdomain](assets/global-account-subdomain-and-subaccount.png)
 
@@ -29,55 +28,86 @@ If you managed to check out the "Usage" information and the output from `btp --h
 btp login
 ```
 
-Here's an example authentication flow for trial global account 8fe7efd4trial:
+Here's an example authentication flow for a user with just a single trial global account 65137137trial:
 
 ```text
-user: user $ btp login
-SAP BTP command line interface (client v2.14.0)
+SAP BTP command line interface (client v2.33.0)
 
-CLI server URL [https://cpcli.cf.eu10.hana.ondemand.com]>
+CLI server URL [https://cpcli.cf.eu10.hana.ondemand.com]> 
 Connecting to CLI server at https://cpcli.cf.eu10.hana.ondemand.com...
 
-Global account subdomain>8fe7efd4trial-ga
-User>qmacro+blue@gmail.com
-Password>
+User> qmacro+blue@gmail.com
+Password> 
 
-Login successful
-We stored your configuration file at: /home/user/.config/.btp/config.json
+Authentication successful
 
 Current target:
-  Global account (subdomain: 8fe7efd4trial-ga)
+  65137137trial (global account, subdomain: 65137137trial-ga)
 
-Tip:
-    For more information on the targeting mechanism, use 'btp help target'.
+We stored your configuration file at: /home/user/.config/.btp/config.json
+
+Tips:
+    Commands are executed in the target, unless specified otherwise using a parameter. To change the target, use 'btp target'.
+    To provide feedback about the btp CLI, use 'btp feedback' to open our survey.
 
 OK
 ```
 
-Here's another example authentication flow, for a global account with the subdomain "sap-developer-advocates-free-tier", where the user has chosen to use single sign on (SSO) with the browser, using the `--sso manual` parameter:
+> Earlier versions of the btp CLI required you to always specify your global account subdomain, but now it will try to discern it from your user details. 
+
+If your user is associated with more than one global account, they will be presented to you and you must choose one of them. Here's an example of that process: 
 
 ```text
-user: user $ btp login --sso manual
-SAP BTP command line interface (client v2.24.0)
+user: user $ btp login
+SAP BTP command line interface (client v2.33.0)
 
-CLI server URL [https://cpcli.cf.eu10.hana.ondemand.com]>
+CLI server URL [https://cpcli.cf.eu10.hana.ondemand.com]> 
 Connecting to CLI server at https://cpcli.cf.eu10.hana.ondemand.com...
 
-Global account subdomain> sap-developer-advocates-free-tier
+User> dj.adams@sap.com
+Password> 
 
-Please authenticate at: https://cpcli.cf.eu10.hana.ondemand.com/login/v2.24.0/browser/d1fc0c69-d59e-4f7e-9a34-de852251caaa
-Waiting for user authentication to complete (use Ctrl+C to abort)...
+Authentication successful
 
-Login successful
-We stored your configuration file at: /home/user/.config/btp/config.json
+Choose a global account:
+  [1]  1cbb5e7etrial
+  [2]  Developer Advocates Free Tier
+  [3]  Developer Destination
+Choose option> 2
 
-Target hierarchy:
-  Global account (subdomain: sap-developer-advocates-free-tier)
-  └─ Subaccount (ID: bbcd39a3-4047-4e7b-bba2-88604cb7faaa)
+Current target:
+  Developer Advocates Free Tier (global account, subdomain: sap-developer-advocates-free-tier)
+
+We stored your configuration file at: /home/user/.config/.btp/config.json
 
 Tips:
     Commands are executed in the target, unless specified otherwise using a parameter. To change the target, use 'btp target'.
-    For an explanation of the targeting mechanism, use 'btp help target'.
+    To provide feedback about the btp CLI, use 'btp feedback' to open our survey.
+
+OK
+```
+
+Here's another example authentication flow, for a global account with the subdomain "65137137trial-ga", where the user has chosen to use single sign on (SSO) with the browser, using the `--sso manual` parameter:
+
+```text
+user: user $ btp login --sso manual
+SAP BTP command line interface (client v2.33.0)
+
+CLI server URL [https://cpcli.cf.eu10.hana.ondemand.com]> 
+Connecting to CLI server at https://cpcli.cf.eu10.hana.ondemand.com...
+
+Please authenticate at: https://cpcli.cf.eu10.hana.ondemand.com/login/v2.33.0/browser/5562475c-4e68-472a-b868-912871beba14
+
+Authentication successful
+
+Current target:
+  65137137trial (global account, subdomain: 65137137trial-ga)
+
+We stored your configuration file at: /home/user/.config/.btp/config.json
+
+Tips:
+    Commands are executed in the target, unless specified otherwise using a parameter. To change the target, use 'btp target'.
+    To provide feedback about the btp CLI, use 'btp feedback' to open our survey.
 
 OK
 ```
@@ -90,7 +120,7 @@ Any issues logging in could be down to a number of factors - for example, if you
 
 It's likely that you'll often be wanting to work with some of your SAP BTP resources at the subaccount level. In a trial global account, this is the "trial" subaccount that's automatically created (you can see an example of this "trial" subaccount in the screenshot earlier). It will be different in other accounts.
 
-> The examples in this section will continue to use the trial subaccount but you should follow along using [whatever subaccount you have identified for this CodeJam](../../prerequisites.md#subaccount-and-cloud-foundry-environment). A subaccount is where you'll be normally operating - where you'll have environment instances (Cloud Foundry or Kyma runtimes, for example). Think of the global account as a container for multiple subaccounts.
+> The examples in this section will continue to use the trial subaccount but you should follow along using [whatever subaccount you have identified for this CodeJam](../../prerequisites.md#subaccount-and-cloud-foundry-environment). A subaccount is where you'll be normally operating - where you'll have environment instances (Cloud Foundry or Kyma runtimes, for example). Think of a global account as a container for multiple subaccounts.
 
 Rather than have to specify this subaccount each time in various btp CLI invocations, you can tell the btp CLI once, with the `target` general action, and then it will be used when required.
 
@@ -106,29 +136,24 @@ Here's an example invocation:
 
 ```text
 user: user $ btp help target
-Connecting to CLI server at https://cpcli.cf.eu10.hana.ondemand.com...
 Usage: btp [OPTIONS] target [--global-account SUBDOMAIN] [--directory ID] [--subaccount ID]
 
-Set the default context for command execution.
-
-Targeting works along the hierarchy of your account model:
- - After login, the global account is targeted by default.
- - When targeting a subaccount or directory, you can execute commands in its parent directory or global account by using '-dir' or '-ga' without value.
- - Commands that only work on directory or global account level will be executed in the parent directory or global account of the current target.
+Set the target for commands to the global account, a directory, or a subaccount. Commands are executed in the specified target, unless you override it using a parameter.
+If the specified target is part of an account hierarchy, its parents are also targeted, so that if a command is only available on a higher level, it will be executed there.
 
 Parameters:
   --global-account,-ga SUBDOMAIN  (Optional) You can omit SUBDOMAIN as only the global account of the active login can be targeted.
   --directory,-dir ID             (Optional) The ID of the directory to be targeted.
-  --subaccount,-sa ID             (Optional) The ID of the subaccount to be targeted. To find your subaccount ID, use 'btp list accounts/subaccount'.
+  --subaccount,-sa ID             (Optional) The ID of the subaccount to be targeted.
 
 Tips:
-    To overwrite the targeted context for a specific command call, you can specify the respective parameter.
+    To execute a command in the parent directory or global account, use the '-ga' or '-dir' parameter without value.
     To work in a different global account, log in to this global account using 'btp login'.
+    To find a subaccount ID, use 'btp list accounts/subaccount'.
+    To find a directory ID, use 'btp get accounts/global-account --show-hierarchy'.
 
 Further documentation:
     https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/720645a3ed3945bd8d97a670b948ac07.html
-
-OK
 ```
 
 So set your desired subaccount as the target now.
@@ -152,10 +177,12 @@ btp list accounts/subaccount
 Here's the sort of thing that you should see:
 
 ```text
-subaccounts in global account fdce9323-d6e6-42e6-8df0-5e501c90a2be...
+user: user $ btp list accounts/subaccount
 
-subaccount id:                         display name:   subdomain:      region:   beta-enabled:   parent id:                             parent type:     state:   state message:
-f78e0bdb-c97c-4cbc-bb06-526695f44551   trial           8fe7efd4trial   eu10      false           fdce9323-d6e6-42e6-8df0-5e501c90a2be   global account   OK       Subaccount created.
+subaccounts in global account 06de8b78-0e1d-48a5-9323-97824c99671f...
+
+subaccount id:                         display name:                subdomain:                                                     region:   beta-enabled:   parent id:                             parent type:     state:   state message:        
+b07f7316-2d2a-445a-8fcc-a52952c92607   trial                        65137137trial                                                  us10      false           06de8b78-0e1d-48a5-9323-97824c99671f   global account   OK       Subaccount created.   
 
 
 OK
@@ -163,21 +190,21 @@ OK
 
 > By the way, here's where the plural/singular approach to the group and object in the invocation comes in (we thought about this at the end of the previous exercise). In the `btp` invocation you just made, group "accounts" is plural, while the object "subaccount" is singular.
 
-The output should include a detailed line for your subaccount, showing its ID (which starts `f78e0bdb` here - the ID for your subaccount will of course be different) as well as its name (which is `trial` in this example).
+The output should include a detailed line for your subaccount, showing its ID (which starts `b07f7316` here - the ID for your subaccount will of course be different) as well as its name (which is `trial` in this example).
 
 👉 Try the `target` command again, this time specifying the ID of your subaccount, rather than the display name. Here's an example, with output:
 
 ```text
-user: user $ btp target --subaccount f78e0bdb-c97c-4cbc-bb06-526695f44551
-Targeting subaccount 'f78e0bdb-c97c-4cbc-bb06-526695f44551'. Commands that only work on global account level will be executed in the parent global account.
+user: user $ btp target --subaccount b07f7316-2d2a-445a-8fcc-a52952c92607 
+Targeting subaccount 'b07f7316-2d2a-445a-8fcc-a52952c92607'.
 
 Current target:
-  Global account (subdomain: 8fe7efd4trial-ga)
-  └─ Subaccount (ID: f78e0bdb-c97c-4cbc-bb06-526695f44551)
+  65137137trial (global account, subdomain: 65137137trial-ga)
+  └─  trial (subaccount, ID: b07f7316-2d2a-445a-8fcc-a52952c92607)
 
 Tips:
-    To execute a command in the parent global account, use parameter '-ga' without value.
-    To execute a command in a different context, specify the subaccount, directory, or global account in the command.
+    To execute a command in the parent directory or global account, use the '-ga' or '-dir' parameter without value.
+    To override the target for a specific command, specify the subaccount, directory, or global account as parameter.
 
 OK
 ```
@@ -186,8 +213,8 @@ Any `btp` invocation output displays what the current target is; note now that n
 
 ```text
 Current target:
-  Global account (subdomain: 8fe7efd4trial-ga)
-  └─ Subaccount (ID: f78e0bdb-c97c-4cbc-bb06-526695f44551)
+  65137137trial (global account, subdomain: 65137137trial-ga)
+  └─  trial (subaccount, ID: b07f7316-2d2a-445a-8fcc-a52952c92607)
 ```
 
 > You can make your command line life more comfortable with custom functions and scripts, such as one to get the ID for a subaccount, given its display name. We'll cover this in [a later exercise in this session](../05-btp-guids-cli-in-practice/README.md). See also [the `bgu` script in action as part of the btp CLI section of the 2021 SAP TechEd Developer Keynote](https://youtu.be/OmEx598qAI8?t=180) and also the two related blog posts in the [Further reading](#further-reading) section below.
@@ -212,7 +239,7 @@ The SAP Help topic [Specify the Location of the Configuration File](https://help
 
 If you're like me, you may like to organize your configuration files within `$HOME/.config/` as non-hidden directories, so having a directory called `$HOME/.config/.btp/` may be less than ideal. So if this is something you also feel strongly about, use this step to address it.
 
-> A file or directory which has a name starting with a period (`.`) is considered "hidden", as it won't show up in any listing, unless you explicitly ask for them to be shown (incidentally, this well-known and almost universal feature [started out as a mistake due to a programming shortcut with unintended consequences](https://web.archive.org/web/20180827160401/https://plus.google.com/+RobPikeTheHuman/posts/R58WgWwN9jp)?). While it's fairly common to have the `$HOME/.config/` directory itself as a hidden directory, it makes more sense to want to be able to easily see what subdirectories are in there - for what programs and systems you have configuration.
+> A file or directory which has a name starting with a period (`.`) is considered "hidden", as it won't show up in any listing, unless you explicitly ask for them to be shown (incidentally, this well-known and almost universal feature [started out as a mistake due to a programming shortcut with unintended consequences](https://web.archive.org/web/20180827160401/https://plus.google.com/+RobPikeTheHuman/posts/R58WgWwN9jp)). While it's fairly common to have the `$HOME/.config/` directory itself as a hidden directory, it makes more sense to want to be able to easily see what subdirectories are in there - for what programs and systems you have configuration.
 
 ### Rename the config directory
 
@@ -236,21 +263,19 @@ Here's the sort of thing you will most likely see:
 
 ```text
 user: user $ btp
-Welcome to the SAP BTP command line interface (client v2.14.0)
+SAP BTP command line interface (client v2.33.0)
 
-Usage: btp [OPTIONS] ACTION [GROUP/OBJECT] [PARAMS]
+Usage: btp [OPTIONS] ACTION GROUP/OBJECT PARAMS
 
-CLI server URL:                    not set
-User:                              not set
+CLI server URL:                    https://cpcli.cf.eu10.hana.ondemand.com (server v2.34.0)
 Configuration:                     /home/user/.config/.btp/config.json
 
 You are currently not logged in.
 
 Tips:
     To log in to a global account of SAP BTP, use 'btp login'. For help on login, use 'btp help login'.
+    To provide feedback about the btp CLI, use 'btp feedback' to open our survey.
     To display general help, use 'btp help'.
-
-OK
 ```
 
 Whoops - it thinks you're no longer authenticated because it can't find the configuration file that contains the token. Let's continue and see how that is resolved again.
@@ -259,7 +284,7 @@ Whoops - it thinks you're no longer authenticated because it can't find the conf
 
 ### Specify a permanent value for `BTP_CLIENTCONFIG`
 
-👉 Now append another line to your `.bashrc` file to set the `BTP_CLIENTCONFIG` environment variable to this location (again, be sure to use the `>>` append redirection operator so you don't truncate the file and use single quotes where and as shown):
+👉 Now append another line to your `.bashrc` file to set the `BTP_CLIENTCONFIG` environment variable to our new preferred location (again, be sure to use the `>>` append redirection operator so you don't truncate the file and use single quotes where and as shown):
 
 ```bash
 echo 'export BTP_CLIENTCONFIG=$HOME/.config/btp/config.json' >> $HOME/.bashrc
@@ -288,23 +313,23 @@ This time it should be different:
 
 ```text
 user: user $ btp
-SAP BTP command line interface (client v2.14.0)
+SAP BTP command line interface (client v2.33.0)
 
-Usage: btp [OPTIONS] ACTION [GROUP/OBJECT] [PARAMS]
+Usage: btp [OPTIONS] ACTION GROUP/OBJECT PARAMS
 
-CLI server URL:                    https://cpcli.cf.eu10.hana.ondemand.com (server vUNKNOWN)
-User:                              P2003480944 (qmacro+blue@gmail.com) at accounts.sap.com
+CLI server URL:                    https://cpcli.cf.eu10.hana.ondemand.com (server v2.34.0)
+User:                              qmacro+blue@gmail.com at accounts.sap.com
 Configuration:                     /home/user/.config/btp/config.json
 
 Current target:
-  Global account (subdomain: 8fe7efd4trial-ga)
-  └─ Subaccount (ID: f78e0bdb-c97c-4cbc-bb06-526695f44551)
+  65137137trial (global account, subdomain: 65137137trial-ga)
+  └─  trial (subaccount, ID: b07f7316-2d2a-445a-8fcc-a52952c92607)
 
 Tips:
-    For information about the targeting mechanism, use 'btp help target'.
+    Commands are executed in the target, unless specified otherwise using a parameter. To change the target, use 'btp target'.
+    To provide feedback about the btp CLI, use 'btp feedback' to open our survey.
     To display general help, use 'btp help'.
 
-OK
 ```
 
 Great - the configuration is now in a non-hidden `btp/` subdirectory within your `$HOME/.config/` directory, and all is well with `btp`.

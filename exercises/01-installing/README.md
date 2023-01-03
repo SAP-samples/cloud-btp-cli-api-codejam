@@ -97,7 +97,7 @@ curl \
 
   > The `getbtpcli` script itself will be placed in whatever directory you happen to be in, which will be your home directory, which is fine. So you'll need to specify the relative path to it when running it, like this: `./getbtpcli` (because your home directory is traditionally not included in the list of directories in your `PATH` environment variable).
 
-👉 Run the script with the test mode option just to check what the latest version of the btp CLI is (the output will be something like "Version is 2.14.0"):
+👉 Run the script with the test mode option just to check what the latest version of the btp CLI is (the output will be something like "Version is 2.33.0"):
 
 ```bash
 ./getbtpcli --test
@@ -115,11 +115,11 @@ Here's an example session where it's run in test mode first and then for real:
 
 ```text
 user: user $ ./getbtpcli --test
-Version is 2.14.0
+Version is 2.33.0
 user: user $ ./getbtpcli
 Proceed (with Enter) only if you accept the SAP Developer Licence 3.1
 (see https://tools.hana.ondemand.com/developer-license-3_1.txt) ...
-Version is 2.14.0
+Version is 2.33.0
 user: user $
 ```
 
@@ -174,8 +174,8 @@ ls -l $HOME/bin/
 You should see something similar to this:
 
 ```text
-lrwxrwxrwx 1 user group       10 Jan  6 09:59 btp -> btp-2.14.0
--rwxr-xr-x 1 user group 11048097 Nov 18 13:58 btp-2.14.0
+lrwxrwxrwx 1 user user       10 Jan  3 15:26 btp -> btp-2.33.0
+-rwxr-xr-x 1 user user 11749335 Nov 16 11:41 btp-2.33.0
 ```
 
 Before you can run the btp CLI simply as `btp` you need to add that `bin/` directory to your `PATH` environment variable. To make this addition persistent, let's add it to `$HOME/.bashrc`.
@@ -231,22 +231,20 @@ Now you can invoke `btp` with confidence from wherever you are, and in all futur
 👉 Try it now:
 
 ```text
-user: user $ btp
-Welcome to the SAP BTP command line interface (client v2.14.0)
+SAP BTP command line interface (client v2.33.0)
 
-Usage: btp [OPTIONS] ACTION [GROUP/OBJECT] [PARAMS]
+Usage: btp [OPTIONS] ACTION GROUP/OBJECT PARAMS
 
-CLI server URL:                    not set
-User:                              not set
+CLI server URL:                    https://cpcli.cf.eu10.hana.ondemand.com (server v2.34.0)
 Configuration:                     /home/user/.config/.btp/config.json
 
 You are currently not logged in.
 
 Tips:
     To log in to a global account of SAP BTP, use 'btp login'. For help on login, use 'btp help login'.
+    To provide feedback about the btp CLI, use 'btp feedback' to open our survey.
     To display general help, use 'btp help'.
 
-OK
 ```
 
 👉 While you're here, take a few moments to stare at this line, to get a feel for btp CLI invocations on the command line:
