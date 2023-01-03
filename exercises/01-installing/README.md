@@ -95,7 +95,7 @@ curl \
   && chmod +x getbtpcli
 ```
 
-  > The `getbtpcli` script itself will be placed in whatever directory you happen to be in, which will be your home directory, which is fine. So you'll need to specify the relative path to it when running it, like this: `./getbtpcli`.
+  > The `getbtpcli` script itself will be placed in whatever directory you happen to be in, which will be your home directory, which is fine. So you'll need to specify the relative path to it when running it, like this: `./getbtpcli` (because your home directory is traditionally not included in the list of directories in your `PATH` environment variable).
 
 👉 Run the script with the test mode option just to check what the latest version of the btp CLI is (the output will be something like "Version is 2.14.0"):
 
@@ -278,5 +278,5 @@ If you finish earlier than your fellow participants, you might like to ponder th
 
 1. Expressing the individual locations within your `PATH` on separate lines was done using [Bash shell parameter expansion](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html). Using other command line tools, how else might you do it?
 1. Is placing the `btp` executable within `$HOME/bin/` a good option? Will it still be there if you restart your Dev Space?
-1. What help is available for the btp CLI on the command line? What does `btp help` show you?
+1. What help is available for the btp CLI on the command line? What does `btp --help` show you?
 1. Why are there two entries in `$HOME/bin/` for the `btp` executable?
