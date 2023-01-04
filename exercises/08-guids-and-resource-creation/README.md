@@ -179,7 +179,7 @@ btp create accounts/subaccount \
   --directory $(btpguid codejam-directory) \
   --display-name codejam-subaccount \
   --region "$region" \
-  --subdomain "codejam-$(btp --format json get accounts/global-account | jq -r .displayName)"
+  --subdomain "$(btp --format json get accounts/global-account | jq -r .displayName)-codejam-subaccount"
 ```
 
 > Have a look at the optional section [Dynamic region choice](#dynamic-region-choice) at the end of this exercise to see how you might make this region choice dynamic.
@@ -279,7 +279,7 @@ btp create accounts/subaccount \
   --directory $(btpguid codejam-directory) \
   --display-name codejam-subaccount \
   --region "$(selectregion)" \
-  --subdomain "codejam-$(btp --format json get accounts/global-account | jq -r .displayName)"
+  --subdomain "$(btp --format json get accounts/global-account | jq -r .displayName)-codejam-subaccount"
 ```
 
 and you'd be presented with a list to select from first, like this:
@@ -299,6 +299,6 @@ At this point you should feel more comfortable using the btp CLI on the command 
 
 If you finish earlier than your fellow participants, you might like to ponder these questions. There isn't always a single correct answer and there are no prizes - they're just to give you something else to think about.
 
-1. The btp CLI command you used to [Create a new subaccount in the directory](#create-a-new-subaccount-in-the-directory) had quite an involved-looking construction for the value of the `--subdomain` parameter: `"ho060-$(btp --format json get accounts/global-account | jq -r .displayName)"`. Can you pick this apart and understand how it works?
+1. The btp CLI command you used to [Create a new subaccount in the directory](#create-a-new-subaccount-in-the-directory) had quite an involved-looking construction for the value of the `--subdomain` parameter: `"$(btp --format json get accounts/global-account | jq -r .displayName)-codejam-subaccount"`. Can you pick this apart and understand how it works?
 1. How does the [btpguid](btpguid) script set the chosen subaccount as target?
 1. In the `jq` part of the [btpguid](../../scripts/btpguid) script that parses the JSON formatted output of the `btp get accounts/global-account --show-hierarchy` command, what technique is used to ignore the global account?
