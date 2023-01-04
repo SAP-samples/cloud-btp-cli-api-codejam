@@ -7,11 +7,9 @@ At the end of this exercise, you'll have autocomplete turned on for the btp CLI 
 If you've had a look at the output from `btp help` you'll know that there are multiple commands that the CLI supports, and different groups of objects upon which these commands operate:
 
 ```text
-user: user $ btp help
-Connecting to CLI server at https://cpcli.cf.eu10.hana.ondemand.com...
-SAP BTP command line interface (client v2.14.0)
+SAP BTP command line interface (client v2.33.0)
 
-Usage: btp [OPTIONS] ACTION [GROUP/OBJECT] [PARAMS]
+Usage: btp [OPTIONS] ACTION GROUP/OBJECT PARAMS
 
 Each GROUP contains multiple OBJECTS, on which you can perform ACTIONS.
 
@@ -33,9 +31,10 @@ Example help calls:
 
 General actions:
     help                  Display help
+    feedback              Give us feedback
     login                 Log in to a global account of SAP BTP
     logout                Log out from SAP BTP
-    target                Set the default context for command execution
+    target                Set the target for subsequent commands
     enable autocomplete   Enable command autocompletion
     disable autocomplete  Disable command autocompletion
 
@@ -46,8 +45,6 @@ Options:
   --info     Show version and current context
   --verbose  Print tracing information for support
   --version  Print client version
-
-OK
 ```
 
 It's possible to get an overview of what the possible targets of each command are, by asking for help on that particular command.
@@ -61,11 +58,9 @@ btp list --help
 Here's the sort of output that you'll see:
 
 ```text
-user: user $ btp list --help
-Connecting to CLI server at https://cpcli.cf.eu10.hana.ondemand.com...
-SAP BTP command line interface (client v2.14.0)
+SAP BTP command line interface (client v2.33.0)
 
-Usage: btp [OPTIONS] ACTION GROUP/OBJECT [PARAMS]
+Usage: btp [OPTIONS] ACTION GROUP/OBJECT PARAMS
 
 Available "list" commands:
     btp list accounts/available-environment  Get all available environments for a subaccount
@@ -78,8 +73,10 @@ Available "list" commands:
     btp list accounts/subaccount             List all subaccounts in a global account
     btp list accounts/subscription           Get all applications to which a subaccount is entitled to subscribe
     btp list security/app                    List all apps
+    btp list security/available-idp          List all Identity Authentication tenants to which you can connect this global account or subaccount
     btp list security/role                   List all roles
     btp list security/role-collection        List all role collections
+    btp list security/trust                  List all trust configurations that are configured for your global account or subaccount
     btp list security/user                   List all users
     btp list services/binding                List all service bindings
     btp list services/broker                 List all service brokers
@@ -90,8 +87,6 @@ Available "list" commands:
 
 Example of command-specific help:
     btp help list accounts/available-environment
-
-OK
 ```
 
 > You can also use this style of help invocation too: `btp help list`.
