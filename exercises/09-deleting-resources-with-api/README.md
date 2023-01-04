@@ -51,11 +51,7 @@ In a previous exercise, we used the `/entitlements/v1/globalAccountAllowedDataCe
 
 ![The Core Services APIs](assets/core-services-apis.png)
 
-👉 Take a moment to look at the [API reference for the Entitlements Service API](https://api.sap.com/api/APIEntitlementsService/resource), and you'll see that there are three groups of endpoints:
-
-* Manage Assigned Entitlements
-* Regions for Global Account
-* Job Management
+👉 Take a moment to look at the [API reference for the Entitlements Service API](https://api.sap.com/api/APIEntitlementsService/resource), and you'll see that there are three groups of endpoints: "Manage Assigned Entitlements", "Regions for Global Account" and "Job Management":
 
 ![Entitlements Service API endpoint groups](assets/entitlements-endpoint-groups.png)
 
@@ -63,12 +59,12 @@ In a previous exercise, we used the `/entitlements/v1/globalAccountAllowedDataCe
 
 The endpoint we used was within the "Regions for Global Account" group.
 
-This time, we need to find an endpoint that supports operations on directories and subaccounts, and in the Core Services APIs overview we can see that the description for the Accounts Service API sounds like what we're looking for: "_Manage the directories and subaccounts in your global account's structure._"
+This time, we need to find an endpoint that supports operations on directories and subaccounts, and in the [Core Services APIs overview](https://api.sap.com/package/SAPCloudPlatformCoreServices/rest) we can see that the description for the Accounts Service API sounds like what we're looking for: "_Manage the directories and subaccounts in your global account's structure._"
 
 👉 Select the [Accounts Service API](https://api.sap.com/api/APIAccountsService/overview) in the SAP API Business Hub, go to the [API Reference](https://api.sap.com/api/APIAccountsService/resource) section, and take note of the endpoint groups, which are:
 
-* Directory Operations
 * Global Account Operations
+* Directory Operations
 * Subaccount Operations
 * Job Management
 
@@ -96,7 +92,7 @@ This is the scope that we see as a requirement to be able to make a DELETE reque
 
 So with our current access token, we should be all set. Right?
 
-Well, yes, but "we should be all set" is a bit vague, don't you think? Let's spend a couple of minutes verifying this.
+Well, yes, but "we should be all set" is a bit vague, don't you think? Let's spend a couple of minutes verifying this more precisely.
 
 Back when we [requested the token in Exercise 06](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/blob/main/exercises/06-core-services-api-creds/README.md#request-the-token) we got a whole blob of data, first to the terminal, and then captured into a file `tokendata.json`.
 
@@ -378,10 +374,10 @@ ln -s ../06-core-services-api-creds/cis-central-sk.json .
 
 > We don't of course absolutely need references to these files in our current directory, but it's a bit more comfortable when referring to them.
 
-👉 Let's now remind ourselves of the top level properties in this service key information:
+👉 Let's now remind ourselves of the main properties in this service key information:
 
 ```bash
-jq keys cis-central-sk.json
+jq '.credentials | keys' cis-central-sk.json
 ```
 
 You should see a list of keys like this:
@@ -398,7 +394,7 @@ You should see a list of keys like this:
 👉 Now dig in to the `endpoints` key:
 
 ```bash
-jq .endpoints cis-central-sk.json
+jq .credentials.endpoints cis-central-sk.json
 ```
 
 You'll see output similar to this, which should include an `accounts_service_url` key and value:
@@ -516,10 +512,16 @@ curl \
   --header "Authorization: Bearer $(jq -r .access_token tokendata.json)"
 ```
 
-In the response header output (the lines are denoted by the `<` symbol) we should see this one:
+In the response header output (the lines are denoted by the `<` symbol) we should see a 409 status code, which will appear differently depending on the version of HTTP used:
 
 ```text
 < HTTP/1.1 409 Conflict
+```
+
+or
+
+```text
+< HTTP/2 409
 ```
 
 The [409 Conflict](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/409) response status is appropriate, for two reasons:
