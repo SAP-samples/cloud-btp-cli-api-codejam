@@ -146,8 +146,6 @@ You should see something like this:
 }
 ```
 
-> You'll also an "OK" surrounded by blank lines, but this is again sent to STDERR. From now on the executable examples will include redirecting STDERR to `/dev/null` to avoid the empty lines and "OK" - but bear in mind this is an extreme workaround because it would prevent any real errors from being displayed. This "OK" item output is being discussed internally.
-
 ### Parsing JSON output the wrong way
 
 With the JSON output above, you might be tempted to parse the datacenter information as plain text, as the JSON appears naturally pretty-printed with property & value pairs on separate lines. Here's an example of that:
@@ -183,7 +181,7 @@ Note that there wouldn't be the hard line breaks you see here (which are just so
 
 Try getting any sensible output from that using `grep` now!
 
-> If you're curious, this dense output was formatted using a pipeline of commands: `btp --format json list accounts/available-region | jq -c . | fold -w100 | head`.
+> If you're curious, this dense output was created, to illustrate a real possibility, using a pipeline of commands: `btp --format json list accounts/available-region | jq -c . | fold -w100 | head`.
 
 ### Parsing JSON output the right way
 
@@ -196,7 +194,7 @@ One tool that is popular for this is [jq](https://stedolan.github.io/jq/), which
 👉 Repeat the previous command, but this time pipe the output into `jq`, giving it a simple expression to list the names of the data centers:
 
 ```bash
-btp --format json list accounts/available-region 2> /dev/null \
+btp --format json list accounts/available-region \
     | jq '.datacenters[].displayName'
 ```
 
@@ -231,8 +229,7 @@ The pipeline concept you may already know from the shell is also implemented in 
 👉 Before we continue, let's be nice to the btp CLI endpoint being called, and cache the results of the list of available regions in a temporary file:
 
 ```bash
-btp --format json list accounts/available-region 2> /dev/null \
-    > regions.json
+btp --format json list accounts/available-region > regions.json
 ```
 
 Now we can use this file like this:
@@ -283,7 +280,7 @@ Now that we have the data locally in a file, let's explore how this `jq` filter 
 
     The output this time is subtly different yet again.
 
-1. The use of `| .[]` means that each of the elements (each of the objects representing a data center) is passed into the next pipe that sends the data to the final component of the filter, which is another object index `.["displayName"]`, which just picks out and emits the value of the `displayName` property.
+1. The use of `| .[]` means that each and every of the elements (each of the objects representing a data center) is passed into the next pipe that sends the data to the final component of the filter, which is another object index `.["displayName"]`, which just picks out and emits the value of the `displayName` property.
 
     Because this component of the filter is invoked once per array element, we get an entire list of data center display names as the output. And of course this time, the `.` in the `.["displayName"]` construct refers to whatever was passed in through the pipe, which (for each and every one of the multiple invocations) is an object, one of the elements of the `datacenters` array.
 
