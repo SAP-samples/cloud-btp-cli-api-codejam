@@ -39,7 +39,7 @@ At this point, you have a new directory `cloud-btp-cli-api-codejam`.
 
 > This section is only relevant for those working through this CodeJam in a Dev Space in the SAP Business Application Studio.
 
-👉 At this point you may want to open your home directory in the Explorer (so you can look around at the directory structure and the files). Do this by using menu path `File -> Open...` and specifying the `user/` directory as shown:
+👉 At this point you may want to open your home directory in the Explorer (so you can look around at the directory structure and the files). Do this by using menu path `File -> Open Folder...` and specifying the `user/` directory as shown:
 
 ![opening the user directory](assets/open-user-dir.png)
 
