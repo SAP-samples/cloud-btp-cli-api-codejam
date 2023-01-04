@@ -14,7 +14,7 @@ RUN curl -fsSL "https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.ke
 RUN apt-get update \
  && apt-get install -y \
     ca-certificates \
-    cf7-cli \
+    cf8-cli \
     fzf \
     git \
     jq \

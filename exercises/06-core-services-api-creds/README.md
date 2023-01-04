@@ -245,10 +245,10 @@ You can check the file contains just the JSON by asking `jq` to print it out nic
 jq . cis-central-sk.json
 ```
 
-You should see a nicely formatted display of JSON.
+You should see a nicely formatted display of JSON. Note that depending on the version of `cf` you're using, the structure of the JSON emitted from this `cf` command [may be different](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/issues/27#issuecomment-1370702907). Don't worry, in this CodeJam, whether you're using a container or a Dev Space in SAP Business Application Studio, you'll be using version 8 consistently, and the scripts are ready for that.
 
 > Technically speaking, the `.` in `jq` is the [identity](https://stedolan.github.io/jq/manual/#Identity:.) filter, so the nice formatting of the JSON is actually just a by-product of asking `jq` to filter the JSON through the identity filter (which just produces whatever it receives), and by default `jq` will endeavour to pretty-print the output.
-> Note also that this time, the `.` is not in single quotes, unlike when you last used this filter in a previous exercise, when [Listing the available datacenter names](../04-retrieving-parsing-json-output#listing-the-available-datacenter-names). It isn't absolutely necessary, so we're omitting it in this instance (and we'll make a similar change later in this exercise when we use the `keys` filter too.
+> Note also that this time, the `.` is not in single quotes, unlike when you last used this filter in a previous exercise, when [Listing the available datacenter names](../04-retrieving-parsing-json-output#listing-the-available-datacenter-names). It isn't absolutely necessary, so we're omitting it in this instance (and we'll make a similar change later in this exercise when we use the `keys` filter too).
 
 Values in this JSON data are needed to:
 
