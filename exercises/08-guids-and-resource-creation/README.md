@@ -152,7 +152,7 @@ OK
 
 Within this new directory, you are now going to create a new subaccount.
 
-👉 First, check which regions are available to you for a new subaccount, and pick one. We covered the relevant command in [a previous exercise](04-retrieving-parsing-json-output/README.md):
+👉 First, check which regions are available to you for a new subaccount, and pick one. We covered the relevant command in [a previous exercise](../04-retrieving-parsing-json-output/README.md#list-the-available-regions):
 
 ```bash
 btp list accounts/available-region
@@ -166,7 +166,7 @@ btp create accounts/subaccount --help
 
 There's quite a bit that can be specified; let's keep things as simple as possible and specify the minimum. One thing you're going to need to specify is a subdomain; for the sake of this hands-on workshop, use your global account display name as part of the subdomain value. You can retrieve the global account display name with `btp --format json get accounts/global-account | jq -r .displayName` - this will be incorporated into the `create` command below.
 
-👉 First, pick a region available to you that supports CF and save that as a variable:
+👉 First, pick a region available to you that supports CF and save that as a variable; the example here is setting it to `eu10` but you may need to specify a different value:
 
 ```bash
 region=eu10
