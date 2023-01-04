@@ -164,7 +164,7 @@ btp list accounts/available-region
 btp create accounts/subaccount --help
 ```
 
-There's quite a bit that can be specified; let's keep things as simple as possible and specify the minimum. One thing you're going to need to specify is a subdomain; for the sake of this hands-on workshop, use your global account display name as part of the subdomain value. You can retrieve the global account display name with `btp --format json get accounts/global-account | jq -r .displayName` - this will be incorporated into the `create` command below.
+There's quite a bit that can be specified; let's keep things as simple as possible and specify the minimum. One thing you're going to need to specify is a subdomain; for the sake of this hands-on workshop, use your global account subdomain as part of this subaccount's subdomain value. You can retrieve the global account subdomain value with `btp --format json get accounts/global-account | jq -r .subdomain` - this will be incorporated into the `create` command below.
 
 👉 First, pick a region available to you that supports CF and save that as a variable; the example here is setting it to `eu10` but you may need to specify a different value:
 
@@ -179,7 +179,7 @@ btp create accounts/subaccount \
   --directory $(btpguid codejam-directory) \
   --display-name codejam-subaccount \
   --region "$region" \
-  --subdomain "codejam-$(btp --format json get accounts/global-account | jq -r .displayName)"
+  --subdomain "$(btp --format json get accounts/global-account | jq -r .subdomain)-codejam-subaccount"
 ```
 
 > Have a look at the optional section [Dynamic region choice](#dynamic-region-choice) at the end of this exercise to see how you might make this region choice dynamic.
@@ -279,7 +279,7 @@ btp create accounts/subaccount \
   --directory $(btpguid codejam-directory) \
   --display-name codejam-subaccount \
   --region "$(selectregion)" \
-  --subdomain "codejam-$(btp --format json get accounts/global-account | jq -r .displayName)"
+  --subdomain "$(btp --format json get accounts/global-account | jq -r .subdomain)-codejam-subaccount"
 ```
 
 and you'd be presented with a list to select from first, like this:
@@ -299,6 +299,6 @@ At this point you should feel more comfortable using the btp CLI on the command 
 
 If you finish earlier than your fellow participants, you might like to ponder these questions. There isn't always a single correct answer and there are no prizes - they're just to give you something else to think about.
 
-1. The btp CLI command you used to [Create a new subaccount in the directory](#create-a-new-subaccount-in-the-directory) had quite an involved-looking construction for the value of the `--subdomain` parameter: `"ho060-$(btp --format json get accounts/global-account | jq -r .displayName)"`. Can you pick this apart and understand how it works?
+1. The btp CLI command you used to [Create a new subaccount in the directory](#create-a-new-subaccount-in-the-directory) had quite an involved-looking construction for the value of the `--subdomain` parameter: `"$(btp --format json get accounts/global-account | jq -r .subdomain)-codejam-subaccount"`. Can you pick this apart and understand how it works?
 1. How does the [btpguid](btpguid) script set the chosen subaccount as target?
 1. In the `jq` part of the [btpguid](../../scripts/btpguid) script that parses the JSON formatted output of the `btp get accounts/global-account --show-hierarchy` command, what technique is used to ignore the global account?
