@@ -159,9 +159,9 @@ The general approach that we'll be following is this:
 
 ### Installing "interactive jq"
 
-We'll be using the `--format json` option and working through details of certain btp CLI calls, building on our knowledge of `jq` filters from the previous exercise. To make this a little more comfortable, we'll install a wrapper around `jq` so we can interact with the JSON data and build up our filters bit by bit. The wrapper is called [ijq](https://sr.ht/~gpanders/ijq/) (for "interactive jq") and we can manually install it in our App Studio Dev Space.
+We'll be using the `--format json` option and working through details of certain btp CLI calls, building on our knowledge of `jq` filters from the previous exercise. To make this a little more comfortable, we'll install a wrapper around `jq` so we can interact with the JSON data and build up our filters bit by bit. The wrapper is called [ijq](https://sr.ht/~gpanders/ijq/) (for "interactive jq") and we can manually install it in our working environment.
 
-👉 At the prompt in your Dev Space's terminal, run the following command, which will download the [latest release tarball](https://git.sr.ht/~gpanders/ijq/refs/v0.4.1) specifically for the Linux platform (remember, this Dev Space is a Linux environment) and extract the binary `ijq` into the `bin/` directory in your home directory (this `$HOME/bin/` directory is [where you installed the btp CLI in an earlier exercise](../01-installing#add-your-bin-directory-to-the-path)):
+👉 At the shell prompt, run the following command, which will download the [latest release tarball](https://git.sr.ht/~gpanders/ijq/refs/v0.4.1) specifically for the Linux platform (remember, both the container and the Dev Space are essentially Linux environments) and extract the binary `ijq` into the `bin/` directory in your home directory (this `$HOME/bin/` directory is [where you installed the btp CLI in an earlier exercise](../01-installing#add-your-bin-directory-to-the-path)):
 
 ```bash
 IJQVER=0.4.1
@@ -262,7 +262,7 @@ cd76fdef-16f8-47a3-954b-cab6678cc24d   testsubaccount     a253215a-736f-4e9a-b0c
 f78e0bdb-c97c-4cbc-bb06-526695f44551   trial              8fe7efd4trial                          eu10
 ```
 
-> You'll still see some blank lines and an "OK" - this is extraneous output that is sent (to STDERR) by the `btp` invocation; if it disturbs you, you can get rid of it by redirecting STDERR to `/dev/null`, i.e. to oblivion, as noted in a previous exercise. Here's an example: `btp list accounts/subaccount 2> /dev/null | trunc`. Note that redirecting STDERR like this is not ideal, as you won't see any genuine error messages. There's an active discussion in the btp CLI product team as to how to best suppress this extra information so we don't have to use this STDERR redirection workaround.
+> You'll still see some blank lines and an "OK" - this is extraneous output that is sent (to STDERR) by the `btp` invocation. The latest versions of `btp` (including the one available at the time this was written, 2.33.0, suppresses such output when the `--format json` option is used; think of this contrast as the difference between "human" and "machine-readable" output versions.
 
 For the subaccount in question ("trial" in this sample), we want to get the GUID, which is `f78e0bdb-c97c-4cbc-bb06-526695f44551`. Again, we could copy/paste it somehow, but that's not useful if we want to do this, or something like it, in an automated fashion. Instead, we'll ask for the JSON representation of this information and parse it out from that.
 
@@ -469,13 +469,14 @@ If you [stare long enough](https://qmacro.org/blog/posts/2017/02/19/the-beauty-o
 
 > You can run the following invocations of the `jq` filters as shown here, or pipe the btp CLI JSON output into `ijq` and run them there - your choice.
 
-👉 Call up the previous command and extend the `jq` filter to emit the value of the `label` property, thus:
+👉 Call up the previous command and extend the `jq` filter to emit the value of the `labels` property, thus:
 
 ```bash
 btp --format json list accounts/environment-instance --subaccount "$guid" \
   | jq '
     .environmentInstances[]
-    | select(.environmentType == "cloudfoundry").labels
+    | select(.environmentType == "cloudfoundry")
+    | .labels
   '
 ```
 
@@ -495,7 +496,8 @@ This is one of those JSON structures encoded as a text string. Luckily, `jq` has
 btp --format json list accounts/environment-instance --subaccount "$guid" \
   | jq '
     .environmentInstances[]
-    | select(.environmentType == "cloudfoundry").labels
+    | select(.environmentType == "cloudfoundry")
+    | .labels
     | fromjson
   '
 ```
@@ -518,7 +520,8 @@ Et voila! We've found the API endpoint.
 btp --format json list accounts/environment-instance --subaccount "$guid" \
   | jq --raw-output '
     .environmentInstances[]
-    | select(.environmentType == "cloudfoundry").labels
+    | select(.environmentType == "cloudfoundry")
+    | .labels
     | fromjson
     | ."API Endpoint:"
   '
@@ -530,9 +533,7 @@ btp --format json list accounts/environment-instance --subaccount "$guid" \
 >
 > And just as a "by the way", the expression `."API Endpoint"` is just shorthand for the full generic object index expression `.["API Endpoint"]`.
 >
-> The environment instances have this label and parameter information squirreled away with the property names as you see here, and in some cases -- like here -- include a colon too. This is definitely odd. Moreover, the colon appears as part of these property names only for some environment instances, and not others.
->
-> We have an internal ticket raised with the API product team for both of these oddities, as well as the, erm, [space oddity](https://en.wikipedia.org/wiki/Space_Oddity).
+> Note that the colon appears as part of these property names only for some environment instances, and not others. You may find that your string-encoded JSON property names do not end with colons - if so, adjust the filter accordingly.
 
 In this particular sample case, the API endpoint is:
 
@@ -558,10 +559,15 @@ After ensuring that you're still authenticated with the btp CLI (with `btp login
 
 > If you don't specify a subaccount name, it will use "trial" by default. So if your subaccount name is not "trial", specify it as a parameter when invoking the script (e.g. `./get_cf_api_endpoint "My subaccount name"`).
 
-👉 Move to the directory containing the script, and then run it:
+👉 Move to the directory containing the script:
 
 ```bash
 cd $HOME/projects/cloud-btp-cli-api-codejam/exercises/05-core-services-api-prep/
+```
+
+👉 Now run the script:
+
+```bash
 ./get_cf_api_endpoint
 ```
 
