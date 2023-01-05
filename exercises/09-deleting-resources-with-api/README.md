@@ -547,7 +547,8 @@ curl \
   --verbose \
   --url "$url/accounts/v1/directories/${guid}?forceDelete=true" \
   --header "Authorization: Bearer $(jq -r .access_token tokendata.json)" \
-  | jq .
+  > >(jq .) \
+  2> >(tee curl.stderr >&2)
 ```
 
 This should return fairly quickly, but successfully, and produce output like this:
@@ -611,6 +612,8 @@ Let's finish this exercise with a final API call, this time to the single endpoi
 /jobs-management/v1/jobs/{jobInstanceIdOrUniqueId}/status
 ```
 
+You'll notice that this endpoint reflects what was given to us in the `location` HTTP response header above, which is really convenient.
+
 From our foray into the scopes that we have in our access token, we might have noticed that we have the scope that we need to make this API call, too:
 
 ```json
@@ -619,12 +622,15 @@ From our foray into the scopes that we have in our access token, we might have n
 
 So let's get to it!
 
-👉 Make another `curl` invocation; this time you'll have to copy the job instance ID from your HTTP response headers, or indeed the entire value of the `Location` header:
+While `curl` sends the response body to STDOUT (the JSON, in this case), it sends the verbose details of what went on, including the request and response headers, to a separate data stream, specifically STDERR. The eagle-eyed amongst you may have noticed that this STDERR output from this most recent call to `curl` has been also captured to a file called `curl.stderr`, as well as being output to the terminal (this is the `2> >(tee curl.stderr >&2)` bit in the invocation above). 
+
+This means that we can extract the value of that `location` header from the file mechanically, and avoid any copy/paste action. As you'll see, we'll use `grep` to do that, with `tr` to remove LF and CR characters.
+
+👉 Make another `curl` invocation to the URL which is a combination of the Accounts Service base URL, in `$url`, which looks something similar to this: `https://accounts-service.cfapps.eu10.hana.ondemand.com`, plus this job-specific API endpoint, which we'll grab from the value of the `location` header in the `curl.stderr` file:
 
 ```bash
-
 curl \
-  --url "$url/jobs-management/v1/jobs/8926898/status" \
+  --url "$url$(grep -Po '(?<=^< location: )(.+)$' curl.stderr | tr -d '\n\r')" \
   --header "Authorization: Bearer $(jq -r .access_token tokendata.json)" \
   | jq .
 ```
