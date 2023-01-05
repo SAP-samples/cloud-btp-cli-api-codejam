@@ -523,7 +523,7 @@ btp --format json list accounts/environment-instance --subaccount "$guid" \
     | select(.environmentType == "cloudfoundry")
     | .labels
     | fromjson
-    | ."API Endpoint:"
+    | (."API Endpoint:" // ."API Endpoint")
   '
 ```
 
@@ -533,7 +533,7 @@ btp --format json list accounts/environment-instance --subaccount "$guid" \
 >
 > And just as a "by the way", the expression `."API Endpoint"` is just shorthand for the full generic object index expression `.["API Endpoint"]`.
 >
-> Note that the colon appears as part of these property names only for some environment instances, and not others. You may find that your string-encoded JSON property names do not end with colons - if so, adjust the filter accordingly.
+> Note that the colon appears as part of these property names only for some environment instances, and not others. This is the reason for the use of the [alternative operator](https://stedolan.github.io/jq/manual/#Alternativeoperator://) in `| .("API Endpoint:" // ."API Endpoint")`.
 
 In this particular sample case, the API endpoint is:
 
