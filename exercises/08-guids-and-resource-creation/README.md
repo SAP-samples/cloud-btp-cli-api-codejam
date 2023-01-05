@@ -221,11 +221,11 @@ You can see how easy the btp CLI makes managing resources on BTP. It's definitel
 * A lot of the heavy lifting is done with `jq`, in the `parse` function
 * The script will optionally also set the chosen subaccount or directory as target
 
-## Dynamic region choice
+## Dynamic region choice (optional)
 
 This is an optional section that you might want to take a look at if you finish this exercise early. Instead of deciding on the region in advance, and then specifying it directly in the `btp create accounts/subaccount` call, you could use a tool like [fzf](https://github.com/junegunn/fzf), the command line fuzzy finder.
 
-Download it straight into your `$HOME/bin/` directory like this:
+👉 Download it straight into your `$HOME/bin/` directory like this:
 
 ```bash
 curl \
@@ -235,7 +235,7 @@ curl \
   | tar -C $HOME/bin/ -xzf - fzf
 ```
 
-Run it directly to see (a) that it exists and is executable, and (b) what it feels like:
+👉 Run it directly to see (a) that it exists and is executable, and (b) what it feels like:
 
 ```bash
 fzf
@@ -243,7 +243,7 @@ fzf
 
 In its default state, `fzf` will look for files and present you with a fuzzy-finder interface to narrow the choice down as you type (you can quit out of the interface with `Ctrl-C`).
 
-Now try it out with the regions, encapsulating the invocation into a function:
+👉 Now try it out with the regions, encapsulating the invocation into a function:
 
 ```bash
 selectregion() {
