@@ -596,3 +596,7 @@ If you finish earlier than your fellow participants, you might like to ponder th
 1. When listing the environment instances for the subaccount, how else might you make that btp CLI call, without using the `--subaccount` parameter?
 1. The embedded, stringified JSON values in the `parameters` and `labels` properties are a bit strange. Stranger still are the names of some the properties in that embedded JSON. Have you ever seen property names containing whitespace (`Org Name`, `API Endpoint`, `Org ID`)? Moreover, depending on the age of your environment instance, these property names [may also contain colons](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/blob/8665a7fac62f62529e12f7120f268f64b673f34c/exercises/get_cf_api_endpoint#L34) :-) Why do you think they exist this way?
 1. What's the mechanism in the `get_cf_api_endpoint` script that defaults to "trial" as the name for the subaccount?
+
+---
+
+[Next exercise](../06-core-services-api-creds/README.md)

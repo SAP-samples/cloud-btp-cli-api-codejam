@@ -354,3 +354,7 @@ If you finish earlier than your fellow participants, you might like to ponder th
 
 1. Why were you told to use single quotes when echoing text into the `.bashrc` file? What would have happened if you'd use double quotes?
 1. Did you try to authenticate using Single Sign-On (SSO)? How did it work for you? What about from within a container?
+
+---
+
+[Next exercise](../03-autocomplete-and-exploration/README.md)

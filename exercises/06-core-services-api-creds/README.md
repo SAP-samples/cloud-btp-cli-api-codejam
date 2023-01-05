@@ -412,3 +412,7 @@ If you finish earlier than your fellow participants, you might like to ponder th
 1. We used `sed` to strip off the unwanted first two lines of the service key output. How else might we have done this?
 1. Take a look at the token data you retrieved - what's the lifetime of the access token, in hours?
 1. Did you manage to think about the questions on the `curl` invocation details?
+
+---
+
+[Next exercise](../07-core-services-api-call/README.md)

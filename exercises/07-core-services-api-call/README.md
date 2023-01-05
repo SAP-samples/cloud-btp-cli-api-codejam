@@ -188,3 +188,7 @@ If you finish earlier than your fellow participants, you might like to ponder th
 
 1. Have a bit of a stare at the [call-entitlements-service-regions-api](../../scripts/call-entitlements-service-regions-api) script, and the associated [lib.sh](../../scripts/lib.sh) library. Is there anything in there that you'd like to know more about?
 1. Just before the JSON output in the call to `call-entitlements-service-regions-api`, you saw some progress bar style information on bytes received, time taken, and so on. How would you suppress this output, so you just got the JSON?
+
+---
+
+[Next exercise](../08-guids-and-resource-creation/README.md)

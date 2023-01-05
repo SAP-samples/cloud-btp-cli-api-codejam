@@ -204,3 +204,7 @@ If you finish earlier than your fellow participants, you might like to ponder th
 
 1. How would you discover or confirm that the shell you're actually using is indeed a Bash shell?
 1. Output for some of the commands you used in exploring your account probably wrapped over multiple lines. How might you remedy that?
+
+---
+
+[Next exercise](../04-retrieving-parsing-json-output/README.md)
