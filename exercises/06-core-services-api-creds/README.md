@@ -180,37 +180,39 @@ The output should look something like this:
 Getting key cis-central-sk for service instance cis-central as qmacro+blue@gmail.com...
 
 {
- "endpoints": {
-  "accounts_service_url": "https://accounts-service.cfapps.eu10.hana.ondemand.com",
-  "cloud_automation_url": "https://cp-formations.cfapps.eu10.hana.ondemand.com",
-  "entitlements_service_url": "https://entitlements-service.cfapps.eu10.hana.ondemand.com",
-  "events_service_url": "https://events-service.cfapps.eu10.hana.ondemand.com",
-  "external_provider_registry_url": "https://external-provider-registry.cfapps.eu10.hana.ondemand.com",
-  "metadata_service_url": "https://metadata-service.cfapps.eu10.hana.ondemand.com",
-  "order_processing_url": "https://order-processing.cfapps.eu10.hana.ondemand.com",
-  "provisioning_service_url": "https://provisioning-service.cfapps.eu10.hana.ondemand.com",
-  "saas_registry_service_url": "https://saas-manager.cfapps.eu10.hana.ondemand.com"
- },
- "grant_type": "user_token",
- "sap.cloud.service": "com.sap.core.commercial.service.central",
- "uaa": {
-  "apiurl": "https://api.authentication.eu10.hana.ondemand.com",
-  "clientid": "sb-ut-cafe4267-d070-4e8e-8710-2de0ae46b85f-clone!b123443|cis-central!b14",
-  "clientsecret": "c663b1ca-cafe-42-b2b2-d45313c39c80$fKncNz2FM89P8m6M1uTRod07VzDRsI_ddf7cR7hKp5w=",
-  "credential-type": "binding-secret",
-  "identityzone": "8fe7efd4trial-ga",
-  "identityzoneid": "fdce9323-d6e6-cafe-8df0-5e501c90a2be",
-  "sburl": "https://internal-xsuaa.authentication.eu10.hana.ondemand.com",
-  "subaccountid": "fdce9323-d6e6-42e6-cafe-5e501c90a2be",
-  "tenantid": "fdce9323-d6e6-cafe-8df0-5e501c90a2be",
-  "tenantmode": "shared",
-  "uaadomain": "authentication.eu10.hana.ondemand.com",
-  "url": "https://8fe7efd4trial-ga.authentication.eu10.hana.ondemand.com",
-  "verificationkey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyfJwIO6n853DLxeBDl7Z\nqUKh4RA3yJ1gBNoBw0F2JZx2F3DaZcafekpupEW46n+8UKh/jUcESdve/feePWYW\nPo/tW/bPKHwDW2NmTXZ1Rid3AVYiguUwGzJjmeLb/aeqPWjl4PdLT0uZKtvW+Ljm\nlSHQ4NUEJf/n3hYomjlTNagx0dpNCZ6u+cKZ4Nm5wO58fVI4oyvpUhVhSR6xo8A2\nJ5nya+misMohHqdQcvqElmd+uUr6jN9k7tn4VUl8aw1MlL/Uy3D0YZFOPim9OIv6\nYkpIChxDHyrb+vplWhDVlTZt9zCR1MzPIiK6xLUqVAwCEbuxolo0w/CTJPGr98d2\newIDAQAB\n-----END PUBLIC KEY-----",
-  "xsappname": "ut-c9426667-d070-cafe-8710-2de0ae46b85f-clone!b123443|cis-central!b14",
-  "xsmasterappname": "cis-central!b14",
-  "zoneid": "fdce9323-d6e6-42e6-cafe-5e501c90a2be"
- }
+  "credentials": {
+    "endpoints": {
+      "accounts_service_url": "https://accounts-service.cfapps.eu10.hana.ondemand.com",
+      "cloud_automation_url": "https://cp-formations.cfapps.eu10.hana.ondemand.com",
+      "entitlements_service_url": "https://entitlements-service.cfapps.eu10.hana.ondemand.com",
+      "events_service_url": "https://events-service.cfapps.eu10.hana.ondemand.com",
+      "external_provider_registry_url": "https://external-provider-registry.cfapps.eu10.hana.ondemand.com",
+      "metadata_service_url": "https://metadata-service.cfapps.eu10.hana.ondemand.com",
+      "order_processing_url": "https://order-processing.cfapps.eu10.hana.ondemand.com",
+      "provisioning_service_url": "https://provisioning-service.cfapps.eu10.hana.ondemand.com",
+      "saas_registry_service_url": "https://saas-manager.cfapps.eu10.hana.ondemand.com"
+    },
+    "grant_type": "user_token",
+    "sap.cloud.service": "com.sap.core.commercial.service.central",
+    "uaa": {
+      "apiurl": "https://api.authentication.eu10.hana.ondemand.com",
+      "clientid": "sb-ut-f2184e34-95a2-4c72-ba64-46aaf9d7d4f7-clone!b169670|cis-central!b14",
+      "clientsecret": "7c2b411f-8949-4ce1-ac0b-66dabda938a6$tytFAKxV0J7PX4UV6cngOv9mqnSqwRUHEd4qVHTThZs=",
+      "credential-type": "binding-secret",
+      "identityzone": "65137137trial-ga",
+      "identityzoneid": "06de8b78-0e1d-48a5-9323-97824c99671f",
+      "sburl": "https://internal-xsuaa.authentication.eu10.hana.ondemand.com",
+      "subaccountid": "06de8b78-0e1d-48a5-9323-97824c99671f",
+      "tenantid": "06de8b78-0e1d-48a5-9323-97824c99671f",
+      "tenantmode": "shared",
+      "uaadomain": "authentication.eu10.hana.ondemand.com",
+      "url": "https://65137137trial-ga.authentication.eu10.hana.ondemand.com",
+      "verificationkey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApPKDGC55buMxdfi60gGx\n1WBIf1NI8K4TnOBAEGYDeL6BVVkyjvlKVznsWblcbOkOWYRILE5IKh0ngLFfhL7x\nUn5R7gMprXMPbgnUlKGiH7ohLqnrN0VWxCNKu87WRke3kGvbsmYHS28lBPouzSzf\ndyJ9umtDPZGAWdy7cFKbVXkZG7fHgowLuWaisXQRkAqdH564DWiRMqQ0GJiKXyrz\ncwafHDInN8Dit6eXye9yGAdEyln9oHVjSJxP/Nughof70W7UDSeKHuL46iJMecjd\nqajlWi1/KQzdynHwchNtHka1bR+wwNDJkCswyf5pKuMZQF8VR3dLRWi0iuqsLK/F\nvQIDAQAB\n-----END PUBLIC KEY-----",
+      "xsappname": "ut-f2184e34-95a2-4c72-ba64-46aaf9d7d4f7-clone!b169670|cis-central!b14",
+      "xsmasterappname": "cis-central!b14",
+      "zoneid": "06de8b78-0e1d-48a5-9323-97824c99671f"
+    }
+  }
 }
 ```
 
