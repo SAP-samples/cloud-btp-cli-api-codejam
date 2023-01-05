@@ -523,17 +523,17 @@ btp --format json list accounts/environment-instance --subaccount "$guid" \
     | select(.environmentType == "cloudfoundry")
     | .labels
     | fromjson
-    | (."API Endpoint:" // ."API Endpoint")
+    | (."API Endpoint" // ."API Endpoint:")
   '
 ```
 
-> The [generic object index](https://stedolan.github.io/jq/manual/#GenericObjectIndex:.[%3Cstring%3E]) `."API Endpoint:"` is a little different to what we've seen up to now. Previously we've been able to refer to properties just using the property name, such as `.labels` or `.displayName`.
+> The [generic object index](https://stedolan.github.io/jq/manual/#GenericObjectIndex:.[%3Cstring%3E]) `."API Endpoint"` is a little different to what we've seen up to now. Previously we've been able to refer to properties just using the property name, such as `.labels` or `.displayName`.
 >
-> But because this property name contains a space, we can't do that, and so have to enclose it in double quotes (if you're thinking that having JSON property names with spaces is odd, you're right).
+> But because this property name contains special characters (such as spaces), we can't do that, and so have to enclose it in double quotes (if you're thinking that having JSON property names with spaces is odd, you're right).
 >
 > And just as a "by the way", the expression `."API Endpoint"` is just shorthand for the full generic object index expression `.["API Endpoint"]`.
 >
-> Note that the colon appears as part of these property names only for some environment instances, and not others. This is the reason for the use of the [alternative operator](https://stedolan.github.io/jq/manual/#Alternativeoperator://) in `| .("API Endpoint:" // ."API Endpoint")`.
+> Note that a colon may also appear as part of these property names in some environment instances. This is the reason for the use of the [alternative operator](https://stedolan.github.io/jq/manual/#Alternativeoperator://) and a second possible property name in `| .("API Endpoint" // ."API Endpoint:")`.
 
 In this particular sample case, the API endpoint is:
 
