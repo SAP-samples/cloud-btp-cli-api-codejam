@@ -302,3 +302,7 @@ If you finish earlier than your fellow participants, you might like to ponder th
 1. The btp CLI command you used to [Create a new subaccount in the directory](#create-a-new-subaccount-in-the-directory) had quite an involved-looking construction for the value of the `--subdomain` parameter: `"$(btp --format json get accounts/global-account | jq -r .subdomain)-codejam-subaccount"`. Can you pick this apart and understand how it works?
 1. How does the [btpguid](btpguid) script set the chosen subaccount as target?
 1. In the `jq` part of the [btpguid](../../scripts/btpguid) script that parses the JSON formatted output of the `btp get accounts/global-account --show-hierarchy` command, what technique is used to ignore the global account?
+
+---
+
+[Next exercise](../09-deleting-resources-with-api/README.md)

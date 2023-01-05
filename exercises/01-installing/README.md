@@ -287,3 +287,7 @@ If you finish earlier than your fellow participants, you might like to ponder th
 1. Is placing the `btp` executable within `$HOME/bin/` a good option? Will it still be there if you restart your Dev Space?
 1. What help is available for the btp CLI on the command line? What does `btp help` show you?
 1. Why are there two entries in `$HOME/bin/` for the `btp` executable?
+
+---
+
+[Next exercise](../02-authenticating-and-configuration/README.md)
