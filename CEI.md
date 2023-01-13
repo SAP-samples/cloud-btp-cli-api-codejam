@@ -20,7 +20,7 @@ The workshop will be remote and led by an instructor. But all the activities are
 
 This is the main part of the document and contains all the activities that you'll work through in the workshop. The starting point for these activities is with you in your Dev Space in the SAP Business Application Studio, with a terminal opened (use the menu path Terminal -> New Terminal), or in a container.
 
-### Getting the btp CLI
+### Get the btp CLI
 
 The btp CLI tool is available from the [SAP Development Tools](https://tools.hana.ondemand.com/) website, specifically in the [Cloud](https://tools.hana.ondemand.com/#cloud) section. While there are retrieval and installation instructions on the download page, there's a script you can run that will do this for you, to save time.
 
@@ -74,6 +74,36 @@ Tips:
 
 ```
 
-Great! You're now ready to wield the power of the btp CLI.
+Now it's time to log in.
 
+👉 Use the basic form as shown here, (or use the `--sso manual` option), and follow the prompts:
 
+```bash
+btp login
+```
+
+Great! Now that you're logged in, you're ready to wield the power of the btp CLI.
+
+### Turn on and try out autocomplete
+
+If you're going to become a power user with the btp CLI you cannot do without the autocomplete facilities that it offers. 
+
+👉 Set up autocomplete by running this invocation, confirming that you want to continue, and choosing option 2 (for `/home/user/.bashrc`):
+
+```bash
+btp enable autocomplete bash
+```
+
+In what is emitted, there's a note that says that you "must start a new terminal to activate the installed script". There's a way around that, which we'll use here, which is just to execute the latest line that's been added to your `$HOME/.bashrc` file by the autocomplete installation process. 
+
+👉 Do this now (you may recognize the invocation from earlier when you added the `bin/` directory to your `PATH`):
+
+```bash
+source <(tail -1 $HOME/.bashrc)
+```
+
+Now you can try out autocomplete. Type in the `btp` command and hit the Tab key, to explore the actions and objects. Here's an example of such exploration, to give you an idea.
+
+![animated demonstration of btp CLI autocomplete](https://blogs.sap.com/wp-content/uploads/2021/09/autocomplete.gif)
+
+At this point you should take a few minutes to explore; you'll likely get results quickly if you focus on the `list` action and pick objects that present themselves for that, for example `btp list accounts/available-region` or `btp list security/role-collection`.
