@@ -424,7 +424,8 @@ Let's get rid of the non-free plans immediately so we can focus on the free ones
 
 ```bash
 jq '
-  map(select(.free)) | length
+  map(select(.free)) 
+  | length
 ' data.json
 ```
 
@@ -433,6 +434,37 @@ If there were some non-free plans in your output, then the number produced from 
 ```text
 31
 ```
+
+#### Combine the filter & list and group by service offering
+
+We're building the filter up gradually. At this point you should continue by combining the previous two steps (the list and the filter):
+
+👉 Do this combination like this:
+
+```bash
+jq '
+  map(select(.free))
+  | map([
+      .catalog_name, 
+      .service_offering_name
+    ])
+' data.json
+```
+
+> The keen amongst you might be wondering about the two consecutive calls to `map` and you'd be right. We did it like this first so you could see how two separate expressions could be combined (with the pipe operator `|`). We'll keep it simple like this, and avoid trying to [golf](https://code.golf/) the code, but if you're interested, here's one way of simplifying:
+> ```bash
+> jq '
+>   map(
+>     select(.free)
+>     | [
+>         .catalog_name, 
+>         .service_offering_name
+>       ]
+>   )
+> ' data.json
+> ```
+
+
 
 
 
