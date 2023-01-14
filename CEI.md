@@ -435,7 +435,7 @@ If there were some non-free plans in your output, then the number produced from 
 31
 ```
 
-#### Combine the filter & list and group by service offering
+#### Combine the filter and list 
 
 We're building the filter up gradually. At this point you should continue by combining the previous two steps (the list and the filter):
 
@@ -464,6 +464,24 @@ jq '
 > ' data.json
 > ```
 
+#### Group by service
+
+You'll have noted that each "record" represents a plan, and there can be more than one record for a given service (the XSUAA service is a good example, where there are the application and broker plans). 
+
+We want one CSV record per service, with plans for the service listed together. So this is now a good time to realise that relationship.
+
+👉 Add `group_by` function to do this:
+
+```bash
+jq '
+  map(select(.free))
+  | map([
+      .catalog_name, 
+      .service_offering_name
+    ])
+  | group_by(.[1])
+' data.json
+```
 
 
 
