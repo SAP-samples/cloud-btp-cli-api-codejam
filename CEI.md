@@ -470,7 +470,7 @@ You'll have noted that each "record" represents a plan, and there can be more th
 
 We want one CSV record per service, with plans for the service listed together. So this is now a good time to realise that relationship.
 
-👉 Add `group_by` function to do this:
+👉 Add a `group_by` function to do this:
 
 ```bash
 jq '
@@ -516,6 +516,8 @@ This will produce an array of arrays, with each inner array representing a singl
 ]
 ```
 
+Observe how each inner array itself contains one or more arrays, one per plan; in this sample output, the `abap-trial` service offering has one plan, and the `credstore` and `xsuaa` service offerings each have two plans.
+
 #### Transform the array of arrays into a simpler list
 
 Now we have the data that we want in a structure that almost represents what we need, it's time to transform that into a simpler list.
@@ -537,9 +539,9 @@ jq '
 ' data.json
 ```
 
-Let's take a moment to understand this new addition to the pipeline, with those slightly mysterious looking array indices `.[0]` and `.[1]`. 
+It's worth taking a moment to understand this new addition to the pipeline, with those slightly mysterious looking array indices `.[0]` and `.[1]`. 
 
-Consider a single subarray, that this `map` will be iterating over. For example, the XSUAA one, which looks like this (shown here with the same indentation as it appears with above, for consistency, and to emphasize that it's a subarray, within an outer `[ ... ]` array:
+Consider a single subarray, that this final `map` will be iterating over. Let's take the XSUAA one, which looks like this (shown here with the same indentation as it appears with above, for consistency, and to emphasize that it's a subarray, within an outer `[ ... ]` array):
 
 ```json
   [
@@ -554,7 +556,12 @@ Consider a single subarray, that this `map` will be iterating over. For example,
   ]
 ```
 
-Each iteration of the final `map` call gets to process a subarray like this. And what we're looking for is a single instance of the service offering name (`xsuaa`) with a list of the (one or more) plan names (`application` and `broker`), like this:
+Each iteration of the `map` call gets to process a JSON value (this entire subarray) like this. And what we're looking for is:
+
+* a single instance of the service offering name (`xsuaa`)
+* plus a list of the (one or more) plan names (`application` and `broker`)
+
+Like this:
 
 ```json
   [
@@ -566,11 +573,12 @@ Each iteration of the final `map` call gets to process a subarray like this. And
 In order to achieve this, we must first pick out the service name, as the value of the first item of the first subarray within this XSUAA service subarray, i.e. this one:
 
 ```text
-XSUAA service subarray     ---------> [
-first subarray within that    ------>   [              
-first item in that first subarray -->     "xsuaa",
-                                          "application"
-                                        ],
+                                            +------------------------------------+
+XSUAA service subarray     ---------> [     |                                    |
+first subarray within that    ------>   [   V              -+          (.[0] | .[0])
+first item in that first subarray -->     "xsuaa",          |             |
+                                          "application"     | <-----------+
+                                        ],                 -+
                                         [
                                           "xsuaa",
                                           "broker"
@@ -578,7 +586,7 @@ first item in that first subarray -->     "xsuaa",
                                       ]
 ```
 
-This is done with the `(.[0] | .[0])` ("the first item of the first item").
+This is done with `(.[0] | .[0])` ("the first item of the first item"). We choose the first one, because why not, and because there won't be a second or subsequent one if there's only one plan.
 
 For the plan names, we want a list of the second items of all the subarrays within the XSUAA subarray, i.e.:
 
@@ -597,7 +605,7 @@ For the plan names, we want a list of the second items of all the subarrays with
 
 Once picked out, the values in the list of them are joined with a comma.
 
-This is done with the `(map(.[1]) | join(","))` 
+This is done with the `(map(.[1]) | join(","))` expression.
 
 This final `map` thus produces output like this (reduced for brevity):
 
@@ -659,10 +667,10 @@ Piping the previous output (an array of arrays) through `.[]` effectively "explo
 
 This change allows us to pass each of these JSON values through the `@csv` format string. 
 
-👉 Do that now:
+👉 Do that now, and also include the `--raw-output` (or `-r`) option to tell `jq` not to try to output JSON values (each entire CSV record would be output enclosed in double quotes, so that they're valid JSON, but we don't want that here):
 
 ```bash
-jq '
+jq --raw-output '
      map(select(.free))
     | map([
         .service_offering_name,
