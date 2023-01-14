@@ -516,4 +516,211 @@ This will produce an array of arrays, with each inner array representing a singl
 ]
 ```
 
+#### Transform the array of arrays into a simpler list
+
+Now we have the data that we want in a structure that almost represents what we need, it's time to transform that into a simpler list.
+
+👉 Add a final `map` like this:
+
+```bash
+jq '
+     map(select(.free))
+    | map([
+        .service_offering_name,
+        .catalog_name
+      ])
+    | group_by(first)
+    | map([
+        (.[0] | .[0]),
+        (map(.[1]) | join(","))
+      ])
+' data.json
+```
+
+Let's take a moment to understand this new addition to the pipeline, with those slightly mysterious looking array indices `.[0]` and `.[1]`. 
+
+Consider a single subarray, that this `map` will be iterating over. For example, the XSUAA one, which looks like this (shown here with the same indentation as it appears with above, for consistency, and to emphasize that it's a subarray, within an outer `[ ... ]` array:
+
+```json
+  [
+    [
+      "xsuaa",
+      "application"
+    ],
+    [
+      "xsuaa",
+      "broker"
+    ]
+  ]
+```
+
+Each iteration of the final `map` call gets to process a subarray like this. And what we're looking for is a single instance of the service offering name (`xsuaa`) with a list of the (one or more) plan names (`application` and `broker`), like this:
+
+```json
+  [
+    "xsuaa",
+    "application,broker"
+  ]
+```
+
+In order to achieve this, we must first pick out the service name, as the value of the first item of the first subarray within this XSUAA service subarray, i.e. this one:
+
+```text
+XSUAA service subarray     ---------> [
+first subarray within that    ------>   [              
+first item in that first subarray -->     "xsuaa",
+                                          "application"
+                                        ],
+                                        [
+                                          "xsuaa",
+                                          "broker"
+                                        ]
+                                      ]
+```
+
+This is done with the `(.[0] | .[0])` ("the first item of the first item").
+
+For the plan names, we want a list of the second items of all the subarrays within the XSUAA subarray, i.e.:
+
+```text
+                                      [
+                                        [              
+                                          "xsuaa",
+                                          "application"  <--- this one
+                                        ],
+                                        [
+                                          "xsuaa",
+                                          "broker"       <--- and this one
+                                        ]
+                                      ]
+```
+
+Once picked out, the values in the list of them are joined with a comma.
+
+This is done with the `(map(.[1]) | join(","))` 
+
+This final `map` thus produces output like this (reduced for brevity):
+
+```json
+[
+  [
+    "abap-trial",
+    "shared"
+  ],
+  [
+    "cis",
+    "central,local"
+  ],
+  [
+    "xsuaa",
+    "application,broker"
+  ]
+]
+```
+
+#### Create CSV output
+
+Now we have the data we want, and pretty much in a format from which we can create CSV records.
+
+👉 Start to do that now, by adding the first part of this final stage, like this:
+
+```bash
+jq '
+     map(select(.free))
+    | map([
+        .service_offering_name,
+        .catalog_name
+      ])
+    | group_by(first)
+    | map([
+        (.[0] | .[0]),
+        (map(.[1]) | join(","))
+      ])
+    | .[]
+' data.json
+```
+
+Piping the previous output (an array of arrays) through `.[]` effectively "explodes" those subarrays and outputs them one at a time, passing them through any further filters. The output changes subtly from a single JSON value which is an array of arrays, to multiple JSON values, each of which are the individual arrays:
+
+```json
+[
+  "abap-trial",
+  "shared"
+],
+[
+  "cis",
+  "central,local"
+],
+[
+  "xsuaa",
+  "application,broker"
+]
+```
+
+This change allows us to pass each of these JSON values through the `@csv` format string. 
+
+👉 Do that now:
+
+```bash
+jq '
+     map(select(.free))
+    | map([
+        .service_offering_name,
+        .catalog_name
+      ])
+    | group_by(first)
+    | map([
+        (.[0] | .[0]),
+        (map(.[1]) | join(","))
+      ])
+    | .[]
+    | @csv
+' data.json
+```
+
+Effectively, each of the arrays that look like this:
+
+```json
+[
+  "xsuaa",
+  "application,broker"
+]
+```
+
+get properly and reliably formatted as CSV records. This one above is output like this:
+
+```csv
+"xsuaa","application,broker"
+```
+
+So the final result of this program reads the original JSON output from the `btp --format json list services/plan` call, and produces this:
+
+```csv
+"abap-trial","shared"
+"auditlog-api","default"
+"auditlog-management","default"
+"business-entity-recognition-trial","standard"
+"cis","central,local"
+"connectivity","connectivity_proxy"
+"credstore","proxy,trial"
+"data-attribute-recommendation-trial","standard"
+"destination","lite"
+"document-information-extraction-trial","default,blocks_of_100"
+"document-translation","trial"
+"feature-flags","lite"
+"html5-apps-repo","app-host,app-runtime"
+"one-mds","sap-integration"
+"personal-data-manager-service","standard"
+"print","receiver"
+"saas-registry","application"
+"service-manager","subaccount-admin,subaccount-audit,container,service-operator-access"
+"service-ticket-intelligence-trial","blocks_of_100"
+"transport","standard"
+"uas","reporting-ga-admin"
+"ui5-flexibility-keyuser","trial"
+"xsuaa","application,broker"
+```
+
+Job done!
+
 
