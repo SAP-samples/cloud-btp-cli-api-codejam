@@ -249,3 +249,190 @@ OK
 
 Another approach is to use a script. This is included to give you an idea of what's possible. The `bgu` script is described in a couple of blog posts in the [Further reading section of exercise 2 in the main CodeJam content](exercises/02-authenticating-and-configuration/README.md#further-reading) ("Getting BTP resource GUIDs with the btp CLI" parts 1 and 2), and uses the JSON output format that is available as a more predictable and machine-parseable alternative for scripting and more. We'll take a look at that JSON output format shortly!
 
+### Exploring the JSON output
+
+*30 mins*
+
+The default output from the btp CLI is designed to be primarily human readable. 
+
+👉 Try this out, requesting a list of service plans:
+
+```bash
+btp list services/plan
+```
+
+You should see a list of plans, one per line, with lots of columns:
+
+```text
+name                    shareable description                                                                                          free      id                                   service_offering_id                  service_offering_name
+application             <null>    Application plan to be used for business applications                                                true      952cebb5-d773-4f54-9da8-c2c442da45c9 f3a2f2fa-2617-4850-8b91-17c57015dcfe xsuaa
+broker                  <null>    Broker plan to be used by business reuse services / service brokers                                  true      f156749c-4083-4b4a-8f38-0a49fb38bbb7 f3a2f2fa-2617-4850-8b91-17c57015dcfe xsuaa
+standard                <null>    Provides programmatic access to Cloud Transport Management.                                          true      62d209cd-6785-41aa-91e4-684c9779a15c e3381d53-3121-4b89-aa01-655e668ff52a transport
+lite                    <null>    Read and manage destination configurations (including related certificates) on account and servic... true      df2addb2-70ce-4a66-bfd2-079aafa17b09 54943912-60f3-4671-b4ca-b60ce24eb1c1 destination
+standard                <null>    Allows consumption of SAP Alert Notification service events as well as posting custom events         false     1a92101d-2e60-46f8-b41d-63489003dcd3 6f3240fe-c9f9-4b7e-b8a5-7528269106a2 alert-notification
+lite                    <null>    Feature Flags service development plan (for non-productive usage)                                    true      03d708bd-65c6-422e-83e4-48f8489ef672 bd5d9d23-96ce-409b-bb93-7c9225c4e56b feature-flags
+default                 <null>    Default plan for Auditlog API                                                                        true      a50128a9-35fc-4624-9953-c79668ef3e5b 4716dd8a-dff6-4063-ae00-776f538ab1cd auditlog-management
+app-host                <null>    Use this service plan to deploy HTML5 applications to the repository.                                true      1ccea149-d04d-45f6-8025-271b3a3d15a7 3335c91b-8e02-4a2c-9687-9bc86c0856e5 html5-apps-repo
+app-runtime             <null>    Use this service plan to consume HTML5 applications stored in the repository.                        true      fee0c262-5f9b-4ea2-8db5-6604b24f1b65 3335c91b-8e02-4a2c-9687-9bc86c0856e5 html5-apps-repo
+application             <null>    Service plan for SaaS application owners to manage the lifecycle of SaaS applications with SAP Sa... true      3a17581c-e9cc-4fa9-ab9c-c9baf5cc854a fe44bf37-25f3-453a-8f6a-06974edeb528 saas-registry
+central                 <null>    Service plan for using Cloud Management APIs to manage your global accounts, subaccounts, directo... true      a5fb1a8f-b16e-4135-833e-c4e313c22b04 f8196fd2-f3fa-4f08-8831-1a5af95fe2db cis
+local                   <null>    Service plan for using Cloud Management APIs to manage your environments and subscriptions to mul... true      86f508c2-9d0a-45d1-8175-5316ca791ebb f8196fd2-f3fa-4f08-8831-1a5af95fe2db cis
+subaccount-admin        <null>    Allows management of resources in the subaccount in which the service instance of this plan was c... true      8c308b8a-6ec2-4ce6-b11f-a5f024d7fa8c 401522bd-666a-4748-82ef-8b2e4ca4113c service-manager
+subaccount-audit        <null>    Allows read-only access to the resources in the subaccount in which the service instance was crea... true      c1ca03ff-a8a1-445a-b4c3-9d4d71249696 401522bd-666a-4748-82ef-8b2e4ca4113c service-manager
+standard                <null>    Applications can use this plan to provide personal data related data privacy features.               true      e12690e5-6120-4dcd-8f71-0816ecc56a26 68ca5a29-8690-46b7-bb68-65916b5d408b personal-data-manager-service
+shared                  <null>    This plan allows trial access to a shared ABAP system                                                true      7351af98-046f-4b72-b65d-1218a36e771c 014e319a-9568-44ab-ac42-1a4eba657b01 abap-trial
+container               <null>    Allows management of service instances and bindings in a reduced scope. Instances created in a co... true      e2ca7af8-4658-4a9e-a555-35f424c259f5 401522bd-666a-4748-82ef-8b2e4ca4113c service-manager
+connectivity_proxy      <null>    Pair Connectivity Proxy with SAP CP Connectivity service for establishing secure connections to o... true      28bab57d-d8dd-48b9-82f1-4ba5e354633f 3a50dc9c-0f77-4e32-82ee-3f36f115d13a connectivity
+proxy                   <null>    Credential Store service proxy                                                                       true      1c0e1e42-b36f-470f-bc99-c2728ebd275d cfa21e04-a7ff-451e-9dbe-d48abf94c156 credstore
+default                 <null>    Service plan ‘default’ for production usage of Document Information Extraction, charged in bl...     true      f2ee7f92-38ad-4b90-9db2-30d14241d017 071573de-bf5b-428e-ac83-d78f6a189779 document-information-extraction-trial
+default                 <null>    [DEPRECATED] Default plan for Auditlog API                                                           true      a97d8970-7a14-48c4-acf2-9f49789f71b0 388c9db1-6eba-42f8-88c5-491e799ef15d auditlog-api
+sap-integration         <null>    Service plan for SAP-to-SAP integrations (limited to 1 million requests per month and 50 GB of da... true      91caa825-dca6-4c05-819a-096b8ed228a6 73c2ec0e-ce88-4a9c-b079-8eebc8742671 one-mds
+trial                   <null>    Credential Store service trial                                                                       true      3dc56bab-7192-4a21-9498-4412151f9f6f cfa21e04-a7ff-451e-9dbe-d48abf94c156 credstore
+blocks_of_100           <null>    Service plan ‘blocks_of_100’ for production usage of Document Information Extraction, charged...     true      192b8ac9-5502-403b-9b56-30793dec5374 071573de-bf5b-428e-ac83-d78f6a189779 document-information-extraction-trial
+reporting-ga-admin      <null>    Enables the generation of reports based on the resource and cost consumption of services and appl... true      fffd1a81-4d5e-4622-a614-5a1a931602fe 722e403b-6395-440d-bff6-e4028cb436b0 uas
+service-operator-access <null>    Provides credentials for SAP BTP service operator to access SAP BTP from a Kubernetes cluster        true      1c469e56-f3ed-4321-959c-a890195362a1 401522bd-666a-4748-82ef-8b2e4ca4113c service-manager
+trial                   <null>    Trial                                                                                                true      f27660c7-debd-492c-ab92-e7cdf4ff799b 5eabdf79-1bd2-4fe5-99c6-822eda67c45d ui5-flexibility-keyuser
+standard                <null>    Default standard plan                                                                                true      88802dcb-7d7a-4b89-8c81-ff14254da893 6437452e-d930-435e-a263-71cfdd4ea0df data-attribute-recommendation-trial
+standard                <null>    Standard Plan for Business Entity recognition Service                                                true      63b85684-5e43-4f75-92fb-f092f830b2d0 dad267e9-23a6-455f-bda4-6a51c4b800df business-entity-recognition-trial
+blocks_of_100           <null>    Blocks of 100 plan for Service Ticket Intelligence                                                   true      50c83cbb-6890-4664-807b-8878c5b5f209 b6e5db8d-39d1-4456-b894-9ad0754472cc service-ticket-intelligence-trial
+receiver                <null>    Establish the connection to print clients                                                            true      91209ea8-eeb7-475a-830f-9b631267fb36 e3a8638d-6d71-49cc-8a0a-fbfed3cd525e print
+trial                   <null>    Trial service plan for Document Translation                                                          true      30e7af0f-d093-4bf4-acc6-58c548d9a207 119c15ab-7071-4a5d-9a55-16d32e8900cf document-translation
+
+32 entries
+
+OK
+
+```
+
+There's a lot of information here, but if you wanted a subset or a summary, you'd have to use a pipeline of text tools to get that. Moreover, while there's a lot of information here, there's actually more to be had, too much to display. 
+
+The btp CLI offers JSON as an alternative output format. The advantage of JSON output is that it's more predictable, more easily parseable (with an appropriate JSON-focused tool), and it's easier to convey more information, simply in the form of more properties per object.
+
+👉 Try the invocation again but this time use the `--format JSON` option as shown:
+
+```bash
+btp --format json list services/plan
+```
+
+You can see from the raw JSON output that there's more information, and it's in a structured format. 
+
+Let's say you wanted to provide a CSV report which listed the service offerings, and the plans available for them, but you only wanted a list of those plans marked as "free". Something like this:
+
+```csv
+"abap-trial","shared"
+"auditlog-api","default"
+"auditlog-management","default"
+"business-entity-recognition-trial","standard"
+"cis","central,local"
+"connectivity","connectivity_proxy"
+"credstore","proxy,trial"
+"data-attribute-recommendation-trial","standard"
+"destination","lite"
+"document-information-extraction-trial","default,blocks_of_100"
+"document-translation","trial"
+"feature-flags","lite"
+"html5-apps-repo","app-host,app-runtime"
+"one-mds","sap-integration"
+"personal-data-manager-service","standard"
+"print","receiver"
+"saas-registry","application"
+"service-manager","subaccount-admin,subaccount-audit,container,service-operator-access"
+"service-ticket-intelligence-trial","blocks_of_100"
+"transport","standard"
+"uas","reporting-ga-admin"
+"ui5-flexibility-keyuser","trial"
+"xsuaa","application,broker"
+```
+
+In this CSV report, you can see for example that for the XSUAA service there are two free plans: application and broker.
+
+In this section, you're going to write a filter to produce this output. The filter is a single line program written in jq, the [lightweight and flexible command-line JSON processor](https://stedolan.github.io/jq/).
+
+#### Store the data locally
+
+Start by storing the output in a local file. This has two small effects:
+
+* each time you run the filter, you'll get the output immediately rather than have to wait for the `btp` to faciliate the call for you 
+* you're being a good cloud citizen, reducing the actual number of API calls being made
+
+👉 Run the btp CLI command as before but redirect the output to a file, like this:
+
+```bash
+btp --format json list services/plan > data.json
+```
+
+#### Get an overview of the plans
+
+👉 See how many plans there are in total:
+
+```bash
+jq 'length' data.json
+```
+
+This will give you a JSON value like this:
+
+```text
+32
+```
+
+👉 List the plans, with the service that they relate to, and whether they're free or not:
+
+```bash
+jq '
+  map([
+    .catalog_name, 
+    .service_offering_name,
+    if .free then "free" else "not free" end
+  ])
+' data.json
+```
+
+This will produce output something like this (output here reduced for brevity):
+
+```json
+[
+  [
+    "application",
+    "xsuaa",
+    "free"
+  ],
+  [
+    "broker",
+    "xsuaa",
+    "free"
+  ],
+  [
+    "standard",
+    "alert-notification",
+    "not free"
+  ],
+  [
+    "lite",
+    "feature-flags",
+    "free"
+  ]
+]
+```
+
+Now we've got a feeling for what data we need.
+
+#### Filter out the non-free plans
+
+Let's get rid of the non-free plans immediately so we can focus on the free ones.
+
+👉 Run this filter:
+
+```bash
+jq '
+  map(select(.free)) | length
+' data.json
+```
+
+If there were some non-free plans in your output, then the number produced from this will be less than the one you saw at the start of this section. In this sample data at the time of wrriting, there is one non-free plan, so the output from this is:
+
+```text
+31
+```
+
+
+
