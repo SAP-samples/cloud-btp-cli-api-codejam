@@ -380,8 +380,8 @@ This will give you a JSON value like this:
 ```bash
 jq '
   map([
-    .catalog_name, 
     .service_offering_name,
+    .catalog_name, 
     if .free then "free" else "not free" end
   ])
 ' data.json
@@ -392,23 +392,23 @@ This will produce output something like this (output here reduced for brevity):
 ```json
 [
   [
+    "xsuaa",
     "application",
-    "xsuaa",
     "free"
   ],
   [
+    "xsuaa",
     "broker",
-    "xsuaa",
     "free"
   ],
   [
-    "standard",
     "alert-notification",
+    "standard",
     "not free"
   ],
   [
-    "lite",
     "feature-flags",
+    "lite",
     "free"
   ]
 ]
@@ -445,8 +445,8 @@ We're building the filter up gradually. At this point you should continue by com
 jq '
   map(select(.free))
   | map([
-      .catalog_name, 
-      .service_offering_name
+      .service_offering_name,
+      .catalog_name
     ])
 ' data.json
 ```
@@ -457,8 +457,8 @@ jq '
 >   map(
 >     select(.free)
 >     | [
->         .catalog_name, 
->         .service_offering_name
+>         .service_offering_name,
+>         .catalog_name
 >       ]
 >   )
 > ' data.json
@@ -476,13 +476,44 @@ We want one CSV record per service, with plans for the service listed together. 
 jq '
   map(select(.free))
   | map([
-      .catalog_name, 
-      .service_offering_name
+      .service_offering_name,
+      .catalog_name
     ])
-  | group_by(.[1])
+  | group_by(first)
 ' data.json
 ```
 
+This will produce an array of arrays, with each inner array representing a single service offering, like this (again, output reduced for brevity):
 
+```json
+[
+  [
+    [
+      "abap-trial",
+      "shared"
+    ]
+  ],
+  [
+    [
+      "credstore",
+      "proxy"
+    ],
+    [
+      "credstore",
+      "trial"
+    ]
+  ],
+  [
+    [
+      "xsuaa",
+      "application"
+    ],
+    [
+      "xsuaa",
+      "broker"
+    ]
+  ]
+]
+```
 
 
