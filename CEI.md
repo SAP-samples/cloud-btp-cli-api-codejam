@@ -16,6 +16,19 @@ The options are, briefly - a basic Dev Space in the SAP Business Application Stu
 
 The workshop will be remote and led by an instructor. But all the activities are detailed below, so you can run through them after the workshop too if you wish. Where there's something you actually have to do (such as examine something, or type something in), this will be indicated with the 👉 symbol.
 
+The flow of the workshop will be as follows:
+
+|Duration|Description|
+|-|-|
+|05 mins|Introduction and orientation|
+|05 mins|Get the btp CLI|
+|05 mins|Turn on and try out autocomplete|
+|05 mins|Display the global account hierarchy and make an alias|
+|10 mins|Set the target to a subaccount|
+|30 mins|Explore and parse the JSON output|
+|50 mins|Build a script to manage directories|
+|10 mins|Wrap up and discussion|
+
 ## Activities
 
 This is the main part of the document and contains all the activities that you'll work through in the workshop. The starting point for these activities is with you in your Dev Space in the SAP Business Application Studio, with a terminal opened (use the menu path Terminal -> New Terminal), or in a container.
@@ -249,7 +262,7 @@ OK
 
 Another approach is to use a script. This is included to give you an idea of what's possible. The `bgu` script is described in a couple of blog posts in the [Further reading section of exercise 2 in the main CodeJam content](exercises/02-authenticating-and-configuration/README.md#further-reading) ("Getting BTP resource GUIDs with the btp CLI" parts 1 and 2), and uses the JSON output format that is available as a more predictable and machine-parseable alternative for scripting and more. We'll take a look at that JSON output format shortly!
 
-### Exploring the JSON output
+### Explore and parse the JSON output
 
 *30 mins*
 
