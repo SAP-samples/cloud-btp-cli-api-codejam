@@ -881,6 +881,20 @@ We'll want to run our script from wherever we are, so we might as well put it in
 👉 Create the script with some initial content, and set the executable bit:
 
 ```bash
-echo -e '#!/usr/bin/env bash\n\nset -eo pipefail\n\necho "Hello, CEI!"' > "$HOME/bin/labelmaint" \
+echo -e '#!/usr/bin/env bash\n\nset -eo pipefail\n\nmain() {\n\n  echo "Hello, CEI!"\n\n}\n\nmain' > "$HOME/bin/labelmaint" \
   && chmod +x "$HOME/bin/labelmaint"
 ```
+
+👉 Now open the script in your Dev Space editor by selecting it from the `bin/` directory in your explorer, so you're ready to add more content.
+
+> The `set -eo pipefail` turns on some safe features for scripting, and it's a good idea to use this in all your Bash scripts. See [The Set Builtin](https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html) for more information.
+
+👉 In the terminal, run the skeleton script:
+
+```bash
+labelmaint
+```
+
+It should emit "Hello, CEI!".
+
+
