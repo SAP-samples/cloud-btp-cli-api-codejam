@@ -885,8 +885,8 @@ We'll want to run our script from wherever we are, so we might as well put it in
 👉 Create the script with some initial content, and set the executable bit:
 
 ```bash
-echo -e '#!/usr/bin/env bash\n\nset -eo pipefail\n\nmain() {\n\n  echo "Hello, CEI!"\n\n}\n\nmain' > "$HOME/bin/labelmaint" \
-  && chmod +x "$HOME/bin/labelmaint"
+echo -e '#!/usr/bin/env bash\n\nset -eo pipefail\n\nmain() {\n\n  echo "Hello, CEI!"\n\n}\n\nmain' > "$HOME/bin/dircontacts" \
+  && chmod +x "$HOME/bin/dircontacts"
 ```
 
 👉 Now open the script in your Dev Space editor by selecting it from the `bin/` directory in your explorer, so you're ready to add more content. You'll see an outline script ready for more code:
@@ -910,11 +910,48 @@ main
 👉 In the terminal, run the skeleton script:
 
 ```bash
-labelmaint
+dircontacts
 ```
 
 It should emit "Hello, CEI!".
 
 #### Write a function to list contacts of a given research division's directory
 
-Metadata can be maintained for directories, as what are known as "labels". Each label can have one or more values. 
+The first function we'll write is one to list the contacts of a given directory. 
+
+👉 Add this function definition after the `set` line, and before the definition of the `main` function:
+
+```bash
+list_contacts() {
+
+  local division=$1
+
+  echo -n "$division "
+
+  btp --format json get accounts/global-account --show-hierarchy \
+    | jq \
+        --arg division "$division" \
+        --raw-output '
+          .children[]
+          | select(.displayName == "research")
+          | .children[]
+          | select(.displayName == $division)
+          | .labels
+          | (.Contacts // [] | join(" "))
+      '
+
+}
+```
+
+As you can see, this function expects a single argument that it will treat as the name of a division. It then emits that name (and the `-n` option tells `echo` not to print a newline, because we're also wanting to emit any existing contacts too for that division's directory).
+
+It then calls the `get` action on the `accounts/global-account` object, specifying the `--show-hierarchy` option, but this time asking for JSON output (with `--format json`). This produces a reliable structure of information from which we can pick out directory information, which we do with the `jq` invocation that this output is then piped into.
+
+The `jq` invocation uses the `--raw-output` option (we've seen and used that earlier in this workshop) and also the `--arg` option to be able to pass values from the command line invocation into the actual `jq` program; you can see the `$division` token which will have the value of the `$division` variable.
+
+If you examine the JSON output from the `btp` command used here, you'll see that the directories below the global account are contained in a property called `children` at the top level. We start there, selecting only that one that has the display name of "research", and then having narrowed the filter down to just that one, proceed to look at its children, selecting only that one whose name matches the name of the division specified. 
+
+Once we've found that we drill down further to just the value of the `labels` property (which is where the metadata is to be found) and we extract all the values for the `Contacts` property, defaulting to an empty array if there are no contacts currently maintained. All the contacts values are joined together, separated by a space, into a single string.
+
+> The JSON used for directory and subaccount labels on SAP BTP is restricted: the value for each label must be an array (rather than, say, a simple scalar string).
+
