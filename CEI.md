@@ -788,11 +788,11 @@ Job done!
 
 The final part of this workshop is to build a script, to give you a sense of how to automate activities with the btp CLI. It is a deliberately simple script, given the time constraints, but it will hopefully provide you with confidence, inspiration and a direction for your own requirements back at base.
 
-[Directories on the SAP Business Technology Platform](https://help.sap.com/docs/BTP/df50977d8bfa4c9a8a063ddb37113c43/b5a6b58694784d0c9f4ff85f9b7336dd.html) are a good way of organizing your subaccounts. You can assign arbitrary metadata to directories to help manage and analyze them. In this activity, you'll first set up a handful of directories, and then build a script to update the "person responsible" metadata based on a simple file (that you could produce from a spreadsheet, for example).
+[Directories on the SAP Business Technology Platform](https://help.sap.com/docs/BTP/df50977d8bfa4c9a8a063ddb37113c43/b5a6b58694784d0c9f4ff85f9b7336dd.html) are a good way of organizing your subaccounts. You can assign arbitrary metadata to directories to help manage and analyze them. In this activity, you'll first set up a handful of directories, and then build a script with which you can list and add contact metadata.
 
 #### Set up the scenario
 
-Let's imagine our organization has a research arm, and there are multiple research divisions that require facilities provided by SAP BTP, and that adirectory hierarchy exists within the global account to represent this structure:
+Let's imagine our organization has a research arm, and there are multiple research divisions that require facilities provided by SAP BTP, and that directory hierarchy exists within the global account to represent this structure:
 
 ```text
 research
@@ -835,14 +835,16 @@ OK
 btp create accounts/directory --display-name research
 ```
 
-👉 Once that directory exists, create the divisional directories beneath it:
+👉 Once that directory exists, create the divisional directories beneath it, first making sure to change the `your-name` placeholder to your name (just so we have something to look at):
 
 ```bash
 for division in engineering production software; do
-  btp create accounts/directory --display-name $division --parent-directory "$(btpguid research)"; 
+  btp create accounts/directory \
+    --display-name $division \
+    --parent-directory "$(btpguid research)" \
+    --labels "{\"Contacts": [\"your-name\"]}"
 done
 ```
-
 
 👉 Once the creation activities finish, check the hierarchy (you can use `btp get accounts/global-account --show-hierarchy` if for some reason your alias doesn't exist after a restart):
 
@@ -911,8 +913,6 @@ labelmaint
 
 It should emit "Hello, CEI!".
 
-#### Write a function to return all the research directories
+#### Write a function to list contacts of a given research division's directory
 
-Let's assume that we don't know which directories exist directly underneath the "research" directory. So we'll write a function that uses the JSON output of `btp get accounts/global-account --show-hierarchy` and parses out the direct children (directories) of the "research" directory.
-
-
+Metadata can be maintained for directories, as what are known as "labels". Each label can have one or more values. 
