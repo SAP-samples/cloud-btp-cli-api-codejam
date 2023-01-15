@@ -272,6 +272,15 @@ OK
 
 Another approach is to use a script. Described in a couple of blog posts in the [Further reading section of exercise 2 in the main CodeJam content](exercises/02-authenticating-and-configuration/README.md#further-reading) ("Getting BTP resource GUIDs with the btp CLI" parts 1 and 2) is a script called [btpguid](scripts/btpguid) which uses the JSON output format that is available as a more predictable and machine-parseable alternative for scripting and more. We'll take a look at the JSON output format next!
 
+👉 Bring the `btpguid` script into your environment, as you will use it later:
+
+```bash
+curl \
+  --output "$HOME/bin/btpguid" \
+  --url "https://raw.githubusercontent.com/SAP-samples/cloud-btp-cli-api-codejam/cei/scripts/btpguid" \
+  && chmod +x "$HOME/bin/btpguid"
+```
+
 ### Explore and parse the JSON output
 
 *30 mins*
