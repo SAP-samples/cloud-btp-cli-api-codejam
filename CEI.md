@@ -31,7 +31,17 @@ The flow of the workshop will be as follows:
 
 ## Activities
 
-This is the main part of the document and contains all the activities that you'll work through in the workshop. The starting point for these activities is with you in your Dev Space in the SAP Business Application Studio, with a terminal opened (use the menu path Terminal -> New Terminal), or in a container.
+This is the main part of the document and contains all the activities that you'll work through in the workshop. The starting point for these activities is with you in your Dev Space in the SAP Business Application Studio, with a terminal opened.
+
+👉 To get set up in the Dev Space ready to work through the activities, use the "Files & Folders" start option and select to open the folder "/home/user/" as prompted.
+
+👉 Next, access the menu via the ☰ symbol and open a new terminal with menu path "Terminal -> New Terminal" (you may wish to increase the vertical space a little by dragging up the horizontal rule above it). This should present you with a prompt that looks like this:
+
+```text
+user: user $
+```
+
+You're all set.
 
 ### Get the btp CLI 
 
