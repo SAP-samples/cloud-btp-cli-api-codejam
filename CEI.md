@@ -781,3 +781,87 @@ So the final result of this program reads the original JSON output from the `btp
 ```
 
 Job done!
+
+### Build a script to manage directories
+
+*50 mins*
+
+The final part of this workshop is to build a script, to give you a sense of how to automate activities with the btp CLI. It is a deliberately simple script, given the time constraints, but it will hopefully provide you with confidence, inspiration and a direction for your own requirements back at base.
+
+[Directories on the SAP Business Technology Platform](https://help.sap.com/docs/BTP/df50977d8bfa4c9a8a063ddb37113c43/b5a6b58694784d0c9f4ff85f9b7336dd.html) are a good way of organizing your subaccounts. You can assign arbitrary metadata to directories to help manage and analyze them. In this activity, you'll first set up a handful of directories, and then build a script to update the "person responsible" metadata based on a simple file (that you could produce from a spreadsheet, for example).
+
+#### Set up the scenario
+
+Let's imagine our organization has a research arm, and there are multiple research divisions that require facilities provided by SAP BTP, and that adirectory hierarchy exists within the global account to represent this structure:
+
+```text
+research
+  |
+  +-- engineering
+  |
+  +-- production
+  |
+  +-- software
+```
+
+To work through this activity based on this imaginary scenario, you'll need first to set up that scenario.
+
+> The minimum settings will be used here to keep things simple.
+
+👉 First, ensure you're targeting your global account only, using `btp target`; here's a sample output of that process:
+
+```text
+user: user $ btp target                             
+
+Current target:
+  65137137trial (global account, subdomain: 65137137trial-ga)
+  └─  trial (subaccount, ID: b07f7316-2d2a-445a-8fcc-a52952c92607)
+
+Choose subaccount or directory:
+  [..]  Switch Global Accounts
+   [.]  65137137trial (global account)
+   [1]  └─  trial (subaccount)
+Choose, or hit ENTER to stay in 'trial' [1]> .
+
+Now targeting:
+  65137137trial (global account, subdomain: 65137137trial-ga)
+
+OK
+```
+
+👉 Now create a 'research' directory to contain the actual research division directories:
+
+```bash
+btp create accounts/directory --display-name research
+```
+
+👉 Once that directory exists, create the divisional directories beneath it:
+
+```bash
+for division in engineering production software; do
+  btp create accounts/directory --display-name $division --parent-directory "$(btpguid research)"; 
+done
+```
+
+
+👉 Once the creation activities finish, check the hierarchy (you can use `btp get accounts/global-account --show-hierarchy` if for some reason your alias doesn't exist after a restart):
+
+```bash
+btphier
+```
+
+You should see something similar to this in the first part of the output, reflecting the structure.
+
+```text
+
+Showing details for global account 06de8b78-0e1d-48a5-9323-97824c99671f...
+
+├─ 65137137trial (06de8b78-0e1d-48a5-9323-97824c99671f - global account)
+│  ├─ trial (b07f7316-2d2a-445a-8fcc-a52952c92607 - subaccount)
+│  ├─ research (88f90c6c-6039-4f56-a110-4913103a70b2 - directory)
+│  │  ├─ engineering (f6a46b89-09e7-407f-9067-a36b650a6543 - directory)
+│  │  ├─ production (df862563-696b-42ae-98b2-d992c97a2138 - directory)
+│  │  ├─ software (1791b77f-a8ea-452a-9e4a-ec22bb063e9c - directory)
+```
+
+
