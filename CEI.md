@@ -885,7 +885,21 @@ echo -e '#!/usr/bin/env bash\n\nset -eo pipefail\n\nmain() {\n\n  echo "Hello, C
   && chmod +x "$HOME/bin/labelmaint"
 ```
 
-👉 Now open the script in your Dev Space editor by selecting it from the `bin/` directory in your explorer, so you're ready to add more content.
+👉 Now open the script in your Dev Space editor by selecting it from the `bin/` directory in your explorer, so you're ready to add more content. You'll see an outline script ready for more code:
+
+```bash
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+main() {
+
+  echo "Hello, CEI!"
+
+}
+
+main
+```
 
 > The `set -eo pipefail` turns on some safe features for scripting, and it's a good idea to use this in all your Bash scripts. See [The Set Builtin](https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html) for more information.
 
@@ -896,5 +910,9 @@ labelmaint
 ```
 
 It should emit "Hello, CEI!".
+
+#### Write a function to return all the research directories
+
+Let's assume that we don't know which directories exist directly underneath the "research" directory. So we'll write a function that uses the JSON output of `btp get accounts/global-account --show-hierarchy` and parses out the direct children (directories) of the "research" directory.
 
 
