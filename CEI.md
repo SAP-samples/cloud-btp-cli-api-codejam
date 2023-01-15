@@ -270,7 +270,7 @@ OK
 
 ```
 
-Another approach is to use a script. This is included to give you an idea of what's possible. The `bgu` script is described in a couple of blog posts in the [Further reading section of exercise 2 in the main CodeJam content](exercises/02-authenticating-and-configuration/README.md#further-reading) ("Getting BTP resource GUIDs with the btp CLI" parts 1 and 2), and uses the JSON output format that is available as a more predictable and machine-parseable alternative for scripting and more. We'll take a look at that JSON output format shortly!
+Another approach is to use a script. Described in a couple of blog posts in the [Further reading section of exercise 2 in the main CodeJam content](exercises/02-authenticating-and-configuration/README.md#further-reading) ("Getting BTP resource GUIDs with the btp CLI" parts 1 and 2) is a script called [btpguid](scripts/btpguid) which uses the JSON output format that is available as a more predictable and machine-parseable alternative for scripting and more. We'll take a look at the JSON output format next!
 
 ### Explore and parse the JSON output
 
