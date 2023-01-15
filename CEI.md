@@ -8,9 +8,9 @@ It introduces the participants to the facilities of the btp CLI in particular, a
 
 In order to take part in this initiative, you'll need a global account on SAP Business Technology Platform (SAP BTP) for which you have administrative access. One option here is to use a [trial account](https://www.sap.com/products/technology-platform/trial.html); if you don't have one, you can sign up for one now, and it's free. While the activities can be carried out in any global account for which you have administrative access, the examples in this document will be based on such a trial account. 
 
-You'll also need an environment within which to work. For this you have two options, and these are the same options that are valid for this workshop's bigger sibling, the SAP CodeJam on the btp CLI and APIs. 
+You'll also need an environment within which to work. We ask that you set up a basic Dev Space in the SAP Business Application Studio. This will provide all participants with a consistent command line environment (a Bash shell) as well as a visual editor and file explorer.
 
-The options are, briefly - a basic Dev Space in the SAP Business Application Studio, or if you prefer to use a container image, Docker Desktop. Detailed instructions for both these options can be found in the SAP CodeJam's [prerequisites](/prerequisites.md) document. If you're going for the container image option, be sure to work through the [container/](container/) instructions for obtaining the Dockerfile, building the image, and running a container from that image.
+Detailed instructions for these requirements can be found in the SAP CodeJam's [prerequisites](/prerequisites.md) document (you can ignore the specific requirement for the Cloud Foundry environment and the Docker Desktop section).
 
 ## Participation
 
