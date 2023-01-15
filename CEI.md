@@ -788,7 +788,9 @@ Job done!
 
 The final part of this workshop is to build a script, to give you a sense of how to automate activities with the btp CLI. It is a deliberately simple script, given the time constraints, but it will hopefully provide you with confidence, inspiration and a direction for your own requirements back at base.
 
-[Directories on the SAP Business Technology Platform](https://help.sap.com/docs/BTP/df50977d8bfa4c9a8a063ddb37113c43/b5a6b58694784d0c9f4ff85f9b7336dd.html) are a good way of organizing your subaccounts. You can assign arbitrary metadata to directories to help manage and analyze them. In this activity, you'll first set up a handful of directories, and then build a script with which you can list and add contact metadata.
+[Directories on the SAP Business Technology Platform](https://help.sap.com/docs/BTP/df50977d8bfa4c9a8a063ddb37113c43/b5a6b58694784d0c9f4ff85f9b7336dd.html) are a good way of organizing your subaccounts. You can assign arbitrary metadata to directories to help manage and analyze them. This metadata exists in the form of "labels". 
+
+In this activity, you'll first set up a handful of directories, and then build a script with which you can list and add contact metadata.
 
 #### Set up the scenario
 
@@ -806,7 +808,7 @@ research
 
 To work through this activity based on this imaginary scenario, you'll need first to set up that scenario.
 
-> The minimum settings will be used here to keep things simple.
+> The minimum directory settings will be used here to keep things simple.
 
 👉 First, ensure you're targeting your global account only, using `btp target`; here's a sample output of that process:
 
@@ -835,14 +837,14 @@ OK
 btp create accounts/directory --display-name research
 ```
 
-👉 Once that directory exists, create the divisional directories beneath it, first making sure to change the `your-name` placeholder to your name (just so we have something to look at):
+👉 Once that directory exists, create the divisional directories beneath it, noting that each one will have an initial contact listed for it, in the form of `administrator@example.com`:
 
 ```bash
 for division in engineering production software; do
   btp create accounts/directory \
     --display-name $division \
     --parent-directory "$(btpguid research)" \
-    --labels "{\"Contacts": [\"your-name\"]}"
+    --labels "{\"Contacts\": [\"administrator@example.com\"]}"
 done
 ```
 
