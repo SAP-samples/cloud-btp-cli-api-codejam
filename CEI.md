@@ -864,4 +864,23 @@ Showing details for global account 06de8b78-0e1d-48a5-9323-97824c99671f...
 │  │  ├─ software (1791b77f-a8ea-452a-9e4a-ec22bb063e9c - directory)
 ```
 
+#### Install the ShellCheck extension
 
+Best practices for writing shell script is not something that there's time in this workshop to cover. For background information, you may wish to read the blog post [Improving my shell scripting](https://qmacro.org/blog/posts/2020/10/05/improving-my-shell-scripting/) which covers a style guide and a great tool called ShellCheck. It's a very useful linting engine that will help you write better shell scripts.
+
+There's a [ShellCheck extension](https://open-vsx.org/extension/timonwong/shellcheck) that can be installed into your Dev Space on SAP Business Application Studio.
+
+👉 Do that now, by searching for and installing it:
+
+![Finding and installing the ShellCheck extension](assets/shellcheck.png)
+
+#### Create the script skeleton
+
+We'll want to run our script from wherever we are, so we might as well put it in our own `$HOME/bin/` directory which we already have in our `PATH`.
+
+👉 Create the script with some initial content, and set the executable bit:
+
+```bash
+echo -e '#!/usr/bin/env bash\n\nset -eo pipefail\n\necho "Hello, CEI!"' > "$HOME/bin/labelmaint" \
+  && chmod +x "$HOME/bin/labelmaint"
+```
