@@ -452,7 +452,7 @@ jq '
 ' data.json
 ```
 
-If there were some non-free plans in your output, then the number produced from this will be less than the one you saw at the start of this section. In this sample data at the time of wrriting, there is one non-free plan, so the output from this is:
+If there were some non-free plans in your output, then the number produced from this will be less than the one you saw at the start of this section. In this sample data at the time of writing, there is one non-free plan, so the output from this is:
 
 ```text
 31
@@ -462,7 +462,7 @@ If there were some non-free plans in your output, then the number produced from 
 
 We're building the filter up gradually. At this point you should continue by combining the previous two steps (the list and the filter):
 
-👉 Do this combination like this:
+👉 Combine them like this:
 
 ```bash
 jq '
@@ -562,7 +562,26 @@ jq '
 ' data.json
 ```
 
-It's worth taking a moment to understand this new addition to the pipeline, with those slightly mysterious looking array indices `.[0]` and `.[1]`. 
+This will produce something like this (as before, output reduced for brevity):
+
+```json
+[
+  [
+    "abap-trial",
+    "shared"
+  ],
+  [
+    "cis",
+    "central,local"
+  ],
+  [
+    "xsuaa",
+    "application,broker"
+  ]
+]
+```
+
+Before moving on, it's worth taking a moment to understand this new addition to the pipeline, with those slightly mysterious looking array indices `.[0]` and `.[1]`. 
 
 Consider a single subarray, that this final `map` will be iterating over. Let's take the XSUAA one, which looks like this (shown here with the same indentation as it appears with above, for consistency, and to emphasize that it's a subarray, within an outer `[ ... ]` array):
 
@@ -630,7 +649,7 @@ Once picked out, the values in the list of them are joined with a comma.
 
 This is done with the `(map(.[1]) | join(","))` expression.
 
-This final `map` thus produces output like this (reduced for brevity):
+This final `map` thus produces output that we saw just now, i.e. an array of arrays, with one inner array per service, and the inner array elements being the service name and a list of plan names:
 
 ```json
 [
@@ -753,5 +772,3 @@ So the final result of this program reads the original JSON output from the `btp
 ```
 
 Job done!
-
-
