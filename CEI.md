@@ -171,7 +171,7 @@ You'll probably find that this is such a useful output that you'll want to run t
 alias btphier='btp get accounts/global-account --show-hierarchy'
 ```
 
-> This time we won't bother putting this into your `$HOME/.bashrc`, but in a real environment you would definitely want to saev your alias definitions somewhere.
+> This time we won't bother putting this into your `$HOME/.bashrc`, but in a real environment you would definitely want to save your alias definitions somewhere.
 
 👉 Try this alias out:
 
