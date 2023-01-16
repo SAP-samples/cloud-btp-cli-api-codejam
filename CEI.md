@@ -1175,4 +1175,77 @@ main() {
 
 We're now ready to test things out!
 
+#### Run the script in its different guises
+
+👉 Invoke the script via the `listcontacts` symbolic link, and specify a division directory name such as "software":
+
+```bash
+listcontacts software
+```
+
+This should produce output like this:
+
+```text
+software administrator@example.com
+```
+
+That makes sense, we haven't added any of our own contacts yet. Let's do that now.
+
+👉 Now invoke the script via the `addcontact` symbolic link, for the "software" division directory name, and specify a new contact "me@example.com":
+
+```bash
+addcontact software me@example.com
+```
+
+This should emit the standard output from the corresponding btp CLI command that we're invoking, something like this:
+
+```text
+
+Updating directory 7d1181b4-5df9-4214-a2f8-2f2bb4f776c0...
+
+directory id:         7d1181b4-5df9-4214-a2f8-2f2bb4f776c0
+display name:         software
+description:
+directory features:   DEFAULT
+created by:           qmacro+blue@gmail.com
+custom properties:    name:      value:
+                      Contacts   administrator@example.com
+labels:               name:      value:
+                      Contacts   [administrator@example.com, me@example.com]
+parent id:            88f90c6c-6039-4f56-a110-4913103a70b2
+parent type:          directory
+state:                OK
+state message:        Directory created.
+
+
+OK
+
+```
+
+👉 Check that this has worked, with another call to `listcontacts`:
+
+```bash
+listcontacts software
+```
+
+If everything has gone according to plan, you should see this new contact listed alongside the existing one:
+
+```text
+software administrator@example.com me@example.command
+```
+
+Success!
+
+## Wrapping up
+
+In this mini workshop we've just scratched the surface of the possibilities offered by the btp CLI, and have transitioned from human, through a human/machine mix (with the JSON) to a script-based control of what's going on. 
+
+The script we wrote was deliberately simple, and is provided merely as an example of what's possible. If you want to continue, there are many directions that present themselves with this script, such as:
+
+* more robust and extensive error checking
+* better output (and some output suppressed)
+* further functions relating to directory labels
+* managing the login status and lifecycle
+
+We hope you've enjoyed this mini workshop and have managed to pick up a few ideas on what you can do back at base. Happy scripting!
 
