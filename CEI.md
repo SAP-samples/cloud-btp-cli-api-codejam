@@ -1013,13 +1013,13 @@ main "$@"
 👉 Now, modify the current definition of the `main` function (which currently just prints a welcome string) so that it looks like this:
 
 ```bash
-  main() {
+main() {
 
-    : "${1:?Missing division directory name}"
+  : "${1:?Missing division directory name}"
 
-    list_contacts "$1"
+  list_contacts "$1"
 
-  }
+}
 ```
 
 > `:` is the shell's "no-op" (no operation) [builtin](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Bourne-Shell-Builtins); the only thing it does is expand any arguments given, which is what we want (using the `:?` variable transformation operator).
@@ -1030,7 +1030,7 @@ main "$@"
 dircontacts
 ```
 
-You should get a message "Missing division directory name" and the script should end with a non-zero return code (you can check this by examining the value of the `$?` variable).
+You should get a message "Missing division directory name" and the script should end with a non-zero return code. You can check this by examining the value of the `$?` variable, and there should be a small red symbol to the left of your shell prompt in the terminal of your Dev Space.
 
 👉 Now test it again, but this time specify a division:
 
@@ -1101,13 +1101,13 @@ The final part of the pipeline in this function is a `while ... do ... done` con
 👉 Test the new function out by modifying the content of the `main` function so it looks like this (you'll change it again shortly, this is just temporary):
 
 ```bash
-  main() {
+main() {
 
-    : "${1:?Missing division directory name}"
+  : "${1:?Missing division directory name}"
 
-    add_contact "$1" "$2"
+  add_contact "$1" "$2"
 
-  }
+}
 ```
 
 👉 Run the script again, like this:
@@ -1144,13 +1144,13 @@ OK
 👉 Now change the `main` function back to what it was:
 
 ```bash
-  main() {
+main() {
 
-    : "${1:?Missing division directory name}"
+  : "${1:?Missing division directory name}"
 
-    list_contacts "$1"
+  list_contacts "$1"
 
-  }
+}
 ```
 
 Now when you rerun the script (`dircontacts engineering`) you should see two contacts listed for the `engineering` division directory:
@@ -1216,7 +1216,7 @@ We're now ready to test things out!
 
 #### Run the script in its different guises
 
-👉 Invoke the script via the `listcontacts` symbolic link, and specify a division directory name such as "software":
+👉 Invoke the script via the `listcontacts` symbolic link, and specify a division directory name such as `software`:
 
 ```bash
 listcontacts software
@@ -1230,7 +1230,7 @@ software administrator@example.com
 
 That makes sense, we haven't added any of our own contacts yet. Let's do that now.
 
-👉 Now invoke the script via the `addcontact` symbolic link, for the "software" division directory name, and specify a new contact "me@example.com":
+👉 Now invoke the script via the `addcontact` symbolic link, for the `software` division directory name, and specify a new contact `me@example.com`:
 
 ```bash
 addcontact software me@example.com
@@ -1270,7 +1270,7 @@ listcontacts software
 If everything has gone according to plan, you should see this new contact listed alongside the existing one:
 
 ```text
-software administrator@example.com me@example.command
+software administrator@example.com me@example.com
 ```
 
 Success!
