@@ -1120,4 +1120,59 @@ Now when you rerun the script (`dircontacts engineering`) you should see two con
 engineering administrator@example.com jane@example.com
 ```
 
+#### Modify the main function and create script name alternatives
+
+There are many ways to make such an (albeit very simple) multi-function script practical to use; one way is to create alternative names (via symbolic links, for example) for the script and then dispatch to the appropriate function depending on which alias was used. There are pros and cons to each way, the advantage here is that we can keep the `main` function in the script quite simple.
+
+👉 First, create a couple of symbolic links that point to the `dircontacts` script, like this:
+
+```bash
+cd $HOME/bin/ \
+  && ln -s dircontacts add_contact \
+  && ln -s dircontacts list_contacts \
+  && cd -
+```
+
+If you now list the contents of your `$HOME/bin/` directory you should see something like this:
+
+```text
+; ls -l $HOME/bin/ | grep dircontacts
+lrwxrwxrwx 1 user user       11 Jan 16 13:18 add_contact -> dircontacts
+-rwxr-xr-x 1 user user     1439 Jan 16 13:17 dircontacts
+lrwxrwxrwx 1 user user       11 Jan 16 13:18 list_contacts -> dircontacts
+```
+
+The result of this is that we can use the value of `$0`, which is the name of the script when invoked, to base the function dispatching decision upon. Note that this value will be the absolute path to the file. In other words, if we were to invoke `list_contacts`, the value of `$0` would be:
+
+```text
+/home/user/bin/list_contacts
+```
+
+So we have to strip off the path to leave just the `list_contacts` part, which we can do with `basename`. 
+
+👉 Modify the content of the `main` function so that it looks like this:
+
+```bash
+main() {
+
+  : "${1:?Missing division directory name}"
+  
+  case "$(basename "$0")" in
+    listcontacts) 
+      list_contacts "$1"
+      ;;
+    addcontact)
+      add_contact "$1" "${2:?Missing contact name}"
+      ;;
+    *)
+      echo "Unknown contact action"
+      exit 1
+      ;;
+  esac
+
+}
+```
+
+We're now ready to test things out!
+
 
