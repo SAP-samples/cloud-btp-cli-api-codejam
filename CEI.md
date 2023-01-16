@@ -407,6 +407,8 @@ In this CSV report, you can see for example that for the XSUAA service there are
 
 In this section, you're going to write a filter to produce this output. The filter is a single line program written in jq, the [lightweight and flexible command-line JSON processor](https://stedolan.github.io/jq/).
 
+> While the filter is technically a single line, we'll approach and display it with lots of whitespace for easier construction and reading.
+
 #### Store the data locally
 
 Start by storing the output in a local file. This has two small effects:
