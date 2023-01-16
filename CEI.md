@@ -955,3 +955,60 @@ Once we've found that we drill down further to just the value of the `labels` pr
 
 > The JSON used for directory and subaccount labels on SAP BTP is restricted: the value for each label must be an array (rather than, say, a simple scalar string).
 
+#### Change main to invoke the contact list function
+
+Now we have a function to list contacts, let's modify the existing `main` function definition and usage to allow us to have that function called when we invoke the script from the command line.
+
+👉 First, extend the actual call to the `main` function so that any and all arguments passed on the command line when the script is invoked are passed through to the `main` function. Do this by changing this line:
+
+```bash
+main
+```
+
+to 
+
+```bash
+main "$@"
+```
+
+> `$@` is a [special parameter](https://tiswww.case.edu/php/chet/bash/bashref.html#Special-Parameters) that expands to the positional parameters.
+
+👉 Now, modify the current definition of the `main` function (which currently just prints a welcome string) so that it looks like this:
+
+```bash
+  main() {
+
+    : "${1:?Missing division directory name}"
+
+    list_contacts "$1"
+
+  }
+```
+
+> `:` is the shell's "no-op" (no operation) [builtin](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Bourne-Shell-Builtins); the only thing it does is expand any arguments given, which is what we want (using the `:?` variable transformation operator).
+
+👉 Now test the script, first by calling it without any arguments:
+
+```bash
+dircontacts
+```
+
+You should get a message "Missing division directory name" and the script should end with a non-zero return code (you can check this by examining the value of the `$?` variable).
+
+👉 Now test it again, but this time specify a division:
+
+```bash
+dircontacts engineering
+```
+
+> To keep things simple and within the time constraints of this mini workshop, there's no checking to see if the division's directory actually exists.
+
+You should see output like this:
+
+```text
+engineering administrator@example.com
+```
+
+Great!
+
+
