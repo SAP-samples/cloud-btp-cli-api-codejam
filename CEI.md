@@ -885,7 +885,7 @@ done
 btphier
 ```
 
-You should see something similar to this in the first part of the output, reflecting the structure.
+You should see something similar to this in the first part of the output, reflecting the structure:
 
 ```text
 
@@ -920,7 +920,11 @@ echo -e '#!/usr/bin/env bash\n\nset -eo pipefail\n\nmain() {\n\n  echo "Hello, C
   && chmod +x "$HOME/bin/dircontacts"
 ```
 
-👉 Now open the script in your Dev Space editor by selecting it from the `bin/` directory in your explorer, so you're ready to add more content. You'll see an outline script ready for more code:
+👉 Now open the `dircontacts` script in your Dev Space editor by selecting it from the `bin/` directory in your explorer, so you're ready to add more content. 
+
+![dircontacts in the explorer](assets/dircontacts-in-explorer.png)
+
+You'll see an outline script ready for more code:
 
 ```bash
 #!/usr/bin/env bash
