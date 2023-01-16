@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+list_contacts() {
+
+  local division=$1
+
+  echo -n "$division "
+
+  btp --format json get accounts/global-account --show-hierarchy \
+    | jq \
+        --arg division "$division" \
+        --raw-output '
+        .children[]
+        | select(.displayName == "research")
+        | .children[]
+        | select(.displayName == $division)
+        | .labels
+        | (.Contacts // [] | join(" "))
+      '
+
+}
+
+add_contact() {
+
+  local division=$1
+  local newcontact=$2
+
+  btp --format json get accounts/global-account --show-hierarchy \
+    | jq \
+        --arg division "$division" \
+        --arg newcontact "$newcontact" \
+        --raw-output '
+        .children[]
+        | select(.displayName == "research")
+        | .children[]
+        | select(.displayName == $division)
+        | "\(.guid) \(.labels | .Contacts += [$newcontact])"
+        ' \
+    | while read -r guid labeldata; do
+        btp update accounts/directory "$guid" --labels "$labeldata";
+      done
+
+}
+
+main() {
+
+  : "${1:?Missing division directory name}"
+  
+  case "$(basename "$0")" in
+    listcontacts) 
+      list_contacts "$1"
+      ;;
+    addcontact)
+      add_contact "$1" "${2:?Missing contact name}"
+      ;;
+    *)
+      echo "Unknown contact action"
+      exit 1
+      ;;
+  esac
+
+}
+
+main "$@"
