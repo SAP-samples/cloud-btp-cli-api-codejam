@@ -1128,8 +1128,8 @@ There are many ways to make such an (albeit very simple) multi-function script p
 
 ```bash
 cd $HOME/bin/ \
-  && ln -s dircontacts add_contact \
-  && ln -s dircontacts list_contacts \
+  && ln -s dircontacts addcontact \
+  && ln -s dircontacts listcontacts \
   && cd -
 ```
 
@@ -1137,18 +1137,18 @@ If you now list the contents of your `$HOME/bin/` directory you should see somet
 
 ```text
 user: user $ ls -l $HOME/bin/ | grep dircontacts
-lrwxrwxrwx 1 user user       11 Jan 16 13:18 add_contact -> dircontacts
+lrwxrwxrwx 1 user user       11 Jan 16 13:18 addcontact -> dircontacts
 -rwxr-xr-x 1 user user     1439 Jan 16 13:17 dircontacts
-lrwxrwxrwx 1 user user       11 Jan 16 13:18 list_contacts -> dircontacts
+lrwxrwxrwx 1 user user       11 Jan 16 13:18 listcontacts -> dircontacts
 ```
 
 The result of this is that we can use the value of `$0`, which is the name of the script when invoked, to base the function dispatching decision upon. Note that this value will be the absolute path to the file. In other words, if we were to invoke `list_contacts`, the value of `$0` would be:
 
 ```text
-/home/user/bin/list_contacts
+/home/user/bin/listcontacts
 ```
 
-So we have to strip off the path to leave just the `list_contacts` part, which we can do with `basename`. 
+So we have to strip off the path to leave just the `listcontacts` part, which we can do with `basename`. 
 
 👉 Modify the content of the `main` function so that it looks like this:
 
