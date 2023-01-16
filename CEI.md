@@ -1011,4 +1011,113 @@ engineering administrator@example.com
 
 Great!
 
+#### Write another function to add a contact to the list
+
+As well as listing contacts, let's use the combinatorial power of the btp CLI, the Bash shell & scripting, and the JSON focused language jq, to write a small function that will let us append a contact to the appropriate label property.
+
+👉 Add this new function above the definition of the `main` function:
+
+```bash
+add_contact() {
+
+  local division=$1
+  local newcontact=$2
+
+  btp --format json get accounts/global-account --show-hierarchy \
+    | jq \
+        --arg division "$division" \
+        --arg newcontact "$newcontact" \
+        --raw-output '
+        .children[]
+        | select(.displayName == "research")
+        | .children[]
+        | select(.displayName == $division)
+        | "\(.guid) \(.labels | .Contacts += [$newcontact])"
+        ' \
+    | while read -r guid labeldata; do
+        btp update accounts/directory "$guid" --labels "$labeldata";
+      done
+
+}
+```
+
+In contrast to `list_contacts`, this function of course expects two arguments, the division and the contact to add. 
+
+It's worth [staring](https://qmacro.org/blog/posts/2017/02/19/the-beauty-of-recursion-and-list-machinery/#initialrecognition) for a second at the interplay between the different commands and how they're joined together with the Unix pipeline (`|`) mechanism.
+
+First, we have a call to `btp --format get accounts/global-account --show-hierarchy` as we have in the `list_contacts` function. And in the same way, the JSON output is piped into a `jq` filter. But this time there's a second `--arg` option in the `jq` invocation, to supply the new contact ID. Because what the `jq` invocation is doing is not only retrieving any existing labels but also appending the new contact name to the `Contacts` property in the JSON. 
+
+Any existing labels are retrieved, because when adding new labels or updating/removing existing labels, you must also include in the JSON array any existing labels that you do not want to change or remove - see [the documentation for btp update accounts/directory](https://help.sap.com/docs/btp/btp-cli/btp-update-accounts-directory). 
+
+Given the example data set up for this scenario, with `administrator@example.com` being the single contact listed so far for the `engineering` division directory, the output of the `jq` invocation above (which is then passed into the next part of the pipeline starting `while ...`) looks like this, when a new contact `jane@example.com` is passed via the `newcontact` argument:
+
+```text
+896c1fd3-15d9-4e86-bd04-ac46b3e00f5e {"Contacts":["administrator@example.com","jane@example.com"]}
+```
+
+The final part of the pipeline in this function is a `while ... do ... done` construct. It's used to read in the two values (the GUID and the JSON contacts data) and use those values in a call to `btp update accounts/directory`. 
+
+> Again, to keep things simple, we're just assuming here that the contacts will be email addresses, with no spaces.
+
+👉 Test the new function out by modifying the content of the `main` function so it looks like this (you'll change it again shortly, this is just temporary):
+
+```bash
+  main() {
+
+    : "${1:?Missing division directory name}"
+
+    add_contact "$1" "$2"
+
+  }
+```
+
+👉 Run the script again, like this:
+
+```bash
+dircontacts engineering "jane@example.com"
+```
+
+and you should see some output similar to this:
+
+```text
+
+Updating directory 896c1fd3-15d9-4e86-bd04-ac46b3e00f5e...
+
+directory id:         896c1fd3-15d9-4e86-bd04-ac46b3e00f5e
+display name:         engineering
+description:
+directory features:   DEFAULT
+created by:           qmacro+blue@gmail.com
+custom properties:    name:      value:
+                      Contacts   administrator@example.com
+labels:               name:      value:
+                      Contacts   [administrator@example.com, jane@example.com]
+parent id:            88f90c6c-6039-4f56-a110-4913103a70b2
+parent type:          directory
+state:                OK
+state message:        Directory created.
+
+
+OK
+
+```
+
+👉 Now change the `main` function back to what it was:
+
+```bash
+  main() {
+
+    : "${1:?Missing division directory name}"
+
+    list_contacts "$1"
+
+  }
+```
+
+Now when you rerun the script (`dircontacts engineering`) you should see two contacts listed for the `engineering` division directory:
+
+```text
+engineering administrator@example.com jane@example.com
+```
+
 
