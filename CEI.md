@@ -281,6 +281,33 @@ curl \
   && chmod +x "$HOME/bin/btpguid"
 ```
 
+> With `btpguid` you can target a directory or subaccount based on its name, rather than its GUID. If you're interested to try this out now before moving on, first use `btp target` to move up one level so that you're just targeting the global account again, like this:
+> ```bash
+> user: user $ btp target
+> 
+> Current target:
+>   65137137trial (global account, subdomain: 65137137trial-ga)
+>   └─  trial (subaccount, ID: b07f7316-2d2a-445a-8fcc-a52952c92607)
+> 
+> Choose subaccount or directory:
+>   [..]  Switch Global Accounts
+>    [.]  65137137trial (global account)
+>    [1]  └─  trial (subaccount)
+> Choose, or hit ENTER to stay in 'trial' [1]> .
+> 
+> Now targeting:
+>   65137137trial (global account, subdomain: 65137137trial-ga)
+> 
+> OK
+> ```
+>
+> Now you can use `btpguid` with the `--target` (or `-t`) option; it will emit the GUID and (because of the `--target` option) will run `btp target` for you too:
+> 
+> ```bash
+> user: user $ btpguid -t trial
+> b07f7316-2d2a-445a-8fcc-a52952c92607
+> ```
+
 ### Explore and parse the JSON output
 
 *30 mins*
@@ -1249,3 +1276,4 @@ The script we wrote was deliberately simple, and is provided merely as an exampl
 
 We hope you've enjoyed this mini workshop and have managed to pick up a few ideas on what you can do back at base. Happy scripting!
 
+> In case you need it, there's a complete copy of the [dircontacts](scripts/dircontacts) script that we built here, in this repo's [scripts/](scripts/) directory.
