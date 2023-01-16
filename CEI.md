@@ -619,7 +619,7 @@ This will produce something like this (as before, output reduced for brevity):
 ]
 ```
 
-** Explanation 🔎**
+**Explanation 🔎**
 
 Before moving on, it's worth taking a moment to understand this new addition to the pipeline, with those slightly mysterious looking array indices `.[0]` and `.[1]`. 
 
@@ -978,7 +978,7 @@ list_contacts() {
 }
 ```
 
-** Explanation 🔎**
+**Explanation 🔎**
 
 As you can see, this function expects a single argument that it will treat as the name of a division. It then emits that name (and the `-n` option tells `echo` not to print a newline, because we're also wanting to emit any existing contacts too for that division's directory).
 
@@ -1078,7 +1078,7 @@ add_contact() {
 }
 ```
 
-** Explanation 🔎**
+**Explanation 🔎**
 
 In contrast to `list_contacts`, this function of course expects two arguments, the division and the contact to add. 
 
