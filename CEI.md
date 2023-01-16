@@ -619,6 +619,8 @@ This will produce something like this (as before, output reduced for brevity):
 ]
 ```
 
+** Explanation 🔎**
+
 Before moving on, it's worth taking a moment to understand this new addition to the pipeline, with those slightly mysterious looking array indices `.[0]` and `.[1]`. 
 
 Consider a single subarray, that this final `map` will be iterating over. Let's take the XSUAA one, which looks like this (shown here with the same indentation as it appears with above, for consistency, and to emphasize that it's a subarray, within an outer `[ ... ]` array):
@@ -972,6 +974,8 @@ list_contacts() {
 }
 ```
 
+** Explanation 🔎**
+
 As you can see, this function expects a single argument that it will treat as the name of a division. It then emits that name (and the `-n` option tells `echo` not to print a newline, because we're also wanting to emit any existing contacts too for that division's directory).
 
 It then calls the `get` action on the `accounts/global-account` object, specifying the `--show-hierarchy` option, but this time asking for JSON output (with `--format json`). This produces a reliable structure of information from which we can pick out directory information, which we do with the `jq` invocation that this output is then piped into.
@@ -1069,6 +1073,8 @@ add_contact() {
 
 }
 ```
+
+** Explanation 🔎**
 
 In contrast to `list_contacts`, this function of course expects two arguments, the division and the contact to add. 
 
