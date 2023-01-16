@@ -1136,7 +1136,7 @@ cd $HOME/bin/ \
 If you now list the contents of your `$HOME/bin/` directory you should see something like this:
 
 ```text
-; ls -l $HOME/bin/ | grep dircontacts
+user: user $ ls -l $HOME/bin/ | grep dircontacts
 lrwxrwxrwx 1 user user       11 Jan 16 13:18 add_contact -> dircontacts
 -rwxr-xr-x 1 user user     1439 Jan 16 13:17 dircontacts
 lrwxrwxrwx 1 user user       11 Jan 16 13:18 list_contacts -> dircontacts
