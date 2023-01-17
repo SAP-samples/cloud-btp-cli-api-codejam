@@ -173,7 +173,13 @@ alias btphier='btp get accounts/global-account --show-hierarchy'
 
 > This time we won't bother putting this into your `$HOME/.bashrc`, but in a real environment you would definitely want to save your alias definitions somewhere.
 
-👉 Try this alias out:
+> If, like me, you don't like seeing wide output wrapped onto newlines, you might want to pipe the output of the hierarchy display into `cut`, so you can chop off any characters beyond the width of your current terminal. If that's the case, just extend your alias definition like this:
+>
+> ```bash
+> alias btphier='btp get accounts/global-account --show-hierarchy | cut -c 1-$(tput cols)'
+> ```
+
+👉 Try your alias out:
 
 ```bash
 btphier
@@ -405,7 +411,7 @@ Let's say you wanted to provide a CSV report which listed the service offerings,
 
 In this CSV report, you can see for example that for the XSUAA service there are two free plans: application and broker.
 
-In this section, you're going to write a filter to produce this output. The filter is a single line program written in jq, the [lightweight and flexible command-line JSON processor](https://stedolan.github.io/jq/).
+In this section, you're going to write a filter to produce this CSV output. The filter is a single line program written in jq, the [lightweight and flexible command-line JSON processor](https://stedolan.github.io/jq/).
 
 > While the filter is technically a single line, we'll approach and display it with lots of whitespace for easier construction and reading.
 
@@ -430,6 +436,8 @@ btp --format json list services/plan > data.json
 jq 'length' data.json
 ```
 
+> The single quotes around `length` here are not strictly necessary, but more complex `jq` filter syntax will require it (as you'll see next), so it's nice to be consistent and start as we mean to go on.
+
 This will give you a JSON value like this:
 
 ```text
@@ -447,6 +455,8 @@ jq '
   ])
 ' data.json
 ```
+
+> This invocation and all the others in this mini workshop document are all designed to be copy/pasteable in one go; the Bash shell is wonderfully flexible when it comes to using newlines, as long as you introduce them properly (such as by using single quotes appropriately, like here).
 
 This will produce output something like this (output here reduced for brevity):
 
@@ -868,7 +878,7 @@ OK
 btp create accounts/directory --display-name research
 ```
 
-👉 Once that directory exists, create the divisional directories beneath it, noting that each one will have an initial contact listed for it, in the form of `administrator@example.com`:
+👉 Once that directory exists, create the divisional directories beneath it, adding to each one an initial contact, in the form of `administrator@example.com`:
 
 ```bash
 for division in engineering production software; do
@@ -980,7 +990,7 @@ list_contacts() {
 
 **Explanation 🔎**
 
-As you can see, this function expects a single argument that it will treat as the name of a division. It then emits that name (and the `-n` option tells `echo` not to print a newline, because we're also wanting to emit any existing contacts too for that division's directory).
+As you can see, this function expects a single argument that it will treat as the name of a division. It then emits that name (and the `-n` option tells `echo` not to print a newline, because we're also intending to emit any existing contacts too for that division's directory).
 
 It then calls the `get` action on the `accounts/global-account` object, specifying the `--show-hierarchy` option, but this time asking for JSON output (with `--format json`). This produces a reliable structure of information from which we can pick out directory information, which we do with the `jq` invocation that this output is then piped into.
 
@@ -1141,7 +1151,7 @@ OK
 
 ```
 
-👉 Now change the `main` function back to what it was:
+👉 Now change the `main` function back to what it was (if you haven't changed anything else, you might be able to revert using the Undo function (menu path File -> Edit -> Undo):
 
 ```bash
 main() {
