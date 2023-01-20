@@ -219,6 +219,25 @@ Current target:
 
 > You can make your command line life more comfortable with custom functions and scripts, such as one to get the ID for a subaccount, given its display name. We'll cover this in [a later exercise in this session](../05-btp-guids-cli-in-practice/README.md). See also [the `bgu` script in action as part of the btp CLI section of the 2021 SAP TechEd Developer Keynote](https://youtu.be/OmEx598qAI8?t=180) and also the two related blog posts in the [Further reading](#further-reading) section below.
 
+**Note**
+
+With the current (latest) version of the btp CLI, a new "interative target" feature was introduced. You can try this out simply by entering `btp target` and following the instructions, which will display the hierarchy of directories and subaccounts available to you in the global account you're currently in, and allow you to navigate that hierarchy and select a new target. Here's an example:
+
+```text
+user: user $ btp target
+
+Current target:
+  65137137trial (global account, subdomain: 65137137trial-ga)
+  └─  trial (subaccount, ID: b07f7316-2d2a-445a-8fcc-a52952c92607)
+
+Choose subaccount or directory:
+  [..]  Switch Global Accounts
+   [.]  65137137trial (global account)
+   [1]  ├─  research (directory)
+   [2]  └─  trial (subaccount)
+Choose, or hit ENTER to stay in 'trial' [2]> 
+```
+
 ## Find and organize your btp CLI configuration
 
 Directly after logging in just a few moments earlier, you may have noticed that the success message included a line about configuration (see the [Authenticate](#authenticate) section earlier for the context):
