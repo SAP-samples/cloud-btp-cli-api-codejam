@@ -376,8 +376,6 @@ curl \
   --data-urlencode "password=$password"
 ```
 
-> If you're hardcode and using `vim` on the command line, kudos :-) and you don't need to do anything other than invoke `vim ./generate-password-grant-type`. For those saner folks wanting to use the editor built in to App Studio, don't forget you'll need to navigate to the [scripts/](../../scripts/) directory where you'll find the actual `generate-password-grant-type` source.
-
 👉 Run the script again, in the same way:
 
 ```bash

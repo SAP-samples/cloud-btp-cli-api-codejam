@@ -2,11 +2,13 @@
 
 The btp CLI implementation has a client / server nature. The server component facilitates calls to APIs in the [Core Services for SAP BTP](https://api.sap.com/package/SAPCloudPlatformCoreServices/rest) package. So the btp CLI effectively gives you a comfortable way of consuming those APIs that are specifically designed to let you "manage, build, and extend the core capabilities of SAP BTP".
 
-During the course of this and also the subsequent two exercises you'll see that first hand, by observing that the JSON you saw in the previous exercise (emitted from `btp --format json list accounts/available-region`) is effectively the same as the output from a call to the corresponding API endpoint.
+During the course of this and also the next few exercises you'll see that first hand, by observing that the JSON you saw in the previous exercise (emitted from `btp --format json list accounts/available-region`) is effectively the same as the output from a call to the corresponding API endpoint.
 
-While the process of calling an API is not complicated, there are some moving parts that work together are important for us to thoroughly understand. We'll do that together by taking a steady journey through those moving parts, with enough time to reflect and get things straight in our minds.
+While the process of calling an API is not complicated, there are some moving parts that work together are important for us to thoroughly understand. We'll do that together by taking a steady journey through those moving parts over the next few exercises, with enough time to reflect and get things straight in our minds.
 
-In this exercise, you'll do some preparatory work that's required. In the next exercise, you'll use the information gained in this exercise (mostly the CF API endpoint that you need) to obtain credentials for the call. And in the exercise that follows that, you'll use those credentials to make the call and then examine the output.
+* Preparation: In this exercise, you'll do some preparatory work that's required.
+* Obtain credentials: In the next exercise, you'll use the information gained in this exercise (mostly the CF API endpoint that you need) to obtain credentials for the call.
+* Make the API call: In the exercise that follows that, you'll use those credentials to make the call and then examine the output.
 
 Ready?
 
@@ -465,7 +467,9 @@ You may be staring and wondering at the values for the `parameters` and `labels`
 
 ### Extracting the API endpoint value
 
-If you [stare long enough](https://qmacro.org/blog/posts/2017/02/19/the-beauty-of-recursion-and-list-machinery/#initialrecognition), you'll realise that the values are string-encoded JSON structures. In other words, the values are actually JSON objects, but in string form. In order for this to work, each double quote character within the string need to be preserved and therefore escaped with a backslash (`\`).
+If you [stare long enough](https://qmacro.org/blog/posts/2017/02/19/the-beauty-of-recursion-and-list-machinery/#initialrecognition), you'll realise that these odd looking values are string-encoded JSON structures.
+
+In other words, the values are actually JSON objects, but in string form. In order for this to work, each double quote character within the string need to be preserved and therefore have been escaped with backslash characters (`\`).
 
 > You can run the following invocations of the `jq` filters as shown here, or pipe the btp CLI JSON output into `ijq` and run them there - your choice.
 
@@ -533,7 +537,7 @@ btp --format json list accounts/environment-instance --subaccount "$guid" \
 >
 > And just as a "by the way", the expression `."API Endpoint"` is just shorthand for the full generic object index expression `.["API Endpoint"]`.
 >
-> Note that a colon may also appear as part of these property names in some environment instances. This is the reason for the use of the [alternative operator](https://stedolan.github.io/jq/manual/#Alternativeoperator://) and a second possible property name in `| .("API Endpoint" // ."API Endpoint:")`.
+> Note that a colon may also appear as part of these property names in some environment instances. This is the reason for the use of the [alternative operator](https://stedolan.github.io/jq/manual/#Alternativeoperator://) (`//`) and a second possible property name in `| .("API Endpoint" // ."API Endpoint:")`.
 
 In this particular sample case, the API endpoint is:
 
@@ -543,7 +547,7 @@ https://api.cf.eu10.hana.ondemand.com
 
 but it may be different for the CF environment instance in your subaccount. Whatever the value, we're now ready to move on to the next step, which is to log in with `cf`, specifying that API endpoint. That's coming up in the next exercise.
 
-## Determining the CF API endpoint with a script
+## Bonus: determining the CF API endpoint with a script
 
 In the [directory containing this specific README file](./), there's a link to a script [get_cf_api_endpoint](../../scripts/get_cf_api_endpoint). This script is an automated version of everything you've done in this section.
 
