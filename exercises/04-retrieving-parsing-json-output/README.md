@@ -240,7 +240,7 @@ jq '.datacenters[].displayName' regions.json
 
 Now that we have the data locally in a file, let's explore how this `jq` filter works.
 
-1. The filter starts with the simplest construct, which is the [identity](https://stedolan.github.io/jq/manual/#Identity:.) `.`. This says "everything that you have right now", which at the start is all of the JSON.
+1. Look at the first character of the filter. It's a `.`. This is the simplest construct in `jq`, the [identity filter](https://stedolan.github.io/jq/manual/#Identity:.) `.`. This says "everything that you have right now", which at the start is all of the JSON.
 
     👉 Try this simple first step to see that you indeed get all of the data:
 
@@ -250,7 +250,7 @@ Now that we have the data locally in a file, let's explore how this `jq` filter 
 
     Note that the outermost element in the JSON that is output is an object (`{...}`).
 
-1. Given that we get an object, let's just check what properties (also known as keys) exist in that object.
+1. Given that we get an object, let's just check what properties (also referred to as keys) exist in that object.
 
     👉 Do that by asking for the keys:
 
@@ -260,9 +260,9 @@ Now that we have the data locally in a file, let's explore how this `jq` filter 
 
     You should see a single key listed (inside of an array), and that key is `datacenters`.
 
-1. OK, so now the identity function `.` is combined with a [generic object index](https://stedolan.github.io/jq/manual/#GenericObjectIndex:.[%3Cstring%3E]) to give `.["datacenters"]` which is a reference to the value of the `datacenters` property. From the output earlier, we know that this is an array (a list of objects, each one representing the detail of a data center).
+1. OK, so let's now combine the identity function `.` with a [generic object index](https://stedolan.github.io/jq/manual/#GenericObjectIndex:.[%3Cstring%3E]) to give `.["datacenters"]` which is a reference to the value of the `datacenters` property. From the output earlier, we know that this is an array (here, the array is a list of objects, each object representing the detail of a data center).
 
-    👉 Try this too, and note the subtle difference in output to what we saw earlier:
+    👉 Do this now, and note the subtle difference in output to what we saw earlier:
 
     ```bash
     jq '.["datacenters"]' regions.json
@@ -270,7 +270,7 @@ Now that we have the data locally in a file, let's explore how this `jq` filter 
 
 1. So the result of this first part (`.["datacenters"]`) is the array of data centers (this is not because `"datacenters"` is inside a `[...]` construct, it's because the value of the `datacenters` property is an array). This array is then piped into the next part.
 
-1. And the next part, which looks like this `.[]`, is the [array value iterator](https://stedolan.github.io/jq/manual/#Array/ObjectValueIterator:.[]) which explodes all of the elements of the incoming array (the `.` in the `.[]` component here refers now to what was passed in through the pipe) and sends each of them downstream.
+1. Let's now consider the next part, which looks like this `.[]`, which is the [array value iterator](https://stedolan.github.io/jq/manual/#Array/ObjectValueIterator:.[]). This construct explodes all of the elements of the incoming array (the `.` in the `.[]` component here refers now to what was passed in through the pipe) and sends each of them downstream.
 
     👉 See what this looks like, noting how the items are output:
 
