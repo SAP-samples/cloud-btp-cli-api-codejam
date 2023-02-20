@@ -426,7 +426,7 @@ If you finish earlier than your fellow participants, you might like to ponder th
 
 1. Looking at the `jq` filter we used to get the number of data centers (`.datacenters|length`), what happens when you use the filter `.datacenters[]|length`, and can you figure out what that result is, and why it's given?
 
-1. How might you explore JSON data sets further, and in a more interactive way? There are two main options: [jq play](https://jqplay.org/) which is web-based, and [ijq](https://sr.ht/~gpanders/ijq/) ("interactive jq") which is a terminal UI. For an example of "jq play", here's a [shared snippet](https://jqplay.org/s/14QVt1q2o09) showing the execution of the CF data centers location list we looked at in this exercise. And for more on "interactive jq" you may wish to read [Exploring JSON with interactive jq](https://qmacro.org/blog/posts/2022/05/21/exploring-json-with-interactive-jq/).
+1. How might you explore JSON data sets further, and in a more interactive way? Here are some approaches: [jqterm](https://jqterm.com/) and [jq play](https://jqplay.org/) both of which are web-based, and [ijq](https://sr.ht/~gpanders/ijq/) ("interactive jq") which is a terminal UI. For an example of "jq play", here's a [shared snippet](https://jqplay.org/s/14QVt1q2o09) showing the execution of the CF data centers location list we looked at in this exercise. And for more on "interactive jq" you may wish to read [Exploring JSON with interactive jq](https://qmacro.org/blog/posts/2022/05/21/exploring-json-with-interactive-jq/).
 
 ---
 
