@@ -36,7 +36,7 @@ You should end up with something that looks like this:
 
 ![subscription to App Studio](assets/bas-free.png)
 
-If you see an "Access Denied" message when attempting to access the App Studio, then you are most likely missing some role collection assignments. If this is the case, go to the Security section in the SAP BTP Cockpit and assign the following role collections to your user:
+If you see an "Access Denied" message when attempting to access the App Studio, then you are most likely missing some role collection assignments. If this is the case, go to the Security section in the SAP BTP Cockpit and assign the following role collections to your user (remember to sign out and sign back in again for this to take effect):
 
 * Business_Application_Studio_Developer
 
