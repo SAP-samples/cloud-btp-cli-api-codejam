@@ -26,7 +26,7 @@ It gives an overview of the different types of commands and options, although it
 
 _Why are there two entries in `$HOME/bin/` for the `btp` executable?_
 
-One is the real executable, but with a full name which includes the version, and the other is a symbolic link, with the short `btp` name, pointing to it. This way you can download and manage different versions of the btp CLI in case you need to. It's a common pattern.
+One is the real executable, but with a full name which includes the version, and the other is a symbolic link, with the short `btp` name, pointing to it. This way you can download and manage different versions of the btp CLI in case you need to. It's a common pattern. Moreover, you can have the `btp` symbolic link always point to the version you want to use, and the fact that it has a generic name rather than a version specific one allows for writing more generic and stable scripts.
 
 # Exercise 02
 
