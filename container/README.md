@@ -6,7 +6,9 @@ These steps assume you have Docker Desktop installed (as described in the [Docke
 
 ## Get the Dockerfile
 
-You can download the [Dockerfile](Dockerfile) from this directory directly, or just clone the whole repository and then move into the repository locally:
+You can download the [Dockerfile](Dockerfile) from this directory directly, or just clone the whole repository and then move into the repository locally.
+
+👉 Do the latter:
 
 ```bash
 git clone https://github.com/SAP-samples/cloud-btp-cli-api-codejam.git
@@ -32,7 +34,7 @@ The reason for this is that it's important to make the image's environment as si
 
 With the [Dockerfile](Dockerfile) in this directory, an image is built, and then you can instantiate a container from the image and work within that.
 
-Move to the directory containing the `Dockerfile` file, and build the image like this:
+👉 Move to the directory containing the `Dockerfile` file, and build the image like this:
 
 ```bash
 cd container
@@ -73,7 +75,7 @@ You should see build output that looks something like this:
 
 ## Check the image
 
-You can check the image was created successfully like this:
+👉 Check the image was created successfully like this:
 
 ```bash
 docker image ls codejam
@@ -90,7 +92,9 @@ You have an image and you're all set to create your first container from it.
 
 ## Create a container
 
-Now create a container from the image. Do it like this:
+Now create a container from the image. 
+
+👉 Do it like this:
 
 ```bash
 docker run --interactive --tty --name my-codejam-container codejam
