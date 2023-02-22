@@ -7,14 +7,9 @@ RUN apt-get update && apt-get install -y curl gpg lsb-release \
   && curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg \
   && echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-# Add Cloud Foundry (CLI) as source for apt
-RUN curl -fsSL "https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key" | apt-key add - \
-  && echo "deb https://packages.cloudfoundry.org/debian stable main" | tee /etc/apt/sources.list.d/cloudfoundry-cli.list
-
 RUN apt-get update \
  && apt-get install -y \
     ca-certificates \
-    cf8-cli \
     fzf \
     git \
     jq \
@@ -37,6 +32,15 @@ RUN curl -fsSL "https://github.com/mvdan/sh/releases/download/v${SHFMTVER}/shfmt
 
 # Clean up temp dir
 RUN rm -rf /tmp/*
+
+# Install cf8-cli binary
+RUN curl \
+  --location \
+  --url "https://packages.cloudfoundry.org/stable?release=linux64-binary&version=v8&source=github" \
+  | tar \
+    --directory /usr/local/bin \
+    --gunzip \
+    --extract
 
 # Set up non-root user
 ARG USERNAME=user
