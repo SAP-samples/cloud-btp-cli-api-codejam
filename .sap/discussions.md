@@ -175,7 +175,7 @@ user: user $ jq '.datacenters[]|length' regions.json
 10
 ```
 
-_How might you explore JSON data sets further, and in a more interactive way? Here are some approaches: jqterm and jq play both of which are web-based, and ijq ("interactive jq") which is a terminal UI. For an example of "jq play", here's a shared snippet showing the execution of the CF data centers location list we looked at in this exercise. And for more on "interactive jq" you may wish to read Exploring JSON with interactive jq._
+_How might you explore JSON data sets further, and in a more interactive way? Here are some approaches: jqterm and jq play both of which are Web-based, and ijq ("interactive jq") which is a terminal UI. For an example of "jq play", here's a shared snippet showing the execution of the CF data centers location list we looked at in this exercise. And for more on "interactive jq" you may wish to read Exploring JSON with interactive jq._
 
 This question is just highlighting that there are different ways to use jq to explore data interactively, rather than just write jq filters just as you'd write code in any other programming language.
 
