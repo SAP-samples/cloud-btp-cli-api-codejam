@@ -657,6 +657,8 @@ At this point your confidence in discovering APIs, preparing what you need to ca
 
 ---
 
+## Questions
+
 If you finish earlier than your fellow participants, you might like to ponder these questions. There isn't always a single correct answer and there are no prizes - they're just to give you something else to think about.
 
 1. In the HTTP response to the DELETE request, what was the status code, and are there any others that might be appropriate?

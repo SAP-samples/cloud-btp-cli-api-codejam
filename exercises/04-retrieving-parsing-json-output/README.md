@@ -418,6 +418,8 @@ At this point you know how to get the btp CLI to output the structured data in a
 
 ---
 
+## Questions
+
 If you finish earlier than your fellow participants, you might like to ponder these questions. There isn't always a single correct answer and there are no prizes - they're just to give you something else to think about.
 
 1. What Unix tool might you use to parse out the individual column values, say, to identify the region and provider values, from the text output in [Parsing the output](#parsing-the-output)?

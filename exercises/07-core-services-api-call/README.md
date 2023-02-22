@@ -184,6 +184,8 @@ Well done, you've made it this far and been on quite a detailed journey to under
 
 ---
 
+## Questions
+
 If you finish earlier than your fellow participants, you might like to ponder these questions. There isn't always a single correct answer and there are no prizes - they're just to give you something else to think about.
 
 1. Have a bit of a stare at the [call-entitlements-service-regions-api](../../scripts/call-entitlements-service-regions-api) script, and the associated [lib.sh](../../scripts/lib.sh) library. Is there anything in there that you'd like to know more about?

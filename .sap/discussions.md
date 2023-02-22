@@ -1,5 +1,7 @@
 # Exercise 01
 
+[Questions](../exercises/01-installing#questions):
+
 _Expressing the individual locations within your `PATH` on separate lines was done using [Bash shell parameter expansion](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html). Using other command line tools, how else might you do it?_
 
 One way would be to use `tr`, like this:
@@ -27,6 +29,8 @@ _Why are there two entries in `$HOME/bin/` for the `btp` executable?_
 One is the real executable, but with a full name which includes the version, and the other is a symbolic link, with the short `btp` name, pointing to it. This way you can download and manage different versions of the btp CLI in case you need to. It's a common pattern.
 
 # Exercise 02
+
+[Questions](../exercises/02-authenticating-and-configuration#questions):
 
 _Why were you told to use single quotes when echoing text into the `.bashrc` file? What would have happened if you'd use double quotes?_
 
@@ -70,6 +74,8 @@ Rather than encounter this error, one can use `--sso manual` to just directly an
 
 # Exercise 03
 
+[Questions](../exercises/03-autocomplete-and-exploration#questions):
+
 _How would you discover or confirm that the shell you're actually using is indeed a Bash shell?_
 
 Normally one would look at the value of the `SHELL` environment variable. Here's an example:
@@ -89,6 +95,8 @@ bash
 See [What is the meaning of $0 in the Bash shell](https://unix.stackexchange.com/q/280454/87597) for more information.
 
 # Exercise 04
+
+[Questions](../exercises/04-retrieving-parsing-json-output#questions):
 
 _What UNIX tool might you use to parse out the individual column values, say, to identify the region and provider values, from the text output in Parsing the output?_
 
@@ -172,6 +180,8 @@ _How might you explore JSON data sets further, and in a more interactive way? He
 This question is just highlighting that there are different ways to use jq to explore data interactively, rather than just write jq filters just as you'd write code in any other programming language.
 
 # Exercise 05
+
+[Questions](../exercises/05-core-services-api-prep#questions):
 
 _When listing the environment instances for the subaccount, how else might you make that btp CLI call, without using the `--subaccount` parameter?_
 

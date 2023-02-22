@@ -369,6 +369,8 @@ At this point you've logged in with `btp` and have your global account and "tria
 
 ---
 
+## Questions
+
 If you finish earlier than your fellow participants, you might like to ponder these questions. There isn't always a single correct answer and there are no prizes - they're just to give you something else to think about.
 
 1. Why were you told to use single quotes when echoing text into the `.bashrc` file? What would have happened if you'd use double quotes?

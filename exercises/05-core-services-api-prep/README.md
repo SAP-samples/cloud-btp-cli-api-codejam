@@ -595,6 +595,8 @@ At this point you have gained some experience in understanding and parsing the J
 
 ---
 
+## Questions
+
 If you finish earlier than your fellow participants, you might like to ponder these questions. There isn't always a single correct answer and there are no prizes - they're just to give you something else to think about.
 
 1. When listing the environment instances for the subaccount, how else might you make that btp CLI call, without using the `--subaccount` parameter?
