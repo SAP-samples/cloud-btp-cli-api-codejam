@@ -1,6 +1,6 @@
 # Exercise 01
 
-[Questions](../exercises/01-installing#questions):
+[Questions](../exercises/01-installing/README.md#questions):
 
 _Expressing the individual locations within your `PATH` on separate lines was done using [Bash shell parameter expansion](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html). Using other command line tools, how else might you do it?_
 
@@ -30,7 +30,7 @@ One is the real executable, but with a full name which includes the version, and
 
 # Exercise 02
 
-[Questions](../exercises/02-authenticating-and-configuration#questions):
+[Questions](../exercises/02-authenticating-and-configuration/README.md#questions):
 
 _Why were you told to use single quotes when echoing text into the `.bashrc` file? What would have happened if you'd use double quotes?_
 
@@ -74,7 +74,7 @@ Rather than encounter this error, one can use `--sso manual` to just directly an
 
 # Exercise 03
 
-[Questions](../exercises/03-autocomplete-and-exploration#questions):
+[Questions](../exercises/03-autocomplete-and-exploration/README.md#questions):
 
 _How would you discover or confirm that the shell you're actually using is indeed a Bash shell?_
 
@@ -96,7 +96,7 @@ See [What is the meaning of $0 in the Bash shell](https://unix.stackexchange.com
 
 # Exercise 04
 
-[Questions](../exercises/04-retrieving-parsing-json-output#questions):
+[Questions](../exercises/04-retrieving-parsing-json-output/README.md#questions):
 
 _What UNIX tool might you use to parse out the individual column values, say, to identify the region and provider values, from the text output in Parsing the output?_
 
@@ -181,7 +181,7 @@ This question is just highlighting that there are different ways to use jq to ex
 
 # Exercise 05
 
-[Questions](../exercises/05-core-services-api-prep#questions):
+[Questions](../exercises/05-core-services-api-prep/README.md#questions):
 
 _When listing the environment instances for the subaccount, how else might you make that btp CLI call, without using the `--subaccount` parameter?_
 
