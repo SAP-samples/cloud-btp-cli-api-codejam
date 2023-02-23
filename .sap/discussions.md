@@ -201,4 +201,55 @@ local displayname="${1:-trial}"
 
 and specifically is the "${1:-trial}" part. This is parameter expansion in action, specifically the "parameter default" mechanism, that substitutes a value (`trial` here) if the parameter (`$1` here, i.e. the first value passed as an argument when the enclosing function was invoked) is not set. In order to use such an expansion mechanism, the expression must be enclosed in braces (`{...}`), and it's generally [good practice](https://www.shellcheck.net/wiki/SC2086) to use double quotes to prevent globbing and word splitting.
 
+# Exercise 06
+
+[Questions](../exercises/06-core-services-api-creds/README.md#questions):
+
+_What other naming conventions for Cloud Foundry instances and service keys have you seen? Are there ones you prefer to use, and if so, what are they?_
+
+This question is intended to provoke general discussion.
+
+_We used sed to strip off the unwanted first two lines of the service key output. How else might we have done this?_
+
+Another way of achieving this is to use `tail`'s `--lines` option (which is `-n` in its short form):
+
+```bash
+cf service-key cis-central cis-central-sk | tail -n +3 
+```
+
+This `+NUM` construct will cause `tail` to output lines starting with line `NUM`, i.e. 3 here.
+
+_Take a look at the token data you retrieved - what's the lifetime of the access token, in hours?_
+
+There's the `expires_in` property which has a value of 43199, which is a number of seconds. It's interesting that it's just one off a round(er) number, which does make one wonder whether that is deliberately set like that, or as a result of some processing (that took one second) before output was issued.
+
+Anyway, let's add 1 to that value to get to what is more sensible, and then divide it by the number of seconds in an hour. We can do that in one go, with `jq`, like this:
+
+```bash
+jq '(1 + .expires_in) / (60 * 60)' tokendata.json
+```
+
+This gives the result `12`, i.e. the token has a 12 hour lifetime.
+
+_Did you manage to think about the questions on the curl invocation details?_
+
+Taking each of those questions in turn:
+
+_Where does the $uaa_url variable come from, and what does it represent?_
+
+It's declared and determined in `lib.sh`, using `jq`. The value is from the service key file.
+
+_What's the /oauth/token suffix for?_
+
+While the OAuth 2.0 spec ([RFC6749](https://www.rfc-editor.org/rfc/rfc6749)) does not define endpoints prefixed with `/oauth`, nor does it dictate that it should be `/token`, `/oauth/token` is a common (and arguably now de facto) standard. This is the token endpoint for requesting access tokens.
+
+_What's going on with the --user option?_
+
+The `--user` option for `curl` will cause an Authorization header to be set on the HTTP request, and here it will Base64-encode this combination of values (`"$clientid:$clientsecret"`) and pass them with the "Basic" prefix. Remember that this is the Resource Owner Password Grant flow and token requests must supply the resource owner credentials but also pass authentication in the form of the client ID and secret.
+
+_Why is --data sometimes used, and other times --data-urlencode?_
+_What HTTP request method is used in this call?_
+_What should be the Content Type sent along with the request?_
+
+Answering these three questions together. If given `--data` or `--data-urlencode` options, `curl` will automatically use the POST method (rather than, say, GET). This is what is required here. Also what is required is for data to be sent with content type `application/x-www-form-urlencoded`. Again, `curl` defaults this content type if `--data` or `--data-urlencode` is used. The difference between these two options is that values sent via the latter option will be URL encoded. This is important because that's what the request is declaring the content type to be. And it's very likely that the the two values passed here (`username=$email` and `password=$password`) will contain characters that must be URL encoded (i.e. they're not just made up of simple alphanumeric characters that when URL encoded are the same as they were). In contrast, the literal value `grant_type=password` does not need URL encoding.
 
