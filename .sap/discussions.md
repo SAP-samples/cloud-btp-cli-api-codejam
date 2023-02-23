@@ -255,7 +255,7 @@ Answering these three questions together. If given `--data` or `--data-urlencode
 
 # Exercise 07
 
-[Questions](../exercises/07-core-services-api-call/README.md#questions)
+[Questions](../exercises/07-core-services-api-call/README.md#questions):
 
 _Have a bit of a stare at the call-entitlements-service-regions-api script, and the associated lib.sh library. Is there anything in there that you'd like to know more about?_
 
@@ -267,7 +267,7 @@ You can get `curl` to suppress this using the `--silent` option. Incidentally, t
 
 # Exercise 08
 
-[Questions](../exercises/08-guids-and-resource-creation/README.md#questions)
+[Questions](../exercises/08-guids-and-resource-creation/README.md#questions):
 
 _The btp CLI command you used to Create a new subaccount in the directory had quite an involved-looking construction for the value of the --subdomain parameter: "$(btp --format json get accounts/global-account | jq -r .subdomain)-codejam-subaccount". Can you pick this apart and understand how it works?_
 
@@ -319,4 +319,19 @@ select(.parentGuid? or .parentGUID?)
 
 will only let through objects that have a parent GUID property (unfortunately the actual property key names are a little inconsistent, hence the need to check for both `parentGuid` and `parentGUID`). The object representing the global account does not have a parent GUID (as it's effectively at the root of the hierarchy).
 
+# Exercise 09
+
+[Questions](../exercises/09-deleting-resources-with-api/README.md#questions):
+
+_In the HTTP response to the DELETE request, what was the status code, and are there any others that might be appropriate?_
+
+The status code was 200 (OK). This is a valid status code here, as the response message includes a representation which describes the status. There are other status codes that are common in responses to DELETE requests, such as 202 (ACCEPTED) and 204 (NO CONTENT).
+
+The interesting part of the response is that along with the 200 status code, we get a Location header, showing where the status of the resource / request can be tracked:
+
+```text
+< location: /jobs-management/v1/jobs/8926898/status
+```
+
+Normally, a Location header only makes sense with a 3xx status code, or a 201 (CREATED). But we have one here anyway.
 
