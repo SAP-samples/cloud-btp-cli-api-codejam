@@ -253,3 +253,70 @@ _What should be the Content Type sent along with the request?_
 
 Answering these three questions together. If given `--data` or `--data-urlencode` options, `curl` will automatically use the POST method (rather than, say, GET). This is what is required here. Also what is required is for data to be sent with content type `application/x-www-form-urlencoded`. Again, `curl` defaults this content type if `--data` or `--data-urlencode` is used. The difference between these two options is that values sent via the latter option will be URL encoded. This is important because that's what the request is declaring the content type to be. And it's very likely that the the two values passed here (`username=$email` and `password=$password`) will contain characters that must be URL encoded (i.e. they're not just made up of simple alphanumeric characters that when URL encoded are the same as they were). In contrast, the literal value `grant_type=password` does not need URL encoding.
 
+# Exercise 07
+
+[Questions](../exercises/07-core-services-api-call/README.md#questions)
+
+_Have a bit of a stare at the call-entitlements-service-regions-api script, and the associated lib.sh library. Is there anything in there that you'd like to know more about?_
+
+This is just for general discussion. The script (and library in `lib.sh`) are written according to best practices, with the help of `shellcheck` (see [Improving my shell scripting](https://qmacro.org/blog/posts/2020/10/05/improving-my-shell-scripting/)). 
+
+_Just before the JSON output in the call to call-entitlements-service-regions-api, you saw some progress bar style information on bytes received, time taken, and so on. How would you suppress this output, so you just got the JSON?_
+
+You can get `curl` to suppress this using the `--silent` option. Incidentally, there's an alternative progress bar you can request, with `--progress-bar`. 
+
+# Exercise 08
+
+[Questions](../exercises/08-guids-and-resource-creation/README.md#questions)
+
+_The btp CLI command you used to Create a new subaccount in the directory had quite an involved-looking construction for the value of the --subdomain parameter: "$(btp --format json get accounts/global-account | jq -r .subdomain)-codejam-subaccount". Can you pick this apart and understand how it works?_
+
+When creating a subaccount, you need to specify a subdomain value. This is not a critical value but is mandatory, so we make one up, based on something related to the user's global account (the global account's subdomain), with `-codejam-subaccount` suffixed to that. So this construction is a string, which contains a [command substitution](https://www.gnu.org/software/bash/manual/html_node/Command-Substitution.html) (the `$(...)` part) and some literal text (the suffix). 
+
+Inside the command substitution there's a call to `btp --format json get accounts/global-account` which should return a JSON formatted set of details relating to the logged-in user's global account. That will look something like this:
+
+```json
+{
+  "guid": "42-4daf-4f92-9342-6149698241de",
+  "displayName": "6f7c45edtrial",
+  "createdDate": 1675778781155,
+  "modifiedDate": 1675778797247,
+  "entityState": "OK",
+  "stateMessage": "Global account created.",
+  "subdomain": "6f7c45edtrial-ga",
+  "contractStatus": "ACTIVE",
+  "commercialModel": "Subscription",
+  "consumptionBased": false,
+  "licenseType": "TRIAL",
+  "geoAccess": "STANDARD",
+  "renewalDate": 1675778781115
+}
+```
+
+This is passed to an invocation of `jq` which picks out the value of the `subdomain` property (`6f7c45edtrial-ga` here) and emits it in raw form (using the `-r` option), i.e. as-is, and not surrounded by double quotes (which `jq` would do by default, as it always tries to emit JSON values). This value is then glued together with `-codejam-subaccount` to form the value for the `--subdomain` parameter in the `btp` call.
+
+_How does the btpguid script set the chosen subaccount as target?_
+
+In this `btpguid` script, here's the relevant section:
+
+```bash
+# Set the subtype as target if requested
+[[ $1 == -t ]] || [[ $1 == --target ]] && {
+  btp target "--${subtype}" "$guid" &> /dev/null
+  rc=$?
+}
+```
+
+Briefly, this is a sort of conditional, which checks to see if the first argument passed when invoking `btpguid` (via `$1`) is either `-t` or `--target`. If it is, then a `btp target` is executed, specifying what type of target (it will either be a directory or a subaccount, which we already have in the `$subtype` variable, and also specifying the GUID itself, which we already have in `$guid`. Both STDOUT and STDERR from this invocation are redirected to `/dev/null` (so the operation is silent) but we then do check what the exit code from the `btp` invocation was, and pass it through as the exit code to `btpguid` (so any issue can be trapped by the caller of `btpguid`). 
+
+_In the jq part of the btpguid script that parses the JSON formatted output of the btp get accounts/global-account --show-hierarchy command, what technique is used to ignore the global account?_
+
+Passing the data through this part:
+
+```jq
+select(.parentGuid? or .parentGUID?)
+```
+
+will only let through objects that have a parent GUID property (unfortunately the actual property key names are a little inconsistent, hence the need to check for both `parentGuid` and `parentGUID`). The object representing the global account does not have a parent GUID (as it's effectively at the root of the hierarchy).
+
+
