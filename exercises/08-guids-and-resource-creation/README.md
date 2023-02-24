@@ -166,10 +166,10 @@ btp create accounts/subaccount --help
 
 There's quite a bit that can be specified; let's keep things as simple as possible and specify the minimum. One thing you're going to need to specify is a subdomain; for the sake of this hands-on workshop, use your global account subdomain as part of this subaccount's subdomain value. You can retrieve the global account subdomain value with `btp --format json get accounts/global-account | jq -r .subdomain` - this will be incorporated into the `create` command below.
 
-👉 First, pick a region available to you that supports CF and save that as a variable; the example here is setting it to `eu10` but you may need to specify a different value:
+👉 First, pick a region (such as `eu10`, `us10`, or some other) that is available to you and that supports CF, and save that as a variable; do it like this, replacing `<region>` with your choice:
 
 ```bash
-region=eu10
+region=<region>
 ```
 
 👉 Now request the subaccount creation, like this (this example uses the global account display name for part of the subdomain value):
