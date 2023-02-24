@@ -133,7 +133,7 @@ Over the course of the next couple of exercises you'll be appending various setu
 cp $HOME/.bashrc /tmp/
 ```
 
-Now add a line to the end, which defines the alias - if you're typing it in manually, first, well done, and second, make sure you use the command as shown here, with the single quotes (not double quotes) and using the *append* redirection which is a double greater-than sign `>>`, and *not* a single one:
+👉 Now add a line to the end, which defines the alias - if you're typing it in manually, first, well done, and second, make sure you use the command as shown here, with the single quotes (not double quotes) and using the *append* redirection which is a double greater-than sign `>>`, and *not* a single one:
 
 ```bash
 echo "alias bu='source <(tail -1 $HOME/.bashrc)'" >> $HOME/.bashrc
