@@ -40,6 +40,7 @@ With the [Dockerfile](Dockerfile) in this directory, an image is built, and then
 cd container
 docker build -t codejam .
 ```
+> If you see a message like this: "Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?", make sure you've started Docker Desktop.
 
 > If you're running on a MacBook with an M1 (ARM architecture) chip, you'll need to add a parameter to get this to build for the x86 architecture and then macOS will take care of running the container via Rosetta:
 >
