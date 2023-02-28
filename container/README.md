@@ -223,4 +223,4 @@ This is simply to be more explicit as to what's going on. Feel free to use the s
 
 ## Further Reading
 
-* If you are not familiar with Docker or the concept of Containerization, make sure to take a look at this Playlist ([2 min of Cloud Native](https://www.youtube.com/playlist?list=PL6RpkC85SLQCwaJ54TAAHMvSl5wpVPrai)) after the SAP CodeJam.
+* Video series on Docker and containerisation: [2 min of Cloud Native](https://www.youtube.com/playlist?list=PL6RpkC85SLQCwaJ54TAAHMvSl5wpVPrai)
