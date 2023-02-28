@@ -218,3 +218,7 @@ docker container ls -a
 ```
 
 This is simply to be more explicit as to what's going on. Feel free to use the shorter commands and options if you wish.
+
+## Further Reading
+
+* Video series on Docker and containerisation: [2 min of Cloud Native](https://www.youtube.com/playlist?list=PL6RpkC85SLQCwaJ54TAAHMvSl5wpVPrai)
