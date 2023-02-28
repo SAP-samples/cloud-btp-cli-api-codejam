@@ -73,7 +73,7 @@ You should see build output that looks something like this:
  => => naming to docker.io/library/codejam                                                                                                                     0.0s
 ```
 
-> If you are not familiar with Docker or the concept of Containerization, make sure to take a look at this Playlist ([2 min of Cloud Native](https://www.youtube.com/playlist?list=PL6RpkC85SLQCwaJ54TAAHMvSl5wpVPrai)) after the SAP CodeJam.
+
 
 ## Check the image
 
@@ -220,3 +220,7 @@ docker container ls -a
 ```
 
 This is simply to be more explicit as to what's going on. Feel free to use the shorter commands and options if you wish.
+
+## Further Reading
+
+* If you are not familiar with Docker or the concept of Containerization, make sure to take a look at this Playlist ([2 min of Cloud Native](https://www.youtube.com/playlist?list=PL6RpkC85SLQCwaJ54TAAHMvSl5wpVPrai)) after the SAP CodeJam.
