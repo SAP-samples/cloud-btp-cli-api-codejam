@@ -73,8 +73,6 @@ You should see build output that looks something like this:
  => => naming to docker.io/library/codejam                                                                                                                     0.0s
 ```
 
-
-
 ## Check the image
 
 👉 Check the image was created successfully like this:
