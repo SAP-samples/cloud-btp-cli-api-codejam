@@ -40,6 +40,7 @@ With the [Dockerfile](Dockerfile) in this directory, an image is built, and then
 cd container
 docker build -t codejam .
 ```
+> If you see a message like this: "Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?", make sure you've started Docker Desktop.
 
 > If you're running on a MacBook with an M1 (ARM architecture) chip, you'll need to add a parameter to get this to build for the x86 architecture and then macOS will take care of running the container via Rosetta:
 >
@@ -218,3 +219,7 @@ docker container ls -a
 ```
 
 This is simply to be more explicit as to what's going on. Feel free to use the shorter commands and options if you wish.
+
+## Further Reading
+
+* Video series on Docker and containerization: [2 minutes of Cloud Native](https://www.youtube.com/playlist?list=PL6RpkC85SLQCwaJ54TAAHMvSl5wpVPrai)
