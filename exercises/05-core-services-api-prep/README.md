@@ -264,7 +264,7 @@ cd76fdef-16f8-47a3-954b-cab6678cc24d   testsubaccount     a253215a-736f-4e9a-b0c
 f78e0bdb-c97c-4cbc-bb06-526695f44551   trial              8fe7efd4trial                          eu10
 ```
 
-> You'll still see some blank lines and an "OK" - this is extraneous output that is sent (to STDERR) by the `btp` invocation. The latest versions of `btp` (including the one available at the time this was written, 2.33.0, suppresses such output when the `--format json` option is used; think of this contrast as the difference between "human" and "machine-readable" output versions.
+> You'll still see some blank lines and an "OK" - this is extraneous output that is sent (to STDERR) by the `btp` invocation. The latest versions of `btp` (including the one available at the time this was written, 2.38.0, suppresses such output when the `--format json` option is used; think of this contrast as the difference between "human" and "machine-readable" output versions.
 
 For the subaccount in question ("trial" in this sample), we want to get the GUID, which is `f78e0bdb-c97c-4cbc-bb06-526695f44551`. Again, we could copy/paste it somehow, but that's not useful if we want to do this, or something like it, in an automated fashion. Instead, we'll ask for the JSON representation of this information and parse it out from that.
 

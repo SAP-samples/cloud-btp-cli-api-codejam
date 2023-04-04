@@ -97,7 +97,7 @@ curl \
 
   > The `getbtpcli` script itself will be placed in whatever directory you happen to be in, which will be your home directory, which is fine. So you'll need to specify the relative path to it when running it, like this: `./getbtpcli` (because your home directory is traditionally not included in the list of directories in your `PATH` environment variable).
 
-👉 Run the script with the test mode option just to check what the latest version of the btp CLI is (the output will be something like "Version is 2.33.0"):
+👉 Run the script with the test mode option just to check what the latest version of the btp CLI is (the output will be something like "Version is 2.38.0"):
 
 ```bash
 ./getbtpcli --test
@@ -115,11 +115,11 @@ Here's an example session where it's run in test mode first and then for real:
 
 ```text
 user: user $ ./getbtpcli --test
-Version is 2.33.0
+Version is 2.38.0
 user: user $ ./getbtpcli
 Proceed (with Enter) only if you accept the SAP Developer Licence 3.1
 (see https://tools.hana.ondemand.com/developer-license-3_1.txt) ...
-Version is 2.33.0
+Version is 2.38.0
 user: user $
 ```
 
@@ -174,8 +174,8 @@ ls -l $HOME/bin/
 You should see something similar to this:
 
 ```text
-lrwxrwxrwx 1 user user       10 Jan  3 15:26 btp -> btp-2.33.0
--rwxr-xr-x 1 user user 11749335 Nov 16 11:41 btp-2.33.0
+lrwxrwxrwx 1 user user       10 Jan  3 15:26 btp -> btp-2.38.0
+-rwxr-xr-x 1 user user 11749335 Nov 16 11:41 btp-2.38.0
 ```
 
 Before you can run the btp CLI simply as `btp` you need to add that `bin/` directory to your `PATH` environment variable. To make this addition persistent, let's add it to `$HOME/.bashrc`.
@@ -240,7 +240,7 @@ You should see something like this:
 
 ```text
 user: user $ btp
-SAP BTP command line interface (client v2.33.0)
+SAP BTP command line interface (client v2.38.0)
 
 Usage: btp [OPTIONS] ACTION GROUP/OBJECT PARAMS
 

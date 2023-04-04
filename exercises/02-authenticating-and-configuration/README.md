@@ -31,7 +31,7 @@ btp login
 Here's an example authentication flow for a user with just a single trial global account 65137137trial:
 
 ```text
-SAP BTP command line interface (client v2.33.0)
+SAP BTP command line interface (client v2.38.0)
 
 CLI server URL [https://cpcli.cf.eu10.hana.ondemand.com]> 
 Connecting to CLI server at https://cpcli.cf.eu10.hana.ondemand.com...
@@ -59,7 +59,7 @@ If your user is associated with more than one global account, they will be prese
 
 ```text
 user: user $ btp login
-SAP BTP command line interface (client v2.33.0)
+SAP BTP command line interface (client v2.38.0)
 
 CLI server URL [https://cpcli.cf.eu10.hana.ondemand.com]> 
 Connecting to CLI server at https://cpcli.cf.eu10.hana.ondemand.com...
@@ -91,12 +91,12 @@ Here's another example authentication flow, for a global account with the subdom
 
 ```text
 user: user $ btp login --sso manual
-SAP BTP command line interface (client v2.33.0)
+SAP BTP command line interface (client v2.38.0)
 
 CLI server URL [https://cpcli.cf.eu10.hana.ondemand.com]> 
 Connecting to CLI server at https://cpcli.cf.eu10.hana.ondemand.com...
 
-Please authenticate at: https://cpcli.cf.eu10.hana.ondemand.com/login/v2.33.0/browser/5562475c-4e68-472a-b868-912871beba14
+Please authenticate at: https://cpcli.cf.eu10.hana.ondemand.com/login/v2.38.0/browser/5562475c-4e68-472a-b868-912871beba14
 
 Authentication successful
 
@@ -282,7 +282,7 @@ Here's the sort of thing you will most likely see:
 
 ```text
 user: user $ btp
-SAP BTP command line interface (client v2.33.0)
+SAP BTP command line interface (client v2.38.0)
 
 Usage: btp [OPTIONS] ACTION GROUP/OBJECT PARAMS
 
@@ -332,7 +332,7 @@ This time it should be different:
 
 ```text
 user: user $ btp
-SAP BTP command line interface (client v2.33.0)
+SAP BTP command line interface (client v2.38.0)
 
 Usage: btp [OPTIONS] ACTION GROUP/OBJECT PARAMS
 
