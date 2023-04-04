@@ -225,7 +225,7 @@ Current target:
 
 **Note**
 
-With the current (latest) version of the btp CLI, a new "interative target" feature was introduced. You can try this out simply by entering `btp target` and following the instructions, which will display the hierarchy of directories and subaccounts available to you in the global account you're currently in, and allow you to navigate that hierarchy and select a new target. Here's an example:
+With version 2.33.0 of the btp CLI, a new "interative target" feature was introduced. You can try this out simply by entering `btp target` and following the instructions, which will display the hierarchy of directories and subaccounts available to you in the global account you're currently in, and allow you to navigate that hierarchy and select a new target. Here's an example:
 
 ```text
 user: user $ btp target
