@@ -46,7 +46,7 @@ You may also assign yourself any other App Studio related role collections, but 
 
 Within the App Studio you should set up a "Basic" Dev Space ready for the CodeJam.
 
-When setting this up, please make sure you also select the "MTA Tools" in the "Additional SAP Extensions" list (this will give you the `cf` command line tool, amongst other things).
+When setting this up, please make sure you also select the "MTA Tools" extension is part of that Dev Space. It used to be an optional extension in the "Additional SAP Extensions" list but now it should be included in the "SAP Predefined Extensions" list. This "MTA Tools" extension will give you the `cf` command line tool, amongst other things.
 
 Give the Dev Space a name, and hit "Create Dev Space".
 
