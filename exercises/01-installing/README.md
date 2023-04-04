@@ -244,7 +244,7 @@ SAP BTP command line interface (client v2.38.0)
 
 Usage: btp [OPTIONS] ACTION GROUP/OBJECT PARAMS
 
-CLI server URL:                    https://cpcli.cf.eu10.hana.ondemand.com (server v2.34.0)
+CLI server URL:                    https://cpcli.cf.eu10.hana.ondemand.com (server v2.40.0)
 Configuration:                     /home/user/.config/.btp/config.json
 
 You are currently not logged in.
