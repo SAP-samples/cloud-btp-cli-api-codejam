@@ -136,19 +136,23 @@ Here's an example invocation:
 
 ```text
 user: user $ btp help target
-Usage: btp [OPTIONS] target [--global-account SUBDOMAIN] [--directory ID] [--subaccount ID]
+Usage: btp [OPTIONS] target [--hierarchy] [--global-account SUBDOMAIN] [--directory ID] [--subaccount ID]
 
-Set the target for commands to the global account, a directory, or a subaccount. Commands are executed in the specified target, unless you override it using a parameter.
+Set the target for commands to a global account, a directory, or a subaccount. Commands are executed in the specified target, unless you override it using a parameter.
 If the specified target is part of an account hierarchy, its parents are also targeted, so that if a command is only available on a higher level, it will be executed there.
 
+For a simple target selection, use 'btp target' without parameters. The siblings and children of your current target will be displayed for selection, and you can navigate up and down within the hierarchy.
+
+To see the entire hierarchy of all global accounts as well as the included directories and subaccounts, use the '--hierarchy' parameter. You can then select a target from this list.
+
 Parameters:
+  --hierarchy,-h                  (Optional) Browse the entire hierarchy of all global accounts to select a target.
   --global-account,-ga SUBDOMAIN  (Optional) You can omit SUBDOMAIN as only the global account of the active login can be targeted.
   --directory,-dir ID             (Optional) The ID of the directory to be targeted.
   --subaccount,-sa ID             (Optional) The ID of the subaccount to be targeted.
 
 Tips:
     To execute a command in the parent directory or global account, use the '-ga' or '-dir' parameter without value.
-    To work in a different global account, log in to this global account using 'btp login'.
     To find a subaccount ID, use 'btp list accounts/subaccount'.
     To find a directory ID, use 'btp get accounts/global-account --show-hierarchy'.
 
