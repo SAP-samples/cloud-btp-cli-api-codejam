@@ -150,22 +150,6 @@ SAP_BTP_CLI_AUTOCOMPLETE="/home/user/.config/btp/autocomplete/scripts/sapbtpcli-
 bu
 ```
 
-## Guard against permission expansion
-
-> This section is only relevant for those working through this CodeJam in a Dev Space in the SAP Business Application Studio.
-
-Currently, if the Dev Space is restarted, permissions on the btp CLI configuration files are extended to add read/write access for the group; we don't want this.
-
-👉 So while you're looking at your `.bashrc` file, append a line like this:
-
-```bash
-echo 'chmod 600 $BTP_CLIENTCONFIG $SAP_BTP_CLI_AUTOCOMPLETE' >> $HOME/.bashrc
-```
-
-This will set the permissions (also known as "modes") on the btp CLI config files to 600, i.e. read and write for the user, and nothing for anyone else. For more on understanding these permissions, see [chmod](https://en.wikipedia.org/wiki/Chmod).
-
-(Because this `chmod` invocation is only needed if the shell is restarted, we do not need to invoke it now with `bu`).
-
 ## Try out autocomplete
 
 Now you're ready to try the autocomplete feature out.
