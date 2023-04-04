@@ -37,6 +37,9 @@ General actions:
     target                Set the target for subsequent commands
     enable autocomplete   Enable command autocompletion
     disable autocomplete  Disable command autocompletion
+    list config           List current configuration settings
+    set config            Change configuration settings
+    reset config          Change configuration settings to default values
 
 Options:
   --config   Specify location of configuration file
@@ -72,6 +75,7 @@ Available "list" commands:
     btp list accounts/resource-provider      List all resource provider instances
     btp list accounts/subaccount             List all subaccounts in a global account
     btp list accounts/subscription           Get all applications to which a subaccount is entitled to subscribe
+    btp list config                          List current configuration settings
     btp list security/app                    List all apps
     btp list security/available-idp          List all Identity Authentication tenants to which you can connect this global account or subaccount
     btp list security/role                   List all roles
