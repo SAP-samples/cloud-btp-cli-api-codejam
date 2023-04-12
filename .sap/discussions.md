@@ -92,13 +92,13 @@ user: user $ echo $0
 bash
 ```
 
+See [What is the meaning of $0 in the Bash shell](https://unix.stackexchange.com/q/280454/87597) for more information.
+
 _Output for some of the commands you used in exploring your account probably wrapped over multiple lines. How might you remedy that?_
 
-With a combination of the standard `cut` command (with which you can cut out sections of lines, using a variety of delimiters (tabs, spaces, or whatever you want to specify)), and the `tput` command which will return various characteristics about the terminal you are currently using, you can come up with a little function or script that will cut out characters from each line, returning only characters from the 1st in the line to the Nth in the line where N is the width of the terminal determined through `tput`. 
+With a combination of the standard `cut` command (with which you can cut out sections of lines, using a variety of delimiters (tabs, spaces, or whatever you want to specify)), and the `tput` command which will return various characteristics about the terminal you are currently using, you can come up with a little function or script that will cut out characters from each line, returning only characters from the 1st in the line to the Nth in the line where N is the width of the terminal determined through `tput`.
 
 There's an example of this, as the `trunc` function, later in Exercise 05, in the section titled [Finding the subaccount GUID](../exercises/05-core-services-api-prep#finding-the-subaccount-guid).
-
-See [What is the meaning of $0 in the Bash shell](https://unix.stackexchange.com/q/280454/87597) for more information.
 
 # Exercise 04
 
@@ -220,7 +220,7 @@ _We used sed to strip off the unwanted first two lines of the service key output
 Another way of achieving this is to use `tail`'s `--lines` option (which is `-n` in its short form):
 
 ```bash
-cf service-key cis-central cis-central-sk | tail -n +3 
+cf service-key cis-central cis-central-sk | tail -n +3
 ```
 
 This `+NUM` construct will cause `tail` to output lines starting with line `NUM`, i.e. 3 here.
@@ -265,11 +265,11 @@ Answering these three questions together. If given `--data` or `--data-urlencode
 
 _Have a bit of a stare at the call-entitlements-service-regions-api script, and the associated lib.sh library. Is there anything in there that you'd like to know more about?_
 
-This is just for general discussion. The script (and library in `lib.sh`) are written according to best practices, with the help of `shellcheck` (see [Improving my shell scripting](https://qmacro.org/blog/posts/2020/10/05/improving-my-shell-scripting/)). 
+This is just for general discussion. The script (and library in `lib.sh`) are written according to best practices, with the help of `shellcheck` (see [Improving my shell scripting](https://qmacro.org/blog/posts/2020/10/05/improving-my-shell-scripting/)).
 
 _Just before the JSON output in the call to call-entitlements-service-regions-api, you saw some progress bar style information on bytes received, time taken, and so on. How would you suppress this output, so you just got the JSON?_
 
-You can get `curl` to suppress this using the `--silent` option. Incidentally, there's an alternative progress bar you can request, with `--progress-bar`. 
+You can get `curl` to suppress this using the `--silent` option. Incidentally, there's an alternative progress bar you can request, with `--progress-bar`.
 
 # Exercise 08
 
@@ -277,7 +277,7 @@ You can get `curl` to suppress this using the `--silent` option. Incidentally, t
 
 _The btp CLI command you used to Create a new subaccount in the directory had quite an involved-looking construction for the value of the --subdomain parameter: "$(btp --format json get accounts/global-account | jq -r .subdomain)-codejam-subaccount". Can you pick this apart and understand how it works?_
 
-When creating a subaccount, you need to specify a subdomain value. This is not a critical value but is mandatory, so we make one up, based on something related to the user's global account (the global account's subdomain), with `-codejam-subaccount` suffixed to that. So this construction is a string, which contains a [command substitution](https://www.gnu.org/software/bash/manual/html_node/Command-Substitution.html) (the `$(...)` part) and some literal text (the suffix). 
+When creating a subaccount, you need to specify a subdomain value. This is not a critical value but is mandatory, so we make one up, based on something related to the user's global account (the global account's subdomain), with `-codejam-subaccount` suffixed to that. So this construction is a string, which contains a [command substitution](https://www.gnu.org/software/bash/manual/html_node/Command-Substitution.html) (the `$(...)` part) and some literal text (the suffix).
 
 Inside the command substitution there's a call to `btp --format json get accounts/global-account` which should return a JSON formatted set of details relating to the logged-in user's global account. That will look something like this:
 
@@ -313,7 +313,7 @@ In this `btpguid` script, here's the relevant section:
 }
 ```
 
-Briefly, this is a sort of conditional, which checks to see if the first argument passed when invoking `btpguid` (via `$1`) is either `-t` or `--target`. If it is, then a `btp target` is executed, specifying what type of target (it will either be a directory or a subaccount, which we already have in the `$subtype` variable, and also specifying the GUID itself, which we already have in `$guid`. Both STDOUT and STDERR from this invocation are redirected to `/dev/null` (so the operation is silent) but we then do check what the exit code from the `btp` invocation was, and pass it through as the exit code to `btpguid` (so any issue can be trapped by the caller of `btpguid`). 
+Briefly, this is a sort of conditional, which checks to see if the first argument passed when invoking `btpguid` (via `$1`) is either `-t` or `--target`. If it is, then a `btp target` is executed, specifying what type of target (it will either be a directory or a subaccount, which we already have in the `$subtype` variable, and also specifying the GUID itself, which we already have in `$guid`. Both STDOUT and STDERR from this invocation are redirected to `/dev/null` (so the operation is silent) but we then do check what the exit code from the `btp` invocation was, and pass it through as the exit code to `btpguid` (so any issue can be trapped by the caller of `btpguid`).
 
 _In the jq part of the btpguid script that parses the JSON formatted output of the btp get accounts/global-account --show-hierarchy command, what technique is used to ignore the global account?_
 
