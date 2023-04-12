@@ -92,6 +92,12 @@ user: user $ echo $0
 bash
 ```
 
+_Output for some of the commands you used in exploring your account probably wrapped over multiple lines. How might you remedy that?_
+
+With a combination of the standard `cut` command (with which you can cut out sections of lines, using a variety of delimiters (tabs, spaces, or whatever you want to specify)), and the `tput` command which will return various characteristics about the terminal you are currently using, you can come up with a little function or script that will cut out characters from each line, returning only characters from the 1st in the line to the Nth in the line where N is the width of the terminal determined through `tput`. 
+
+There's an example of this, as the `trunc` function, later in Exercise 05, in the section titled [Finding the subaccount GUID](../exercises/05-core-services-api-prep#finding-the-subaccount-guid).
+
 See [What is the meaning of $0 in the Bash shell](https://unix.stackexchange.com/q/280454/87597) for more information.
 
 # Exercise 04
