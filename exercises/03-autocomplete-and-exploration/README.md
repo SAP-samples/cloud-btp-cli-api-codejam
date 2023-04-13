@@ -168,7 +168,7 @@ It's time to explore your account and related BTP resources.
 
 👉 Spend a few minutes trying some of these commands, and examining the output:
 
-|Command|Group/Object|Description|
+|Actions|Group/Object|Description|
 |-|-|-|
 |`get`|`accounts/global-account`|A high level summary of the key information for your global account; add the parameter `--show-hierarchy` to get a depiction of the relationship between the directories & subaccounts within|
 |`list`|`accounts/entitlement`|A list of the entitlements for your targeted subaccount|
