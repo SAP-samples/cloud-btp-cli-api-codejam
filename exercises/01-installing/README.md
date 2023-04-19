@@ -22,6 +22,10 @@ The power of the btp CLI comes from multiple angles:
 
 App Studio Dev Spaces, even Basic ones, give us that essential command line context. So that's what we're using. By all means, after this session, feel free to install and use the btp CLI where it makes sense for you.
 
+### Getting to your Dev Space
+
+You should have already set up a Dev Space when working through the prerequisites to this CodeJam. If you need a quick reminder of how to get to the SAP Business Application Studio and your Dev Space, you can pop over to the [SAP Business Application Studio section of the prerequisites](../../prerequisites.md#sap-business-application-studio) to see where to go.
+
 ### Clearing the Dev Space ready for work
 
 Initially the Dev Space will look something like this:
