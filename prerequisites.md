@@ -42,6 +42,14 @@ If you see an "Access Denied" message when attempting to access the App Studio, 
 
 You may also assign yourself any other App Studio related role collections, but this one is the key role collection that you need.
 
+If you're using a trial account, you can get to the SAP Business Application Studio from a link directly on the [trial landing page](https://account.hanatrial.ondemand.com/trial/):
+
+![Link to BAS from trial landing page](assets/bas-from-trial-landing-page.png)
+
+More generally, you can find a link to the SAP Business Application Studio from the list of "Instances and Subscriptions" in your subaccount, as shown here:
+
+![Link to BAS from instances and subscriptions](assets/bas-from-instances-and-subscriptions.png)
+
 ### A Basic Dev Space set up
 
 Within the App Studio you should set up a "Basic" Dev Space ready for the CodeJam.
