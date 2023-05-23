@@ -1,5 +1,7 @@
 # Exercise 01
 
+20 mins
+
 [Questions](../exercises/01-installing/README.md#questions):
 
 _Expressing the individual locations within your `PATH` on separate lines was done using [Bash shell parameter expansion](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html). Using other command line tools, how else might you do it?_
@@ -29,6 +31,8 @@ _Why are there two entries in `$HOME/bin/` for the `btp` executable?_
 One is the real executable, but with a full name which includes the version, and the other is a symbolic link, with the short `btp` name, pointing to it. This way you can download and manage different versions of the btp CLI in case you need to. It's a common pattern. Moreover, you can have the `btp` symbolic link always point to the version you want to use, and the fact that it has a generic name rather than a version specific one allows for writing more generic and stable scripts.
 
 # Exercise 02
+
+20 mins
 
 [Questions](../exercises/02-authenticating-and-configuration/README.md#questions):
 
@@ -74,6 +78,8 @@ Rather than encounter this error, one can use `--sso manual` to just directly an
 
 # Exercise 03
 
+20 mins
+
 [Questions](../exercises/03-autocomplete-and-exploration/README.md#questions):
 
 _How would you discover or confirm that the shell you're actually using is indeed a Bash shell?_
@@ -101,6 +107,8 @@ With a combination of the standard `cut` command (with which you can cut out sec
 There's an example of this, as the `trunc` function, later in Exercise 05, in the section titled [Finding the subaccount GUID](../exercises/05-core-services-api-prep#finding-the-subaccount-guid).
 
 # Exercise 04
+
+30 mins
 
 [Questions](../exercises/04-retrieving-parsing-json-output/README.md#questions):
 
@@ -187,6 +195,8 @@ This question is just highlighting that there are different ways to use jq to ex
 
 # Exercise 05
 
+30 mins
+
 [Questions](../exercises/05-core-services-api-prep/README.md#questions):
 
 _When listing the environment instances for the subaccount, how else might you make that btp CLI call, without using the `--subaccount` parameter?_
@@ -208,6 +218,8 @@ local displayname="${1:-trial}"
 and specifically is the "${1:-trial}" part. This is parameter expansion in action, specifically the "parameter default" mechanism, that substitutes a value (`trial` here) if the parameter (`$1` here, i.e. the first value passed as an argument when the enclosing function was invoked) is not set. In order to use such an expansion mechanism, the expression must be enclosed in braces (`{...}`), and it's generally [good practice](https://www.shellcheck.net/wiki/SC2086) to use double quotes to prevent globbing and word splitting.
 
 # Exercise 06
+
+25 mins
 
 [Questions](../exercises/06-core-services-api-creds/README.md#questions):
 
@@ -261,6 +273,8 @@ Answering these three questions together. If given `--data` or `--data-urlencode
 
 # Exercise 07
 
+20 mins
+
 [Questions](../exercises/07-core-services-api-call/README.md#questions):
 
 _Have a bit of a stare at the call-entitlements-service-regions-api script, and the associated lib.sh library. Is there anything in there that you'd like to know more about?_
@@ -272,6 +286,8 @@ _Just before the JSON output in the call to call-entitlements-service-regions-ap
 You can get `curl` to suppress this using the `--silent` option. Incidentally, there's an alternative progress bar you can request, with `--progress-bar`.
 
 # Exercise 08
+
+25 mins
 
 [Questions](../exercises/08-guids-and-resource-creation/README.md#questions):
 
@@ -326,6 +342,8 @@ select(.parentGuid? or .parentGUID?)
 will only let through objects that have a parent GUID property (unfortunately the actual property key names are a little inconsistent, hence the need to check for both `parentGuid` and `parentGUID`). The object representing the global account does not have a parent GUID (as it's effectively at the root of the hierarchy).
 
 # Exercise 09
+
+30 mins
 
 [Questions](../exercises/09-deleting-resources-with-api/README.md#questions):
 
