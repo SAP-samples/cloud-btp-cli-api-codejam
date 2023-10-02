@@ -16,7 +16,7 @@ Why a Dev Space in App Studio, and why a Basic one at that? Well, because it all
 
 The power of the btp CLI comes from multiple angles:
 
-* it gives us comfortable and convenient access to the [BTP APIs](https://api.sap.com/package/SAPCloudPlatformCoreServices/rest)
+* it gives us comfortable and convenient access to the [BTP APIs](https://hub.sap.com/package/SAPCloudPlatformCoreServices/rest)
 * it is a command line tool, meaning it lets us stay within our development flow and can be combined with other developer and devops tools
 * it is scriptable - we can make use of the btp CLI within shell scripts to create whatever automation we need relating to management of resources on BTP
 

@@ -12,7 +12,7 @@ There's also an alternative [mini-workshop](https://github.com/SAP-samples/cloud
 
 This CodeJam introduces attendees to `btp`, the CLI for the SAP Business Technology Platform (SAP BTP). Here's the description of the btp CLI from the [official download page](https://tools.hana.ondemand.com/#cloud): "_Use the btp CLI for account administration on SAP BTP. The btp CLI is only available for global accounts on feature set B (for example, SAP BTP Trial accounts)_".
 
-It also introduces attendees to the APIs for SAP BTP, the Core Services for SAP BTP, which, [according to the SAP API Business Hub](https://api.sap.com/package/SAPCloudPlatformCoreServices/rest), allow you to "_manage, build, and extend the core capabilities of SAP BTP._"
+It also introduces attendees to the APIs for SAP BTP, the Core Services for SAP BTP, which, [according to the SAP Business Accelerator Hub](https://hub.sap.com/package/SAPCloudPlatformCoreServices/rest), allow you to "_manage, build, and extend the core capabilities of SAP BTP._"
 
 ## About this CodeJam
 
@@ -67,7 +67,7 @@ Here are a few pointers to resources for further connections and information on 
 * there's a wealth of information on the SAP Help Portal in the [Account Administration Using the SAP BTP Command Line Interface (btp CLI) [Feature Set B]](https://help.sap.com/products/BTP/65de2977205c403bbc107264b8eccf4b/7c6df2db6332419ea7a862191525377c.html?locale=en-US&version=Cloud) topic
 * the playlist [The SAP btp CLI](https://www.youtube.com/playlist?list=PL6RpkC85SLQDXx827kdjKc6HRvdMRZ8P5) on the SAP Developers YouTube channel contains recordings of past live streams on the topic
 * there's a [branch in the SAP Tech Bytes repo](https://github.com/SAP-samples/sap-tech-bytes/tree/2021-09-01-btp-cli) covering some basic aspects of the btp CLI
-* The SAP API Business Hub is the central place for APIs in the SAP world, and there's a specific area for the [Core Services for SAP BTP](https://api.sap.com/package/SAPCloudPlatformCoreServices/rest) API package.
+* The SAP Business Accelerator Hub is the central place for APIs in the SAP world, and there's a specific area for the [Core Services for SAP BTP](https://hub.sap.com/package/SAPCloudPlatformCoreServices/rest) API package.
 
 ## License
 
