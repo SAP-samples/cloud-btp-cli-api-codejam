@@ -51,7 +51,7 @@ In a previous exercise, we used the `/entitlements/v1/globalAccountAllowedDataCe
 
 ![The Core Services APIs](assets/core-services-apis.png)
 
-👉 Take a moment to look at the [API reference for the Entitlements Service API](https://api.sap.com/api/APIEntitlementsService/resource), and you'll see that there are three groups of endpoints: "Manage Assigned Entitlements", "Regions for Global Account" and "Job Management":
+👉 Take a moment to look at the [API reference for the Entitlements Service API](https://hub.sap.com/api/APIEntitlementsService/resource), and you'll see that there are three groups of endpoints: "Manage Assigned Entitlements", "Regions for Global Account" and "Job Management":
 
 ![Entitlements Service API endpoint groups](assets/entitlements-endpoint-groups.png)
 
@@ -59,9 +59,9 @@ In a previous exercise, we used the `/entitlements/v1/globalAccountAllowedDataCe
 
 The endpoint we used was within the "Regions for Global Account" group.
 
-This time, we need to find an endpoint that supports operations on directories and subaccounts, and in the [Core Services APIs overview](https://api.sap.com/package/SAPCloudPlatformCoreServices/rest) we can see that the description for the Accounts Service API sounds like what we're looking for: "_Manage the directories and subaccounts in your global account's structure._"
+This time, we need to find an endpoint that supports operations on directories and subaccounts, and in the [Core Services APIs overview](https://hub.sap.com/package/SAPCloudPlatformCoreServices/rest) we can see that the description for the Accounts Service API sounds like what we're looking for: "_Manage the directories and subaccounts in your global account's structure._"
 
-👉 Select the [Accounts Service API](https://api.sap.com/api/APIAccountsService/overview) in the SAP API Business Hub, go to the [API Reference](https://api.sap.com/api/APIAccountsService/resource) section, and take note of the endpoint groups, which are:
+👉 Select the [Accounts Service API](https://hub.sap.com/api/APIAccountsService/overview) in the SAP Business Accelerator Hub, go to the [API Reference](https://hub.sap.com/api/APIAccountsService/resource) section, and take note of the endpoint groups, which are:
 
 * Global Account Operations
 * Directory Operations
@@ -432,7 +432,7 @@ guid=$(btpguid codejam-directory)
 
 ### Using HTTP GET to read the information
 
-Starting cautiously, let's try first to read the directory information, using the HTTP GET method. If you check the Directory Operations group of endpoints for the [Accounts Service API](https://api.sap.com/api/APIAccountsService/resource) you'll see that there's a family of HTTP method + URL path combinations:
+Starting cautiously, let's try first to read the directory information, using the HTTP GET method. If you check the Directory Operations group of endpoints for the [Accounts Service API](https://hub.sap.com/api/APIAccountsService/resource) you'll see that there's a family of HTTP method + URL path combinations:
 
 * `GET    /accounts/v1/directories/{directoryGUID}` (read)
 * `DELETE /accounts/v1/directories/{directoryGUID}` (delete)
@@ -606,7 +606,7 @@ Guess what that relates to? Yes, the deletion activity is asynchronous, and is h
 
 ### Checking the deletion job status
 
-Let's finish this exercise with a final API call, this time to the single endpoint in the [Accounts Service](https://api.sap.com/api/APIAccountsService/resource) Job Management endpoint group:
+Let's finish this exercise with a final API call, this time to the single endpoint in the [Accounts Service](https://hub.sap.com/api/APIAccountsService/resource) Job Management endpoint group:
 
 ```text
 /jobs-management/v1/jobs/{jobInstanceIdOrUniqueId}/status
