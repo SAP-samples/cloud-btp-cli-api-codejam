@@ -10,7 +10,7 @@ To authenticate with the btp CLI so you can access and manage the resources in y
 
 |Item|Description|
 |-|-|
-|btp CLI server URL|The remote endpoint for the btp CLI. This is usually fixed, and is currently `https://cpcli.cf.eu10.hana.ondemand.com` for all users.|
+|btp CLI server URL|The remote endpoint for the btp CLI. This is usually fixed, and is currently `https://cli.btp.cloud.sap` for all users.|
 |Username|The username with which you log on to the BTP account.|
 |Password|The password with which you log on to the BTP account.|
 
@@ -31,10 +31,10 @@ btp login
 Here's an example authentication flow for a user with just a single trial global account 65137137trial:
 
 ```text
-SAP BTP command line interface (client v2.38.0)
+SAP BTP command line interface (client v2.54.0)
 
-CLI server URL [https://cpcli.cf.eu10.hana.ondemand.com]> 
-Connecting to CLI server at https://cpcli.cf.eu10.hana.ondemand.com...
+CLI server URL [https://cli.btp.cloud.sap]> 
+Connecting to CLI server at https://cli.btp.cloud.sap...
 
 User> qmacro+blue@gmail.com
 Password> 
@@ -59,10 +59,10 @@ If your user is associated with more than one global account, they will be prese
 
 ```text
 user: user $ btp login
-SAP BTP command line interface (client v2.38.0)
+SAP BTP command line interface (client v2.54.0)
 
-CLI server URL [https://cpcli.cf.eu10.hana.ondemand.com]> 
-Connecting to CLI server at https://cpcli.cf.eu10.hana.ondemand.com...
+CLI server URL [https://cli.btp.cloud.sap]> 
+Connecting to CLI server at https://cli.btp.cloud.sap...
 
 User> dj.adams@sap.com
 Password> 
@@ -91,12 +91,12 @@ Here's another example authentication flow, for a global account with the subdom
 
 ```text
 user: user $ btp login --sso manual
-SAP BTP command line interface (client v2.38.0)
+SAP BTP command line interface (client v2.54.0)
 
-CLI server URL [https://cpcli.cf.eu10.hana.ondemand.com]> 
-Connecting to CLI server at https://cpcli.cf.eu10.hana.ondemand.com...
+CLI server URL [https://cli.btp.cloud.sap]> 
+Connecting to CLI server at https://cli.btp.cloud.sap...
 
-Please authenticate at: https://cpcli.cf.eu10.hana.ondemand.com/login/v2.38.0/browser/5562475c-4e68-472a-b868-912871beba14
+Please authenticate at: https://cli.btp.cloud.sap/login/v2.38.0/browser/5562475c-4e68-472a-b868-912871beba14
 
 Authentication successful
 
@@ -286,11 +286,11 @@ Here's the sort of thing you will most likely see:
 
 ```text
 user: user $ btp
-SAP BTP command line interface (client v2.38.0)
+SAP BTP command line interface (client v2.54.0)
 
 Usage: btp [OPTIONS] ACTION GROUP/OBJECT PARAMS
 
-CLI server URL:                    https://cpcli.cf.eu10.hana.ondemand.com (server v2.40.0)
+CLI server URL:                    https://cli.btp.cloud.sap (server v2.56.0)
 Configuration:                     /home/user/.config/.btp/config.json
 
 You are currently not logged in.
@@ -336,11 +336,11 @@ This time it should be different:
 
 ```text
 user: user $ btp
-SAP BTP command line interface (client v2.38.0)
+SAP BTP command line interface (client v2.54.0)
 
 Usage: btp [OPTIONS] ACTION GROUP/OBJECT PARAMS
 
-CLI server URL:                    https://cpcli.cf.eu10.hana.ondemand.com (server v2.40.0)
+CLI server URL:                    https://cli.btp.cloud.sap (server v2.56.0)
 User:                              qmacro+blue@gmail.com at accounts.sap.com
 Configuration:                     /home/user/.config/btp/config.json
 
