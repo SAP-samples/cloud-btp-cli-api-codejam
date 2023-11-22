@@ -65,13 +65,13 @@ _Did you try to authenticate using Single Sign-On (SSO)? How did it work for you
 Most of the time, containers have no GUI. While they may have a text-only browser installed (such as `lynx` or `w3m`), the one in the container image for this CodeJam does not. And even if there were a text-only browser, many Web-based SSO solutions do not support them. So running `btp login --sso` will have resulted in an error like this, with a suggestion that the URL be opened manually:
 
 ```text
-SAP BTP command line interface (client v2.33.0)
+SAP BTP command line interface (client v2.54.0)
 
-CLI server URL [https://cpcli.cf.eu10.hana.ondemand.com]>
-Connecting to CLI server at https://cpcli.cf.eu10.hana.ondemand.com...
+CLI server URL [https://cli.btp.cloud.sap]>
+Connecting to CLI server at https://cli.btp.cloud.sap...
 
 Failed to open web browser.
-Please continue login at: https://cpcli.cf.eu10.hana.ondemand.com/login/v2.33.0/browser/7d42eb32-4c46-8753-95d32152a3f9 (or use Ctrl+C to abort)
+Please continue login at: https://cli.btp.cloud.sap/login/v2.54.0/browser/7d42eb32-4c46-8753-95d32152a3f9 (or use Ctrl+C to abort)
 ```
 
 Rather than encounter this error, one can use `--sso manual` to just directly and explicitly say "just give me a URL and I'll get there somehow".
