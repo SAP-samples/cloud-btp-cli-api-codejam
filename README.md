@@ -10,15 +10,9 @@ There's also an alternative [mini-workshop](https://github.com/SAP-samples/cloud
 
 ## Overview
 
-This CodeJam is on the Core Service APIs for SAP BTP and also the command line interface tool for SAP BTP, otherwise known as the btp CLI.
+This CodeJam is on the Core Service APIs for SAP BTP, which, [according to the SAP Business Accelerator Hub]([url](https://hub.sap.com/package/SAPCloudPlatformCoreServices/rest)), allows you to "manage, build, and extend the core capabilities of SAP BTP." It also covers the command line interface tool for SAP BTP, otherwise known as the btp CLI.
 
-This CodeJam introduces attendees to `btp`, the CLI for the SAP Business Technology Platform (SAP BTP). It also introduces attendees to the APIs for SAP BTP, known as Core Services for SAP BTP, which, according to the SAP Business Accelerator Hub, allow you to "manage, build, and extend the core capabilities of SAP BTP."
-
-After completing this CodeJam, you will be familiar with how to use the btp CLI on the command line, and also in scripts, to view, administer and generally manage resources on SAP BTP. You'll also have a good understanding of what is possible with the APIs, how to prepare and use authentication for them, and how to navigate and interpret the output.
-
-## About this CodeJam
-
-During this CodeJam, you'll learn how to harness the power of the btp CLI, as well as the core services APIs, to report on and manage resources on SAP BTP.
+After completing this CodeJam, you will be familiar with how to use the btp CLI on the command line, and also in scripts. You'll have seen how to harness its power to view, administer and generally manage resources on SAP BTP. You'll also have a good understanding of what is possible with the APIs and how to use them.
 
 Rather than skimming the surface of these two topics, you'll dive deep into how things work, and also understand how the two are strongly related. You'll get to understand how to get to the rich seam of data that the btp CLI and the core service APIs offer, taking your time with discovery, authentication, making calls and parsing the results.
 
