@@ -10,9 +10,11 @@ There's also an alternative [mini-workshop](https://github.com/SAP-samples/cloud
 
 ## Overview
 
-This CodeJam introduces attendees to `btp`, the CLI for the SAP Business Technology Platform (SAP BTP). Here's the description of the btp CLI from the [official download page](https://tools.hana.ondemand.com/#cloud): "_Use the btp CLI for account administration on SAP BTP. The btp CLI is only available for global accounts on feature set B (for example, SAP BTP Trial accounts)_".
+This CodeJam is on the Core Service APIs for SAP BTP and also the command line interface tool for SAP BTP, otherwise known as the btp CLI.
 
-It also introduces attendees to the APIs for SAP BTP, the Core Services for SAP BTP, which, [according to the SAP Business Accelerator Hub](https://hub.sap.com/package/SAPCloudPlatformCoreServices/rest), allow you to "_manage, build, and extend the core capabilities of SAP BTP._"
+This CodeJam introduces attendees to `btp`, the CLI for the SAP Business Technology Platform (SAP BTP). It also introduces attendees to the APIs for SAP BTP, known as Core Services for SAP BTP, which, according to the SAP Business Accelerator Hub, allow you to "manage, build, and extend the core capabilities of SAP BTP."
+
+After completing this CodeJam, you will be familiar with how to use the btp CLI on the command line, and also in scripts, to view, administer and generally manage resources on SAP BTP. You'll also have a good understanding of what is possible with the APIs, how to prepare and use authentication for them, and how to navigate and interpret the output.
 
 ## About this CodeJam
 
