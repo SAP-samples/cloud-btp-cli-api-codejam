@@ -31,12 +31,15 @@ btp login
 Here's an example authentication flow for a user with just a single trial global account 65137137trial:
 
 ```text
-SAP BTP command line interface (client v2.54.0)
+SAP BTP command line interface (client v2.61.0)
 
 CLI server URL [https://cli.btp.cloud.sap]> 
 Connecting to CLI server at https://cli.btp.cloud.sap...
 
-User> qmacro+blue@gmail.com
+Server certificate subject: CN=cli.btp.cloud.sap,O=SAP SE,L=Walldorf,ST=Baden-Württemberg,C=DE
+Server certificate fingerprint: 2e3edc8f3fe29377b7878b73cbfaa841a140b1d5f5b35db9f37e27d2fe02f280
+
+User> qmacro@gmail.com
 Password> 
 
 Authentication successful
@@ -55,14 +58,16 @@ OK
 
 > Earlier versions of the btp CLI required you to always specify your global account subdomain, but now it will try to discern it from your user details. 
 
-If your user is associated with more than one global account, they will be presented to you and you must choose one of them. Here's an example of that process: 
+If your user is associated with more than one global account, they will be presented to you and you must choose one of them. Here's an example of that flow:
 
 ```text
-user: user $ btp login
-SAP BTP command line interface (client v2.54.0)
+SAP BTP command line interface (client v2.61.0)
 
 CLI server URL [https://cli.btp.cloud.sap]> 
 Connecting to CLI server at https://cli.btp.cloud.sap...
+
+Server certificate subject: CN=cli.btp.cloud.sap,O=SAP SE,L=Walldorf,ST=Baden-Württemberg,C=DE
+Server certificate fingerprint: 2e3edc8f3fe29377b7878b73cbfaa841a140b1d5f5b35db9f37e27d2fe02f280
 
 User> dj.adams@sap.com
 Password> 
@@ -70,13 +75,13 @@ Password>
 Authentication successful
 
 Choose a global account:
-  [1]  1cbb5e7etrial
-  [2]  Developer Advocates Free Tier
-  [3]  Developer Destination
-Choose option> 2
+  [1] 65137137trial
+  [3] Developer Advocates Free Tier
+  [4] Developer Destination
+Choose option> 1
 
 Current target:
-  Developer Advocates Free Tier (global account, subdomain: sap-developer-advocates-free-tier)
+ 65137137trial (global account, subdomain: 65137137trial-ga)
 
 We stored your configuration file at: /home/user/.config/.btp/config.json
 
@@ -91,17 +96,20 @@ Here's another example authentication flow, for a global account with the subdom
 
 ```text
 user: user $ btp login --sso manual
-SAP BTP command line interface (client v2.54.0)
+SAP BTP command line interface (client v2.61.0)
 
 CLI server URL [https://cli.btp.cloud.sap]> 
 Connecting to CLI server at https://cli.btp.cloud.sap...
 
-Please authenticate at: https://cli.btp.cloud.sap/login/v2.38.0/browser/5562475c-4e68-472a-b868-912871beba14
+Server certificate subject: CN=cli.btp.cloud.sap,O=SAP SE,L=Walldorf,ST=Baden-Württemberg,C=DE
+Server certificate fingerprint: 2e3edc8f3fe29377b7878b73cbfaa841a140b1d5f5b35db9f37e27d2fe02f280
+
+Please authenticate at: https://cli.btp.cloud.sap/login/v2.61.0/browser/0661e854-4d52-42e5-a6d2-03a814403f42
 
 Authentication successful
 
 Current target:
-  65137137trial (global account, subdomain: 65137137trial-ga)
+ 65137137trial (global account, subdomain: 65137137trial-ga)
 
 We stored your configuration file at: /home/user/.config/.btp/config.json
 
@@ -286,7 +294,7 @@ Here's the sort of thing you will most likely see:
 
 ```text
 user: user $ btp
-SAP BTP command line interface (client v2.54.0)
+SAP BTP command line interface (client v2.61.0)
 
 Usage: btp [OPTIONS] ACTION GROUP/OBJECT PARAMS
 
@@ -336,7 +344,7 @@ This time it should be different:
 
 ```text
 user: user $ btp
-SAP BTP command line interface (client v2.54.0)
+SAP BTP command line interface (client v2.61.0)
 
 Usage: btp [OPTIONS] ACTION GROUP/OBJECT PARAMS
 

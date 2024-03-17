@@ -12,7 +12,7 @@ To enable this, we use the SAP Business Application Studio (App Studio), a cloud
 
 ### Why a Dev Space in App Studio?
 
-Why a Dev Space in App Studio, and why a Basic one at that? Well, because it allows everyone to have the same environment, so we can all learn at the same pace and experience the same things. Moreover, App Studio Dev Spaces offer a VS Code like experience (in fact, as of November 2022 it's now powered by [Code OSS](https://github.com/microsoft/vscode) with a file explorer, version control interface, comfortable tabbed editor environment, and - most importantly for us - a modern terminal emulator.
+Why a Dev Space in App Studio, and why a Basic one at that? Well, because it allows everyone to have the same environment, so we can all learn at the same pace and experience the same things. Moreover, App Studio Dev Spaces offer a VS Code like experience. In fact, as of November 2022 it's now powered by [Code OSS](https://github.com/microsoft/vscode) with a file explorer, version control interface, comfortable tabbed editor environment, and - most importantly for us - a modern terminal emulator.
 
 The power of the btp CLI comes from multiple angles:
 
@@ -101,7 +101,7 @@ curl \
 
   > The `getbtpcli` script itself will be placed in whatever directory you happen to be in, which will be your home directory, which is fine. So you'll need to specify the relative path to it when running it, like this: `./getbtpcli` (because your home directory is traditionally not included in the list of directories in your `PATH` environment variable).
 
-👉 Run the script with the test mode option just to check what the latest version of the btp CLI is (the output will be something like "Version is 2.38.0"):
+👉 Run the script with the test mode option just to check what the latest version of the btp CLI is (the output will be something like "Version is 2.61.0"):
 
 ```bash
 ./getbtpcli --test
@@ -119,11 +119,11 @@ Here's an example session where it's run in test mode first and then for real:
 
 ```text
 user: user $ ./getbtpcli --test
-Version is 2.38.0
+Version is 2.61.0
 user: user $ ./getbtpcli
 Proceed (with Enter) only if you accept the SAP Developer Licence 3.1
 (see https://tools.hana.ondemand.com/developer-license-3_1.txt) ...
-Version is 2.38.0
+Version is 2.61.0
 user: user $
 ```
 
@@ -178,8 +178,8 @@ ls -l $HOME/bin/
 You should see something similar to this:
 
 ```text
-lrwxrwxrwx 1 user user       10 Jan  3 15:26 btp -> btp-2.38.0
--rwxr-xr-x 1 user user 11749335 Nov 16 11:41 btp-2.38.0
+lrwxrwxrwx 1 user user       10 Jan  3 15:26 btp -> btp-2.61.0
+-rwxr-xr-x 1 user user 11749335 Nov 16 11:41 btp-2.61.0
 ```
 
 Before you can run the btp CLI simply as `btp` you need to add that `bin/` directory to your `PATH` environment variable. To make this addition persistent, let's add it to `$HOME/.bashrc`.
@@ -244,11 +244,11 @@ You should see something like this:
 
 ```text
 user: user $ btp
-SAP BTP command line interface (client v2.54.0)
+SAP BTP command line interface (client v2.61.0)
 
 Usage: btp [OPTIONS] ACTION GROUP/OBJECT PARAMS
 
-CLI server URL:                    https://cli.btp.cloud.sap (server v2.56.0)
+CLI server URL:                    https://cli.btp.cloud.sap (server v2.62.0)
 Configuration:                     /home/user/.config/.btp/config.json
 
 You are currently not logged in.
