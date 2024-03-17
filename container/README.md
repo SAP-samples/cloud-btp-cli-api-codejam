@@ -42,7 +42,7 @@ docker build -t codejam .
 ```
 > If you see a message like this: "Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?", make sure you've started Docker Desktop.
 
-> If you're running on a MacBook with an M1 (ARM architecture) chip, you'll need to add a parameter to get this to build for the x86 architecture and then macOS will take care of running the container via Rosetta:
+> If you're running on a MacBook with an Apple silicon (ARM architecture) chip, you'll need to add a parameter to get this to build for the x86 architecture and then macOS will take care of running the container via Rosetta:
 >
 > ```bash
 > docker build -t codejam --platform linux/amd64 .
@@ -100,6 +100,8 @@ Now create a container from the image.
 ```bash
 docker run --interactive --tty --name my-codejam-container codejam
 ```
+
+> Again, for Apple silicon macOS devices, add the `--platform linux/amd64` option here too.
 
 > Don't confuse this with launching a container instance from the Docker Desktop GUI, and then using the "CLI" option on that running container. This is something quite different, not least because when you launch a container instance from the GUI, you cannot ask for `--interactive` or `--tty` mode, and connecting to it subsequently is in the `exec` context.
 

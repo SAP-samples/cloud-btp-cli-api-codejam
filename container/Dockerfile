@@ -1,4 +1,6 @@
-FROM debian:11 as base
+# syntax=docker/dockerfile:1
+
+FROM --platform=linux/amd64 debian:11 as base
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Add Docker as source for apt
