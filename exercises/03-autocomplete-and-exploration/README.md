@@ -7,7 +7,7 @@ At the end of this exercise, you'll have autocomplete turned on for the btp CLI 
 If you've had a look at the output from `btp help` you'll know that there are multiple commands that the CLI supports, and different groups of objects upon which these commands operate:
 
 ```text
-SAP BTP command line interface (client v2.54.0)
+SAP BTP command line interface (client v2.61.0)
 
 Usage: btp [OPTIONS] ACTION GROUP/OBJECT PARAMS
 
@@ -61,7 +61,7 @@ btp list --help
 Here's the sort of output that you'll see:
 
 ```text
-SAP BTP command line interface (client v2.54.0)
+SAP BTP command line interface (client v2.61.0)
 
 Usage: btp [OPTIONS] ACTION GROUP/OBJECT PARAMS
 
