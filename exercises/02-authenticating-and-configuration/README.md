@@ -260,7 +260,7 @@ We stored your configuration file at: /home/user/.config/.btp/config.json
 
 > You can also see this configuration information in the output shown when you invoke `btp` on its own.
 
-This configuration file holds information about your currently authenticated session, plus whatever IDs you have targeted. Feel free to have a look at this file (the simplest way would be to use `cat`, i.e. `cat /home/user/.config/.btp/config.json` but you could also use `jq`, i.e. `jq . /home/user/.config/.btp/config.json`), but don't show the contents to anyone - it includes tokens that are used to authorize your btp CLI activities.
+This configuration file holds information about your current session, for example the details of any current target you have. Feel free to have a look at this file (the simplest way would be to use `cat`, i.e. `cat /home/user/.config/.btp/config.json` but you could also use `jq`, i.e. `jq . /home/user/.config/.btp/config.json`). Don't worry about showing the contents to anyone - it doesn't contain any session tokens that are used to authorize your btp CLI activities - this information is elsewhere (see later in this section to find out where).
 
 Earlier versions of the btp CLI put the configuration file in a temporary location by default - a workaround for this is described in the SAP Tech Bytes blog post on managing configuration in the [Further reading](#further-reading) section below. This has changed more recently and you can see from the message that the default location is within a btp CLI specific directory in a `$HOME/.config/` directory. This is nice because it conforms to an open standard (the [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)) and specifically the default value of `XDG_CONFIG_HOME`.
 
@@ -280,39 +280,6 @@ If you're like me, you may like to organize your configuration files within `$HO
 mv $HOME/.config/.btp/ $HOME/.config/btp/
 ```
 
-### Run the btp CLI and see what you get
-
-Now you're halfway through the reorganization - you've moved the configuration file but `btp` doesn't know that yet.
-
-👉 So what happens when you invoke `btp` now? Try it:
-
-```bash
-btp
-```
-
-Here's the sort of thing you will most likely see:
-
-```text
-user: user $ btp
-SAP BTP command line interface (client v2.61.0)
-
-Usage: btp [OPTIONS] ACTION GROUP/OBJECT PARAMS
-
-CLI server URL:                    https://cli.btp.cloud.sap (server v2.56.0)
-Configuration:                     /home/user/.config/.btp/config.json
-
-You are currently not logged in.
-
-Tips:
-    To log in to a global account of SAP BTP, use 'btp login'. For help on login, use 'btp help login'.
-    To provide feedback about the btp CLI, use 'btp feedback' to open our survey.
-    To display general help, use 'btp help'.
-```
-
-Whoops - it thinks you're no longer authenticated because it can't find the configuration file that contains the token. Let's continue and see how that is resolved again.
-
-> This little test will cause the re-creation of a btp CLI config file in the `.config/.btp/` directory, but we don't want that to hang around, so you can delete it if you want, like this: `rm -rf $HOME/.config/.btp`
-
 ### Specify a permanent value for `BTP_CLIENTCONFIG`
 
 👉 Now append another line to your `.bashrc` file to set the `BTP_CLIENTCONFIG` environment variable to our new preferred location (again, be sure to use the `>>` append redirection operator so you don't truncate the file and use single quotes where and as shown):
@@ -330,38 +297,19 @@ bu
 env | grep BTP
 ```
 
-### Run the btp CLI again
+### Log back in again with btp login
 
-Running the btp CLI again with the configuration reorganized into its new location should allow you to end this exercise happy - it can find the configuration file (with the help of the `BTP_CLIENTCONFIG` environment variable) and therefore the token, and you're as you were - still authenticated.
+Session tokens, which are used to authorize btp CLI calls, are not stored in the configuration file. They're stored in a directory within `$HOME/.cache/.btp/`, in a session file that's readable only by you. The exact location depends on the path to your configuration file (the directory name is a hash of that path), so now we've moved that, we need to log in one more time, to have a new session token stored in a new directory within `$HOME/.cache/.btp/`.
 
-👉 Try it:
+👉 Log in again:
 
 ```bash
-btp
+btp login
 ```
 
-This time it should be different:
+Once you've logged in again, you should be all set. 
 
-```text
-user: user $ btp
-SAP BTP command line interface (client v2.61.0)
-
-Usage: btp [OPTIONS] ACTION GROUP/OBJECT PARAMS
-
-CLI server URL:                    https://cli.btp.cloud.sap (server v2.56.0)
-User:                              qmacro+blue@gmail.com at accounts.sap.com
-Configuration:                     /home/user/.config/btp/config.json
-
-Current target:
-  65137137trial (global account, subdomain: 65137137trial-ga)
-  └─  trial (subaccount, ID: b07f7316-2d2a-445a-8fcc-a52952c92607)
-
-Tips:
-    Commands are executed in the target, unless specified otherwise using a parameter. To change the target, use 'btp target'.
-    To provide feedback about the btp CLI, use 'btp feedback' to open our survey.
-    To display general help, use 'btp help'.
-
-```
+> If you're interested to see where this session information is stored, take a look in `$HOME/.cache/.btp/`.
 
 Great - the configuration is now in a non-hidden `btp/` subdirectory within your `$HOME/.config/` directory, and all is well with `btp`.
 
