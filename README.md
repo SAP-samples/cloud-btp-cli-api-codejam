@@ -6,8 +6,6 @@
 
 This repository contains the material for the "Hands-on with the btp CLI and APIs" CodeJam, a CodeJam within the [SAP CodeJam BTP group](https://groups.community.sap.com/t5/sap-codejam-btp/gh-p/codejam-btp).
 
-There's also an alternative [mini-workshop](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/tree/mini-workshop) branch in this repository which is a vastly reduced version of this content, cut down to fit into an 80 minute workshop, originally for the UKISUG Connect 2022 event.
-
 ## Overview
 
 This CodeJam is on the Core Service APIs for SAP BTP, which, [according to the SAP Business Accelerator Hub]([url](https://hub.sap.com/package/SAPCloudPlatformCoreServices/rest)), allows you to "manage, build, and extend the core capabilities of SAP BTP." It also covers the command line interface tool for SAP BTP, otherwise known as the btp CLI.
