@@ -121,8 +121,8 @@ Here's an example session where it's run in test mode first and then for real:
 user: user $ ./getbtpcli --test
 Version is 2.61.0
 user: user $ ./getbtpcli
-Proceed (with Enter) only if you accept the SAP Developer Licence 3.1
-(see https://tools.hana.ondemand.com/developer-license-3_1.txt) ...
+Proceed (with Enter) only if you accept the SAP Developer Licence 3.2
+(see https://tools.hana.ondemand.com/developer-license-3_2.txt) ...
 Version is 2.61.0
 user: user $
 ```
