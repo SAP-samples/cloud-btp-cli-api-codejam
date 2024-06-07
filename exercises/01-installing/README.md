@@ -64,8 +64,8 @@ As a user in the terminal within the Dev Space, we don't have administrative acc
 
 So at this stage you have a choice.
 
-* either: [follow the instructions](#follow-the-instructions) on the download page, choosing the `bin/` directory (i.e. `$HOME/bin/` which resolves to `/home/user/bin/` in the context of the Dev Space terminal session)
-* or: [use the `getbtpcli`  script](#use-the-getbtpcli-script) to do this for you, a script that will let you discover and download the latest versions as they become available
+* you could [follow the instructions](#follow-the-instructions) on the download page, choosing the `bin/` directory (i.e. `$HOME/bin/` which resolves to `/home/user/bin/` in the context of the Dev Space terminal session)
+* or you could [use the `getbtpcli`  script](#use-the-getbtpcli-script) to do this for you, a script that will let you discover and download the latest versions as they become available
 
 👉 In this exercise, follow the second approach and [use the `getbtpcli` script](#use-the-getbtpcli-script).
 
@@ -107,7 +107,7 @@ curl \
 ./getbtpcli --test
 ```
 
-> If you're [going off piste](https://dictionary.cambridge.org/dictionary/english/go-off-piste) and carrying out these exercises on macOS, please note that you'll need to have the "proper" GNU version of `grep` installed (see this [Stack Overflow](https://stackoverflow.com/questions/59232089/how-to-install-gnu-grep-on-mac-os) entry for tips. especially the part about "needing to use these commands with their normal names"). Otherwise you may encounter errors. If you're running on a Windows based machine, then I'm afraid [I can't help you](https://dilbert.com/strip/1995-06-24), except perhaps to suggest using the [Windows Subsystem for Linux](https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux) :-)
+> If you're [going off piste](https://dictionary.cambridge.org/dictionary/english/go-off-piste) and carrying out these exercises on macOS, please note that you'll need to have the "proper" GNU version of `grep` installed (see this [Stack Overflow](https://stackoverflow.com/questions/59232089/how-to-install-gnu-grep-on-mac-os) entry for tips, especially the part about "needing to use these commands with their normal names"). Otherwise you may encounter errors. If you're running on a Windows based machine, then I'm afraid [I can't help you](https://dilbert.com/strip/1995-06-24), except perhaps to suggest using the [Windows Subsystem for Linux](https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux) :-)
 
 👉 Run the script, to download, unpack and install the btp CLI:
 

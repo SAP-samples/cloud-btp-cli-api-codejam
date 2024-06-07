@@ -6,15 +6,9 @@ At the end of this exercise, you'll have successfully authenticated with the btp
 
 To authenticate with the btp CLI so you can access and manage the resources in your BTP account, you need certain items of information.
 
-👉 Make sure you have these items to hand:
+👉 Make sure you have the username and password with which you log on to your BTP account. You may also need to know your global account subdomain, if your user has access to more than one, and you have to choose.
 
-|Item|Description|
-|-|-|
-|btp CLI server URL|The remote endpoint for the btp CLI. This is usually fixed, and is currently `https://cli.btp.cloud.sap` for all users.|
-|Username|The username with which you log on to the BTP account.|
-|Password|The password with which you log on to the BTP account.|
-
-You may also need to know your global account subdomain, if your user has access to more than one, and you have to choose. You can see an example of the subdomain for this sample trial global account, just underneath the "Account Explorer" heading:
+You can see an example of the subdomain for this sample trial global account, just underneath the "Account Explorer" heading:
 
 ![trial global account showing subdomain](assets/global-account-subdomain-and-subaccount.png)
 
@@ -262,11 +256,9 @@ We stored your configuration file at: /home/user/.config/.btp/config.json
 
 This configuration file holds information about your current session, for example the details of any current target you have. Feel free to have a look at this file (the simplest way would be to use `cat`, i.e. `cat /home/user/.config/.btp/config.json` but you could also use `jq`, i.e. `jq . /home/user/.config/.btp/config.json`). Don't worry about showing the contents to anyone - it doesn't contain any session tokens that are used to authorize your btp CLI activities - this information is elsewhere (see later in this section to find out where).
 
-Earlier versions of the btp CLI put the configuration file in a temporary location by default - a workaround for this is described in the SAP Tech Bytes blog post on managing configuration in the [Further reading](#further-reading) section below. This has changed more recently and you can see from the message that the default location is within a btp CLI specific directory in a `$HOME/.config/` directory. This is nice because it conforms to an open standard (the [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)) and specifically the default value of `XDG_CONFIG_HOME`.
+You can see from the message above that the default configuration location is within a btp CLI specific directory in a `$HOME/.config/` directory. This is nice because it conforms to an open standard (the [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)) and specifically the default value of `XDG_CONFIG_HOME`.
 
 The SAP Help topic [Specify the Location of the Configuration File](https://help.sap.com/products/BTP/65de2977205c403bbc107264b8eccf4b/e57288d7f2aa4e59a8f70b08b82a933d.html) explains how you can override this default location either with the `--config` option or by specifying the location in the environment variable `BTP_CLIENTCONFIG`.
-
-> The name used to be `SAPCP_CLIENTCONFIG` which is a hold over from the previous name of the platform and the tool name at the time.
 
 If you're like me, you may like to organize your configuration files within `$HOME/.config/` as non-hidden directories, so having a directory called `$HOME/.config/.btp/` may be less than ideal. So if this is something you also feel strongly about, use this step to address it.
 
@@ -299,7 +291,7 @@ env | grep BTP
 
 ### Log back in again with btp login
 
-Session tokens, which are used to authorize btp CLI calls, are not stored in the configuration file. They're stored in a directory within `$HOME/.cache/.btp/`, in a session file that's readable only by you. The exact location depends on the path to your configuration file (the directory name is a hash of that path), so now we've moved that, we need to log in one more time, to have a new session token stored in a new directory within `$HOME/.cache/.btp/`.
+Session tokens, which are used to authorize btp CLI calls, are not stored in the configuration file. They're stored in a directory within `$HOME/.cache/.btp/`, in a session file that's readable only by you. The exact location depends on the path to your configuration file (the directory name is a hash of that path), so now we've moved that, we need to log in one more time to have a fresh session token stored in a new directory within `$HOME/.cache/.btp/`.
 
 👉 Log in again:
 

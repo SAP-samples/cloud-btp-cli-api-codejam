@@ -163,10 +163,10 @@ The general approach that we'll be following is this:
 
 We'll be using the `--format json` option and working through details of certain btp CLI calls, building on our knowledge of `jq` filters from the previous exercise. To make this a little more comfortable, we'll install a wrapper around `jq` so we can interact with the JSON data and build up our filters bit by bit. The wrapper is called [ijq](https://sr.ht/~gpanders/ijq/) (for "interactive jq") and we can manually install it in our working environment.
 
-👉 At the shell prompt, run the following command, which will download the [latest release tarball](https://git.sr.ht/~gpanders/ijq/refs/v0.4.1) specifically for the Linux platform (remember, both the container and the Dev Space are essentially Linux environments) and extract the binary `ijq` into the `bin/` directory in your home directory (this `$HOME/bin/` directory is [where you installed the btp CLI in an earlier exercise](../01-installing#add-your-bin-directory-to-the-path)):
+👉 At the shell prompt, run the following command, which will download the [latest release tarball](https://git.sr.ht/~gpanders/ijq/refs/v1.0.1) specifically for the Linux platform (remember, both the container and the Dev Space are essentially Linux environments) and extract the binary `ijq` into the `bin/` directory in your home directory (this `$HOME/bin/` directory is [where you installed the btp CLI in an earlier exercise](../01-installing#add-your-bin-directory-to-the-path)):
 
 ```bash
-IJQVER=0.4.1
+IJQVER=1.0.1
 curl \
   --url "https://git.sr.ht/~gpanders/ijq/refs/download/v$IJQVER/ijq-$IJQVER-linux-amd64.tar.gz" \
   | tar \
