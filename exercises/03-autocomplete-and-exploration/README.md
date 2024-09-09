@@ -7,7 +7,7 @@ At the end of this exercise, you'll have autocomplete turned on for the btp CLI 
 If you've had a look at the output from `btp help` you'll know that there are multiple commands that the CLI supports, and different groups of objects upon which these commands operate:
 
 ```text
-SAP BTP command line interface (client v2.61.0)
+SAP BTP command line interface (client v2.64.0)
 
 Usage: btp [OPTIONS] ACTION GROUP/OBJECT PARAMS
 
@@ -15,7 +15,8 @@ Each GROUP contains multiple OBJECTS, on which you can perform ACTIONS.
 
 ACTIONS:
     list, get, create, update, delete, add, remove, assign, unassign, enable,
-    move, register, unregister, subscribe, unsubscribe, share, unshare
+    move, register, unregister, subscribe, unsubscribe, share, unshare, migrate,
+    restore
 
 GROUPS:
     accounts  Objects related to the account model, subscriptions, and environments
@@ -43,7 +44,7 @@ General actions:
 
 Options:
   --config   Specify location of configuration file
-  --format   Change output format (valid value: json)
+  --format   Change output format. Valid values: text (default), json
   --help     Display help
   --info     Show version and current context
   --verbose  Print tracing information for support
@@ -61,33 +62,36 @@ btp list --help
 Here's the sort of output that you'll see:
 
 ```text
-SAP BTP command line interface (client v2.61.0)
+SAP BTP command line interface (client v2.64.0)
 
 Usage: btp [OPTIONS] ACTION GROUP/OBJECT PARAMS
 
 Available "list" commands:
-    btp list accounts/available-environment  Get all available environments for a subaccount
-    btp list accounts/available-region       Get all available regions
-    btp list accounts/custom-property        Deprecated. Show custom properties assigned to a subaccount or directory
-    btp list accounts/entitlement            Get all the entitlements and quota assignments
-    btp list accounts/environment-instance   Get all environment instances of a subaccount
-    btp list accounts/label                  Show user-defined labels assigned to a subaccount or directory
-    btp list accounts/resource-provider      List all resource provider instances
-    btp list accounts/subaccount             List all subaccounts in a global account
-    btp list accounts/subscription           Get all applications to which a subaccount is entitled to subscribe
+    btp list accounts/available-environment  Show all available environments for a subaccount
+    btp list accounts/available-region       Show all available regions for a global account
+    btp list accounts/custom-property        Deprecated. Show all custom properties
+    btp list accounts/entitlement            Show all the entitlements and quota assignments
+    btp list accounts/environment-instance   Show all environment instances of a subaccount
+    btp list accounts/label                  Show all user-defined labels of a subaccount or directory
+    btp list accounts/resource-provider      Show all resource provider instances
+    btp list accounts/subaccount             Show all subaccounts in a global account
+    btp list accounts/subscription           Show all applications to which a subaccount is entitled to subscribe
     btp list config                          List current configuration settings
-    btp list security/app                    List all apps
-    btp list security/available-idp          List all Identity Authentication tenants to which you can connect this global account or subaccount
-    btp list security/role                   List all roles
-    btp list security/role-collection        List all role collections
-    btp list security/trust                  List all trust configurations that are configured for your global account or subaccount
-    btp list security/user                   List all users
-    btp list services/binding                List all service bindings
-    btp list services/broker                 List all service brokers
-    btp list services/instance               List all service instances
-    btp list services/offering               List service offerings
-    btp list services/plan                   List service plans
-    btp list services/platform               List all platforms
+    btp list security/api-credential         Show all security API credentials for API access
+    btp list security/app                    Show all apps
+    btp list security/available-idp          Show all available SAP Cloud Identity Services tenants
+    btp list security/role                   Show all roles
+    btp list security/role-collection        Show all role collections
+    btp list security/settings               Show the security settings of a global account or subaccount
+    btp list security/token-key              Show all signing keys for access tokens
+    btp list security/trust                  Show all trust configurations
+    btp list security/user                   Show all users
+    btp list services/binding                Show all service bindings
+    btp list services/broker                 Show all service brokers
+    btp list services/instance               Show all service instances
+    btp list services/offering               Show all service offerings
+    btp list services/plan                   Show all service plans
+    btp list services/platform               Show all platforms
 
 Example of command-specific help:
     btp help list accounts/available-environment
@@ -183,8 +187,8 @@ At this point you have autocomplete working and you should feel comfortable invo
 
 ## Further reading
 
-* [SAP Tech Bytes: btp CLI – autocompletion](https://blogs.sap.com/2021/09/21/sap-tech-bytes-btp-cli-autocompletion/)
-* [SAP Help topic: Enable Command Autocompletion](https://help.sap.com/products/BTP/65de2977205c403bbc107264b8eccf4b/46355fab22814944bedf449a6c953369.html)
+* [SAP Tech Bytes: btp CLI – autocompletion](https://community.sap.com/t5/technology-blogs-by-sap/sap-tech-bytes-btp-cli-autocompletion/ba-p/13503134)
+* [SAP Help topic: Enable Command Autocompletion](https://help.sap.com/docs/btp/sap-business-technology-platform/enable-command-autocompletion)
 
 ---
 

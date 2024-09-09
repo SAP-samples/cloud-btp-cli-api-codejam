@@ -50,7 +50,7 @@ Tips:
 OK
 ```
 
-> Earlier versions of the btp CLI required you to always specify your global account subdomain, but now it will try to discern it from your user details. 
+> Earlier versions of the btp CLI required you to always specify your global account subdomain, but now it will try to discern it from your user details. Additionally, the value for the "CLI server URL" is fixed (`https://cli.btp.cloud.sap`) and you shouldn't need to change it.
 
 If your user is associated with more than one global account, they will be presented to you and you must choose one of them. Here's an example of that flow:
 
@@ -159,7 +159,7 @@ Tips:
     To find a directory ID, use 'btp get accounts/global-account --show-hierarchy'.
 
 Further documentation:
-    https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/720645a3ed3945bd8d97a670b948ac07.html
+    https://help.sap.com/docs/btp/sap-business-technology-platform/set-target-for-subsequent-commands-with-btp-target
 ```
 
 So set your desired subaccount as the target now.
@@ -258,11 +258,11 @@ This configuration file holds information about your current session, for exampl
 
 You can see from the message above that the default configuration location is within a btp CLI specific directory in a `$HOME/.config/` directory. This is nice because it conforms to an open standard (the [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)) and specifically the default value of `XDG_CONFIG_HOME`.
 
-The SAP Help topic [Specify the Location of the Configuration File](https://help.sap.com/products/BTP/65de2977205c403bbc107264b8eccf4b/e57288d7f2aa4e59a8f70b08b82a933d.html) explains how you can override this default location either with the `--config` option or by specifying the location in the environment variable `BTP_CLIENTCONFIG`.
+The SAP Help topic [Specify the Location of the Configuration File](https://help.sap.com/docs/btp/sap-business-technology-platform/specify-location-of-configuration-file) explains how you can override this default location either with the `--config` option or by specifying the location in the environment variable `BTP_CLIENTCONFIG`.
 
 If you're like me, you may like to organize your configuration files within `$HOME/.config/` as non-hidden directories, so having a directory called `$HOME/.config/.btp/` may be less than ideal. So if this is something you also feel strongly about, use this step to address it.
 
-> A file or directory which has a name starting with a period (`.`) is considered "hidden", as it won't show up in any listing, unless you explicitly ask for them to be shown (incidentally, this well-known and almost universal feature [started out as a mistake due to a programming shortcut with unintended consequences](https://web.archive.org/web/20180827160401/https://plus.google.com/+RobPikeTheHuman/posts/R58WgWwN9jp)). While it's fairly common to have the `$HOME/.config/` directory itself as a hidden directory, it makes more sense to want to be able to easily see what subdirectories are in there - for what programs and systems you have configuration.
+> Files or directories with names starting with a period (`.`) are considered "hidden", as they won't show up in any listing, unless you explicitly ask for them to be shown (incidentally, this well-known and almost universal feature [started out as a mistake due to a programming shortcut with unintended consequences](https://web.archive.org/web/20180827160401/https://plus.google.com/+RobPikeTheHuman/posts/R58WgWwN9jp)). While it's fairly common to have the `$HOME/.config/` directory itself as a hidden directory, it makes more sense to want to be able to easily see what subdirectories are in there - for what programs and systems you have configuration.
 
 ### Rename the config directory
 
@@ -311,13 +311,13 @@ At this point you've logged in with `btp` and have your global account and "tria
 
 ## Further reading
 
-* [SAP Tech Bytes: btp CLI – logging in](https://blogs.sap.com/2021/09/07/sap-tech-bytes-btp-cli-logging-in/)
-* [SAP Tech Bytes: btp CLI – managing configuration](https://blogs.sap.com/2021/09/14/sap-tech-bytes-btp-cli-managing-configuration/)
-* [Getting BTP resource GUIDs with the btp CLI – part 1](https://blogs.sap.com/2021/11/24/getting-btp-resource-guids-with-the-btp-cli-part-1/)
-* [Getting BTP resource GUIDs with the btp CLI – part 2 – JSON and jq](https://blogs.sap.com/2021/12/01/getting-btp-resource-guids-with-the-btp-cli-part-2-json-and-jq/)
+* [SAP Tech Bytes: btp CLI – logging in](https://community.sap.com/t5/technology-blogs-by-sap/sap-tech-bytes-btp-cli-logging-in/ba-p/13519378)
+* [SAP Tech Bytes: btp CLI – managing configuration](https://community.sap.com/t5/technology-blogs-by-sap/sap-tech-bytes-btp-cli-managing-configuration/ba-p/13496400)
+* [Getting BTP resource GUIDs with the btp CLI – part 1](https://community.sap.com/t5/technology-blogs-by-sap/getting-btp-resource-guids-with-the-btp-cli-part-1/ba-p/13511167)
+* [Getting BTP resource GUIDs with the btp CLI – part 2 – JSON and jq](https://community.sap.com/t5/technology-blogs-by-sap/getting-btp-resource-guids-with-the-btp-cli-part-2-json-and-jq/ba-p/13517574)
 * [Redirections in Bash](https://www.gnu.org/software/bash/manual/html_node/Redirections.html) (to explain `>>` and related operators)
 * [Booting our 2022 live stream series with a review of Developer Keynote btp CLI scripting](https://www.youtube.com/watch?v=1jekfZJ3fTk)
-* [Managing technical users for BTP platform access](https://blogs.sap.com/2022/09/20/managing-technical-users-for-btp-platform-access/)
+* [Managing technical users for BTP platform access](https://community.sap.com/t5/technology-blogs-by-members/managing-technical-users-for-btp-platform-access/ba-p/13521814)
 
 ---
 

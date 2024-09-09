@@ -275,8 +275,8 @@ At this point you have the btp CLI set up and ready to invoke from the command l
 
 ## Further reading
 
-* [SAP Tech Bytes: btp CLI – installation](https://blogs.sap.com/2021/09/01/sap-tech-bytes-btp-cli-installation/)
-* SAP Help topic [Command Syntax of the btp CLI](https://help.sap.com/products/BTP/65de2977205c403bbc107264b8eccf4b/69606f42743f46c29fa72c04e8c18674.html)
+* [SAP Tech Bytes: btp CLI – installation](https://community.sap.com/t5/technology-blogs-by-sap/sap-tech-bytes-btp-cli-installation/ba-p/13515175)
+* SAP Help topic [Command Syntax of the btp CLI](https://help.sap.com/docs/btp/sap-business-technology-platform/command-syntax-of-btp-cli)
 * Bash [shell parameter expansion](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html)
 * The [source builtin](https://stackoverflow.com/a/56161354/384366) in Bash ([Sourcing a File](https://tldp.org/HOWTO/Bash-Prompt-HOWTO/x237.html) is also a good resource)
 

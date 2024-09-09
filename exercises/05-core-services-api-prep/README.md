@@ -57,9 +57,11 @@ So to get to the stage where an access token is obtained, this is the general ap
 1. From the instance, a binding is then created
 1. Using information in this binding, an access token is then requested
 
+> The access token contains the authorizations, or "scopes", that relate to the access described for the plan chosen on service instance creation.
+
 There are different flows, also known as "grant types", that describe how the access token request is made. Once the access token is received, it can be used to authenticate the API call.
 
-While we're in the mood for ASCII art, here's that in diagram form:
+While we're in the mood for ASCII art, here's that in diagram form, with space to fill in details as we go along:
 
 ```text
 +----------------+      +----------------+      +----------------+
@@ -88,7 +90,7 @@ While we're in the mood for ASCII art, here's that in diagram form:
 
 ### Understanding what's required for a token request
 
-We're eventually (in a subsequent exercise) going to make a call to the one endpoint in the Regions for Global Account group, i.e. to:
+We're eventually (in a subsequent exercise) going to make a call to the one endpoint in the "Regions for Global Account" group, i.e. to:
 
 ```text
 /entitlements/v1/globalAccountAllowedDataCenters
@@ -98,13 +100,13 @@ The endpoints in the Entitlement Service API are protected by the OAuth 2.0 "Res
 
 👉 Head over to the [Entitlements Service API overview](https://hub.sap.com/api/APIEntitlementsService/overview) page on the SAP Business Accelerator Hub.
 
-👉 Find and follow the link, under the Documentation heading, to the [Account Administration Using APIs of the SAP Cloud Management Service](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/17b6a171552544a6804f12ea83112a3f.html?locale=en-US) section in the SAP Help Portal, where you'll see something like this:
+👉 Find and follow the link, under the Documentation heading, to the [Account Administration Using APIs of the SAP Cloud Management Service](https://help.sap.com/docs/btp/sap-business-technology-platform/account-administration-using-apis-of-sap-cloud-management-service) section in the SAP Help Portal, where you'll see something like this:
 
 ![Account Administration documentation page](assets/account-admin-docu-page.png)
 
-👉 Explore the two nodes highlighted in red, to see that it's the "SAP Cloud Management" service that is relevant here, and that the technical name for this service is `cis`. See also that there are two plans for the SAP Cloud Management service: `central` and `local`.
+👉 Explore the two nodes highlighted in red, to see that it's the "SAP Cloud Management" service that is relevant here, and note that the technical name for this service is `cis`. See also that there are two plans for the SAP Cloud Management service: `central` and `local`.
 
-The `central` plan affords a little more access than the `local` plan so we'll go for the `central` plan. This is where these values fit into our diagram:
+The `central` plan affords a little more access than the `local` plan (as shown in the "Scopes" column of the table in the documentation) so we'll go for the `central` plan. This is where these values fit into our diagram:
 
 ```text
 +----------------+      +----------------+      +----------------+
@@ -137,17 +139,17 @@ There are different places that a service instance can be created, but [as you h
 
 So the choice of Cloud Foundry (CF) as an environment for the service instance means that, in a similar way to how we logged in with the btp CLI, we now must log in with the CF CLI, `cf`, so that we can use that tool to create the service instance.
 
-To log in, this we need to know which endpoint we must connect to, as we'll need to specify it like this:
+To log in, this we need to know which endpoint to we must connect, as we'll need to specify it like this:
 
 ```bash
 cf login -a <API endpoint URL>
 ```
 
-To discover what the endpoint URL is, you can just look in the BTP Cockpit, where it's shown as the value for "API Endpoint" in the "Cloud Foundry Environment" section.
+To discover what the endpoint URL is, we can just look in the SAP BTP Cockpit, where it's shown as the value for "API Endpoint" in the "Cloud Foundry Environment" section.
 
 ![API endpoint visible in the BTP cockpit](assets/api-endpoint-in-cockpit.png)
 
-But this is all about hands-on on the command line, and if we're going to be automating things, looking in the cockpit is not going to work for us. So let's determine the API endpoint in a different way, using the btp CLI to discover what it is.
+But this is all about hands-on on the command line, and if we're going to be automating things, looking in the cockpit is not going to work for us. So let's determine the API endpoint in a different way, programmatically, using the btp CLI to discover what it is.
 
 What we're going to do is systematically work through the information that's available to us from various resources that we can retrieve via the btp CLI. While we'll be doing some things manually here, and making use of copy/paste (so that we can follow everything step by step), the individual steps can all be automated (as you'll see in a [later section](#determining-the-cf-api-endpoint-with-a-script)).
 
@@ -163,10 +165,10 @@ The general approach that we'll be following is this:
 
 We'll be using the `--format json` option and working through details of certain btp CLI calls, building on our knowledge of `jq` filters from the previous exercise. To make this a little more comfortable, we'll install a wrapper around `jq` so we can interact with the JSON data and build up our filters bit by bit. The wrapper is called [ijq](https://sr.ht/~gpanders/ijq/) (for "interactive jq") and we can manually install it in our working environment.
 
-👉 At the shell prompt, run the following command, which will download the [latest release tarball](https://git.sr.ht/~gpanders/ijq/refs/v1.0.1) specifically for the Linux platform (remember, both the container and the Dev Space are essentially Linux environments) and extract the binary `ijq` into the `bin/` directory in your home directory (this `$HOME/bin/` directory is [where you installed the btp CLI in an earlier exercise](../01-installing#add-your-bin-directory-to-the-path)):
+👉 At the shell prompt, run the following command, which will download the [latest release tarball](https://git.sr.ht/~gpanders/ijq/refs/v1.1.2) specifically for the Linux platform (remember, both the container and the Dev Space are essentially Linux environments) and extract the binary `ijq` into the `bin/` directory in your home directory (this `$HOME/bin/` directory is [where you installed the btp CLI in an earlier exercise](../01-installing#add-your-bin-directory-to-the-path)):
 
 ```bash
-IJQVER=1.0.1
+IJQVER=1.1.2
 curl \
   --url "https://git.sr.ht/~gpanders/ijq/refs/download/v$IJQVER/ijq-$IJQVER-linux-amd64.tar.gz" \
   | tar \
@@ -252,7 +254,7 @@ echo 'trunc() { cut -c1-$(tput cols); }' >> $HOME/.bashrc \
 btp list accounts/subaccount | trunc
 ```
 
-The output should now be a little more readable (at the expense of losing detail of course):
+The output should now be a little more readable (at the expense of losing a bit of detail of course):
 
 ```text
 subaccounts in global account fdce9323-d6e6-42e6-8df0-5e501c90a2be...
@@ -310,7 +312,7 @@ The layout of `ijq` consists of four sections:
 
 You'll see that in the Input section, `.value` is suggested, as it's a directly available property in the outermost object.
 
-👉 Hit the Tab key to accept the suggestion, and in a similar way to how we [listed the locations of the CF data centers](../04-retrieving-parsing-json-output#listing-the-locations-of-the-cf-data-centers) in a previous exercise, expand this filter, replacing the name "trial" with the name of your subaccount:
+👉 Hit the Enter key to accept the suggestion, and in a similar way to how we [listed the locations of the CF data centers](../04-retrieving-parsing-json-output#listing-the-locations-of-the-cf-data-centers) in a previous exercise, expand this filter, replacing the name "trial" with the name of your subaccount:
 
 ```jq
 .value[] | select(.displayName == "trial")
@@ -469,7 +471,7 @@ You may be staring and wondering at the values for the `parameters` and `labels`
 
 If you [stare long enough](https://qmacro.org/blog/posts/2017/02/19/the-beauty-of-recursion-and-list-machinery/#initialrecognition), you'll realise that these odd looking values are string-encoded JSON structures.
 
-In other words, the values are actually JSON objects, but in string form. In order for this to work, each double quote character within the string need to be preserved and therefore have been escaped with backslash characters (`\`).
+In other words, the values are actually JSON objects, but in string form. In order for this to work, the double quote characters within the string need to be preserved and therefore have been escaped with backslash characters (`\`).
 
 > You can run the following invocations of the `jq` filters as shown here, or pipe the btp CLI JSON output into `ijq` and run them there - your choice.
 
