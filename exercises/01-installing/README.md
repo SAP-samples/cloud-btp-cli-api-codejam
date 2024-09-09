@@ -39,7 +39,7 @@ This is lovely, but we want to focus on the command line, so let's remove everyt
 👉 Do the following:
 
 * close the Get Started tab with the `x` (optionally having checked the "Don't show this page again" checkbox at the bottom)
-* ensure the Explorer is closed (on startup it is likely already closed, but if it isn't, you can toggle it between the closed and open state by using the "Explorer" button which is the first one depicting two documents directly below the `☰` symbol in the black column on the far left)
+* ensure the Explorer is closed (on startup it is likely already closed, but if it isn't, you can toggle it between the closed and open state by using the "Explorer" button which is the first one depicting two documents directly below the `☰` symbol in the column on the far left)
 * open up a terminal session with menu path `Terminal -> New Terminal`
 * optionally, open the Settings with menu path `File -> Preferences -> Settings`, find the font size setting for the terminal ("Terminal › Integrated: Font Size"), within Features / Terminal, and adjust as appropriate; close the Settings tab when you're done with this
 * drag the horizontal line up towards the top of the screen to give you maximum terminal space, or use the Maximize Panel Size button (the `^` symbol) on right of the terminal shown in the screenshot below
@@ -243,12 +243,11 @@ btp
 You should see something like this:
 
 ```text
-user: user $ btp
-SAP BTP command line interface (client v2.61.0)
+SAP BTP command line interface (client v2.64.0)
 
 Usage: btp [OPTIONS] ACTION GROUP/OBJECT PARAMS
 
-CLI server URL:                    https://cli.btp.cloud.sap (server v2.62.0)
+CLI server URL:                    https://cli.btp.cloud.sap (server v2.72.0)
 Configuration:                     /home/user/.config/.btp/config.json
 
 You are currently not logged in.
