@@ -99,7 +99,7 @@ In other words, if you try `btp get accounts/directory codejam-directory` you wi
 
 You could search for the GUID and copy-paste it, but this isn't ideal and doesn't lend itself at all to automation.
 
-👉 Instead, take a look at the `btpguid` script that was demonstrated (as `bgu`) in the [SAP TechEd 2021 Developer Keynote](https://blogs.sap.com/2021/11/17/sap-teched-2021-developer-keynote/).
+👉 Instead, take a look at the `btpguid` script that was demonstrated (as `bgu`) in the [SAP TechEd 2021 Developer Keynote](https://community.sap.com/t5/technology-blogs-by-sap/sap-teched-2021-developer-keynote/ba-p/13501092).
 
 ![still image from the btp CLI section of the Developer Keynote](assets/dev-keynote-bgu.png)
 
@@ -231,7 +231,7 @@ This is an optional section that you might want to take a look at if you finish 
 curl \
   --silent \
   --location \
-  --url "https://github.com/junegunn/fzf/releases/download/0.29.0/fzf-0.29.0-linux_amd64.tar.gz" \
+  --url "https://github.com/junegunn/fzf/releases/download/v0.55.0/fzf-0.55.0-linux_amd64.tar.gz" \
   | tar -C $HOME/bin/ -xzf - fzf
 ```
 
@@ -292,8 +292,8 @@ At this point you should feel more comfortable using the btp CLI on the command 
 
 ## Further reading
 
-* [Getting BTP resource GUIDs with the btp CLI – part 1](https://blogs.sap.com/2021/11/24/getting-btp-resource-guids-with-the-btp-cli-part-1/)
-* [Getting BTP resource GUIDs with the btp CLI – part 2 – JSON and jq](https://blogs.sap.com/2021/12/01/getting-btp-resource-guids-with-the-btp-cli-part-2-json-and-jq/)
+* [Getting BTP resource GUIDs with the btp CLI – part 1](https://community.sap.com/t5/technology-blogs-by-sap/getting-btp-resource-guids-with-the-btp-cli-part-1/ba-p/13511167)
+* [Getting BTP resource GUIDs with the btp CLI – part 2 – JSON and jq](https://community.sap.com/t5/technology-blogs-by-sap/getting-btp-resource-guids-with-the-btp-cli-part-2-json-and-jq/ba-p/13517574)
 
 ---
 
