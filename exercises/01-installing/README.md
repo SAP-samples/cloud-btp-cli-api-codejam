@@ -199,12 +199,18 @@ bu
 👉 Check that the addition of your `$HOME/bin/` directory to the `PATH` environment variable has taken effect, as follows (you should see it at the end):
 
 ```bash
+echo $PATH
+```
+
+Here's an example of what you should see:
+
+```bash
 user: user $ echo $PATH
 /home/user/.node_modules_global/bin:/extbin/bin:/extbin/npm/docker/bin:/extbin/npm/globals/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/curl/bin:/home/user/bin
 user: user $
 ```
 
-You can also make life easier for yourself with [shell parameter expansion](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html) and have each of the individual locations displayed on separate lines:
+You can also make life easier for yourself with [shell parameter expansion](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html) and have each of the individual locations displayed on separate lines. Here's an example of that:
 
 ```bash
 user: user $ echo -e ${PATH//:/\\\n}
@@ -225,7 +231,7 @@ user: user $
 
 > Depending on whether you're in a Dev Space terminal or in a container, the actual paths shown in the list may differ.
 
-You can of course just check if `btp` can be found:
+You can of course just check if `btp` can be found, for example:
 
 ```bash
 user: user $ which btp
