@@ -39,7 +39,7 @@ In this example (from a trial account), we see a single subaccount with the disp
 👉 Use the following command (feel free to explore the options here and before subsequent command invocations with the general `help` action (or `--help`)):
 
 ```bash
-btp create accounts/directory --display-name codejam-directory
+btp create accounts/directory --display-name i8day-directory
 ```
 
 > Remember that you can use the autocomplete feature that you set up [in a previous exercise](../03-autocomplete-and-exploration/README.md) to help you construct this and all other btp CLI commands.
@@ -50,7 +50,7 @@ The output should look something like this:
 Creating directory in global account fdce9323-d6e6-42e6-8df0-5e501c90a2be...
 
 directory id:         f4c7d60e-627c-4fab-8e67-603b20b84f72
-display name:         codejam-directory
+display name:         i8day-directory
 description:
 directory features:   DEFAULT
 created by:           qmacro+blue@gmail.com
@@ -83,19 +83,19 @@ Showing details for global account fdce9323-d6e6-42e6-8df0-5e501c90a2be...
 
 ├─ 8fe7efd4trial (fdce9323-d6e6-42e6-8df0-5e501c90a2be - global account)
 │  ├─ trial (f78e0bdb-c97c-4cbc-bb06-526695f44551 - subaccount)
-│  ├─ codejam-directory (205508c6-08fc-48ed-b531-20712260d5af - directory)
+│  ├─ i8day-directory (205508c6-08fc-48ed-b531-20712260d5af - directory)
 
 type:            id:                                    display name:     parent id:
 global account   fdce9323-d6e6-42e6-8df0-5e501c90a2be   8fe7efd4trial
 subaccount       f78e0bdb-c97c-4cbc-bb06-526695f44551   trial             fdce9323-d6e6-42e
-directory        205508c6-08fc-48ed-b531-20712260d5af   codejam-directory fdce9323-d6e6-42e
+directory        205508c6-08fc-48ed-b531-20712260d5af   i8day-directory fdce9323-d6e6-42e
 ```
 
 ### Examine the directory via the GUID
 
 Recall the other command that was suggested: `btp get accounts/directory`. Looking at the help for this command (with `btp get accounts/directory --help`) tells us that there's a main parameter `ID` that's required.
 
-In other words, if you try `btp get accounts/directory codejam-directory` you will be somewhat underwhelmed. The string "codejam-directory" is the display name. You have to use the GUID.
+In other words, if you try `btp get accounts/directory i8day-directory` you will be somewhat underwhelmed. The string "i8day-directory" is the display name. You have to use the GUID.
 
 You could search for the GUID and copy-paste it, but this isn't ideal and doesn't lend itself at all to automation.
 
@@ -110,7 +110,7 @@ Let's try it out.
 👉 First, for ease of execution, create a symbolic link in your `$HOME/bin/` directory to point to where this script is right now. This is so you can call `btpguid` from wherever you are, because `$HOME/bin/` is [in your PATH](../01-installing/README.md#add-your-bin-directory-to-the-path):
 
 ```bash
-ln -s $HOME/projects/cloud-btp-cli-api-codejam/scripts/btpguid $HOME/bin/
+ln -s $HOME/projects/btp-management/scripts/btpguid $HOME/bin/
 ```
 
 You can now use the `btpguid` script to give you the GUID of a subaccount or directory (and you don't need to prefix it with `./` because the shell will now find the script in your PATH).
@@ -118,7 +118,7 @@ You can now use the `btpguid` script to give you the GUID of a subaccount or dir
 👉 Try it now:
 
 ```bash
-btpguid codejam-directory
+btpguid i8day-directory
 ```
 
 This should return the GUID of your newly created directory.
@@ -126,7 +126,7 @@ This should return the GUID of your newly created directory.
 👉 Now use the same call, but in-line, using the shell's command substitution (`$(...)`) facility, in the context of the previously suggested btp CLI invocation to get the details of the newly created directory:
 
 ```bash
-btp get accounts/directory $(btpguid codejam-directory)
+btp get accounts/directory $(btpguid i8day-directory)
 ```
 
 You should see output similar to this:
@@ -135,7 +135,7 @@ You should see output similar to this:
 Showing details for directory f4c7d60e-627c-4fab-8e67-603b20b84f72...
 
 directory id:         f4c7d60e-627c-4fab-8e67-603b20b84f72
-display name:         codejam-directory
+display name:         i8day-directory
 description:
 directory features:   DEFAULT
 created by:           qmacro+blue@gmail.com
@@ -176,10 +176,10 @@ region=<region>
 
 ```bash
 btp create accounts/subaccount \
-  --directory $(btpguid codejam-directory) \
-  --display-name codejam-subaccount \
+  --directory $(btpguid i8day-directory) \
+  --display-name i8day-subaccount \
   --region "$region" \
-  --subdomain "$(btp --format json get accounts/global-account | jq -r .subdomain)-codejam-subaccount"
+  --subdomain "$(btp --format json get accounts/global-account | jq -r .subdomain)-i8day-subaccount"
 ```
 
 > Have a look at the optional section [Dynamic region choice](#dynamic-region-choice) at the end of this exercise to see how you might make this region choice dynamic.
@@ -201,14 +201,14 @@ Showing details for global account fdce9323-d6e6-42e6-8df0-5e501c90a2be...
 
 ├─ 8fe7efd4trial (fdce9323-d6e6-42e6-8df0-5e501c90a2be - global account)
 │  ├─ trial (f78e0bdb-c97c-4cbc-bb06-526695f44551 - subaccount)
-│  ├─ codejam-directory (cd0c871e-a8f3-4a35-94b9-5af8dbfd185c - directory)
-│  │  ├─ codejam-subaccount (4dc80103-6f20-4582-8aec-858bb6319d30 - subaccount)
+│  ├─ i8day-directory (cd0c871e-a8f3-4a35-94b9-5af8dbfd185c - directory)
+│  │  ├─ i8day-subaccount (4dc80103-6f20-4582-8aec-858bb6319d30 - subaccount)
 
 type:            id:                                    display name:      parent id:
 global account   fdce9323-d6e6-42e6-8df0-5e501c90a2be   8fe7efd4trial
 subaccount       f78e0bdb-c97c-4cbc-bb06-526695f44551   trial              fdce9323-d6e6-42e
-directory        cd0c871e-a8f3-4a35-94b9-5af8dbfd185c   codejam-directory  fdce9323-d6e6-42e
-subaccount       4dc80103-6f20-4582-8aec-858bb6319d30   codejam-subaccount cd0c871e-a8f3-4a3
+directory        cd0c871e-a8f3-4a35-94b9-5af8dbfd185c   i8day-directory  fdce9323-d6e6-42e
+subaccount       4dc80103-6f20-4582-8aec-858bb6319d30   i8day-subaccount cd0c871e-a8f3-4a3
 ```
 
 ## Further experimentation
@@ -276,10 +276,10 @@ You can also incorporate this into the create command, thus:
 
 ```bash
 btp create accounts/subaccount \
-  --directory $(btpguid codejam-directory) \
-  --display-name codejam-subaccount \
+  --directory $(btpguid i8day-directory) \
+  --display-name i8day-subaccount \
   --region "$(selectregion)" \
-  --subdomain "$(btp --format json get accounts/global-account | jq -r .subdomain)-codejam-subaccount"
+  --subdomain "$(btp --format json get accounts/global-account | jq -r .subdomain)-i8day-subaccount"
 ```
 
 and you'd be presented with a list to select from first, like this:
@@ -301,7 +301,7 @@ At this point you should feel more comfortable using the btp CLI on the command 
 
 If you finish earlier than your fellow participants, you might like to ponder these questions. There isn't always a single correct answer and there are no prizes - they're just to give you something else to think about.
 
-1. The btp CLI command you used to [Create a new subaccount in the directory](#create-a-new-subaccount-in-the-directory) had quite an involved-looking construction for the value of the `--subdomain` parameter: `"$(btp --format json get accounts/global-account | jq -r .subdomain)-codejam-subaccount"`. Can you pick this apart and understand how it works?
+1. The btp CLI command you used to [Create a new subaccount in the directory](#create-a-new-subaccount-in-the-directory) had quite an involved-looking construction for the value of the `--subdomain` parameter: `"$(btp --format json get accounts/global-account | jq -r .subdomain)-i8day-subaccount"`. Can you pick this apart and understand how it works?
 1. How does the [btpguid](btpguid) script set the chosen subaccount as target?
 1. In the `jq` part of the [btpguid](../../scripts/btpguid) script that parses the JSON formatted output of the `btp get accounts/global-account --show-hierarchy` command, what technique is used to ignore the global account?
 

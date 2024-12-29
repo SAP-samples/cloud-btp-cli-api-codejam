@@ -46,7 +46,7 @@ There are a handful of scripts that are used and explored in this CodeJam, some 
 
 If you can spare a couple of minutes at the end of the session, please help the author improve for next time by providing some feedback.
 
-Simply use this [Give Feedback](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/issues/new?assignees=&labels=feedback&template=session-feedback-template.md&title=Session%20Feedback) link to create a special "feedback" issue, and follow the instructions in there.
+Simply use this [Give Feedback](https://github.com/INNOV8iON-NL/btp-management/issues/new?assignees=&labels=feedback&template=session-feedback-template.md&title=Session%20Feedback) link to create a special "feedback" issue, and follow the instructions in there.
 
 Thank you!
 

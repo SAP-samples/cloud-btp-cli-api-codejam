@@ -52,7 +52,7 @@ However, it's much easier to use the power of the shell to do this in one go, as
 👉 Ensure you're in the directory containing this exercise's `README.md` file, and make this call (replacing `trial` with the name of your subaccount):
 
 ```bash
-cd $HOME/projects/cloud-btp-cli-api-codejam/exercises/06-core-services-api-creds
+cd $HOME/projects/btp-management/exercises/06-core-services-api-creds
 cf login -a $(./get_cf_api_endpoint "trial")
 ```
 
@@ -247,7 +247,7 @@ You can check the file contains just the JSON by asking `jq` to print it out nic
 jq . cis-central-sk.json
 ```
 
-You should see a nicely formatted display of JSON. Note that depending on the version of `cf` you're using, the structure of the JSON emitted from this `cf` command [may be different](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/issues/27#issuecomment-1370702907). Don't worry, in this CodeJam, whether you're using a container or a Dev Space in SAP Business Application Studio, you'll be using version 8 consistently, and the scripts are ready for that.
+You should see a nicely formatted display of JSON. Note that depending on the version of `cf` you're using, the structure of the JSON emitted from this `cf` command [may be different](https://github.com/INNOV8iON-NL/btp-management/issues/27#issuecomment-1370702907). Don't worry, in this CodeJam, whether you're using a container or a Dev Space in SAP Business Application Studio, you'll be using version 8 consistently, and the scripts are ready for that.
 
 > Technically speaking, the `.` in `jq` is the [identity](https://stedolan.github.io/jq/manual/#Identity:.) filter, so the nice formatting of the JSON is actually just a by-product of asking `jq` to filter the JSON through the identity filter (which just produces whatever it receives), and by default `jq` will endeavour to pretty-print the output.
 > Note also that this time, the `.` is not in single quotes, unlike when you last used this filter in a previous exercise, when [Listing the available datacenter names](../04-retrieving-parsing-json-output#listing-the-available-datacenter-names). It isn't absolutely necessary, so we're omitting it in this instance (and we'll make a similar change later in this exercise when we use the `keys` filter too).
@@ -279,7 +279,7 @@ You're going to run that script now.
 👉 First, make sure you're still in this exercise's directory:
 
 ```bash
-cd $HOME/projects/cloud-btp-cli-api-codejam/exercises/06-core-services-api-creds/
+cd $HOME/projects/btp-management/exercises/06-core-services-api-creds/
 ```
 
 👉 Now invoke the script, specifying the name of the file containing the service key JSON data:

@@ -291,9 +291,9 @@ You can get `curl` to suppress this using the `--silent` option. Incidentally, t
 
 [Questions](../exercises/08-guids-and-resource-creation/README.md#questions):
 
-_The btp CLI command you used to Create a new subaccount in the directory had quite an involved-looking construction for the value of the --subdomain parameter: "$(btp --format json get accounts/global-account | jq -r .subdomain)-codejam-subaccount". Can you pick this apart and understand how it works?_
+_The btp CLI command you used to Create a new subaccount in the directory had quite an involved-looking construction for the value of the --subdomain parameter: "$(btp --format json get accounts/global-account | jq -r .subdomain)-i8day-subaccount". Can you pick this apart and understand how it works?_
 
-When creating a subaccount, you need to specify a subdomain value. This is not a critical value but is mandatory, so we make one up, based on something related to the user's global account (the global account's subdomain), with `-codejam-subaccount` suffixed to that. So this construction is a string, which contains a [command substitution](https://www.gnu.org/software/bash/manual/html_node/Command-Substitution.html) (the `$(...)` part) and some literal text (the suffix).
+When creating a subaccount, you need to specify a subdomain value. This is not a critical value but is mandatory, so we make one up, based on something related to the user's global account (the global account's subdomain), with `-i8day-subaccount` suffixed to that. So this construction is a string, which contains a [command substitution](https://www.gnu.org/software/bash/manual/html_node/Command-Substitution.html) (the `$(...)` part) and some literal text (the suffix).
 
 Inside the command substitution there's a call to `btp --format json get accounts/global-account` which should return a JSON formatted set of details relating to the logged-in user's global account. That will look something like this:
 
@@ -315,7 +315,7 @@ Inside the command substitution there's a call to `btp --format json get account
 }
 ```
 
-This is passed to an invocation of `jq` which picks out the value of the `subdomain` property (`6f7c45edtrial-ga` here) and emits it in raw form (using the `-r` option), i.e. as-is, and not surrounded by double quotes (which `jq` would do by default, as it always tries to emit JSON values). This value is then glued together with `-codejam-subaccount` to form the value for the `--subdomain` parameter in the `btp` call.
+This is passed to an invocation of `jq` which picks out the value of the `subdomain` property (`6f7c45edtrial-ga` here) and emits it in raw form (using the `-r` option), i.e. as-is, and not surrounded by double quotes (which `jq` would do by default, as it always tries to emit JSON values). This value is then glued together with `-i8day-subaccount` to form the value for the `--subdomain` parameter in the `btp` call.
 
 _How does the btpguid script set the chosen subaccount as target?_
 

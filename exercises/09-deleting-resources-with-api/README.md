@@ -21,21 +21,21 @@ Showing details for global account fdce9323-d6e6-42e6-8df0-5e501c90a2be...
 
 ├─ 8fe7efd4trial (fdce9323-d6e6-42e6-8df0-5e501c90a2be - global account)
 │  ├─ trial (f78e0bdb-c97c-4cbc-bb06-526695f44551 - subaccount)
-│  ├─ codejam-directory (f4c7d60e-627c-4fab-8e67-603b20b84f72 - directory)          <----
-│  │  ├─ codejam-subaccount (be63bfda-070a-49a8-ab26-03153b16617e - subaccount)     <----
+│  ├─ i8day-directory (f4c7d60e-627c-4fab-8e67-603b20b84f72 - directory)          <----
+│  │  ├─ i8day-subaccount (be63bfda-070a-49a8-ab26-03153b16617e - subaccount)     <----
 
 type:            id:                                    display name:        parent id:                             parent
 global account   fdce9323-d6e6-42e6-8df0-5e501c90a2be   8fe7efd4trial
 subaccount       cd76fdef-16f8-47a3-954b-cab6678cc24d   testsubaccount       fdce9323-d6e6-42e6-8df0-5e501c90a2be   global
 subaccount       f78e0bdb-c97c-4cbc-bb06-526695f44551   trial                fdce9323-d6e6-42e6-8df0-5e501c90a2be   global
-directory        f4c7d60e-627c-4fab-8e67-603b20b84f72   codejam-directory    fdce9323-d6e6-42e6-8df0-5e501c90a2be   global
-subaccount       be63bfda-070a-49a8-ab26-03153b16617e   codejam-subaccount   f4c7d60e-627c-4fab-8e67-603b20b84f72   direct
+directory        f4c7d60e-627c-4fab-8e67-603b20b84f72   i8day-directory    fdce9323-d6e6-42e6-8df0-5e501c90a2be   global
+subaccount       be63bfda-070a-49a8-ab26-03153b16617e   i8day-subaccount   f4c7d60e-627c-4fab-8e67-603b20b84f72   direct
 ```
 
 👉 Check that you can still use the `btpguid` script (that you created a symbolic link to in your `$HOME/bin/` directory in the previous exercise) to get the GUIDs of these resources:
 
 ```bash
-btpguid codejam-directory; btpguid codejam-subaccount
+btpguid i8day-directory; btpguid i8day-subaccount
 ```
 
 You should see output similar to this - i.e. the two GUIDs:
@@ -80,7 +80,7 @@ DELETE /accounts/v1/directories/{directoryGUID}
 
 ![delete directory endpoint options](assets/delete-directory-endpoint-options.png)
 
-Back in [Exercise 05 - Preparing to call a Core Services API](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/blob/main/exercises/05-core-services-api-prep/README.md), specifically in the section [Understanding what's required for a token request](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/blob/main/exercises/05-core-services-api-prep/README.md#understanding-whats-required-for-a-token-request), we noted that the `central` plan for the SAP Cloud Management service for SAP BTP (`cis`) provided greater access than the other plan(s).
+Back in [Exercise 05 - Preparing to call a Core Services API](https://github.com/INNOV8iON-NL/btp-management/blob/main/exercises/05-core-services-api-prep/README.md), specifically in the section [Understanding what's required for a token request](https://github.com/INNOV8iON-NL/btp-management/blob/main/exercises/05-core-services-api-prep/README.md#understanding-whats-required-for-a-token-request), we noted that the `central` plan for the SAP Cloud Management service for SAP BTP (`cis`) provided greater access than the other plan(s).
 
 👉 Go back to the [SAP Cloud Management - Service Plans](https://help.sap.com/docs/btp/sap-business-technology-platform/sap-cloud-management-service-service-plans?locale=en-US) and check through the scopes offered with the `central` plan. Make sure you can see that it offers this scope:
 
@@ -94,14 +94,14 @@ So with our current access token, we should be all set. Right?
 
 Well, yes, but "we should be all set" is a bit vague, don't you think? Let's spend a couple of minutes verifying this more precisely.
 
-Back when we [requested the token in Exercise 06](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/blob/main/exercises/06-core-services-api-creds/README.md#request-the-token) we got a whole blob of data, first to the terminal, and then captured into a file `tokendata.json`.
+Back when we [requested the token in Exercise 06](https://github.com/INNOV8iON-NL/btp-management/blob/main/exercises/06-core-services-api-creds/README.md#request-the-token) we got a whole blob of data, first to the terminal, and then captured into a file `tokendata.json`.
 
 We'll want to take a closer look at this data, so let's make the file available in the directory related to this exercise.
 
 👉 Move to the appropriate directory and create a symbolic link to the file:
 
 ```bash
-cd $HOME/projects/cloud-btp-cli-api-codejam/exercises/09-deleting-resources-with-api/
+cd $HOME/projects/btp-management/exercises/09-deleting-resources-with-api/
 ln -s ../06-core-services-api-creds/tokendata.json .
 ```
 
@@ -417,7 +417,7 @@ So we can see that the service URL is `https://accounts-service.cfapps.eu10.hana
 
 ## Make the call
 
-We now have everything we need to make the call, [just like we did in an earlier exercise](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/blob/main/exercises/07-core-services-api-call/README.md#make-the-call).
+We now have everything we need to make the call, [just like we did in an earlier exercise](https://github.com/INNOV8iON-NL/btp-management/blob/main/exercises/07-core-services-api-call/README.md#make-the-call).
 
 Let's do it, taking a cautious first step, then committing to the deletion.
 
@@ -427,7 +427,7 @@ We'll determine the dynamic values step by step and assign them to variables, ra
 
 ```bash
 url=$(jq --raw-output .credentials.endpoints.accounts_service_url cis-central-sk.json)
-guid=$(btpguid codejam-directory)
+guid=$(btpguid i8day-directory)
 ```
 
 ### Using HTTP GET to read the information
@@ -456,7 +456,7 @@ After the progress bar that `curl` displays (remember, you can suppress this wit
   "guid": "f4c7d60e-627c-4fab-8e67-603b20b84f72",
   "parentType": "ROOT",
   "globalAccountGUID": "fdce9323-d6e6-42e6-8df0-5e501c90a2be",
-  "displayName": "codejam-directory",
+  "displayName": "i8day-directory",
   "createdDate": 1660820297434,
   "createdBy": "qmacro+blue@gmail.com",
   "modifiedDate": 1660820297434,
@@ -558,7 +558,7 @@ This should return fairly quickly, but successfully, and produce output like thi
   "guid": "f4c7d60e-627c-4fab-8e67-603b20b84f72",
   "parentType": "ROOT",
   "globalAccountGUID": "fdce9323-d6e6-42e6-8df0-5e501c90a2be",
-  "displayName": "codejam-directory",
+  "displayName": "i8day-directory",
   "createdDate": 1660820297434,
   "createdBy": "qmacro+blue@gmail.com",
   "modifiedDate": 1660921399071,

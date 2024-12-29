@@ -28,7 +28,7 @@ As we created these files in the previous exercise, they're in that correspondin
 👉 Make sure you're in this exercise's directory, and then create symbolic links for both files:
 
 ```bash
-cd $HOME/projects/cloud-btp-cli-api-codejam/exercises/07-core-services-api-call/
+cd $HOME/projects/btp-management/exercises/07-core-services-api-call/
 ln -s ../06-core-services-api-creds/cis-central-sk.json .
 ln -s ../06-core-services-api-creds/tokendata.json .
 ```

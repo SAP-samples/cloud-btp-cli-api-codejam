@@ -17,14 +17,14 @@ cd $HOME/projects/
 👉 Run the clone command for this repository:
 
 ```bash
-git clone https://github.com/SAP-samples/cloud-btp-cli-api-codejam/
+git clone https://github.com/INNOV8iON-NL/btp-management/
 ```
 
 Here's a sample of what happens:
 
 ```text
-user: projects $ git clone https://github.com/SAP-samples/cloud-btp-cli-api-codejam/
-Cloning into 'cloud-btp-cli-api-codejam'...
+user: projects $ git clone https://github.com/INNOV8iON-NL/btp-management/
+Cloning into 'btp-management'...
 remote: Enumerating objects: 329, done.
 remote: Counting objects: 100% (22/22), done.
 remote: Compressing objects: 100% (15/15), done.
@@ -33,7 +33,7 @@ Receiving objects: 100% (329/329), 6.90 MiB | 17.85 MiB/s, done.
 Resolving deltas: 100% (170/170), done.
 ```
 
-At this point, you have a new directory `cloud-btp-cli-api-codejam`.
+At this point, you have a new directory `btp-management`.
 
 ## Open your home directory in the Explorer
 

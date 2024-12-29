@@ -568,7 +568,7 @@ After ensuring that you're still authenticated with the btp CLI (with `btp login
 👉 Move to the directory containing the script:
 
 ```bash
-cd $HOME/projects/cloud-btp-cli-api-codejam/exercises/05-core-services-api-prep/
+cd $HOME/projects/btp-management/exercises/05-core-services-api-prep/
 ```
 
 👉 Now run the script:
@@ -602,7 +602,7 @@ At this point you have gained some experience in understanding and parsing the J
 If you finish earlier than your fellow participants, you might like to ponder these questions. There isn't always a single correct answer and there are no prizes - they're just to give you something else to think about.
 
 1. When listing the environment instances for the subaccount, how else might you make that btp CLI call, without using the `--subaccount` parameter?
-1. The embedded, stringified JSON values in the `parameters` and `labels` properties are a bit strange. Stranger still are the names of some the properties in that embedded JSON. Have you ever seen property names containing whitespace (`Org Name`, `API Endpoint`, `Org ID`)? Moreover, depending on the age of your environment instance, these property names [may also contain colons](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/blob/8665a7fac62f62529e12f7120f268f64b673f34c/exercises/get_cf_api_endpoint#L34) :-) Why do you think they exist this way?
+1. The embedded, stringified JSON values in the `parameters` and `labels` properties are a bit strange. Stranger still are the names of some the properties in that embedded JSON. Have you ever seen property names containing whitespace (`Org Name`, `API Endpoint`, `Org ID`)? Moreover, depending on the age of your environment instance, these property names [may also contain colons](https://github.com/INNOV8iON-NL/btp-management/blob/8665a7fac62f62529e12f7120f268f64b673f34c/exercises/get_cf_api_endpoint#L34) :-) Why do you think they exist this way?
 1. What's the mechanism in the `get_cf_api_endpoint` script that defaults to "trial" as the name for the subaccount?
 
 ---
