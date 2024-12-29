@@ -11,11 +11,11 @@ You can download the [Dockerfile](Dockerfile) from this directory directly, or j
 👉 Do the latter:
 
 ```bash
-git clone https://github.com/SAP-samples/cloud-btp-cli-api-codejam.git
-cd cloud-btp-cli-api-codejam
+git clone https://github.com/INNOV8iON-NL/btp-management.git
+cd btp-management
 ```
 
-> Just a note on context here - you're cloning the repository here to get to the `Dockerfile` in order to build your working environment. Later on, in [Exercise 05](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/blob/main/exercises/05-core-services-api-prep/), you'll be directed to clone this repository into your working environment as part of the tasks for that part of the CodeJam. Don't confuse this "outer" clone with the second clone action that you will eventually do "within" the working environment!
+> Just a note on context here - you're cloning the repository here to get to the `Dockerfile` in order to build your working environment. Later on, in [Exercise 05](https://github.com/INNOV8iON-NL/btp-management/blob/main/exercises/05-core-services-api-prep/), you'll be directed to clone this repository into your working environment as part of the tasks for that part of the CodeJam. Don't confuse this "outer" clone with the second clone action that you will eventually do "within" the working environment!
 
 ## Examine the Dockerfile
 
@@ -26,7 +26,7 @@ If you look in the [Dockerfile](Dockerfile) you'll see that there are instructio
 * the command line JSON processor `jq`
 * a Node.js runtime
 
-These are all tools that are also made available automatically in a basic Dev Space in App Studio (`cf` actually comes from the "MTA Tools" extension) - see [A basic Dev Space set up in the prerequisites](../prerequisites.md#a-basic-dev-space-set-up)). You'll also see that the executable that is invoked when a container is instantiated is `bash`, the Bash shell. This is the same shell that's also made available automatically for you in the terminals you invoke within a Dev Space in App Studio. There's even [a line to set the shell prompt to be the same as what's shown in the Dev Space terminals](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/blob/f500edc385d7455412784531188a70d007dd0b3f/container/Dockerfile#L57).
+These are all tools that are also made available automatically in a basic Dev Space in App Studio (`cf` actually comes from the "MTA Tools" extension) - see [A basic Dev Space set up in the prerequisites](../prerequisites.md#a-basic-dev-space-set-up)). You'll also see that the executable that is invoked when a container is instantiated is `bash`, the Bash shell. This is the same shell that's also made available automatically for you in the terminals you invoke within a Dev Space in App Studio. There's even [a line to set the shell prompt to be the same as what's shown in the Dev Space terminals](https://github.com/INNOV8iON-NL/btp-management/blob/f500edc385d7455412784531188a70d007dd0b3f/container/Dockerfile#L57).
 
 The reason for this is that it's important to make the image's environment as similar as possible to the environment in the Dev Space so folks can work in the same way and have a similar shared experience.
 
@@ -38,14 +38,14 @@ With the [Dockerfile](Dockerfile) in this directory, an image is built, and then
 
 ```bash
 cd container
-docker build -t codejam .
+docker build -t i8day .
 ```
 > If you see a message like this: "Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?", make sure you've started Docker Desktop.
 
 > If you're running on a MacBook with an Apple silicon (ARM architecture) chip, you'll need to add a parameter to get this to build for the x86 architecture and then macOS will take care of running the container via Rosetta:
 >
 > ```bash
-> docker build -t codejam --platform linux/amd64 .
+> docker build -t i8day --platform linux/amd64 .
 > ```
 
 You should see build output that looks something like this:
@@ -71,7 +71,7 @@ You should see build output that looks something like this:
  => exporting to image                                                                                                                                         0.0s
  => => exporting layers                                                                                                                                        0.0s
  => => writing image sha256:8b91a99b383b53a74b7a5797c0eb27db00e978fd0d6359274d16df409d051d8a                                                                   0.0s
- => => naming to docker.io/library/codejam                                                                                                                     0.0s
+ => => naming to docker.io/library/i8day                                                                                                                     0.0s
 ```
 
 ## Check the image
@@ -79,14 +79,14 @@ You should see build output that looks something like this:
 👉 Check the image was created successfully like this:
 
 ```bash
-docker image ls codejam
+docker image ls i8day
 ```
 
 You should see something similar to this:
 
 ```text
 REPOSITORY   TAG       IMAGE ID       CREATED          SIZE
-codejam      latest    48f9875c7529   2 minutes ago    541MB
+i8day      latest    48f9875c7529   2 minutes ago    541MB
 ```
 
 You have an image and you're all set to create your first container from it.
@@ -98,7 +98,7 @@ Now create a container from the image.
 👉 Do it like this:
 
 ```bash
-docker run --interactive --tty --name my-codejam-container codejam
+docker run --interactive --tty --name my-i8day-container i8day
 ```
 
 > Again, for Apple silicon macOS devices, add the `--platform linux/amd64` option here too.
@@ -141,25 +141,25 @@ and it will be there:
 
 ```text
 CONTAINER ID   IMAGE          COMMAND                 CREATED          STATUS                     PORTS                                            NAMES
-807eeed3cdc6   codejam        "bash"                  10 minutes ago   Exited (0) 3 minutes ago                                                    my-codejam-container
+807eeed3cdc6   i8day        "bash"                  10 minutes ago   Exited (0) 3 minutes ago                                                    my-i8day-container
 ```
 
 > If you have many containers and want to pick out this one, you can add a `--filter` option, like this:
 >
 > ```bash
-> docker container ls --all --filter "name=my-codejam-container"
+> docker container ls --all --filter "name=my-i8day-container"
 > ```
 
 You must first restart the container:
 
 ```bash
-docker start my-codejam-container
+docker start my-i8day-container
 ```
 
 Then you can re-attach to it:
 
 ```bash
-docker attach my-codejam-container
+docker attach my-i8day-container
 ```
 
 Any files you created should still be there, and you can continue.
@@ -171,13 +171,13 @@ At some point you may wish to clean up and remove your container. It might be be
 You can remove your container by name. If it's still running and you still want to remove it, you must stop it first, like this:
 
 ```bash
-docker container stop my-codejam-container
+docker container stop my-i8day-container
 ```
 
 Then you can remove it:
 
 ```bash
-docker container rm my-codejam-container
+docker container rm my-i8day-container
 ```
 
 ---
@@ -199,13 +199,13 @@ docker ps --all
 In addition, options are expressed here mostly in their long form. For example:
 
 ```bash
-docker run --interactive --tty --name my-codejam-container codejam
+docker run --interactive --tty --name my-i8day-container i8day
 ```
 
 is used instead of
 
 ```bash
-docker run -it --name my-codejam-container codejam
+docker run -it --name my-i8day-container i8day
 ```
 
 and
