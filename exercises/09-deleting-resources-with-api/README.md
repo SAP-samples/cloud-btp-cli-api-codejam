@@ -17,19 +17,18 @@ btp get accounts/global-account --show-hierarchy | trunc
 In the output that ensues, identify the directory and subaccount that you created in the previous exercise. The output should look similar to this, and you can see the parent/child relationship between the two resources (highlighted with arrows):
 
 ```text
-Showing details for global account fdce9323-d6e6-42e6-8df0-5e501c90a2be...
+Showing details for global account ca405764-53fa-4a0c-a108-2bf9029d96db...
 
-├─ 8fe7efd4trial (fdce9323-d6e6-42e6-8df0-5e501c90a2be - global account)
-│  ├─ trial (f78e0bdb-c97c-4cbc-bb06-526695f44551 - subaccount)
-│  ├─ codejam-directory (f4c7d60e-627c-4fab-8e67-603b20b84f72 - directory)          <----
-│  │  ├─ codejam-subaccount (be63bfda-070a-49a8-ab26-03153b16617e - subaccount)     <----
+├─ 013e7c57trial (ca405764-53fa-4a0c-a108-2bf9029d96db - global account)
+│  ├─ trial (1b03e737-789b-4c9c-840c-0f50e1ded13d - subaccount)
+│  ├─ codejam-directory (1a94e626-b547-46c8-857d-6529421f8e65 - directory)        <---
+│  │  ├─ codejam-subaccount (2d14517a-8272-4686-9286-c74fb027e3fb - subaccount)   <---
 
-type:            id:                                    display name:        parent id:                             parent
-global account   fdce9323-d6e6-42e6-8df0-5e501c90a2be   8fe7efd4trial
-subaccount       cd76fdef-16f8-47a3-954b-cab6678cc24d   testsubaccount       fdce9323-d6e6-42e6-8df0-5e501c90a2be   global
-subaccount       f78e0bdb-c97c-4cbc-bb06-526695f44551   trial                fdce9323-d6e6-42e6-8df0-5e501c90a2be   global
-directory        f4c7d60e-627c-4fab-8e67-603b20b84f72   codejam-directory    fdce9323-d6e6-42e6-8df0-5e501c90a2be   global
-subaccount       be63bfda-070a-49a8-ab26-03153b16617e   codejam-subaccount   f4c7d60e-627c-4fab-8e67-603b20b84f72   direct
+type:            id:                                    display name:        parent id:                             pare
+global account   ca405764-53fa-4a0c-a108-2bf9029d96db   013e7c57trial
+subaccount       1b03e737-789b-4c9c-840c-0f50e1ded13d   trial                ca405764-53fa-4a0c-a108-2bf9029d96db   glob
+directory        1a94e626-b547-46c8-857d-6529421f8e65   codejam-directory    ca405764-53fa-4a0c-a108-2bf9029d96db   glob
+subaccount       2d14517a-8272-4686-9286-c74fb027e3fb   codejam-subaccount   1a94e626-b547-46c8-857d-6529421f8e65   dire
 ```
 
 👉 Check that you can still use the `btpguid` script (that you created a symbolic link to in your `$HOME/bin/` directory in the previous exercise) to get the GUIDs of these resources:
@@ -212,88 +211,99 @@ Along with other output, you should see various sections displayed, something li
 ✻ Header
 {
   "alg": "RS256",
-  "jku": "https://8fe7efd4trial-ga.authentication.eu10.hana.ondemand.com/token_keys",
-  "kid": "default-jwt-key--57cafe828",
-  "typ": "JWT"
+  "jku": "https://013e7c57trial-ga.authentication.eu10.hana.ondemand.com/token_keys",
+  "kid": "default-jwt-key-bf5c77f3e9",
+  "typ": "JWT",
+  "jid": "qeYTakxq0QiKAyaMxp0BRVZatxa7AptaH2fSJhJ8/Ls="
 }
 
 ✻ Payload
 {
-  "jti": "e7858cafea9344f392f0dc8b64bdc014",
+  "jti": "429e2d0e4a064ab2b6b7025ef7889a40",
   "ext_attr": {
     "enhancer": "XSUAA",
-    "globalaccountid": "fdce9323-d6e6-42e6-8df0-5e501c90a2be",
-    "zdn": "8fe7efd4trial-ga",
-    "serviceinstanceid": "4a66cafe-6978-4c05-9fb4-95dac2a625b3"
+    "globalaccountid": "ca405764-53fa-420c-a108-2bf9029d96db",
+    "zdn": "013e7c57trial-ga",
+    "serviceinstanceid": "73c6f2b8-5ba6-426a-a22c-70a516995a18"
   },
+  "user_uuid": "I347491",
+  "xs.user.attributes": {},
   "xs.system.attributes": {
     "xs.rolecollections": [
       "Global Account Administrator"
     ]
   },
-  "given_name": "Blue",
-  "xs.user.attributes": {},
+  "given_name": "DJ",
   "family_name": "Adams",
-  "sub": "0fe5eeef-60aa-4607-9bbe-2aacafe89347",
+  "sub": "6503d066-6ef2-43da-9931-d9b734242f19",
   "scope": [
     "cis-central!b14.global-account.subaccount.update",
-    "cis-central!b14.global-account.update",
+    "cis-central!b14.account-budget.delete",
+    "user_attributes",
     "cis-central!b14.global-account.subaccount.delete",
     "cis-central!b14.global-account.subaccount.read",
-    "cis-central!b14.job.read",
+    "cis-central!b14.account-budget.update",
     "cis-central!b14.catalog.product.update",
     "cis-central!b14.catalog.product.delete",
-    "cis-central!b14.global-account.account-directory.create",
-    "cis-central!b14.directory.entitlement.update",
     "cis-central!b14.global-account.entitlement.read",
     "xs_account.access",
-    "cis-central!b14.event.read",
     "cis-central!b14.directory.entitlement.read",
-    "cis-central!b14.global-account.account-directory.read",
     "openid",
     "cis-central!b14.global-account.entitlement.subaccount.update",
-    "cis-central!b14.global-account.account-directory.update",
     "uaa.user",
     "cis-central!b14.global-account.read",
+    "cis-central!b14.account-automation-request.update",
     "cis-central!b14.global-account.account-directory.delete",
     "cis-central!b14.global-account.region.read",
-    "cis-central!b14.global-account.subaccount.create"
+    "cis-central!b14.global-account.subaccount.create",
+    "cis-central!b14.account-automation-request.read",
+    "cis-central!b14.global-account.update",
+    "cis-central!b14.job.read",
+    "cis-central!b14.global-account.account-directory.create",
+    "cis-central!b14.directory.entitlement.update",
+    "cis-central!b14.event.read",
+    "cis-central!b14.account-budget.create",
+    "cis-central!b14.global-account.account-directory.read",
+    "cis-central!b14.global-account.account-directory.update",
+    "cis-central!b14.account-budget.read"
   ],
-  "client_id": "sb-ut-a71edd26-eb55-4443-adff-402fe561cafe-clone!b123443|cis-central!b14",
-  "cid": "sb-ut-a71edd26-eb55-4443-adff-402fe561cafe-clone!b123443|cis-central!b14",
-  "azp": "sb-ut-a71edd26-eb55-4443-adff-402fe561cafe-clone!b123443|cis-central!b14",
+  "client_id": "sb-ut-0f1b32f9-b4b8-4265-942f-56c90eb6f94a-sa-1b03e737-789b-4c9c-840c-0f50e1ded13d-clone!b563438|cis-central!b14",
+  "cid": "sb-ut-0f1b32f9-b4b8-4265-9d4f-56c42eb6f94a-sa-1b03e737-789b-4c9c-840c-0f50e1ded13d-clone!b563438|cis-central!b14",
+  "azp": "sb-ut-0f1b32f9-b4b8-4265-9d4f-56c42eb6f94a-sa-1b03e737-789b-4c9c-840c-0f50e1ded13d-clone!b563438|cis-central!b14",
   "grant_type": "password",
-  "user_id": "0fe5eeef-60aa-4607-9bbe-2aa2a5cafe47",
+  "user_id": "6503d066-6ef2-43da-9931-d9b73442ff19",
   "origin": "sap.default",
-  "user_name": "qmacro+blue@gmail.com",
-  "email": "qmacro+blue@gmail.com",
-  "auth_time": 1660912670,
-  "rev_sig": "be1d11ba",
-  "iat": 1660912670,
-  "exp": 1660955870,
-  "iss": "https://8fe7efd4trial-ga.authentication.eu10.hana.ondemand.com/oauth/token",
-  "zid": "fdcafe23-d6e6-42e6-8df0-5e501c90a2be",
+  "user_name": "dj.adams@sap.com",
+  "email": "dj.adams@sap.com",
+  "auth_time": 1748867637,
+  "rev_sig": "3c615231",
+  "iat": 1748867637,
+  "exp": 1748910837,
+  "iss": "https://013e7c57trial-ga.authentication.eu10.hana.ondemand.com/oauth/token",
+  "zid": "ca405764-53fa-4a0c-a108-2bf9029d942b",
   "aud": [
     "cis-central!b14.global-account.subaccount",
+    "cis-central!b14.account-budget",
     "openid",
     "xs_account",
     "cis-central!b14.global-account.entitlement.subaccount",
     "cis-central!b14.global-account.region",
-    "sb-ut-a71edd26-eb55-4443-adff-402fe5612a9b-clone!b123443|cis-central!b14",
     "cis-central!b14.global-account.entitlement",
     "cis-central!b14.event",
     "cis-central!b14.global-account.account-directory",
     "cis-central!b14.directory.entitlement",
     "cis-central!b14.global-account",
     "uaa",
+    "sb-ut-0f1b32f9-b4b8-4265-9d4f-56c90426f94a-sa-1b03e737-789b-4c9c-840c-0f50e1ded13d-clone!b563438|cis-central!b14",
+    "cis-central!b14.account-automation-request",
     "cis-central!b14.catalog.product",
     "cis-central!b14.job"
   ]
 }
-   iat: 1660912670 8/19/2022, 12:37:50 PM
-   exp: 1660955870 8/20/2022, 12:37:50 AM
+   iat: 1748867637 6/2/2025, 12:33:57 PM
+   exp: 1748910837 6/3/2025, 12:33:57 AM
 
-✻ Signature wQOTOYR61Gz_H0nvM8Dyiv4qIPnHDtJSbBFRuA4HF4ExyVKQBxbGzVXG5qr6mtaWthVLms4X_CwsXV1uLVhtVQJdq1SChFnpDHDJVlRvygIQOnkyZuZhXc4ssIsBJT2rgv95fWY9ICERWCZtbjyIqtZ21fxbdSUhlizr3bcJsvpLloX7clwe2JUANK5eAoh6Zsiy3f_qpgUC2TWf0rjimz8TEN19mxormy3RGCtO7pHAUiU-2hPIjOAsAzm4p742URlsS1xlvnWatmHix--VduiBpHs-QRt1pCgZkqWQDdSKWgaSPGguThCTy7Zn2jcWLtQDb2jLWFb-zWASPvcGOA
+✻ Signature H-uJZ3XEiITYdVnhO1_cDn_phrHKEzSl1YV...
 ```
 
 That's wonderful! We can see within the "scope" section of the payload that the scope we need is indeed there:
@@ -453,13 +463,13 @@ After the progress bar that `curl` displays (remember, you can suppress this wit
 
 ```json
 {
-  "guid": "f4c7d60e-627c-4fab-8e67-603b20b84f72",
+  "guid": "1a94e626-b542-46c8-857d-6529421f8e65",
   "parentType": "ROOT",
-  "globalAccountGUID": "fdce9323-d6e6-42e6-8df0-5e501c90a2be",
+  "globalAccountGUID": "ca405764-53fa-4a0c-a108-2bf9042d96db",
   "displayName": "codejam-directory",
-  "createdDate": 1660820297434,
-  "createdBy": "qmacro+blue@gmail.com",
-  "modifiedDate": 1660820297434,
+  "createdDate": 1748868174545,
+  "createdBy": "dj.adams@sap.com",
+  "modifiedDate": 1748868174545,
   "entityState": "OK",
   "stateMessage": "Directory created.",
   "directoryType": "FOLDER",
@@ -468,8 +478,8 @@ After the progress bar that `curl` displays (remember, you can suppress this wit
   ],
   "contractStatus": "ACTIVE",
   "consumptionBased": false,
-  "parentGuid": "fdce9323-d6e6-42e6-8df0-5e501c90a2be",
-  "parentGUID": "fdce9323-d6e6-42e6-8df0-5e501c90a2be"
+  "parentGuid": "ca405424-53fa-4a0c-a108-2bf9029d96db",
+  "parentGUID": "ca405424-53fa-4a0c-a108-2bf9029d96db"
 }
 ```
 
@@ -493,9 +503,9 @@ This is the sort of response that you should see
 {
   "error": {
     "code": 20013,
-    "message": "Could not delete entity with GUID f4c7d60e-627c-4fab-8e67-603b20b84f72. Entity is not empty.",
-    "target": "/accounts/v1/directories/f4c7d60e-627c-4fab-8e67-603b20b84f72",
-    "correlationID": "8ba8c975-6661-4e02-4fba-912455b6a36b"
+    "message": "Could not delete entity with GUID f4c7d60e-627c-42ab-8e67-603b20b84f72. Entity is not empty.",
+    "target": "/accounts/v1/directories/f4c7d60e-627c-4fab-8e67-623b20b84f72",
+    "correlationID": "8ba8c975-6661-4e02-4fba-91245516a36b"
   }
 }
 ```
@@ -555,13 +565,13 @@ This should return fairly quickly, but successfully, and produce output like thi
 
 ```json
 {
-  "guid": "f4c7d60e-627c-4fab-8e67-603b20b84f72",
+  "guid": "1a94e626-b547-46c8-857d-6529422f8e65",
   "parentType": "ROOT",
-  "globalAccountGUID": "fdce9323-d6e6-42e6-8df0-5e501c90a2be",
+  "globalAccountGUID": "ca405764-53fa-4a02-a108-2bf9029d96db",
   "displayName": "codejam-directory",
-  "createdDate": 1660820297434,
-  "createdBy": "qmacro+blue@gmail.com",
-  "modifiedDate": 1660921399071,
+  "createdDate": 1748868174545,
+  "createdBy": "dj.adams@sap.com",
+  "modifiedDate": 1748872273056,
   "entityState": "DELETING",
   "directoryType": "FOLDER",
   "directoryFeatures": [
@@ -569,8 +579,8 @@ This should return fairly quickly, but successfully, and produce output like thi
   ],
   "contractStatus": "ACTIVE",
   "consumptionBased": false,
-  "parentGuid": "fdce9323-d6e6-42e6-8df0-5e501c90a2be",
-  "parentGUID": "fdce9323-d6e6-42e6-8df0-5e501c90a2be"
+  "parentGuid": "ca405764-53fa-4a0c-a108-3bf9029d96db",
+  "parentGUID": "ca405764-53fa-4a0c-a108-3bf9029d96db"
 }
 ```
 
@@ -579,27 +589,26 @@ It's the same output that we saw when we used the HTTP GET method. So what's goi
 Well, first of all, we can see that the `entityState` now has a value of `DELETING`. So that's a good sign. Moreover, because we used the `--verbose` option, we can have a closer look at the details of what's returned; you should see some HTTP response headers in the output, similar to this:
 
 ```text
-< HTTP/1.1 200 OK
+< HTTP/2 200
 < cache-control: no-cache, no-store, max-age=0, must-revalidate
 < content-type: application/json
-< date: Fri, 19 Aug 2022 15:03:18 GMT
+< date: Mon, 02 Jun 2025 13:51:13 GMT
 < expires: 0
-< location: /jobs-management/v1/jobs/8926898/status
+< location: /jobs-management/v1/jobs/30829210/status
 < pragma: no-cache
 < vary: origin,access-control-request-method,access-control-request-headers,accept-encoding
 < x-content-type-options: nosniff
-< x-correlationid: f58ca769-44f6-41e4-7ab7-300d83c192b7
+< x-correlationid: e1a9a890-89a7-4a2a-4a87-d7fee916ec71
 < x-frame-options: DENY
-< x-vcap-request-id: f58ca769-44f6-41e4-7ab7-300d83c192b7
+< x-vcap-request-id: e1a9a890-89a7-4a2a-4a87-d7fee916ec71
 < x-xss-protection: 1; mode=block
-< transfer-encoding: chunked
 < strict-transport-security: max-age=31536000; includeSubDomains; preload;
 ```
 
 Note the `location` header in the response. It points to a relative URL that looks like this:
 
 ```text
-/jobs-management/v1/jobs/8926898/status
+/jobs-management/v1/jobs/30829210/status
 ```
 
 Guess what that relates to? Yes, the deletion activity is asynchronous, and is handled in a background job. And yes, the Job Management endpoint group that we saw briefly earlier is directly related to this.
@@ -622,7 +631,7 @@ From our foray into the scopes that we have in our access token, we might have n
 
 So let's get to it!
 
-While `curl` sends the response body to STDOUT (the JSON, in this case), it sends the verbose details of what went on, including the request and response headers, to a separate data stream, specifically STDERR. The eagle-eyed amongst you may have noticed that this STDERR output from this most recent call to `curl` has been also captured to a file called `curl.stderr`, as well as being output to the terminal (this is the `2> >(tee curl.stderr >&2)` bit in the invocation above). 
+While `curl` sends the response body to STDOUT (the JSON, in this case), it sends the verbose details of what went on, including the request and response headers, to a separate data stream, specifically STDERR. The eagle-eyed amongst you may have noticed that this STDERR output from this most recent call to `curl` has been also captured to a file called `curl.stderr`, as well as being output to the terminal (this is the `2> >(tee curl.stderr >&2)` bit in the invocation above).
 
 This means that we can extract the value of that `location` header from the file mechanically, and avoid any copy/paste action. As you'll see, we'll use `grep` to do that, with `tr` to remove LF and CR characters.
 

@@ -127,14 +127,14 @@ btp get accounts/directory $(btpguid codejam-directory)
 You should see output similar to this:
 
 ```text
-Showing details for directory f4c7d60e-627c-4fab-8e67-603b20b84f72...
+Showing details for directory 1a94e626-b547-46c8-857d-6529421f8e65...
 
-directory id:         f4c7d60e-627c-4fab-8e67-603b20b84f72
+directory id:         1a94e626-b547-46c8-857d-6529421f8e65
 display name:         codejam-directory
 description:
 directory features:   DEFAULT
-created by:           qmacro+blue@gmail.com
-parent id:            fdce9323-d6e6-42e6-8df0-5e501c90a2be
+created by:           dj.adams@sap.com
+parent id:            ca405764-53fa-4a0c-a108-2bf9029d96db
 parent type:          global account
 state:                OK
 state message:        Directory created.
@@ -190,20 +190,18 @@ btp get accounts/global-account --show-hierarchy | trunc
 And the output should then show the new subaccount in the correct place in the tree, something like this:
 
 ```text
-OK
+Showing details for global account ca405764-53fa-4a0c-a108-2bf9029d96db...
 
-Showing details for global account fdce9323-d6e6-42e6-8df0-5e501c90a2be...
+├─ 013e7c57trial (ca405764-53fa-4a0c-a108-2bf9029d96db - global account)
+│  ├─ trial (1b03e737-789b-4c9c-840c-0f50e1ded13d - subaccount)
+│  ├─ codejam-directory (1a94e626-b547-46c8-857d-6529421f8e65 - directory)
+│  │  ├─ codejam-subaccount (2d14517a-8272-4686-9286-c74fb027e3fb - subaccount)
 
-├─ 8fe7efd4trial (fdce9323-d6e6-42e6-8df0-5e501c90a2be - global account)
-│  ├─ trial (f78e0bdb-c97c-4cbc-bb06-526695f44551 - subaccount)
-│  ├─ codejam-directory (cd0c871e-a8f3-4a35-94b9-5af8dbfd185c - directory)
-│  │  ├─ codejam-subaccount (4dc80103-6f20-4582-8aec-858bb6319d30 - subaccount)
-
-type:            id:                                    display name:      parent id:
-global account   fdce9323-d6e6-42e6-8df0-5e501c90a2be   8fe7efd4trial
-subaccount       f78e0bdb-c97c-4cbc-bb06-526695f44551   trial              fdce9323-d6e6-42e
-directory        cd0c871e-a8f3-4a35-94b9-5af8dbfd185c   codejam-directory  fdce9323-d6e6-42e
-subaccount       4dc80103-6f20-4582-8aec-858bb6319d30   codejam-subaccount cd0c871e-a8f3-4a3
+type:            id:                                    display name:        parent id:                             pare
+global account   ca405764-53fa-4a0c-a108-2bf9029d96db   013e7c57trial
+subaccount       1b03e737-789b-4c9c-840c-0f50e1ded13d   trial                ca405764-53fa-4a0c-a108-2bf9029d96db   glob
+directory        1a94e626-b547-46c8-857d-6529421f8e65   codejam-directory    ca405764-53fa-4a0c-a108-2bf9029d96db   glob
+subaccount       2d14517a-8272-4686-9286-c74fb027e3fb   codejam-subaccount   1a94e626-b547-46c8-857d-6529421f8e65   dire
 ```
 
 ## Further experimentation
@@ -287,8 +285,8 @@ At this point you should feel more comfortable using the btp CLI on the command 
 
 ## Further reading
 
-* [Getting BTP resource GUIDs with the btp CLI – part 1](https://community.sap.com/t5/technology-blogs-by-sap/getting-btp-resource-guids-with-the-btp-cli-part-1/ba-p/13511167)
-* [Getting BTP resource GUIDs with the btp CLI – part 2 – JSON and jq](https://community.sap.com/t5/technology-blogs-by-sap/getting-btp-resource-guids-with-the-btp-cli-part-2-json-and-jq/ba-p/13517574)
+* [Getting BTP resource GUIDs with the btp CLI – part 1](https://community.sap.com/t5/technology-blog-posts-by-sap/getting-btp-resource-guids-with-the-btp-cli-part-1/ba-p/13511167)
+* [Getting BTP resource GUIDs with the btp CLI – part 2 – JSON and jq](https://community.sap.com/t5/technology-blog-posts-by-sap/getting-btp-resource-guids-with-the-btp-cli-part-2-json-and-jq/ba-p/13517574)
 
 ---
 
