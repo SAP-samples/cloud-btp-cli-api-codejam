@@ -100,11 +100,11 @@ The endpoints in the Entitlement Service API are protected by the OAuth 2.0 "Res
 
 👉 Head over to the [Entitlements Service API overview](https://hub.sap.com/api/APIEntitlementsService/overview) page on the SAP Business Accelerator Hub.
 
-👉 Find and follow the link, under the Documentation heading, to the [Account Administration Using APIs of the SAP Cloud Management Service](https://help.sap.com/docs/btp/sap-business-technology-platform/account-administration-using-apis-of-sap-cloud-management-service) section in the SAP Help Portal, where you'll see something like this:
+👉 Find and follow the link, under the Documents / Documentation heading, to the [Account Administration Using APIs of the SAP Cloud Management Service](https://help.sap.com/docs/btp/sap-business-technology-platform/account-administration-using-apis-of-sap-cloud-management-service) section in the SAP Help Portal, where you'll see something like this:
 
 ![Account Administration documentation page](assets/account-admin-docu-page.png)
 
-👉 Explore the two nodes highlighted in red, to see that it's the "SAP Cloud Management" service that is relevant here, and note that the technical name for this service is `cis`. See also that there are two plans for the SAP Cloud Management service: `central` and `local`.
+👉 Explore the two nodes highlighted in red, to see that it's the "SAP Cloud Management" service that is relevant here, and note that the technical name for this service is `cis`. See also that there are plans for the SAP Cloud Management service that include `central` and `local`.
 
 The `central` plan affords a little more access than the `local` plan (as shown in the "Scopes" column of the table in the documentation) so we'll go for the `central` plan. This is where these values fit into our diagram:
 
@@ -163,7 +163,7 @@ The general approach that we'll be following is this:
 
 ### Installing "interactive jq"
 
-We'll be using the `--format json` option and working through details of certain btp CLI calls, building on our knowledge of `jq` filters from the previous exercise. To make this a little more comfortable, we'll install a wrapper around `jq` so we can interact with the JSON data and build up our filters bit by bit. The wrapper is called [ijq](https://sr.ht/~gpanders/ijq/) (for "interactive jq") and we can manually install it in our working environment.
+We'll be using the `--format json` option and working through details of certain btp CLI calls, building on our knowledge of `jq` filters from the previous exercise. To make this a little more comfortable, we'll install a version of `jq` that has a full screen wrapper around it so we can interact with the JSON data and build up our filters bit by bit. This is [ijq](https://codeberg.org/gpanders/ijq) (for "interactive jq") and we can manually install it in our working environment.
 
 👉 At the shell prompt, run the following command, which will download the [latest release tarball](https://git.sr.ht/~gpanders/ijq/refs/v1.1.2) specifically for the Linux platform (remember, both the container and the Dev Space are essentially Linux environments) and extract the binary `ijq` into the `bin/` directory in your home directory (this `$HOME/bin/` directory is [where you installed the btp CLI in an earlier exercise](../01-installing#add-your-bin-directory-to-the-path)):
 
@@ -266,7 +266,7 @@ cd76fdef-16f8-47a3-954b-cab6678cc24d   testsubaccount     a253215a-736f-4e9a-b0c
 f78e0bdb-c97c-4cbc-bb06-526695f44551   trial              8fe7efd4trial                          eu10
 ```
 
-> You'll still see some blank lines and an "OK" - this is extraneous output that is sent (to STDERR) by the `btp` invocation. The latest versions of `btp` (including the one available at the time this was written, 2.38.0, suppresses such output when the `--format json` option is used; think of this contrast as the difference between "human" and "machine-readable" output versions.
+> You'll still see some blank lines and an "OK" - this is extraneous output that is sent (to STDERR) by the `btp` invocation. The latest versions of `btp` suppress such output when the `--format json` option is used; think of this contrast as the difference between "human" and "machine-readable" output versions.
 
 For the subaccount in question ("trial" in this sample), we want to get the GUID, which is `f78e0bdb-c97c-4cbc-bb06-526695f44551`. Again, we could copy/paste it somehow, but that's not useful if we want to do this, or something like it, in an automated fashion. Instead, we'll ask for the JSON representation of this information and parse it out from that.
 
@@ -394,10 +394,10 @@ It's the "environment-instance" object that we should find and retrieve details 
 👉 First, use the following command to list all the environment instances for the subaccount, using the GUID you have in the `guid` variable, thus:
 
 ```bash
-btp list accounts/environment-instance --subaccount "$guid"
+btp list accounts/environment-instance --subaccount "$guid" | trunc
 ```
 
-This should return something like this (again, truncated here to fit within the page width) - your output may show different records:
+This should return something like this - your output may show different records:
 
 ```text
 Showing environment details for subaccount f78e0bdb-c97c-4cbc-bb06-526695f44551:
@@ -469,7 +469,7 @@ You may be staring and wondering at the values for the `parameters` and `labels`
 
 ### Extracting the API endpoint value
 
-If you [stare long enough](https://qmacro.org/blog/posts/2017/02/19/the-beauty-of-recursion-and-list-machinery/#initialrecognition), you'll realise that these odd looking values are string-encoded JSON structures.
+If you [stare long enough](https://qmacro.org/blog/posts/2017/02/19/the-beauty-of-recursion-and-list-machinery/#initial-recognition), you'll realise that these odd looking values are string-encoded JSON structures.
 
 In other words, the values are actually JSON objects, but in string form. In order for this to work, the double quote characters within the string need to be preserved and therefore have been escaped with backslash characters (`\`).
 
@@ -535,7 +535,7 @@ btp --format json list accounts/environment-instance --subaccount "$guid" \
 
 > The [generic object index](https://stedolan.github.io/jq/manual/#GenericObjectIndex:.[%3Cstring%3E]) `."API Endpoint"` is a little different to what we've seen up to now. Previously we've been able to refer to properties just using the property name, such as `.labels` or `.displayName`.
 >
-> But because this property name contains special characters (such as spaces), we can't do that, and so have to enclose it in double quotes (if you're thinking that having JSON property names with spaces is odd, you're right).
+> But because this property name contains special characters (a space, in this case), we can't do that, and so have to enclose it in double quotes (if you're thinking that having JSON property names with spaces is odd, you're right).
 >
 > And just as a "by the way", the expression `."API Endpoint"` is just shorthand for the full generic object index expression `.["API Endpoint"]`.
 >
@@ -551,9 +551,9 @@ but it may be different for the CF environment instance in your subaccount. What
 
 ## Determining the CF API endpoint with a script
 
-In the [directory containing this specific README file](./), there's a link to a script [get_cf_api_endpoint](../../scripts/get_cf_api_endpoint). This script is an automated version of everything you've done in this section.
+In the [directory containing this specific README file](./), there's a link to a script [get-cf-api-endpoint](../../scripts/get-cf-api-endpoint). This script is an automated version of everything you've done in this section.
 
-> This `get_cf_api_endpoint` script is used in this and a subsequent exercise, so to avoid duplicating it in both exercise directories, it lives in a separate [scripts/](../../scripts/) directory and there are symbolic links to it from both exercise directories.
+> This `get-cf-api-endpoint` script is used in this and a subsequent exercise, so to avoid duplicating it in both exercise directories, it lives in a separate [scripts/](../../scripts/) directory and there are symbolic links to it from both exercise directories.
 
 You can try it out, too.
 
@@ -563,7 +563,7 @@ You'll first need to clone this repository into your working environment, so you
 
 After ensuring that you're still authenticated with the btp CLI (with `btp login`), you're ready run the script. It's a good idea at this stage to move to the directory containing it, and run it there, mostly because you'll be running another script in this same directory later. Here's how.
 
-> If you don't specify a subaccount name, it will use "trial" by default. So if your subaccount name is not "trial", specify it as a parameter when invoking the script (e.g. `./get_cf_api_endpoint "My subaccount name"`).
+> If you don't specify a subaccount name, it will use "trial" by default. So if your subaccount name is not "trial", specify it as a parameter when invoking the script (e.g. `./get-cf-api-endpoint "My subaccount name"`).
 
 👉 Move to the directory containing the script:
 
@@ -574,13 +574,13 @@ cd $HOME/projects/cloud-btp-cli-api-codejam/exercises/05-core-services-api-prep/
 👉 Now run the script:
 
 ```bash
-./get_cf_api_endpoint
+./get-cf-api-endpoint
 ```
 
 It should emit the API endpoint URL; the invocation should look something like this:
 
 ```text
-user: 05-core-services-api-prep $ ./get_cf_api_endpoint
+user: 05-core-services-api-prep $ ./get-cf-api-endpoint
 https://api.cf.eu10.hana.ondemand.com
 user: 05-core-services-api-prep $
 ```
@@ -602,8 +602,8 @@ At this point you have gained some experience in understanding and parsing the J
 If you finish earlier than your fellow participants, you might like to ponder these questions. There isn't always a single correct answer and there are no prizes - they're just to give you something else to think about.
 
 1. When listing the environment instances for the subaccount, how else might you make that btp CLI call, without using the `--subaccount` parameter?
-1. The embedded, stringified JSON values in the `parameters` and `labels` properties are a bit strange. Stranger still are the names of some the properties in that embedded JSON. Have you ever seen property names containing whitespace (`Org Name`, `API Endpoint`, `Org ID`)? Moreover, depending on the age of your environment instance, these property names [may also contain colons](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/blob/8665a7fac62f62529e12f7120f268f64b673f34c/exercises/get_cf_api_endpoint#L34) :-) Why do you think they exist this way?
-1. What's the mechanism in the `get_cf_api_endpoint` script that defaults to "trial" as the name for the subaccount?
+1. The embedded, stringified JSON values in the `parameters` and `labels` properties are a bit strange. Stranger still are the names of some the properties in that embedded JSON. Have you ever seen property names containing whitespace (`Org Name`, `API Endpoint`, `Org ID`)? Moreover, depending on the age of your environment instance, these property names [may also contain colons](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/blob/8665a7fac62f62529e12f7120f268f64b673f34c/exercises/get-cf-api-endpoint#L34) :-) Why do you think they exist this way?
+1. What's the mechanism in the `get-cf-api-endpoint` script that defaults to "trial" as the name for the subaccount?
 
 ---
 

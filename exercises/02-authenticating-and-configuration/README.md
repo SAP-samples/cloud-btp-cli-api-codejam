@@ -25,21 +25,21 @@ btp login
 Here's an example authentication flow for a user with just a single trial global account 65137137trial:
 
 ```text
-SAP BTP command line interface (client v2.61.0)
+SAP BTP command line interface (client v2.83.0)
 
-CLI server URL [https://cli.btp.cloud.sap]> 
+CLI server URL [https://cli.btp.cloud.sap]>
 Connecting to CLI server at https://cli.btp.cloud.sap...
 
 Server certificate subject: CN=cli.btp.cloud.sap,O=SAP SE,L=Walldorf,ST=Baden-Württemberg,C=DE
-Server certificate fingerprint: 2e3edc8f3fe29377b7878b73cbfaa841a140b1d5f5b35db9f37e27d2fe02f280
+Server certificate fingerprint: fdcf5777236368230da5adc18e38808307fb79c1b1dd240bb71523645d0efc56
 
-User> qmacro@gmail.com
-Password> 
+User> dj.adams@sap.com
+Password>
 
 Authentication successful
 
 Current target:
-  65137137trial (global account, subdomain: 65137137trial-ga)
+ 013e7c57trial (global account, subdomain: 013e7c57trial-ga)
 
 We stored your configuration file at: /home/user/.config/.btp/config.json
 
@@ -52,66 +52,25 @@ OK
 
 > Earlier versions of the btp CLI required you to always specify your global account subdomain, but now it will try to discern it from your user details. Additionally, the value for the "CLI server URL" is fixed (`https://cli.btp.cloud.sap`) and you shouldn't need to change it.
 
-If your user is associated with more than one global account, they will be presented to you and you must choose one of them. Here's an example of that flow:
+If your user is associated with more than one global account, they will be presented to you and you must choose one of them. Here's an example of that additional section of the flow, that occurs after successful authentication:
 
 ```text
-SAP BTP command line interface (client v2.61.0)
-
-CLI server URL [https://cli.btp.cloud.sap]> 
-Connecting to CLI server at https://cli.btp.cloud.sap...
-
-Server certificate subject: CN=cli.btp.cloud.sap,O=SAP SE,L=Walldorf,ST=Baden-Württemberg,C=DE
-Server certificate fingerprint: 2e3edc8f3fe29377b7878b73cbfaa841a140b1d5f5b35db9f37e27d2fe02f280
-
-User> dj.adams@sap.com
-Password> 
-
-Authentication successful
-
 Choose a global account:
-  [1] 65137137trial
-  [3] Developer Advocates Free Tier
-  [4] Developer Destination
+  [1] 013e7c57trial
+  [2] Developer Advocates
+  [3] Developer Destination
+  [4] Global Dev Rels Prod
+  [5] SAP4GOOD
 Choose option> 1
 
 Current target:
- 65137137trial (global account, subdomain: 65137137trial-ga)
-
-We stored your configuration file at: /home/user/.config/.btp/config.json
-
-Tips:
-    Commands are executed in the target, unless specified otherwise using a parameter. To change the target, use 'btp target'.
-    To provide feedback about the btp CLI, use 'btp feedback' to open our survey.
-
-OK
+ 013e7c57trial (global account, subdomain: 013e7c57trial-ga)
 ```
 
-Here's another example authentication flow, for a global account with the subdomain "65137137trial-ga", where the user has chosen to use single sign on (SSO) with the browser, using the `--sso manual` parameter:
+It's also possible to use single sign on (SSO) with the browser, using the `--sso manual` option (i.e. `btp login --sso manual`). Here's what that section of the flow looks like, in place of the `User>` and `Password>` prompts:
 
 ```text
-user: user $ btp login --sso manual
-SAP BTP command line interface (client v2.61.0)
-
-CLI server URL [https://cli.btp.cloud.sap]> 
-Connecting to CLI server at https://cli.btp.cloud.sap...
-
-Server certificate subject: CN=cli.btp.cloud.sap,O=SAP SE,L=Walldorf,ST=Baden-Württemberg,C=DE
-Server certificate fingerprint: 2e3edc8f3fe29377b7878b73cbfaa841a140b1d5f5b35db9f37e27d2fe02f280
-
-Please authenticate at: https://cli.btp.cloud.sap/login/v2.61.0/browser/0661e854-4d52-42e5-a6d2-03a814403f42
-
-Authentication successful
-
-Current target:
- 65137137trial (global account, subdomain: 65137137trial-ga)
-
-We stored your configuration file at: /home/user/.config/.btp/config.json
-
-Tips:
-    Commands are executed in the target, unless specified otherwise using a parameter. To change the target, use 'btp target'.
-    To provide feedback about the btp CLI, use 'btp feedback' to open our survey.
-
-OK
+Please authenticate at: https://cli.btp.cloud.sap/login/v2.83.0/browser/4014ee3a-7893-49a0-a4dc-c027a26773e6
 ```
 
 > In this example, the user selects the URL presented at the "Please authenticate at" prompt and opens it in the browser, and authenticates there if required. Then the flow automatically continues.
@@ -137,8 +96,9 @@ btp help target
 Here's an example invocation:
 
 ```text
-user: user $ btp help target
-Usage: btp [OPTIONS] target [--hierarchy] [--global-account SUBDOMAIN] [--directory ID] [--subaccount ID]
+Usage: btp [OPTIONS] target [--hierarchy [BOOL]] [--global-account SUBDOMAIN] [--directory ID] [--subaccount ID]
+
+Set the target for subsequent commands.
 
 Set the target for commands to a global account, a directory, or a subaccount. Commands are executed in the specified target, unless you override it using a parameter.
 If the specified target is part of an account hierarchy, its parents are also targeted, so that if a command is only available on a higher level, it will be executed there.
@@ -148,7 +108,7 @@ For a simple target selection, use 'btp target' without parameters. The siblings
 To see the entire hierarchy of all global accounts as well as the included directories and subaccounts, use the '--hierarchy' parameter. You can then select a target from this list.
 
 Parameters:
-  --hierarchy,-h                  (Optional) Browse the entire hierarchy of all global accounts to select a target.
+  --hierarchy,-h [BOOL]           (Optional) Browse the entire hierarchy of all global accounts to select a target.
   --global-account,-ga SUBDOMAIN  (Optional) You can omit SUBDOMAIN as only the global account of the active login can be targeted.
   --directory,-dir ID             (Optional) The ID of the directory to be targeted.
   --subaccount,-sa ID             (Optional) The ID of the subaccount to be targeted.
@@ -185,10 +145,10 @@ Here's the sort of thing that you should see:
 ```text
 user: user $ btp list accounts/subaccount
 
-subaccounts in global account 06de8b78-0e1d-48a5-9323-97824c99671f...
+subaccounts in global account ca405764-53fa-4a0c-a108-2bf9029d96db...
 
-subaccount id:                         display name:     subdomain:       region:   beta-enabled:   parent id:                             parent type:     state:   state message:
-b07f7316-2d2a-445a-8fcc-a52952c92607   trial             65137137trial    us10      false           06de8b78-0e1d-48a5-9323-97824c99671f   global account   OK       Subaccount created.
+subaccount id:                         display name:   subdomain:      region:   beta-enabled:   parent id:                             parent type:     state:   state message:
+1b03e737-789b-4c9c-840c-0f50e1ded13d   trial           013e7c57trial   us10      false           ca405764-53fa-4a0c-a108-2bf9029d96db   global account   OK       Subaccount created.
 
 
 OK
@@ -201,12 +161,12 @@ The output should include a detailed line for your subaccount, showing its ID (w
 👉 Try the `target` command again, this time specifying the ID of your subaccount, rather than the display name. Here's an example, with output:
 
 ```text
-user: user $ btp target --subaccount b07f7316-2d2a-445a-8fcc-a52952c92607 
-Targeting subaccount 'b07f7316-2d2a-445a-8fcc-a52952c92607'.
+user: user $ btp target --subaccount 1b03e737-789b-4c9c-840c-0f50e1ded13d
+Targeting subaccount '1b03e737-789b-4c9c-840c-0f50e1ded13d'.
 
 Current target:
-  65137137trial (global account, subdomain: 65137137trial-ga)
-  └─  trial (subaccount, ID: b07f7316-2d2a-445a-8fcc-a52952c92607)
+ 013e7c57trial (global account, subdomain: 013e7c57trial-ga)
+  └─ trial (subaccount, ID: 1b03e737-789b-4c9c-840c-0f50e1ded13d)
 
 Tips:
     To execute a command in the parent directory or global account, use the '-ga' or '-dir' parameter without value.
@@ -219,8 +179,8 @@ Any `btp` invocation output will include what the current target is; note now th
 
 ```text
 Current target:
-  65137137trial (global account, subdomain: 65137137trial-ga)
-  └─  trial (subaccount, ID: b07f7316-2d2a-445a-8fcc-a52952c92607)
+ 013e7c57trial (global account, subdomain: 013e7c57trial-ga)
+  └─ trial (subaccount, ID: 1b03e737-789b-4c9c-840c-0f50e1ded13d)
 ```
 
 > You can make your command line life more comfortable with custom functions and scripts, such as one to get the ID for a subaccount, given its display name. We'll cover this in [a later exercise in this session](../05-btp-guids-cli-in-practice/README.md). See also [the `bgu` script in action as part of the btp CLI section of the 2021 SAP TechEd Developer Keynote](https://youtu.be/OmEx598qAI8?t=180) and also the two related blog posts in the [Further reading](#further-reading) section below.
@@ -233,15 +193,14 @@ With version 2.33.0 of the btp CLI, a new "interative target" feature was introd
 user: user $ btp target
 
 Current target:
-  65137137trial (global account, subdomain: 65137137trial-ga)
-  └─  trial (subaccount, ID: b07f7316-2d2a-445a-8fcc-a52952c92607)
+ 013e7c57trial (global account, subdomain: 013e7c57trial-ga)
+  └─ trial (subaccount, ID: 1b03e737-789b-4c9c-840c-0f50e1ded13d)
 
 Choose subaccount or directory:
-  [..]  Switch Global Accounts
-   [.]  65137137trial (global account)
-   [1]  ├─  research (directory)
-   [2]  └─  trial (subaccount)
-Choose, or hit ENTER to stay in 'trial' [2]> 
+  [..] Switch Global Accounts
+   [.] 013e7c57trial (global account)
+   [1]  └─ trial (subaccount)
+Choose, or hit ENTER to stay in 'trial' [1]>
 ```
 
 ## Find and organize your btp CLI configuration
@@ -299,7 +258,7 @@ Session tokens, which are used to authorize btp CLI calls, are not stored in the
 btp login
 ```
 
-Once you've logged in again, you should be all set. 
+Once you've logged in again, you should be all set.
 
 > If you're interested to see where this session information is stored, take a look in `$HOME/.cache/.btp/`.
 

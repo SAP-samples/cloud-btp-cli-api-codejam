@@ -187,7 +187,7 @@ Try getting any sensible output from that using `grep` now!
 
 Parsing JSON with the right tool is essential. Happily, it's also straightforward and can be very powerful and flexible.
 
-One tool that is popular for this is [jq](https://stedolan.github.io/jq/), which is described as "a lightweight and flexible command-line JSON processor". It supports an entire language [which is Turing complete](https://github.com/MakeNowJust/bf.jq) but is readily useful at a simple level too. Your App Studio Dev Space (and container) comes already equipped with `jq` so you can try it out now.
+One tool that is popular for this is [jq](https://jqlang.org/), which is described as "a lightweight and flexible command-line JSON processor". It supports an entire language which is [Turing complete](https://en.wikipedia.org/wiki/Turing_completeness) but is readily useful at a simple level too. Your App Studio Dev Space (and container) comes already equipped with `jq` so you can try it out now.
 
 #### Listing the available datacenter names
 
@@ -240,7 +240,7 @@ jq '.datacenters[].displayName' regions.json
 
 Now that we have the data locally in a file, let's explore how this `jq` filter works.
 
-1. Look at the first character of the filter. It's a `.`. This is the simplest construct in `jq`, the [identity filter](https://stedolan.github.io/jq/manual/#Identity:.) `.`. This says "everything that you have right now", which at the start is all of the JSON.
+1. Look at the first character of the filter. It's a `.`. This is the simplest construct in `jq`, the [identity filter](https://jqlang.org/manual/#identity) `.`. This says "everything that you have right now", which at the start is all of the JSON.
 
     👉 Try this simple first step to see that you indeed get all of the data:
 
@@ -260,7 +260,7 @@ Now that we have the data locally in a file, let's explore how this `jq` filter 
 
     You should see a single key listed (inside of an array), and that key is `datacenters`.
 
-1. OK, so let's now combine the identity function `.` with a [generic object index](https://stedolan.github.io/jq/manual/#GenericObjectIndex:.[%3Cstring%3E]) to give `.["datacenters"]` which is a reference to the value of the `datacenters` property. From the output earlier, we know that this is an array (here, the array is a list of objects, each object representing the detail of a data center).
+1. OK, so let's now combine the identity function `.` with a [generic object index](https://jqlang.org/manual/#object-index) to give `.["datacenters"]` which is a reference to the value of the `datacenters` property. From the output earlier, we know that this is an array (here, the array is a list of objects, each object representing the detail of a data center).
 
     👉 Do this now, and note the subtle difference in output to what we saw earlier:
 
@@ -270,7 +270,7 @@ Now that we have the data locally in a file, let's explore how this `jq` filter 
 
 1. So the result of this first part (`.["datacenters"]`) is the array of data centers (this is not because `"datacenters"` is inside a `[...]` construct, it's because the value of the `datacenters` property is an array). This array is then piped into the next part.
 
-1. Let's now consider the next part, which looks like this `.[]`, which is the [array value iterator](https://stedolan.github.io/jq/manual/#Array/ObjectValueIterator:.[]). This construct explodes all of the elements of the incoming array (the `.` in the `.[]` component here refers now to what was passed in through the pipe) and sends each of them downstream.
+1. Let's now consider the next part, which looks like this `.[]`, which is the [array value iterator](https://jqlang.org/manual/#array-object-value-iterator). This construct explodes all of the elements of the incoming array (the `.` in the `.[]` component here refers now to what was passed in through the pipe) and sends each of them downstream.
 
     👉 See what this looks like, noting how the items are output:
 
@@ -300,7 +300,7 @@ Now that we have the data locally in a file, let's explore how this `jq` filter 
 
 Now we've exploded and deconstructed the components, let's put them back together again into that more idiomatic (and shorter) filter we saw at the start.
 
-First, the examples of the generic object index can be shortened from e.g. `.["datacenters"]` to `.datacenters` which is known as a [object identifier-index](https://stedolan.github.io/jq/manual/#ObjectIdentifier-Index:.foo,.foo.bar). This gives us:
+First, the examples of the generic object index can be shortened from e.g. `.["datacenters"]` to `.datacenters` which is known as a [object identifier-index](https://jqlang.org/manual/#object-identifier-index). This gives us:
 
 ```jq
 .datacenters | .[] | .displayName
@@ -324,7 +324,7 @@ Before we finish this exercise, let's gently explore `jq` a little more.
 
 #### Counting the total number of data centers
 
-Now we have an understanding of what `.datacenters` gives us, we can combine that knowledge with the [length](https://stedolan.github.io/jq/manual/#length) function to get a count of elements:
+Now we have an understanding of what `.datacenters` gives us, we can combine that knowledge with the [length](https://jqlang.org/manual/#length) function to get a count of elements:
 
 👉 Modify the previous command to supply `jq` with a different filter, thus:
 
@@ -344,7 +344,7 @@ Although not important here, this value is in fact valid JSON too.
 
 What if we wanted to list only those data centers that were Cloud Foundry based, and get their geographic region, which is shown as part of the display name string (they look like this: "US East (VA) - AWS")?
 
-We can use `jq`'s [select](https://stedolan.github.io/jq/manual/#select(boolean_expression)) function to pick elements from a list, and a couple of other functions for some simple string manipulation.
+We can use `jq`'s [select](https://jqlang.org/manual/#select) function to pick elements from a list, and a couple of other functions for some simple string manipulation.
 
 👉 Try this; it's a little longer than the previous filter, so it's presented across multiple lines for readability, but because of the beauty of the shell, you can still copy and paste it in as-is:
 
@@ -371,16 +371,16 @@ Europe (Frankfurt)
 Here are a few notes to help you as you [stare](https://qmacro.org/blog/posts/2017/02/19/the-beauty-of-recursion-and-list-machinery/#initialrecognition) at this filter invocation:
 
 * the `--raw-output` option (which can be expressed as `-r` too) tells `jq` to not output strings as JSON strings, i.e. not to put them in double quotes
-* using [select](https://stedolan.github.io/jq/manual/#select(boolean_expression)) can be used to filter out (or keep) data according to a boolean expression; in this case data will be kept (passed through to the next part, rather than thrown away) if the value of the `environment` property is "cloudfoundry"
+* using [select](https://jqlang.org/manual/#select) can be used to filter out (or keep) data according to a boolean expression; in this case data will be kept (passed through to the next part, rather than thrown away) if the value of the `environment` property is "cloudfoundry"
 * for those data center objects that are kept (passed through), we then select just the value for the `displayName` property
-* and then use [split](https://stedolan.github.io/jq/manual/#split(str)) with the " - " value to divide the value up into two parts which are emitted as elements of an array
-* and finally that array is passed to [first](https://stedolan.github.io/jq/manual/#first,last,nth(n)) which (as you might guess) returns just the first element
+* and then use [split](https://jqlang.org/manual/#split-1) with the " - " value to divide the value up into two parts which are emitted as elements of an array
+* and finally that array is passed to [first](https://jqlang.org/manual/#first-last-nth-1) which (as you might guess) returns just the first element
 
-> In case you're curious, `first` is actually just syntactic sugar for the 0th form of the [array index](https://stedolan.github.io/jq/manual/#ArrayIndex:.[2]); you can see the definition of `first` in the `jq` sources: [`def first: .[0];`](https://github.com/stedolan/jq/blob/a9f97e9e61a910a374a5d768244e8ad63f407d3e/src/builtin.jq#L187)
+> In case you're curious, `first` is actually just syntactic sugar for the 0th form of the [array index](https://jqlang.org/manual/#array-index); you can see the definition of `first` in the `jq` sources: [`def first: .[0];`](https://github.com/jqlang/jq/blob/a9f97e9e61a910a374a5d768244e8ad63f407d3e/src/builtin.jq#L187)
 
 #### Counting the data centers by hyperscaler
 
-Here's a final example for that introduces a couple more important `jq` functions [to_entries](https://stedolan.github.io/jq/manual/#to_entries,from_entries,with_entries) and [group_by](https://stedolan.github.io/jq/manual/#group_by(path_expression)), and the [array construction](https://stedolan.github.io/jq/manual/#Arrayconstruction:[]) mechanism (`[...]`).
+Here's a final example for that introduces a couple more important `jq` functions [to_entries](https://jqlang.org/manual/#to_entries-from_entries-with_entries) and [group_by](https://jqlang.org/manual/#group_by), and the [array construction](https://jqlang.org/manual/#array-construction) mechanism (`[...]`).
 
 Let's say we wanted to see how many data centers were available, by hyperscaler.
 
@@ -412,7 +412,7 @@ At this point you know how to get the btp CLI to output the structured data in a
 ## Further reading
 
 * A quick [overview of JSON](https://www.json.org/json-en.html)
-* The [jq manual](https://stedolan.github.io/jq/manual/)
+* The [jq manual](https://jqlang.org/manual/)
 * [Various posts about jq on qmacro.org](https://qmacro.org/tags/jq/)
 * There are more `jq` examples in the [Metadata exploration section](https://github.com/SAP-samples/btp-service-metadata/tree/main/metadata-exploration) of the BTP Service Metadata project repository
 
@@ -428,7 +428,7 @@ If you finish earlier than your fellow participants, you might like to ponder th
 
 1. Looking at the `jq` filter we used to get the number of data centers (`.datacenters|length`), what happens when you use the filter `.datacenters[]|length`, and can you figure out what that result is, and why it's given?
 
-1. How might you explore JSON data sets further, and in a more interactive way? Here are some approaches: [jqterm](https://jqterm.com/) and [jq play](https://jqplay.org/) both of which are Web-based, and [ijq](https://sr.ht/~gpanders/ijq/) ("interactive jq") which is a terminal UI. For an example of "jq play", here's a [shared snippet](https://jqplay.org/s/14QVt1q2o09) showing the execution of the CF data centers location list we looked at in this exercise. And for more on "interactive jq" you may wish to read [Exploring JSON with interactive jq](https://qmacro.org/blog/posts/2022/05/21/exploring-json-with-interactive-jq/).
+1. How might you explore JSON data sets further, and in a more interactive way? Here are some approaches: [jqterm](https://jqterm.com/) and [jq play](https://jqplay.org/) both of which are Web-based, and [ijq](https://codeberg.org/gpanders/ijq) ("interactive jq") which is a terminal UI. For an example of "jq play", here's a [shared snippet](https://jqplay.org/s/14QVt1q2o09) showing the execution of the CF data centers location list we looked at in this exercise. And for more on "interactive jq" you may wish to read [Exploring JSON with interactive jq](https://qmacro.org/blog/posts/2022/05/21/exploring-json-with-interactive-jq/).
 
 ---
 

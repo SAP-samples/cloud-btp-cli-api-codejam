@@ -7,7 +7,7 @@ At the end of this exercise, you'll have autocomplete turned on for the btp CLI 
 If you've had a look at the output from `btp help` you'll know that there are multiple commands that the CLI supports, and different groups of objects upon which these commands operate:
 
 ```text
-SAP BTP command line interface (client v2.64.0)
+SAP BTP command line interface (client v2.83.0)
 
 Usage: btp [OPTIONS] ACTION GROUP/OBJECT PARAMS
 
@@ -16,7 +16,7 @@ Each GROUP contains multiple OBJECTS, on which you can perform ACTIONS.
 ACTIONS:
     list, get, create, update, delete, add, remove, assign, unassign, enable,
     move, register, unregister, subscribe, unsubscribe, share, unshare, migrate,
-    restore
+    restore, rotate
 
 GROUPS:
     accounts  Objects related to the account model, subscriptions, and environments
@@ -49,6 +49,11 @@ Options:
   --info     Show version and current context
   --verbose  Print tracing information for support
   --version  Print client version
+
+Documentation:
+    Command Reference: https://help.sap.com/docs/btp/btp-cli-command-reference/btp-cli-command-reference
+    Get Started: https://developers.sap.com/tutorials/cp-sapcp-getstarted.html
+    Concepts and How-Tos: https://help.sap.com/docs/btp/sap-business-technology-platform/account-administration-using-sap-btp-command-line-interface-btp-cli
 ```
 
 It's possible to get an overview of what the possible targets of each command are, by asking for help on that particular command.
@@ -62,7 +67,7 @@ btp list --help
 Here's the sort of output that you'll see:
 
 ```text
-SAP BTP command line interface (client v2.64.0)
+SAP BTP command line interface (client v2.83.0)
 
 Usage: btp [OPTIONS] ACTION GROUP/OBJECT PARAMS
 
@@ -115,14 +120,13 @@ Here's an example of such a setup:
 
 ```text
 user: user $ btp enable autocomplete bash
-This will install the autocomplete plugin script for bash to /home/user/.config/btp/autocomplete/scripts. Do you want to continue? [no]>yes
 Which RCFile should be used for the installation?
 1: /home/user/.bash_profile
 2: /home/user/.bashrc
 3: /home/user/.profile
 4: Custom
-Enter option>2
-Autocomplete script for bash has been installed to /home/user/.config/btp/autocomplete/scripts.
+Enter option> 2
+Autocomplete script for bash has been installed to /home/user/.bashrc.
 You must start a new terminal session to activate the installed script.
 
 Tips:
@@ -134,21 +138,30 @@ OK
 
 Note that a script has been installed to your btp CLI configuration directory, and the `.bashrc` file was chosen to contain the autocomplete setup (the invocation of that script on shell startup). This is recommended.
 
-👉 Have a look what was added by looking at the last three lines of the `.bashrc` file like this:
+👉 Have a look what was added by looking at the last few lines of the `.bashrc` file like this:
 
 ```bash
-tail -3 $HOME/.bashrc
+tail $HOME/.bashrc
 ```
 
-You'll see that there's an extra line that follows the two lines you yourself added in earlier exercises:
+You'll see towards the end of the output that there are extra lines that follows the two lines you yourself added in earlier exercises:
 
 ```bash
+alias bu='source <(tail -1 /home/user/.bashrc)'
 export PATH=$PATH:$HOME/bin
 export BTP_CLIENTCONFIG=$HOME/.config/btp/config.json
-SAP_BTP_CLI_AUTOCOMPLETE="/home/user/.config/btp/autocomplete/scripts/sapbtpcli-autocomplete.plugin.sh" && source $SAP_BTP_CLI_AUTOCOMPLETE
+### Begin SAP BTP command line interface autocomplete
+eval "$(btp --autocomplete=init:bash)"
+### End SAP BTP command line interface autocomplete
 ```
 
-👉 Invoke this extra line now with the `bu` alias to have it take effect immediately:
+👉 The `eval` line, which does the heavy lifting to enable autocompletion for `btp`, is surrounded by a comment line above and below. Our simple `bu` [alias](../01-installing#set-an-alias-to-invoke-new-bashrc-commands) only operates on the last line in the `.bashrc` file, so before running it to have this update take effect, remove the last line (the `### End SAP BTP command line interface autocomplete` one) with:
+
+```bash
+sed -i '$d' $HOME/.bashrc
+```
+
+👉 Now invoke the update with `bu` to have it take effect immediately:
 
 ```bash
 bu
@@ -160,7 +173,7 @@ Now you're ready to try the autocomplete feature out.
 
 👉 Start by typing `btp` (followed by a space) and then hitting `Tab`. You'll first see the possible commands. Choose one by starting to type it and autocompleting it with `Tab`, and then choose from the list of GROUP / OBJECTs presented. You should spend a minute or two exploring like this - it's much easier to get a feel for autocomplete by trying it, rather than reading about it. But in case you want to read more about it, see the link to the blog post in the [Further reading](#further-reading) section below, which is from where this animated demonstration comes:
 
-![animated demonstration of btp CLI autocomplete](https://blogs.sap.com/wp-content/uploads/2021/09/autocomplete.gif)
+![animated demonstration of btp CLI autocomplete](assets/autocomplete.gif)
 
 ## Explore your BTP account
 

@@ -249,24 +249,20 @@ btp
 You should see something like this:
 
 ```text
-SAP BTP command line interface (client v2.83.0)
+SAP BTP command line interface (client v2.64.0)
 
 Usage: btp [OPTIONS] ACTION GROUP/OBJECT PARAMS
 
-CLI server URL:                    https://cli.btp.cloud.sap (server v2.88.1)
+CLI server URL:                    https://cli.btp.cloud.sap (server v2.72.0)
 Configuration:                     /home/user/.config/.btp/config.json
 
 You are currently not logged in.
-
-Documentation:
-    Command Reference: https://help.sap.com/docs/btp/btp-cli-command-reference/btp-cli-command-reference
-    Get Started: https://developers.sap.com/tutorials/cp-sapcp-getstarted.html
-    Concepts and How-Tos: https://help.sap.com/docs/btp/sap-business-technology-platform/account-administration-using-sap-btp-command-line-interface-btp-cli
 
 Tips:
     To log in to a global account of SAP BTP, use 'btp login'. For help on login, use 'btp help login'.
     To provide feedback about the btp CLI, use 'btp feedback' to open our survey.
     To display general help, use 'btp help'.
+
 ```
 
 👉 While you're here, take a few moments to stare at this line, to get a feel for btp CLI invocations on the command line:
