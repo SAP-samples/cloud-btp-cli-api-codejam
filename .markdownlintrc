@@ -1,0 +1,6 @@
+{
+  "comment": "Rules for tutorial and CodeJam Markdown content",
+  "MD004": { "style": "consistent" },
+  "MD009": { "br_spaces": 0 },
+  "MD013": false
+}

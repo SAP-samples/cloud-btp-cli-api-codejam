@@ -1,3 +1,4 @@
 *.swp
 *.json
 .DS_Store
+*.syncthing*
