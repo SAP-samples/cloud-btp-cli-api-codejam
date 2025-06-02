@@ -94,7 +94,7 @@ In other words, if you try `btp get accounts/directory codejam-directory` you wi
 
 You could search for the GUID and copy-paste it, but this isn't ideal and doesn't lend itself at all to automation.
 
-👉 Instead, take a look at the `btpguid` script that was demonstrated (as `bgu`) in the [SAP TechEd 2021 Developer Keynote](https://community.sap.com/t5/technology-blogs-by-sap/sap-teched-2021-developer-keynote/ba-p/13501092).
+👉 Instead, take a look at the `btpguid` script that was demonstrated (as `bgu`) in the [SAP TechEd 2021 Developer Keynote](https://community.sap.com/t5/technology-blog-posts-by-sap/sap-teched-2021-developer-keynote/ba-p/13501092).
 
 ![still image from the btp CLI section of the Developer Keynote](assets/dev-keynote-bgu.png)
 
