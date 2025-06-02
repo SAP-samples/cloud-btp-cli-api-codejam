@@ -20,16 +20,14 @@ btp get accounts/global-account --show-hierarchy | trunc
 You should see output similar to this:
 
 ```text
-Showing details for global account fdce9323-d6e6-42e6-8df0-5e501c90a2be...
+Showing details for global account ca405764-53fa-4a0c-a108-2bf9029d96db...
 
-├─ 8fe7efd4trial (fdce9323-d6e6-42e6-8df0-5e501c90a2be - global account)
-│  ├─ trial (f78e0bdb-c97c-4cbc-bb06-526695f44551 - subaccount)
+├─ 013e7c57trial (ca405764-53fa-4a0c-a108-2bf9029d96db - global account)
+│  ├─ trial (1b03e737-789b-4c9c-840c-0f50e1ded13d - subaccount)
 
-type:            id:                                    display name:   parent id:
-global account   fdce9323-d6e6-42e6-8df0-5e501c90a2be   8fe7efd4trial
-subaccount       f78e0bdb-c97c-4cbc-bb06-526695f44551   trial           fdce9323-d6e6-42e
-
-OK
+type:            id:                                    display name:   parent id:                             parent ty
+global account   ca405764-53fa-4a0c-a108-2bf9029d96db   013e7c57trial
+subaccount       1b03e737-789b-4c9c-840c-0f50e1ded13d   trial           ca405764-53fa-4a0c-a108-2bf9029d96db   global ac
 ```
 
 ### Create a new directory
@@ -47,14 +45,14 @@ btp create accounts/directory --display-name codejam-directory
 The output should look something like this:
 
 ```text
-Creating directory in global account fdce9323-d6e6-42e6-8df0-5e501c90a2be...
+Creating directory in global account ca405764-53fa-4a0c-a108-2bf9029d96db...
 
-directory id:         f4c7d60e-627c-4fab-8e67-603b20b84f72
+directory id:         1a94e626-b547-46c8-857d-6529421f8e65
 display name:         codejam-directory
 description:
 directory features:   DEFAULT
-created by:           qmacro+blue@gmail.com
-parent id:            fdce9323-d6e6-42e6-8df0-5e501c90a2be
+created by:           dj.adams@sap.com
+parent id:            ca405764-53fa-4a0c-a108-2bf9029d96db
 parent type:          global account
 state:                OK
 state message:        Directory created.
@@ -76,19 +74,16 @@ btp get accounts/global-account --show-hierarchy | trunc
 If the directory has been created, you'll see it in the tree display and also listed, like this:
 
 ```text
+Showing details for global account ca405764-53fa-4a0c-a108-2bf9029d96db...
 
-OK
+├─ 013e7c57trial (ca405764-53fa-4a0c-a108-2bf9029d96db - global account)
+│  ├─ trial (1b03e737-789b-4c9c-840c-0f50e1ded13d - subaccount)
+│  ├─ codejam-directory (1a94e626-b547-46c8-857d-6529421f8e65 - directory)
 
-Showing details for global account fdce9323-d6e6-42e6-8df0-5e501c90a2be...
-
-├─ 8fe7efd4trial (fdce9323-d6e6-42e6-8df0-5e501c90a2be - global account)
-│  ├─ trial (f78e0bdb-c97c-4cbc-bb06-526695f44551 - subaccount)
-│  ├─ codejam-directory (205508c6-08fc-48ed-b531-20712260d5af - directory)
-
-type:            id:                                    display name:     parent id:
-global account   fdce9323-d6e6-42e6-8df0-5e501c90a2be   8fe7efd4trial
-subaccount       f78e0bdb-c97c-4cbc-bb06-526695f44551   trial             fdce9323-d6e6-42e
-directory        205508c6-08fc-48ed-b531-20712260d5af   codejam-directory fdce9323-d6e6-42e
+type:            id:                                    display name:       parent id:                             paren
+global account   ca405764-53fa-4a0c-a108-2bf9029d96db   013e7c57trial
+subaccount       1b03e737-789b-4c9c-840c-0f50e1ded13d   trial               ca405764-53fa-4a0c-a108-2bf9029d96db   globa
+directory        1a94e626-b547-46c8-857d-6529421f8e65   codejam-directory   ca405764-53fa-4a0c-a108-2bf9029d96db   globa
 ```
 
 ### Examine the directory via the GUID

@@ -53,33 +53,32 @@ However, it's much easier to use the power of the shell to do this in one go, as
 
 ```bash
 cd $HOME/projects/cloud-btp-cli-api-codejam/exercises/06-core-services-api-creds
-cf login -a $(./get_cf_api_endpoint "trial")
+cf login -a $(./get-cf-api-endpoint "trial")
 ```
 
-> Just like in the previous exercise, the `get_cf_api_endpoint` in this directory is [just a symbolic link](get_cf_api_endpoint) to the [real script](../../scripts/get_cf_api_endpoint) in the shared [scripts/](../../scripts/) directory.
+> Just like in the previous exercise, the `get-cf-api-endpoint` in this directory is [just a symbolic link](get-cf-api-endpoint) to the [real script](../../scripts/get-cf-api-endpoint) in the shared [scripts/](../../scripts/) directory.
 
 Supply your BTP trial account credentials (email address and password). Here's what the flow will look like:
 
 ```text
-user: 06-core-services-api-creds $ cf login -a $(./get_cf_api_endpoint "trial")
-API endpoint: https://api.cf.eu10.hana.ondemand.com
+user: 06-core-services-api-creds $ cf login -a $(./get-cf-api-endpoint "trial")
+API endpoint: https://api.cf.us10-001.hana.ondemand.com
 
-Email: qmacro+blue@gmail.com
+Email: dj.adams@sap.com
 Password:
 
 Authenticating...
 OK
 
-Targeted org 8fe7efd4trial.
+Targeted org 013e7c57trial.
 
 Targeted space dev.
 
-API endpoint:   https://api.cf.eu10.hana.ondemand.com
-API version:    3.109.0
-user:           qmacro+blue@gmail.com
-org:            8fe7efd4trial
+API endpoint:   https://api.cf.us10-001.hana.ondemand.com
+API version:    3.193.0
+user:           dj.adams@sap.com
+org:            013e7c57trial
 space:          dev
-user: 06-core-service-api-creds $
 ```
 
 > You should already have a space set up, as described in the [Subaccount and Cloud Foundry environment](../../prerequisites.md#subaccount-and-cloud-foundry-environment) section of the prerequisites.
@@ -87,13 +86,13 @@ user: 06-core-service-api-creds $
 Just like the btp CLI, the CF CLI also has an option to allow you to use SSO to sign in. If you want, try this approach:
 
 ```bash
-cf login -a $(./get_cf_api_endpoint "trial") --sso
+cf login -a $(./get-cf-api-endpoint "trial") --sso
 ```
 
 You should be given a URL to navigate to, authenticate, and receive a code to paste in at the prompt, and it should look something like this:
 
 ```text
-user: 06-core-services-api-creds $ cf login -a $(./get_cf_api_endpoint "trial") --sso
+user: 06-core-services-api-creds $ cf login -a $(./get-cf-api-endpoint "trial") --sso
 API endpoint: https://api.cf.eu10.hana.ondemand.com
 
 Temporary Authentication Code ( Get one at https://login.cf.eu10.hana.ondemand.com/passcode ):
@@ -116,7 +115,7 @@ cf create-service cis central cis-central
 The output should look something like this:
 
 ```text
-Creating service instance cis-central in org 8fe7efd4trial / space dev as qmacro+blue@gmail.com...
+Creating service instance cis-central in org 8fe7efd4trial / space dev as dj.adams@sap.com...
 OK
 ```
 
@@ -129,7 +128,7 @@ cf create-service-key cis-central cis-central-sk
 The output should look something like this:
 
 ```text
-Creating service key cis-central-sk for service instance cis-central as qmacro+blue@gmail.com...
+Creating service key cis-central-sk for service instance cis-central as dj.adams@sap.com...
 OK
 ```
 
@@ -177,7 +176,7 @@ cf service-key cis-central cis-central-sk
 The output should look something like this:
 
 ```text
-Getting key cis-central-sk for service instance cis-central as qmacro+blue@gmail.com...
+Getting key cis-central-sk for service instance cis-central as dj.adams@sap.com...
 
 {
   "credentials": {
@@ -223,7 +222,7 @@ Well, not quite.
 The eagle-eyed amongst you will have spotted there's some extra output from `cf service-key` that we need to get rid of first before redirecting the rest of it to a file. And that's the first two "helpful" lines (in case you're wondering, the second line is a blank line):
 
 ```text
-Getting key cis-central-sk for service instance cis-central as qmacro+blue@gmail.com...
+Getting key cis-central-sk for service instance cis-central as dj.adams@sap.com...
 
 ```
 
@@ -231,7 +230,7 @@ So we need to pass the output through something so we can remove these lines.
 
 > Some CF proponents would at this stage point to specific access to the API endpoint facility afforded by the `cf curl` command, as described in [curl - Cloud Foundry CLI Reference Guide](https://cli.cloudfoundry.org/en-US/v7/curl.html). However, to have a separate, incompatible set of objects and API shapes, just to be able to have a cleaner output on the command line, is contrary to the Unix Philosophy and is not an ideal alternative for ad hoc contexts such as this.
 
-To make the cleanup, the venerable [sed](https://www.gnu.org/software/sed/manual/sed.html) will do nicely.
+To make the cleanup, the venerable [sed](https://www.gnu.org/software/sed/manual/sed.html) will do nicely (we did use it briefly in a previous exercise when [setting up autocomplete](../03-autocomplete-and-exploration#set-up-autocomplete)).
 
 👉 Re-run the previous `cf` command, but this time, pipe the output into `sed`, specifying a short script to delete lines 1 and 2, and then redirect the output of that into a file `cis-central-sk.json`:
 
@@ -249,7 +248,7 @@ jq . cis-central-sk.json
 
 You should see a nicely formatted display of JSON. Note that depending on the version of `cf` you're using, the structure of the JSON emitted from this `cf` command [may be different](https://github.com/SAP-samples/cloud-btp-cli-api-codejam/issues/27#issuecomment-1370702907). Don't worry, in this CodeJam, whether you're using a container or a Dev Space in SAP Business Application Studio, you'll be using version 8 consistently, and the scripts are ready for that.
 
-> Technically speaking, the `.` in `jq` is the [identity](https://stedolan.github.io/jq/manual/#Identity:.) filter, so the nice formatting of the JSON is actually just a by-product of asking `jq` to filter the JSON through the identity filter (which just produces whatever it receives), and by default `jq` will endeavour to pretty-print the output.
+> Technically speaking, the `.` in `jq` is the [identity](http://jqlang.github.io/jq/manual/#identity) filter, so the nice formatting of the JSON is actually just a by-product of asking `jq` to filter the JSON through the identity filter (which just produces whatever it receives), and by default `jq` will endeavour to pretty-print the output.
 > Note also that this time, the `.` is not in single quotes, unlike when you last used this filter in a previous exercise, when [Listing the available datacenter names](../04-retrieving-parsing-json-output#listing-the-available-datacenter-names). It isn't absolutely necessary, so we're omitting it in this instance (and we'll make a similar change later in this exercise when we use the `keys` filter too).
 
 Values in this JSON data are needed to:
@@ -399,7 +398,7 @@ You now know how to get a service key (binding) via an instance of a service on 
 
 * [Understanding OAuth 2.0 grant types](https://github.com/SAP-archive/cloud-apis-virtual-event/tree/main/exercises/02#3-understand-oauth-20-grant-types)
 * [Getting an Access Token for SAP Cloud Management Service APIs](https://help.sap.com/docs/btp/sap-business-technology-platform/getting-access-token-for-sap-cloud-management-service-apis)
-* [The builtin keys and keys_unsorted functions in jq](https://stedolan.github.io/jq/manual/#keys,keys_unsorted)
+* [The builtin keys and keys_unsorted functions in jq](https://jqlang.org/manual/#keys-keys_unsorted)
 * Hands-on SAP Dev episode: [Back to basics: Using curl in the SAP enterprise landscape](https://www.youtube.com/watch?v=k34-lD77Aj4)
 
 ---
