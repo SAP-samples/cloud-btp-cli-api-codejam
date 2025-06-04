@@ -239,7 +239,7 @@ f78e0bdb-c97c-4cbc-bb06-526695f44551   trial              8fe7efd4trial         
 ated.
 ```
 
-The output is pretty wide, and difficult to read.
+The output is pretty wide, and difficult to read, especially where it wraps onto further lines.
 
 👉 Define a function that will help with this; first, add it to your `$HOME/.bashrc` file (so that it will be available in subsequent terminal sessions) and then immediately make it available in your current shell session with the `bu` alias:
 

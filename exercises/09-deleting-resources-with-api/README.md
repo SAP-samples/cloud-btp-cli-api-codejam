@@ -639,6 +639,7 @@ This means that we can extract the value of that `location` header from the file
 
 ```bash
 curl \
+  --silent \
   --url "$url$(grep -Po '(?<=^< location: )(.+)$' curl.stderr | tr -d '\n\r')" \
   --header "Authorization: Bearer $(jq -r .access_token tokendata.json)" \
   | jq .

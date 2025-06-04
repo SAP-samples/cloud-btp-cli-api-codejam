@@ -156,7 +156,7 @@ OK
 
 > By the way, here's where the plural/singular approach to the group and object in the invocation comes in (we thought about this at the end of the previous exercise). In the `btp` invocation you just made, group "accounts" is plural, while the object "subaccount" is singular.
 
-The output should include a detailed line for your subaccount, showing its ID (which starts `b07f7316` here - the ID for your subaccount will of course be different) as well as its name (which is `trial` in this example).
+The output should include a detailed line for your subaccount, showing its ID (which starts `1b03e7` here - the ID for your subaccount will of course be different) as well as its name (which is `trial` in this example).
 
 👉 Try the `target` command again, this time specifying the ID of your subaccount, rather than the display name. Here's an example, with output:
 
@@ -179,15 +179,15 @@ Any `btp` invocation output will include what the current target is; note now th
 
 ```text
 Current target:
- 013e7c57trial (global account, subdomain: 013e7c57trial-ga)
-  └─ trial (subaccount, ID: 1b03e737-789b-4c9c-840c-0f50e1ded13d)
+ 013e7c42trial (global account, subdomain: 013e7c42trial-ga)
+  └─ trial (subaccount, ID: 1b03e737-789b-4c9c-840c-0f50e1ded142)
 ```
 
-> You can make your command line life more comfortable with custom functions and scripts, such as one to get the ID for a subaccount, given its display name. We'll cover this in [a later exercise in this session](../05-btp-guids-cli-in-practice/README.md). See also [the `bgu` script in action as part of the btp CLI section of the 2021 SAP TechEd Developer Keynote](https://youtu.be/OmEx598qAI8?t=180) and also the two related blog posts in the [Further reading](#further-reading) section below.
+> You can make your command line life more comfortable with custom functions and scripts, such as one to get the ID for a subaccount, given its display name. We'll cover this in [a later exercise in this session](../08-guids-and-resource-creation/README.md#examine-the-directory-via-the-guid). See also [the `bgu` script in action as part of the btp CLI section of the 2021 SAP TechEd Developer Keynote](https://youtu.be/OmEx598qAI8?t=180) and also the two related blog posts in the [Further reading](#further-reading) section below.
 
-**Note**
+### Note
 
-With version 2.33.0 of the btp CLI, a new "interative target" feature was introduced. You can try this out simply by entering `btp target` and following the instructions, which will display the hierarchy of directories and subaccounts available to you in the global account you're currently in, and allow you to navigate that hierarchy and select a new target. Here's an example:
+Starting with version 2.33.0 of the btp CLI, a new "interative target" feature was introduced. You can try this out simply by entering `btp target` and following the instructions, which will display the hierarchy of directories and subaccounts available to you in the global account you're currently in, and allow you to navigate that hierarchy and select a new target. Here's an example:
 
 ```text
 user: user $ btp target
@@ -276,7 +276,7 @@ At this point you've logged in with `btp` and have your global account and "tria
 * [Getting BTP resource GUIDs with the btp CLI – part 2 – JSON and jq](https://community.sap.com/t5/technology-blogs-by-sap/getting-btp-resource-guids-with-the-btp-cli-part-2-json-and-jq/ba-p/13517574)
 * [Redirections in Bash](https://www.gnu.org/software/bash/manual/html_node/Redirections.html) (to explain `>>` and related operators)
 * [Booting our 2022 live stream series with a review of Developer Keynote btp CLI scripting](https://www.youtube.com/watch?v=1jekfZJ3fTk)
-* [Managing technical users for BTP platform access](https://community.sap.com/t5/technology-blogs-by-members/managing-technical-users-for-btp-platform-access/ba-p/13521814)
+* [Managing technical users for BTP platform access](https://community.sap.com/t5/technology-blog-posts-by-members/managing-technical-users-for-btp-platform-access/ba-p/13521814)
 
 ---
 

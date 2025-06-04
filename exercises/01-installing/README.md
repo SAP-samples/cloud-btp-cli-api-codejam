@@ -118,13 +118,13 @@ curl \
 Here's an example session where it's run in test mode first and then for real:
 
 ```text
-user: user $ ./getbtpcli --test
-Version is 2.61.0
-user: user $ ./getbtpcli
+user: ~ $ ./getbtpcli --test
+Version is 2.83.0
+user: ~ $ ./getbtpcli
 Proceed (with Enter) only if you accept the SAP Developer Licence 3.2
 (see https://tools.hana.ondemand.com/developer-license-3_2.txt) ...
-Version is 2.61.0
-user: user $
+Version is 2.83.0
+user: ~ $
 ```
 
 ## Set an alias to invoke new bashrc commands
@@ -178,8 +178,8 @@ ls -l $HOME/bin/
 You should see something similar to this:
 
 ```text
-lrwxrwxrwx 1 user user       10 Jan  3 15:26 btp -> btp-2.61.0
--rwxr-xr-x 1 user user 11749335 Nov 16 11:41 btp-2.61.0
+lrwxrwxrwx 1 user group       10 Jun  3 15:50 btp -> btp-2.83.0
+-rwxr-xr-x 1 user group 14014026 Feb  4 16:22 btp-2.83.0
 ```
 
 Before you can run the btp CLI simply as `btp` you need to add that `bin/` directory to your `PATH` environment variable. To make this addition persistent, let's add it to `$HOME/.bashrc`.
