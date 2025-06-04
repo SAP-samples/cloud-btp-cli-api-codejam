@@ -200,7 +200,7 @@ At this point you have autocomplete working and you should feel comfortable invo
 
 ## Further reading
 
-* [SAP Tech Bytes: btp CLI – autocompletion](https://community.sap.com/t5/technology-blogs-by-sap/sap-tech-bytes-btp-cli-autocompletion/ba-p/13503134)
+* [SAP Tech Bytes: btp CLI – autocompletion](https://community.sap.com/t5/technology-blog-posts-by-sap/sap-tech-bytes-btp-cli-autocompletion/ba-p/13503134)
 * [SAP Help topic: Enable Command Autocompletion](https://help.sap.com/docs/btp/sap-business-technology-platform/enable-command-autocompletion)
 
 ---

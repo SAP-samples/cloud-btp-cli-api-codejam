@@ -270,10 +270,10 @@ At this point you've logged in with `btp` and have your global account and "tria
 
 ## Further reading
 
-* [SAP Tech Bytes: btp CLI – logging in](https://community.sap.com/t5/technology-blogs-by-sap/sap-tech-bytes-btp-cli-logging-in/ba-p/13519378)
-* [SAP Tech Bytes: btp CLI – managing configuration](https://community.sap.com/t5/technology-blogs-by-sap/sap-tech-bytes-btp-cli-managing-configuration/ba-p/13496400)
-* [Getting BTP resource GUIDs with the btp CLI – part 1](https://community.sap.com/t5/technology-blogs-by-sap/getting-btp-resource-guids-with-the-btp-cli-part-1/ba-p/13511167)
-* [Getting BTP resource GUIDs with the btp CLI – part 2 – JSON and jq](https://community.sap.com/t5/technology-blogs-by-sap/getting-btp-resource-guids-with-the-btp-cli-part-2-json-and-jq/ba-p/13517574)
+* [SAP Tech Bytes: btp CLI – logging in](https://community.sap.com/t5/technology-blog-posts-by-sap/sap-tech-bytes-btp-cli-logging-in/ba-p/13519378)
+* [SAP Tech Bytes: btp CLI – managing configuration](https://community.sap.com/t5/technology-blog-posts-by-sap/sap-tech-bytes-btp-cli-managing-configuration/ba-p/13496400)
+* [Getting BTP resource GUIDs with the btp CLI – part 1](https://community.sap.com/t5/technology-blog-posts-by-sap/getting-btp-resource-guids-with-the-btp-cli-part-1/ba-p/13511167)
+* [Getting BTP resource GUIDs with the btp CLI – part 2 – JSON and jq](https://community.sap.com/t5/technology-blog-posts-by-sap/getting-btp-resource-guids-with-the-btp-cli-part-2-json-and-jq/ba-p/13517574)
 * [Redirections in Bash](https://www.gnu.org/software/bash/manual/html_node/Redirections.html) (to explain `>>` and related operators)
 * [Booting our 2022 live stream series with a review of Developer Keynote btp CLI scripting](https://www.youtube.com/watch?v=1jekfZJ3fTk)
 * [Managing technical users for BTP platform access](https://community.sap.com/t5/technology-blog-posts-by-members/managing-technical-users-for-btp-platform-access/ba-p/13521814)
