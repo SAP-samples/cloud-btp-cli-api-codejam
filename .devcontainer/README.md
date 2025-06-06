@@ -37,7 +37,7 @@ With the [Dockerfile](Dockerfile) in this directory, an image is built, and then
 👉 Move to the directory containing the `Dockerfile` file, and build the image like this:
 
 ```bash
-cd container
+cd .devcontainer/
 docker build -t codejam .
 ```
 > If you see a message like this: "Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?", make sure you've started Docker Desktop.
@@ -93,7 +93,7 @@ You have an image and you're all set to create your first container from it.
 
 ## Create a container
 
-Now create a container from the image. 
+Now create a container from the image.
 
 👉 Do it like this:
 

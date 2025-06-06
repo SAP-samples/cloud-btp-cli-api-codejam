@@ -8,7 +8,7 @@ Your activities in this CodeJam will be predominantly on the command line. And t
 
 To enable this, we use the SAP Business Application Studio (App Studio), a cloud based interactive development environment (IDE) that, amongst many other features, gives us all a command line based on the Bash shell, in a UNIX (Linux) environment - by far the most widely used in today's era of cloud native.
 
-🐳 As an experimental alternative to this, we have a [container based approach](../../container/) that - if you're brave and willing to try it out - you can use instead. It assumes you have Docker Desktop installed, as described in the [Docker Desktop section of the Prerequisites document](../../prerequisites.md#docker-desktop-optional). So if you want to use a container for this CodeJam, jump over to the [container directory](../../container/) and follow the instructions to get set up. And then come back here, and jump forward to the [Install the btp CLI](#install-the-btp-cli) section below.
+🐳 As an experimental alternative to this, we have a [container based approach](../../.devcontainer/) that - if you're brave and willing to try it out - you can use instead. It assumes you have Docker Desktop installed, as described in the [Docker Desktop section of the Prerequisites document](../../prerequisites.md#docker-desktop-optional). So if you want to use a container for this CodeJam, jump over to the [container directory](../../.devcontainer/) and follow the instructions to get set up. And then come back here, and jump forward to the [Install the btp CLI](#install-the-btp-cli) section below.
 
 ### Why a Dev Space in App Studio?
 
