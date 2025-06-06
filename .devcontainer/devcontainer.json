@@ -1,0 +1,6 @@
+{
+    "name": "btp CLI and APIs CodeJam - dev container",
+    "build": {
+        "dockerfile": "Dockerfile"
+    }
+}
