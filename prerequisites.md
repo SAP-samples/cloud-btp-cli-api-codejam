@@ -66,7 +66,7 @@ As an alternative to using a Dev Space in the SAP Business Application Studio, y
 
 If you do want to take this experimental route, you'll need a container runtime. While the license for Docker Desktop has changed (see [Docker is Updating and Extending Our Product Subscriptions](https://www.docker.com/blog/updating-product-subscriptions/) for an overview) it's still free for personal use. You may find success with other container runtimes such as Podman, but that's currently beyond the scope of what is offered here.
 
-You'll also need to follow the instructions in the [container/](container/) directory of this repository.
+You'll also need to follow the instructions in the [.devcontainer/](.devcontainer/) directory of this repository.
 
 ## Knowledge and experience
 
